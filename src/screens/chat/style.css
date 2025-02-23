@@ -1,0 +1,186 @@
+.chatContainer{
+    width: 100%;
+    height: 100vh;
+    background: black;
+    overflow: hidden;
+}
+
+.chatContainer .topbar {
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #49494969;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    color: white;
+    font-family: "Kode Mono";
+    gap: 10px;
+}
+
+.chatContainer .topbar .title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.chatContainer .topbar .logo {
+    width: 25px;
+    height: auto;
+}
+
+.chatContainer .sections{
+    width: 100%;
+    height: calc(100% - 70px);
+    display: grid;
+    grid-template-columns: 0.28fr 1fr;
+}
+
+.chatContainer .sections .list{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-right: 1px solid #49494969;
+}
+
+.chatContainer .sections .list .title{
+    color: white;
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 700;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.chatContainer .sections .list .profiles{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    margin-top: 20px;
+}
+
+.chatContainer .sections .list .profiles .profile{
+    color: white;
+    font-size: 13px;
+    font-family: "Manrope";
+    width: 100%;
+    height: max-content;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 40px 1fr 0.3fr;
+    cursor: pointer;
+    align-items: center;
+    gap: 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.chatContainer .sections .list .profiles .profile:hover{
+    background: #141414;
+}
+
+.chatContainer .sections .list .profiles .profile .img{
+    width: 40px;
+    height: 40px;
+    background: #333333;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-weight: bolder;
+}
+
+.chatContainer .sections .list .profiles .profile .details .pname{
+    font-size: 13px;
+    color: white;
+}
+
+.chatContainer .sections .list .profiles .profile .details .pmsg, .time{
+    color: #b7b7b7;
+    font-size: 11px;
+}
+
+
+.chatContainer .sections .chatarea{
+    width: 100%;
+    height: 100%;
+    background: #090909;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Manrope";
+}
+
+.chatContainer .sections .chatarea ion-icon{
+    font-size: 40px;
+    color: grey;
+    margin-bottom: 20px;
+}
+
+.chatContainer .sections .chatarea .big{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.chatContainer .sections .chatarea .small{
+    font-size: 14px;
+    color: grey;
+    margin-top: 10px;
+    width: 25%;
+    text-align: center;
+}
+
+.chatContainer .sections .chatarea .area{
+    width: 100%;
+    height: 100%;
+}
+
+.chatContainer .sections .chatarea .area .info{
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #49494969;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+    font-size: 13px;
+}
+
+.chatContainer .sections .chatarea .area .info ion-icon{
+    font-size: 12px;
+}
+
+
+.chatContainer .sections .chatarea .area .mails{
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+}
+
+.chatContainer .sections .chatarea .area .mails .mail{
+    width: 70%;
+    height: max-content;
+    font-size: 13px;
+    display: inline-flex;
+    flex-direction: column;
+    border-radius: 15px;
+    gap: 20px;
+    border-radius: 15px;
+    background: #0c0c0c;
+    padding: 15px;
+    border: 1px solid #2f2f2f69;
+}
+
+.chatContainer .sections .chatarea .area .mails .mail .body{
+    border: 1px solid #49494969;
+    border-radius: 15px;
+    background: #141414;
+    padding: 15px;
+    letter-spacing: 1px;
+    color: #969696;
+    line-height: 140%;
+}

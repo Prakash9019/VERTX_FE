@@ -1,0 +1,149 @@
+.backdrop{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #1c1c1c6e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.backdrop .popup{
+    width: 70%;
+    height: max-content;
+    background: black;
+    border-radius: 20px;
+    border: 1px solid #75757569;
+    padding: 20px 30px;
+    padding-bottom: 40px;
+}
+
+.backdrop .popup .topsec{
+    width: 100%;
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.backdrop .popup .topsec .btn{
+    color: #b5b5b5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: max-content;
+    height: max-content;
+    border: 1px solid #75757569;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: transparent;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.backdrop .popup .topsec .wrap{
+    display: flex;
+    gap: 20px;
+}
+
+.backdrop .popup .topsec .wrap .btns{
+    display: flex;
+}
+
+.backdrop .popup .topsec .wrap .btns .btn.rt{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.backdrop .popup .topsec .wrap .btns .btn.lt{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+}
+
+.backdrop .popup .sec{
+    width: 100%;
+    height: max-content;
+    padding: 30px 0;
+    display: flex;
+    gap: 20px;
+}
+
+.backdrop .popup .sec .img-cont{
+    width: 350px;
+    height: auto;
+    border: 1px solid #75757569;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.backdrop .popup .sec .invDetails{
+    width: calc(100% - 350px);
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    color: white;
+    font-family: "Manrope";
+}
+
+.backdrop .popup .sec .invDetails .tags {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.backdrop .popup .sec .invDetails .tags .tag{
+    width: max-content;
+    height: max-content;
+    border: 1px solid white;
+    padding: 3px 14px;
+    border-radius: 20px;
+}
+
+.backdrop .popup .sec .invDetails .tags .tag.bk{
+    background: white;
+    color: black;
+}
+
+.backdrop .popup .moreData{
+    width: 100%;
+    height: max-content;
+    color: white;
+    font-family: "Manrope";
+    padding: 0 15px;
+}
+
+.backdrop .popup .moreData .sidehead{
+    font-weight: 800;
+}
+
+.backdrop .popup .moreData .desc{
+    font-size: 13px;
+    margin-top: 5px;
+    letter-spacing: 1px;
+    color: #b8b8b8;
+}
+
+@media only screen and (max-width: 946px) {
+    .backdrop .popup {
+        width: 100%;
+    }
+    .backdrop{
+        align-items: flex-start;
+        height: max-content;
+    }
+    .backdrop .popup .topsec{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
