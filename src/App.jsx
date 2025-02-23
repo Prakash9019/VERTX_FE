@@ -14,6 +14,7 @@ import Matchflow from "./screens/matchflow";
 import Outreach from "./screens/outreach";
 import Questions from "./screens/questions";
 import Payment from "./screens/Payment/Payment";
+import PricingPage from "./screens/Subscription";
 function App() {
   return (
     <Routes>
@@ -28,7 +29,7 @@ function App() {
       <Route path="/outreach" element={<Outreach />} />
       <Route path="/explore" element={<Explore />} />
       <Route path="/payment" element={<Payment />} />
-
+      <Route path="/sub" element={<PricingPage/> } />
       <Route path="/flow/outbound" element={<GenerateEmail />} />
       <Route path="/flow/chat" element={<Chat />} />
       <Route path="/flow/match flow" element={<Matchflow />} />
