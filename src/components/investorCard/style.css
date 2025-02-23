@@ -12,6 +12,7 @@
 
 .backdrop .popup{
     width: 70%;
+    position: absolute;
     height: max-content;
     background: black;
     border-radius: 20px;
@@ -109,6 +110,20 @@
     border-radius: 20px;
 }
 
+.tag2{
+    width: max-content;
+    height: max-content;
+    border: 1px solid white;
+    padding: 3px 14px;
+    border-radius: 20px;
+
+    font-size: 13px;
+    color: #b8b8b8;
+    margin-top: 5px;
+    letter-spacing: 1px;
+    font-family: "Manrope";
+}
+
 .backdrop .popup .sec .invDetails .tags .tag.bk{
     background: white;
     color: black;
@@ -122,14 +137,24 @@
     padding: 0 15px;
 }
 
-.backdrop .popup .moreData .sidehead{
+ .sidehead{
     font-weight: 800;
+    font-size: larger;
 }
 
-.backdrop .popup .moreData .desc{
+ .desc{
     font-size: 13px;
     margin-top: 5px;
     letter-spacing: 1px;
+    font-family: "Manrope";
+    color: #b8b8b8;
+}
+.desc1{
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: "Manrope";
     color: #b8b8b8;
 }
 

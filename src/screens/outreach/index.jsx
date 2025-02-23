@@ -6,10 +6,10 @@ import Navigation from "../../components/navigation/component";
 import InvestorCard from "../../components/investorCard/component";
 import { useEffect, useState, useCallback } from "react";
 import {
-  companyStages,
+ 
   industries,
-  sectors,
-  currentTraction,
+  Country,
+  investorType
 } from "./filters.js";
 import API_KEY from "../../../key";
 import axios from "axios";
@@ -22,12 +22,12 @@ function Card({ data }) {
     <div className="pcard" onClick={() => setShow(true)}>
       {show ? <InvestorCard id={"1234"} cb={hide} data={data} /> : null}
       <div className="img">
-        <p className="midTit">{data?.company}</p>
+        <p className="midTit">{data?.name}</p>
       </div>
       <div className="row">
         <div className="pdetails">
-          <p className="ctit">{data?.firstName + " " + data?.lastName}</p>
-          <p className="subtit">Solo angel</p>
+          {/* <p className="ctit">{data?.firstName + " " + data?.lastName}</p> */}
+          <p className="ctit">{data?.investorType}</p>
         </div>
         <div className="btnwrap">
           <button className="tag">Mark</button>
@@ -52,10 +52,9 @@ export default function Outreach() {
 
   // Filters state
   const [filters, setFilters] = useState({
-    traction: "",
-    stage: "",
-    sector: "",
+    country: "",
     industry: "",
+    investorType: "",
   });
 
   const getInvestors = useCallback(async () => {
@@ -142,33 +141,25 @@ export default function Outreach() {
           </p>
           
           <div className="filter">
+          
+            
             <select 
               className="sel"
-              onChange={(e) => handleFilterChange("traction", e.target.value)}
+              onChange={(e) => handleFilterChange("country", e.target.value)}
             >
-              <option value="" disabled selected>Traction</option>
-              {currentTraction.map((stage, i) => (
-                <option key={i} value={stage}>{stage}</option>
+              <option value="" disabled selected>Country</option>
+              {Country.map((country, i) => (
+                <option key={i} value={country}>{country}</option>
               ))}
             </select>
             
             <select 
               className="sel"
-              onChange={(e) => handleFilterChange("stage", e.target.value)}
+              onChange={(e) => handleFilterChange("investorType", e.target.value)}
             >
-              <option value="" disabled selected>Stage</option>
-              {companyStages.map((stage, i) => (
-                <option key={i} value={stage}>{stage}</option>
-              ))}
-            </select>
-            
-            <select 
-              className="sel"
-              onChange={(e) => handleFilterChange("sector", e.target.value)}
-            >
-              <option value="" disabled selected>Sector</option>
-              {sectors.map((sector, i) => (
-                <option key={i} value={sector}>{sector}</option>
+              <option value="" disabled selected>Investor Type</option>
+              {investorType.map((investorType, i) => (
+                <option key={i} value={investorType}>{investorType}</option>
               ))}
             </select>
             
