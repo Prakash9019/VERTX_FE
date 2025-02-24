@@ -14,7 +14,7 @@ const Cashfree1 = () => {
     // Load Cashfree inside useEffect
     useEffect(() => {
         const initializeCashfree = async () => {
-            const cashfreeInstance = await load({ mode: "sandbox" }); // or "production"
+            const cashfreeInstance = await load({ mode: "production" }); // or "production"
             setCashfree(cashfreeInstance);
         };
         initializeCashfree();
