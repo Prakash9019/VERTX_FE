@@ -6,7 +6,7 @@ import { data, useParams } from 'react-router-dom';
 import {load} from '@cashfreepayments/cashfree-js';
 
 const cashfree = await load({
-	mode: "production" //or production
+	mode: "sandbox" //or production
 });
 
 const Cashfree1 = () => {
