@@ -41,7 +41,8 @@ export default function DocandSa() {
   ])
   const [newFounderName, setNewFounderName] = useState("")
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-
+  const [investmentType, setInvestmentType] = useState("convertible"); // 'convertible' or 'safe'
+  const [futureRound, setFutureRound] = useState("YES"); // 'YES' or 'NO'
   
 
   const faqs = [
@@ -110,62 +111,40 @@ export default function DocandSa() {
 
       {/* Definitions Table */}
 
-      <div className="min-h-screen bg-black text-white p-6 flex flex-col items-center">
-      <div className="flex bg-gray-800 rounded-full p-1 mb-6">
-        <button
-          className={`px-4 py-2 rounded-full transition-all duration-300 ${
-            tab === "convertible" ? "bg-white text-black" : "bg-gray-800 text-white"
-          }`}
-          onClick={() => setTab("convertible")}
-        >
-          CONVERTIBLE NOTE
-        </button>
-        <button
-          className={`px-4 py-2 rounded-full transition-all duration-300 ${
-            tab === "safe" ? "bg-white text-black" : "bg-gray-800 text-white"
-          }`}
-          onClick={() => setTab("safe")}
-        >
-          SAFE
-        </button>
-      </div>
-
-      <div className="w-full max-w-4xl bg-gray-900 p-6 rounded-lg shadow-lg grid grid-cols-2 gap-4">
-        <InputField label="Convertible note Investment" placeholder="Enter the amount" suffix="USD" />
-        <InputField label="Cost per share (new investor)" placeholder="Enter value" />
-        <InputField label="Interest rate (%)" placeholder="Enter value" />
-        <InputField label="Cost per share (convertible note investor)" placeholder="Enter value" />
-        <InputField label="Maturity (in years)" placeholder="Enter value" />
-        <InputField label="Post money valuation" placeholder="Enter value" />
-        <InputField label="Discount (%)" placeholder="Enter value" />
-        <InputField label="Total receivable shares (new investor)" placeholder="Enter value" />
-        <InputField label="Valuation Cap" placeholder="Enter value" />
-        <InputField label="Total receivable shares (CN investor)" placeholder="Enter value" />
-        <InputField label="Pre money valuation" placeholder="Enter value" />
-        <InputField label="Total receivable shares (CN investor as per valcap)" placeholder="Enter value" />
-        
-        <div>
-          <label className="block text-sm mb-2">Future investment round</label>
-          <select className="w-full p-2 bg-gray-800 rounded-md border border-gray-700">
-            <option>YES</option>
-            <option>NO</option>
-          </select>
+      <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
+      <div className="bg-black text-white p-6 rounded-xl shadow-lg w-full max-w-lg">
+        {/* Header Toggle */}
+        <div className="flex justify-center space-x-4 mb-6">
+          <button
+            className={`px-4 py-2 rounded-lg ${
+              investmentType === "convertible" ? "bg-white text-black" : "bg-gray-700"
+            }`}
+            onClick={() => setInvestmentType("convertible")}
+          >
+            CONVERTIBLE NOTE
+          </button>
+          <button
+            className={`px-4 py-2 rounded-lg ${
+              investmentType === "safe" ? "bg-white text-black" : "bg-gray-700"
+            }`}
+            onClick={() => setInvestmentType("safe")}
+          >
+            SAFE
+          </button>
         </div>
-        
-       
-        <InputField label="Equity (New investor)" placeholder="Enter value" />
-         <InputField label="Future round (Investment)" placeholder="Enter value" />
-       
-        <InputField label="Equity (CN investor)" placeholder="Enter value" />
-        <InputField label="No of shares existing before new round" placeholder="Enter value" />
-        <InputField label="Final equity (Founders)" placeholder="Enter value" />
-      </div>
-      
-         </div>
 
-      <div className="text-center text-gray-500 text-sm">
-        Powered by VERTX
+        {/* Forms */}
+        {investmentType === "convertible" ? (
+          futureRound === "NO" ? (
+            <NoFutureInvestmentForm />
+          ) : (
+            <ConvertibleNoteForm setFutureRound={setFutureRound} />
+          )
+        ) : (
+          <SafeInvestmentForm />
+        )}
       </div>
+    </div>
 
       {/* Custom Dialog */}
       {isDialogOpen && (
