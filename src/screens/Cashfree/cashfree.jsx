@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import '../paypal/paypal.css';
 import { data, useParams } from 'react-router-dom';
-
-import {load} from '@cashfreepayments/cashfree-js';
-
-const cashfree = await load({
-	mode: "sandbox" //or production
-});
+import { load } from '@cashfreepayments/cashfree-js';
 
 const Cashfree1 = () => {
     const params = useParams();
@@ -15,18 +9,25 @@ const Cashfree1 = () => {
     const [loading, setLoading] = useState(false);
     const [sessionId, setSessionId] = useState('');
     const [orderId, setOrderId] = useState('');
-    
+    const [cashfree, setCashfree] = useState(null);
+
+    // Load Cashfree inside useEffect
+    useEffect(() => {
+        const initializeCashfree = async () => {
+            const cashfreeInstance = await load({ mode: "sandbox" }); // or "production"
+            setCashfree(cashfreeInstance);
+        };
+        initializeCashfree();
+    }, []);
+
     const getSessionId = async () => {
         try {
             setLoading(true);
             const res = await axios.post('http://localhost:5000/payment/');
             setLoading(false);
-            console.log("hellojh");
-            console.log(res);
-    
+
             if (res.data.payment_session_id) {
                 setSessionId(res.data.payment_session_id);
-                console.log(res.data.payment_session_id);
                 setOrderId(res.data.order_id);
                 return res.data.payment_session_id;
             } else {
@@ -34,70 +35,54 @@ const Cashfree1 = () => {
             }
         } catch (err) {
             setLoading(false);
-            console.log(err);
+            console.error(err);
             throw err;
         }
     };
-    
+
     const handlePayment = async (e) => {
         e.preventDefault();
         try {
             const paymentSessionId = await getSessionId();
-            console.log(paymentSessionId);
+            if (!cashfree) {
+                console.error("Cashfree SDK not loaded");
+                return;
+            }
+
             let checkoutOptions = {
                 paymentSessionId: paymentSessionId,
-                // returnUrl: "http://localhost:5000/api/status/{order_id}",
                 redirectTarget: "_modal",
             };
-    
-            cashfree.checkout(checkoutOptions).then(function (result) {
+
+            cashfree.checkout(checkoutOptions).then((result) => {
                 console.log("Payment successful");
                 if (result.error) {
                     alert(result.error.message);
                 }
                 if (result.redirect) {
-                    console.log("Redirection");
-                    console.log(result);
+                    console.log("Redirection", result);
                 }
             });
         } catch (err) {
             console.error("Error during payment:", err);
         }
     };
-    
-    useEffect(()=>{
-        setSessionId(isSessionId)
-    }, [isSessionId])
 
-  return (
-    <>
-    <div className='main'>
-        <div className='card px-5 py-4 mt-5'>
+    useEffect(() => {
+        setSessionId(isSessionId);
+    }, [isSessionId]);
 
-            {/* <form onSubmit={getSessionId}>
-                <h1>Session Id</h1>
-                <input type="text" value={sessionId} onChange={(e)=>{setSessionId(e.target.value)}} />
-                {!loading? <div className='col-12 center'>
-                    <button className='w-100 ' type="submit">getSessionID</button>
-                </div>
-                :
+    return (
+        <div className='main'>
+            <div className='card px-5 py-4 mt-5'>
                 <div className='col-12 center'>
-                    <button className='w-100 text-center' type="submit">
-                    <div className="spinner-border" role="status">
-                        <span className="visually-hidden ">Wait...</span>
-                    </div>
+                    <button className='w-100' type="button" onClick={handlePayment}>
+                        Pay Now
                     </button>
                 </div>
-                }
-            </form> */}
-            <div className='col-12 center'>
-                <button className='w-100 ' type="submit" onClick={handlePayment}>Pay Now</button>
             </div>
         </div>
-    </div>
-   
-    </>
-  )
-}
+    );
+};
 
-export default Cashfree1
+export default Cashfree1;
