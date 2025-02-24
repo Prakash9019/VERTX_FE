@@ -53,7 +53,11 @@ export default function PricingPage() {
     setHoverPlan(plan.name);
     setSelectedPlan(plan);
   };
-
+  function getOrderId() {
+    const timestamp = Date.now().toString(); // Get current timestamp in milliseconds
+    const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0'); // Generate a random number with 3 digits
+    return `ORD${timestamp}${randomNum}`;
+}
   const handlePayment = async () => {
     try {
       setIsLoading(true);
@@ -63,9 +67,9 @@ export default function PricingPage() {
 
       // Use the appropriate URL based on environment
       const baseUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://vertx-server-eight.vercel.app' 
-        : 'https://vertx-server-eight.vercel.app';
-
+        ? 'http://localhost:5000' 
+        : 'http://localhost:5000';
+       const order_id = await getOrderId();
       const response = await fetch(`${baseUrl}/payment/create-order`, {
         method: 'POST',
         headers: {
@@ -74,6 +78,7 @@ export default function PricingPage() {
         body: JSON.stringify({
           amount: amount,
           currency: 'INR',
+          order_id: order_id,
           customerId: `CUST_${Date.now()}`,
         }),
       });
@@ -91,8 +96,8 @@ export default function PricingPage() {
       await cashfree.checkout({
         paymentSessionId: data.payment_session_id,
         returnUrl: process.env.NODE_ENV === 'production'
-          ? 'https://vertx-server-eight.vercel.app/payment/payment-status'
-          : 'https://vertx-server-eight.vercel.app',
+          ? 'http://localhost:5000/payment/payment-status'
+          : 'http://localhost:5000/payment',
       });
     } catch (error) {
       console.error('Payment error:', error);
