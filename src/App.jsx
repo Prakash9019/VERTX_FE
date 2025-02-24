@@ -17,6 +17,11 @@ import Payment from "./screens/Payment/Payment";
 import PricingPage from "./screens/Subscription";
 import Cashfree from "./screens/Cashfree/cashfree";
 import Cashfree1 from "./screens/Cashfree/cashfree";
+import EquityCalculator from "./screens/Resources/Equity_table/Equity_table";
+import ValuationCalculator from "./screens/Resources/Startup-valuation/Startup-valuation";
+import AandF from "./screens/Resources/AandF/AandF";
+import DocandSa from "./screens/Resources/DOCandSA/DocandSa";
+import Categories from "./screens/Resources/categories/categories";
 function App() {
   return (
     <Routes>
@@ -37,8 +42,14 @@ function App() {
       <Route path="/flow/match flow" element={<Matchflow />} />
       <Route path="/flow/pipeline" element={<Pipeline />} />
       <Route path="/flow/docflow" element={<Docflow />} />
-
+   
       <Route path='/payment' element={<Cashfree1 />} />
+       
+       <Route path="/category" element={<Categories /> } />
+      <Route path="/cal1" element={<EquityCalculator />} />
+       <Route path="/cal2" element={<ValuationCalculator /> } />
+       <Route path="/cal3" element={<AandF />} />
+      <Route path="/cal4" element={<DocandSa /> } />
 
       <Route path="/admin" element={<Admin />} />
 
