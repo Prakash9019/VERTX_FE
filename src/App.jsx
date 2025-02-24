@@ -15,6 +15,8 @@ import Outreach from "./screens/outreach";
 import Questions from "./screens/questions";
 import Payment from "./screens/Payment/Payment";
 import PricingPage from "./screens/Subscription";
+import Cashfree from "./screens/Cashfree/cashfree";
+import Cashfree1 from "./screens/Cashfree/cashfree";
 function App() {
   return (
     <Routes>
@@ -28,13 +30,15 @@ function App() {
 
       <Route path="/outreach" element={<Outreach />} />
       <Route path="/explore" element={<Explore />} />
-      <Route path="/payment" element={<Payment />} />
+      {/* <Route path="/payment" element={<Payment />} /> */}
       <Route path="/sub" element={<PricingPage/> } />
       <Route path="/flow/outbound" element={<GenerateEmail />} />
       <Route path="/flow/chat" element={<Chat />} />
       <Route path="/flow/match flow" element={<Matchflow />} />
       <Route path="/flow/pipeline" element={<Pipeline />} />
       <Route path="/flow/docflow" element={<Docflow />} />
+
+      <Route path='/payment' element={<Cashfree1 />} />
 
       <Route path="/admin" element={<Admin />} />
 
