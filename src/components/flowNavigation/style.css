@@ -52,16 +52,6 @@
     background-color: #101010;
 }
 
-  .flownav .link{
-    font-weight: 700;
-    font-size: 13px;
-    display: flex;
-    gap: 5px;
-    font-family: "Manrope";
-    align-items: center;
-    text-decoration: none;
-    margin-bottom: 20px;
-}
 
   .flownav .menu{
     width: 100%;
