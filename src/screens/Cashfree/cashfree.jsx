@@ -23,7 +23,7 @@ const Cashfree1 = () => {
     const getSessionId = async () => {
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:5000/payment/');
+            const res = await axios.post('http://localhost:5000/payment/create-order');
             setLoading(false);
 
             if (res.data.payment_session_id) {
