@@ -100,16 +100,16 @@ export default function ValuationCalculator() {
 
   const faqs = [
     {
-      question: "How does fundraising impact founder equity?",
-      answer: "When a startup raises funds, new shares are issued, diluting the founder's percentage ownership. However, the total company value increases, so their remaining stake may be worth more."
+      question: " How do investors determine a startup’s valuation?",
+      answer: "Investors use different valuation methods, such as comparing similar startups, forecasting revenue, or assessing risks."
     },
     {
-      question: "What happens when employees are given stock options?",
-      answer: "Stock options reserve equity for employees. When exercised, it dilutes existing shareholders but helps in retaining top talent."
+      question: "What is the difference between pre-money and post-money valuation?",
+      answer: "Pre-Money Valuation=Post-Money Valuation−Investment Amount."
     },
     {
-      question: "How do SAFE & Convertible Notes affect the Cap Table?",
-      answer: "These convert into equity later, often at a discount or using a valuation cap. Founders should track their impact to avoid unexpected dilution."
+      question: "How do SAFE & Convertible Notes affect valuation?",
+      answer: "SAFE & Convertible Notes convert into equity at a later stage, often with a discount or valuation cap, impacting ownership percentages."
     }
   ]
 

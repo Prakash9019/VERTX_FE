@@ -33,16 +33,16 @@ export default function AandF() {
 
   const faqs = [
     {
-      question: "How does fundraising impact founder equity?",
-      answer: "When a startup raises funds, new shares are issued, diluting the founder's percentage ownership. However, the total company value increases, so their remaining stake may be worth more."
+      question: "What are the three main financial statements?",
+      answer: "Income Statement – Shows revenue, expenses, and net profit.Balance Sheet – Shows assets, liabilities, and equity.Cash Flow Statement – Tracks cash movements."
     },
     {
-      question: "What happens when employees are given stock options?",
-      answer: "Stock options reserve equity for employees. When exercised, it dilutes existing shareholders but helps in retaining top talent."
+      question: "How is Net Profit Calculated?",
+      answer: "Net Profit=Revenue−COGS−Operating Expenses−Taxes"
     },
     {
-      question: "How do SAFE & Convertible Notes affect the Cap Table?",
-      answer: "These convert into equity later, often at a discount or using a valuation cap. Founders should track their impact to avoid unexpected dilution."
+      question: "What is Burn Rate, and why is it important?",
+      answer: "Burn rate is the amount of money a startup spends per month. It helps determine how long a startup can operate before running out of cash (runway).Runway=Available Cash/Monthly Burn Rate"
     }
   ]
 

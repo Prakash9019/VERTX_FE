@@ -47,16 +47,24 @@ export default function DocandSa() {
 
   const faqs = [
     {
-      question: "How does fundraising impact founder equity?",
-      answer: "When a startup raises funds, new shares are issued, diluting the founder's percentage ownership. However, the total company value increases, so their remaining stake may be worth more."
+      question: "Why do startups prefer SAFE over Convertible Notes?",
+      answer: "SAFE agreements are simpler because they do NOT accrue interest or have a maturity date. Startups don’t risk defaulting on debt, making SAFE agreements less risky."
     },
     {
-      question: "What happens when employees are given stock options?",
-      answer: "Stock options reserve equity for employees. When exercised, it dilutes existing shareholders but helps in retaining top talent."
+      question: "When do Convertible Notes & SAFE Agreements convert into equity?",
+      answer: "They convert during a qualified funding round when the company raises a priced round (Series A or later)."
     },
     {
-      question: "How do SAFE & Convertible Notes affect the Cap Table?",
-      answer: "These convert into equity later, often at a discount or using a valuation cap. Founders should track their impact to avoid unexpected dilution."
+      question: "What happens if a startup never raises a priced round?",
+      answer: "Convertible Notes: The startup must repay the investor if the maturity date passes.SAFE Agreements: The investor waits indefinitely since there is no repayment obligation."
+    },
+      {
+      question: " Are Convertible Notes & SAFE Agreements good for investors?",
+      answer: "Yes! Investors get an early entry at a discounted price or lower valuation cap, making their investment more valuable when the company grows."
+    },
+     {
+      question: "Can startups raise both SAFE and Convertible Notes?",
+      answer: "Yes, but it’s uncommon. Most startups pick one because combining them complicates cap table management."
     }
   ]
 

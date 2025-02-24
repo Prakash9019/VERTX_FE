@@ -70,6 +70,7 @@ export default function PricingPage() {
         ? 'http://localhost:5000' 
         : 'http://localhost:5000';
        const order_id = await getOrderId();
+       console.log(order_id,amount,currency,)
       const response = await fetch(`${baseUrl}/payment/create-order`, {
         method: 'POST',
         headers: {
