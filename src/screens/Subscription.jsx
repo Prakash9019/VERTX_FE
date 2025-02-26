@@ -67,15 +67,15 @@ export default function PricingPage() {
 
       // Use the appropriate URL based on environment
       const baseUrl = process.env.NODE_ENV === 'production' 
-        ? 'http://localhost:5000' 
-        : 'http://localhost:5000';
+        ? 'https://vertx-server-eight.vercel.app' 
+        : 'https://vertx-server-eight.vercel.app';
        const order_id = await getOrderId();
        console.log(order_id,amount);
       const response = await fetch(`${baseUrl}/payment/create-order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          "token" : "eyJhbGciOiJIUzI1NiJ9.cGxzcHJha2FzaDIwMDNAZ21haWwuY29t.QLfJ6amXyFmvs6pdsK26Ev9-ANR30TJZZb7prodnn8Q"
+          "token": localStorage.getItem('token')
         },
         body: JSON.stringify({
           amount: amount,
@@ -92,14 +92,14 @@ export default function PricingPage() {
       const data = await response.json();
       
       const cashfree = new window.Cashfree({
-        mode: "sandbox"
+        mode: "production"
       });
 
       await cashfree.checkout({
         paymentSessionId: data.payment_session_id,
         returnUrl: process.env.NODE_ENV === 'production'
-        ? 'http://localhost:5000/payment/payment-status?order_id={order_id}'
-        : 'http://localhost:5000/payment/payment-status?order_id=${order_id}',
+        ? 'https://vertx-server-eight.vercel.app/payment/payment-status?order_id={order_id}'
+        : 'https://vertx-server-eight.vercel.app/payment/payment-status?order_id=${order_id}',
       });
     } catch (error) {
       console.error('Payment error:', error);
