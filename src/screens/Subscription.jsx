@@ -9,7 +9,7 @@ const ComparisonTable = ({ title, features }) => (
         <tr className="text-left border-b border-gray-800">
           <th className="py-4 px-4">{title}</th>
           <th className="py-4 px-4">Creator</th>
-          <th className="py-4 px-4">Growth</th>
+          <th className="py-4 px-4">Outreach+</th>
           <th className="py-4 px-4">Enterprise</th>
         </tr>
       </thead>
@@ -17,9 +17,9 @@ const ComparisonTable = ({ title, features }) => (
         {features.map((feature) => (
           <tr key={feature.name} className="border-b border-gray-800">
             <td className="py-4 px-4">{feature.name}</td>
-            <td className="py-4 px-4">{feature.creator}</td>
-            <td className="py-4 px-4">{feature.growth}</td>
-            <td className="py-4 px-4">{feature.enterprise}</td>
+            <td className="py-4 px-4">{feature.Explore}</td>
+            <td className="py-4 px-4">{feature.Outreach}</td>
+            <td className="py-4 px-4">{feature.Enterprise}</td>
           </tr>
         ))}
       </tbody>
@@ -75,6 +75,7 @@ export default function PricingPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "token" : "eyJhbGciOiJIUzI1NiJ9.cGxzcHJha2FzaDIwMDNAZ21haWwuY29t.QLfJ6amXyFmvs6pdsK26Ev9-ANR30TJZZb7prodnn8Q"
         },
         body: JSON.stringify({
           amount: amount,
@@ -91,14 +92,14 @@ export default function PricingPage() {
       const data = await response.json();
       
       const cashfree = new window.Cashfree({
-        mode: "production"
+        mode: "sandbox"
       });
 
       await cashfree.checkout({
         paymentSessionId: data.payment_session_id,
         returnUrl: process.env.NODE_ENV === 'production'
-          ? 'http://localhost:5000/payment/payment-status'
-          : 'http://localhost:5000/payment',
+        ? 'http://localhost:5000/payment/payment-status?order_id={order_id}'
+        : 'http://localhost:5000/payment/payment-status?order_id=${order_id}',
       });
     } catch (error) {
       console.error('Payment error:', error);
@@ -110,9 +111,9 @@ export default function PricingPage() {
 
   const plans = [
     {
-      name: "Creator",
-      price: { monthly: 9, annually: 10 },
-      savings: 12,
+      name: "Explore",
+      price: { monthly: 0, annually: 0 },
+      // savings: 12,
       features: [
         "Outreach",
         "Edit, comment and share",
@@ -121,9 +122,9 @@ export default function PricingPage() {
       ],
     },
     {
-      name: "Growth",
-      price: { monthly: 20, annually: 25 },
-      savings: 60,
+      name: "Outreach+",
+      price: { monthly: 12, annually: 10 },
+      savings: 20,  //{ monthly: 20, annually: 33 }
       features: [
         "Everything in Creator, and",
         "Outreach with increased limits",
@@ -136,7 +137,7 @@ export default function PricingPage() {
     },
     {
       name: "Enterprise",
-      price: { monthly: 28, annually: 35 },
+      price: { monthly: "Soon", annually: "Soon" },
       savings: 84,
       features: [
         "Everything in Growth, and",
@@ -151,33 +152,30 @@ export default function PricingPage() {
     {
       title: "Enhanced Experience",
       features: [
-        { name: "Outreach with increased limits", creator: "Basic", growth: "✓", enterprise: "✓" },
-        { name: "Vertx Flow", creator: "", growth: "", enterprise: "✓" },
-        { name: "Ad Free", creator: "", growth: "", enterprise: "Fully Ad-Free" },
-        { name: "Reach", creator: "Smaller", growth: "Larger", enterprise: "Largest" },
-        { name: "Investor maps", creator: "", growth: "✓", enterprise: "✓" },
-        { name: "Bookmark VC's", creator: "✓", growth: "✓", enterprise: "✓" },
-        { name: "Analytics", creator: "", growth: "✓", enterprise: "✓" },
-        { name: "Venture/Profile featuring", creator: "", growth: "", enterprise: "✓" },
+        { name: "Outreach with increased limits", Explore: "Basic", Outreach: "✓", Enterprise: "✓" },
+        { name: "Vertx Flow", Explore: "", Outreach: "", Enterprise: "Releasing soon" },
+        { name: "Ad Free", Explore: "", Outreach: "", Enterprise: "Fully Ad-Free" },
+        { name: "Reach", Explore: "Smaller", Outreach: "Larger", Enterprise: "Largest" },
+        { name: "Investor maps", Explore: "", Outreach: "✓", Enterprise: "✓" },
+        { name: "Bookmark VC's", Explore: "✓", Outreach: "✓", Enterprise: "✓" },
+        { name: "Analytics", Explore: "", Outreach: "✓", Enterprise: "✓" },
+        { name: "Venture/Profile featuring", Explore: "", Outreach: "", Enterprise: "✓" },
       ],
     },
     {
       title: "Creator Studio",
       features: [
-        { name: "Edit, comment and share", creator: "✓", growth: "✓", enterprise: "✓" },
-        { name: "Undo post", creator: "✓", growth: "✓", enterprise: "✓" },
-        { name: "Top on Vertx", creator: "✓", growth: "✓", enterprise: "✓" },
-        { name: "Recent roundup", creator: "✓", growth: "✓", enterprise: "✓" },
-        { name: "Rewards", creator: "", growth: "✓", enterprise: "✓" },
-        { name: "Write articles", creator: "✓", growth: "✓", enterprise: "✓" },
+        { name: "News", Explore: "✓", Outreach : "✓", Enterprise: "✓" },
+        { name: "Recent roundup", Explore: "✓", Outreach: "✓", Enterprise: "✓" },
+        { name: "Rewards", Explore: "", Outreach: "✓", Enterprise: "✓" },
+        { name: "Write articles", Explore: "✓", Outreach: "✓", Enterprise: "✓" },
       ],
     },
     {
       title: "Security",
       features: [
-        { name: "Verified checkmark", creator: "", growth: "✓", enterprise: "✓" },
-        { name: "ID verification", creator: "", growth: "✓", enterprise: "✓" },
-        { name: "Encrypted direct messages", creator: "", growth: "✓", enterprise: "✓" },
+        { name: "Verified checkmark", Explore: "", Outreach : "✓", Enterprise: "✓" },
+        { name: "Encrypted direct messages", Explore: "", Outreach: "✓", Enterprise: "✓" },
       ],
     },
   ];
@@ -260,6 +258,7 @@ export default function PricingPage() {
 
         <div className="min-h-screen bg-black text-white p-8">
           <h2 className="text-3xl font-bold mb-8">Compare plans and features</h2>
+          {console.log(data)}
           {data.map((section) => (
             <ComparisonTable
               key={section.title}

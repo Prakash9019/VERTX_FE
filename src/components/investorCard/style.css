@@ -1,25 +1,64 @@
-.backdrop{
+.backdrop {
     width: 100%;
-    height: 100vh;
+    height: 92vh;
+    display: none; /* Hidden by default */
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
     background: #1c1c1c6e;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align items at the top */
+    overflow-y: auto; /* Allow vertical scrolling */
+    padding-bottom: 20px; /* Add bottom padding to ensure space for scrolling */
+ scrollbar-width: none; /* Firefox */
+ -ms-overflow-style: none;  /* Internet Explorer 10+ */
 }
-
-.backdrop .popup{
+.backdrop .popup {
     width: 70%;
-    position: absolute;
-    height: max-content;
     background: black;
     border-radius: 20px;
     border: 1px solid #75757569;
     padding: 20px 30px;
     padding-bottom: 40px;
+    margin: 20px 0; /* Add margin to create space between elements */
+    position: relative; /* Use relative positioning */
+}  
+
+.backdrop {
+    width: 100%;
+    height: 100vh; /* Make sure it covers the entire screen */
+    position: fixed;
+    top: 0; /* Cover the full screen */
+    left: 0;
+    background: rgba(28, 28, 28, 0.43); /* Keep the semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center the popup */
 }
+
+.backdrop .popup {
+    width: 70%;
+    max-height: 80vh; /* Set max height so it doesn't overflow */
+    background: black;
+    border-radius: 20px;
+    border: 1px solid rgba(117, 117, 117, 0.41);
+    padding: 20px 30px;
+    overflow-y: auto; /* Enable scrolling inside the popup */
+}
+
+
+.backdrop::-webkit-scrollbar {
+ display: none; /* Chrome, Safari, Opera */
+}
+
+
+.backdrop.show {
+    display: flex; /* Show only when needed */
+  }
+
+
+
 
 .backdrop .popup .topsec{
     width: 100%;
@@ -116,7 +155,6 @@
     border: 1px solid white;
     padding: 3px 14px;
     border-radius: 20px;
-
     font-size: 13px;
     color: #b8b8b8;
     margin-top: 5px;

@@ -1,42 +1,14 @@
 import "./style.css";
-import logo from "../../assets/logo.png";
-import Button from "../../components/button/component";
 import { useNavigate } from "react-router";
 import Navigation from "../../components/navigation/component";
-import InvestorCard from "../../components/investorCard/component";
-import { useEffect, useState, useCallback } from "react";
-import {
- 
-  industries,
-  Country,
-  investorType
-} from "./filters.js";
+import { useEffect, useState } from "react";
+import { industries, Country, investorType } from "./filters.js";
+import { Lock } from 'lucide-react';
 import API_KEY from "../../../key";
 import axios from "axios";
-
-function Card({ data }) {
-  const [show, setShow] = useState(false);
-  const hide = () => setShow(false);
-
-  return (
-    <div className="pcard" onClick={() => setShow(true)}>
-      {show ? <InvestorCard id={"1234"} cb={hide} data={data} /> : null}
-      <div className="img">
-        <p className="midTit">{data?.name}</p>
-      </div>
-      <div className="row">
-        <div className="pdetails">
-          {/* <p className="ctit">{data?.firstName + " " + data?.lastName}</p> */}
-          <p className="ctit">{data?.investorType}</p>
-        </div>
-        <div className="btnwrap">
-          <button className="tag">Mark</button>
-          <button className="tag">View Profile</button>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { Header, Sidebar } from "../layout/bars.jsx";
+import image from "./image.png";
+import Card from "../../components/investorCard/component";
 
 export default function Outreach() {
   const navigate = useNavigate();
@@ -47,8 +19,10 @@ export default function Outreach() {
   
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(20); // Adjust this as needed
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [totalPageSize, setTotalPageSize] = useState(20);
+  const [model, setModel] = useState("");
 
   // Filters state
   const [filters, setFilters] = useState({
@@ -57,33 +31,44 @@ export default function Outreach() {
     investorType: "",
   });
 
-  const getInvestors = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-     const response = await axios.get(`${API_KEY}/investors`, {
-        headers: { token: window.localStorage.getItem("token") },
-        params: {
-          page: currentPage,
-          limit: pageSize,
-          ...filters
-        }
-      });
+  useEffect(() => {
+    async function fetchUserPlan() {
+      try {
+        const userRes = await axios.get(`${API_KEY}/payment/me`, { headers: { token: localStorage.getItem('token') } });
+        const plan = userRes.data.plan;
+        setModel(plan);
 
-      const { data, totalCount } = response.data;
-      setInvestors(data);
-      setTotalPages(Math.ceil(totalCount / pageSize));
-    } catch (err) {
-      setError("Failed to fetch investors");
-      console.error("Error fetching investors:", err);
-    } finally {
-      setLoading(false);
+        let newTotalPageSize = 20;
+        if (plan === 'EXPLORE' || plan === 'OUTREACH') newTotalPageSize = 40;
+        else if (plan === 'ENTERPRISE') newTotalPageSize = 100;
+
+        setTotalPageSize(newTotalPageSize);
+      } catch (err) {
+        console.error('Error fetching user plan:', err);
+      }
     }
-  }, [currentPage, pageSize, filters]);
+    fetchUserPlan();
+  }, []);
 
   useEffect(() => {
+    async function getInvestors() {
+      try {
+        setLoading(true);
+        const response = await axios.get(`${API_KEY}/investors`, {
+          headers: { token: localStorage.getItem('token') },
+          params: { limit: totalPageSize }
+        });
+
+        setInvestors(response.data.data);
+        setTotalRecords(response.data.data.length);
+      } catch (err) {
+        setError('Failed to fetch investors');
+      } finally {
+        setLoading(false);
+      }
+    }
     getInvestors();
-  }, [getInvestors]);
+  }, [totalPageSize]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -95,136 +80,104 @@ export default function Outreach() {
       ...prev,
       [filterName]: value
     }));
-    setCurrentPage(1); // Reset to first page when filters change
+    setCurrentPage(1);
   };
 
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // Calculate total pages and slice investors for pagination
+  const totalPages = Math.ceil(totalRecords / pageSize);
+  const paginatedInvestors = investors.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
   return (
-    <div className="container-ot">
-      <div className="topbar">
-        <div className="wrap">
-          <img src={logo} alt="logo" className="logo" />
-          <p className="title">Vertx AI</p>
-        </div>
-        <ion-icon
-          className="menu"
-          name="menu-outline"
-          color="white"
-          style={{ fontSize: "25px" }}
-          onClick={() => setNav(true)}
-        />
-        <div className="btwrap mb">
-          {!window.localStorage.getItem("token") && (
-            <Button
-              context="Login"
-              theme="dark"
-              callback={() => navigate("/authentication")}
-            />
-          )}
-        </div>
-      </div>
-      
-      <div className="bottom">
-        <div className="navwrap mb" style={{ height: "calc(100vh - 70px)" }}>
-          <Navigation cb={() => setNav(false)} />
-        </div>
-        <div
-          className={openNav ? "navwrap mbv open" : "navwrap mbv"}
-          style={{ height: "calc(100vh - 70px)" }}
-        >
-          <Navigation cb={() => setNav(false)} />
-        </div>
-        
-        <div className="msection">
-          <p className="head">Reach out to top Investors.</p>
-          <p className="subhead msec">
-            Get connected with investors of your choice.
-          </p>
-          
-          <div className="filter">
-          
-            
-            <select 
-              className="sel"
-              onChange={(e) => handleFilterChange("country", e.target.value)}
-            >
-              <option value="" disabled selected>Country</option>
-              {Country.map((country, i) => (
-                <option key={i} value={country}>{country}</option>
-              ))}
-            </select>
-            
-            <select 
-              className="sel"
-              onChange={(e) => handleFilterChange("investorType", e.target.value)}
-            >
-              <option value="" disabled selected>Investor Type</option>
-              {investorType.map((investorType, i) => (
-                <option key={i} value={investorType}>{investorType}</option>
-              ))}
-            </select>
-            
-            <select 
-              className="sel"
-              onChange={(e) => handleFilterChange("industry", e.target.value)}
-            >
-              <option value="" disabled selected>Industries</option>
-              {industries.map((industry, i) => (
-                <option key={i} value={industry}>{industry}</option>
-              ))}
-            </select>
-            
-            <select 
-              className="sel"
-              onChange={(e) => setPageSize(Number(e.target.value))}
-            >
-              <option value="" disabled selected>Records per page</option>
-              {[5, 10, 20, 50].map((size) => (
-                <option key={size} value={size}>{size}</option>
-              ))}
-            </select>
-          </div>
+    <div className="min-h-screen bg-black text-white flex flex-col">
+      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <div className="flex flex-1 relative">
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-          {error && (
-            <div className="error-message">
-              {error}
+        <main className={`flex-1 p-3 pt-20 transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-24"}`}>   
+          <div className="container-ot">
+            <p className="head">Explore and connect.</p>
+
+            {/* Filters */}
+            <div className="filter">
+              {model === "EXPLORE" ? (
+                <>
+                  <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
+                    Country <i className="material-icons text-white">lock</i>
+                  </div>
+                  <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
+                    Investor Type <i className="material-icons text-white">lock</i>
+                  </div>
+                  <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
+                    Industries <i className="material-icons text-white">lock</i>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <select className="sel" onChange={(e) => handleFilterChange("country", e.target.value)}>
+                    <option value="" disabled selected>Country</option>
+                    {Country.map((country, i) => (
+                      <option key={i} value={country}>{country}</option>
+                    ))}
+                  </select> 
+
+                  <select className="sel" onChange={(e) => handleFilterChange("investorType", e.target.value)}>
+                    <option value="" disabled selected>Investor Type</option>
+                    {investorType.map((investorType, i) => (
+                      <option key={i} value={investorType}>{investorType}</option>
+                    ))}
+                  </select>
+
+                  <select className="sel" onChange={(e) => handleFilterChange("industry", e.target.value)}>
+                    <option value="" disabled selected>Industries</option>
+                    {industries.map((industry, i) => (
+                      <option key={i} value={industry}>{industry}</option>
+                    ))}
+                  </select>
+                </>
+              )}
             </div>
-          )}
 
-          <div className="profilecards">
-            {loading ? (
-              <div className="loading">Loading investors...</div>
-            ) : (
-              investors
-                .filter(item => item.company !== "null-val")
-                .map((item, index) => (
-                  <Card key={item._id || index} data={item} />
-                ))
-            )}
-          </div>
+            {error && <div className="error-message">{error}</div>}
 
-          {/* Pagination Controls */}
-          <div className="pagination">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1 || loading}
-              className="pagination-button"
-            >
-              Previous
-            </button>
-            
-            <span className="page-info">
-              Page {currentPage} of {totalPages}
-            </span>
-            
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages || loading}
-              className="pagination-button"
-            >
-              Next
-            </button>
+            {/* Investor Cards */}
+            <div className="profilecards">
+              {loading ? (
+                <div className="loading">Loading investors...</div>
+              ) : (
+                paginatedInvestors
+                  .filter(item => item.company !== "null-val")
+                  .map((item, index) => (
+                    <Card key={item._id || index} data={item} />
+                  ))
+              )}
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="pagination">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1 || loading}
+                className="pagination-button"
+              >
+                Previous
+              </button>
+              
+              <span className="page-info">
+                Page {currentPage} of {totalPages}
+              </span>
+              
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages || loading}
+                className="pagination-button"
+              >
+                Next
+              </button>
+            </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

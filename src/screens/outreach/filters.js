@@ -197,7 +197,6 @@ const Country = [
 ];
 
 const industries = [
-  [
     "INFORMATION TECHNOLOGY & SERVICES",
     "INTERNET",
     "COMPUTER SOFTWARE",
@@ -258,23 +257,25 @@ const industries = [
     "WEB3 & DEFI",
     "WEARABLES & IOT",
     "OTHER"
-  ]
+  
 ];
 
 const investorType = [
-  "VC",
-  "Family office",
-  "Incubator",
-  "Accelerator",
-  "Corporate VC",
-  "Angel network",
-  "Public fund",
-  "Solo angel",
-  "PE fund",
-  "Startup studio",
-  "Revenue-based",
-  "Other"
-  ]
+  
+    "VC",
+    "Family office",
+    "Incubator",
+    "Accelerator",
+    "Corporate VC",
+    "Angel network",
+    "Public fund",
+    "Solo angel",
+    "PE fund",
+    "Startup studio",
+    "Revenue-based",
+    "Other"
+    
+];
 
 const 
 currentTraction = [

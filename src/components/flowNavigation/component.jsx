@@ -32,7 +32,7 @@ export default function FlowNav() {
             height: 30,
             display: "flex",
             gap: 10,
-            color: "white",
+            // color: "white",
             fontFamily: "Manrope",
             fontSize: 13,
             fontWeight: 700,

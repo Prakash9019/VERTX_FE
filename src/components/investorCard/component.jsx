@@ -3,131 +3,257 @@ import "./style.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function InvestorCard({ id, cb, data }) {
-  //request data
 
+
+export default function Card({ data }) {
   function capitalizeWords(str) {
     return str
       .split(' ')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ');
   }
+  const [show, setShow] = useState(false);
+  const hide = () => {
+    console.log(show);
+    setShow(false);
+    console.log(show);
+  }
 
   return (
-    
-    <div className="backdrop">
-      <div className="popup">
-        <div className="topsec">
-          <button
-            className="btn"
-            onClick={() => {
-              window.location.href = "/outreach";
-            }}
-          >
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          
-          </button>
-          <div className="wrap">
-            <button className="btn">
-              <ion-icon name="bookmark-outline"></ion-icon>
-              Bookmark
-            </button>
-           
-          </div>
-        </div>
-        <div className="sec">
-          <div className="img-cont">
-            <div className="img" style={{ height: "100%" }}>
-              <p className="ctit" style={{ fontSize: "20px" }}>
-                {data?.name}
-              </p>
-            </div>
-          </div>
-          <div className="invDetails">
-            <div className="tags">
-              <div className="tag bk">VERIFIED</div>
-              <div className="tag"> {data?.investorType}</div>
-            </div>
-            <div className="flex flex-col absolute right-6">
-            <p className="sidehead">Cheque Size</p>
-            <div className="tag2"
-                    style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
-                  > {data?.chequeSize}</div>
-            </div>
-            <p className="sidehead">Stage interested in</p>
-            <div className="tags" style={{ marginTop: 10 }}>
-              {/* intrested tags */}
-              {data?.stageOfInvestment?.map((item, index) => {
-  return (
-    <div
-      key={index}
-      className="tag"
-      style={{ color: "grey", borderColor: "grey" }}
-    >
-      {item}
-    </div>
-  );
-             })}
-            </div>
-            <p className="sidehead">Countries interested in</p>
-            <div className="tags" style={{ marginTop: 15 }}>
-              {/* intrested tags */}
-              {data?.investmentCountries
-                .map((index,item) => (
-                  <div
-                    className="tag"
-                    style={{ color: "grey", borderColor: "grey" }}
-                  >
-                    {index}
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div>
-        <div className="moreData">
-          <p className="sidehead">Overview</p>
-          <p className="desc">{data?.investmentThesis}</p>
-          {/* .slice(0, 300) + "..." */}
-        </div>
-        <div className="moreData">
-          <p className="sidehead"  style={{marginTop: 15}}>Preferred Industry</p>
-          <div className="tag2"
-                    style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
-                  >
-                    {capitalizeWords(data?.industry)}
-                  </div>
-        </div>
-        <div className="moreData">
-          <p className="sidehead" style={{marginTop: 15}}>Global HQ</p>                
-          <div
-                    className="tag2"
-                    style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
-                  >
-                    {data?.country}
-                  </div>
-                  </div>
+    <div className="pcard" onClick={() => setShow(true)}>
+      {show && 
       
-        {/* <div
-          className="alright"
-          style={{
-            width: "100%",
-            height: "auto",
-            display: "flex",
-            marginTop: 20,
-          }}
-        >
-          <div className="btnWrap" style={{ width: "15%" }}>
-            <Button context={"Contact"} theme={"light font-extrabold"} callback={() => {}} />
-          </div>
-        </div> */}
+      // <InvestorCard id={"1234"} cb={hide} data={data} /> 
+
+      <div className="backdrop" id={"1234"} onClick={hide}>
+      <div className="popup" onClick={(e) => e.stopPropagation()}>
+        <div className="topsec">
+          <button className="btn" onClick={hide}>
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    
+    </button>
+    <div className="wrap">
+      <button className="btn">
+        <ion-icon name="bookmark-outline"></ion-icon>
+        Bookmark
+      </button>
+     
+    </div>
+  </div>
+  <div className="sec">
+    <div className="img-cont">
+      <div className="img" style={{ height: "100%" }}>
+        <p className="ctit" style={{ fontSize: "20px" }}>
+          {data?.name}
+        </p>
+      </div>
+    </div>
+    <div className="invDetails">
+      <div className="tags">
+        <div className="tag bk">VERIFIED</div>
+        <div className="tag"> {data?.investorType}</div>
+      </div>
+      <div className="flex flex-col absolute right-6">
+      <p className="sidehead">Cheque Size</p>
+      <div className="tag2"
+              style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
+            > {data?.chequeSize}</div>
+      </div>
+      <p className="sidehead">Stage interested in</p>
+      <div className="tags" style={{ marginTop: 10 }}>
+        {/* intrested tags */}
+        {data?.stageOfInvestment?.map((item, index) => {
+return (
+<div
+key={index}
+className="tag"
+style={{ color: "grey", borderColor: "grey" }}
+>
+{item}
+</div>
+);
+       })}
+      </div>
+      <p className="sidehead">Countries interested in</p>
+      <div className="tags" style={{ marginTop: 15 }}>
+        {/* intrested tags */}
+        {data?.investmentCountries
+          .map((index,item) => (
+            <div
+              className="tag"
+              style={{ color: "grey", borderColor: "grey" }}
+            >
+              {index}
+            </div>
+          ))}
+      </div>
+    </div>
+  </div>
+  <div className="moreData">
+    <p className="sidehead">Overview</p>
+    <p className="desc">{data?.investmentThesis}</p>
+    {/* .slice(0, 300) + "..." */}
+  </div>
+  <div className="moreData">
+    <p className="sidehead"  style={{marginTop: 15}}>Preferred Industry</p>
+    <div className="tag2"
+              style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
+            >
+              {capitalizeWords(data?.industry)}
+            </div>
+  </div>
+  <div className="moreData">
+    <p className="sidehead" style={{marginTop: 15}}>Global HQ</p>                
+    <div   className="tag2"
+              style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
+            >
+              {data?.country}
+            </div>
+            </div>
 
 <div className="moreData " style={{marginTop: 15}}>
-          <p className="sidehead" style={{marginTop: 15}}>Contact</p>
-          <p className="desc1">{data?.website}</p>
-          {/* .slice(0, 300) + "..." */}
-        </div>
+    <p className="sidehead" style={{marginTop: 15}}>Contact</p>
+    <div   className="tag2"  style={{ marginTop: 10,color: "grey", borderColor: "grey" }}            >
+    <a href={data?.website} target="_blank" rel="noopener noreferrer">
+          {data?.website}
+       </a>
+            </div>
+    {/* <p className="desc1">{data?.website}</p> */}
+    {/* .slice(0, 300) + "..." */}
+  </div>
 
+</div>
+</div>
+      
+ }
+      <div className="img">
+        <p className="midTit">{data?.name}</p>
+      </div>
+      <div className="row">
+        <div className="pdetails">
+          {/* <p className="ctit">{data?.firstName + " " + data?.lastName}</p> */}
+          <p className="ctit">{data?.investorType}</p>
+        </div>
+        <div className="btnwrap">
+          <button className="tag">Mark</button>
+          <button className="tag">View Profile</button>
+        </div>
       </div>
     </div>
   );
 }
+
+// export default function InvestorCard({ id, cb, data }) {
+//   //request data
+
+//   function capitalizeWords(str) {
+//     return str
+//       .split(' ')
+//       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+//       .join(' ');
+//   }
+
+//   return (
+    
+//     <div className="backdrop">
+//       <div className="popup">
+//         <div className="topsec">
+//           <button
+//             className="btn"
+//             onClick={() => {
+//               if (cb) cb(); // Call the callback function to close the modal
+//             }}
+//           >
+//             <ion-icon name="arrow-back-outline"></ion-icon>
+          
+//           </button>
+//           <div className="wrap">
+//             <button className="btn">
+//               <ion-icon name="bookmark-outline"></ion-icon>
+//               Bookmark
+//             </button>
+           
+//           </div>
+//         </div>
+//         <div className="sec">
+//           <div className="img-cont">
+//             <div className="img" style={{ height: "100%" }}>
+//               <p className="ctit" style={{ fontSize: "20px" }}>
+//                 {data?.name}
+//               </p>
+//             </div>
+//           </div>
+//           <div className="invDetails">
+//             <div className="tags">
+//               <div className="tag bk">VERIFIED</div>
+//               <div className="tag"> {data?.investorType}</div>
+//             </div>
+//             <div className="flex flex-col absolute right-6">
+//             <p className="sidehead">Cheque Size</p>
+//             <div className="tag2"
+//                     style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
+//                   > {data?.chequeSize}</div>
+//             </div>
+//             <p className="sidehead">Stage interested in</p>
+//             <div className="tags" style={{ marginTop: 10 }}>
+//               {/* intrested tags */}
+//               {data?.stageOfInvestment?.map((item, index) => {
+//   return (
+//     <div
+//       key={index}
+//       className="tag"
+//       style={{ color: "grey", borderColor: "grey" }}
+//     >
+//       {item}
+//     </div>
+//   );
+//              })}
+//             </div>
+//             <p className="sidehead">Countries interested in</p>
+//             <div className="tags" style={{ marginTop: 15 }}>
+//               {/* intrested tags */}
+//               {data?.investmentCountries
+//                 .map((index,item) => (
+//                   <div
+//                     className="tag"
+//                     style={{ color: "grey", borderColor: "grey" }}
+//                   >
+//                     {index}
+//                   </div>
+//                 ))}
+//             </div>
+//           </div>
+//         </div>
+//         <div className="moreData">
+//           <p className="sidehead">Overview</p>
+//           <p className="desc">{data?.investmentThesis}</p>
+//           {/* .slice(0, 300) + "..." */}
+//         </div>
+//         <div className="moreData">
+//           <p className="sidehead"  style={{marginTop: 15}}>Preferred Industry</p>
+//           <div className="tag2"
+//                     style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
+//                   >
+//                     {capitalizeWords(data?.industry)}
+//                   </div>
+//         </div>
+//         <div className="moreData">
+//           <p className="sidehead" style={{marginTop: 15}}>Global HQ</p>                
+//           <div
+//                     className="tag2"
+//                     style={{ marginTop: 10,color: "grey", borderColor: "grey" }}
+//                   >
+//                     {data?.country}
+//                   </div>
+//                   </div>
+
+// <div className="moreData " style={{marginTop: 15}}>
+//           <p className="sidehead" style={{marginTop: 15}}>Contact</p>
+//           <p className="desc1">{data?.website}</p>
+//           {/* .slice(0, 300) + "..." */}
+//         </div>
+
+//       </div>
+//     </div>
+//   );
+// }

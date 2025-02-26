@@ -47,7 +47,7 @@
 }
 
 
-.container-ot .bottom {
+.container-ot  {
     width: 100%;
     height: 100%;
     display: grid;
@@ -55,7 +55,7 @@
     background-color: black;
 }
 
-.container-ot .msection {
+.container-ot  {
     background: #0d0d0d;
     max-height: max-content;
     min-height: calc(100vh - 70px);
@@ -64,25 +64,25 @@
     padding: 20px;
 }
 
-.container-ot .msection .head{
+.container-ot  .head{
     font-weight: 700;
     font-size: 22px;
 }
 
-.container-ot .msection .subhead.msec{
+.container-ot  .subhead.msec{
     margin: 0;
     margin-top: 5px;
     font-weight: 600;
 }
 
-.container-ot .msection .filter{
+.container-ot  .filter{
     width: max-content;
     display: flex;
     gap: 15px;
     margin-top: 20px;
 }
 
-.container-ot .msection .filter .sel{
+.container-ot  .filter .sel{
     width: max-content;
     height: max-content;
     padding: 8px 15px;
@@ -93,12 +93,12 @@
     border-radius: 5px;
 }
 
-.container-ot .msection .filter .sel .opt{
+.container-ot  .filter .sel .opt{
     font-family: "Manrope";
     color: white;
 }
 
-.container-ot .msection .profilecards{
+.container-ot  .profilecards{
     width: 100%;
     height: max-content;
     display: grid;
@@ -107,14 +107,14 @@
     margin-top: 40px;
 }
 
-.container-ot .msection .profilecards .pcard{
+.container-ot  .profilecards .pcard{
     width: 100%;
     height: max-content;
     cursor: pointer;
 }
 
 
-.container-ot .msection .profilecards .pcard .img{
+.container-ot  .profilecards .pcard .img{
     width: 100%;
     height: 200px;
     background: linear-gradient(rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.393)), url("../../assets/noise.png");
@@ -129,7 +129,7 @@
     font-size: 18px;
 }
 
-.container-ot .msection .profilecards .pcard .row{
+.container-ot  .profilecards .pcard .row{
     color: white;
     font-family: "Manrope";
     padding: 10px 5px;
@@ -138,22 +138,22 @@
     align-items: center;
 }
 
-.container-ot .msection .profilecards .pcard .row .pdetails .ctit{
+.container-ot  .profilecards .pcard .row .pdetails .ctit{
     font-size: 13px;
 }
 
-.container-ot .msection .profilecards .pcard .row .pdetails .subtit{
+.container-ot  .profilecards .pcard .row .pdetails .subtit{
     font-size: 11px;
     color: grey;
 }
 
-.container-ot .msection .profilecards .pcard .row .btnwrap{
+.container-ot  .profilecards .pcard .row .btnwrap{
     width: max-content;
     display: flex;
     gap: 5px;
 }
 
-.container-ot .msection .profilecards .pcard .row  .btnwrap .tag{
+.container-ot  .profilecards .pcard .row  .btnwrap .tag{
     width: max-content;
     height: max-content;
     color: white;
@@ -166,27 +166,27 @@
 }
 
 
-.container-ot .bottom .navwrap.mbv{
+.container-ot  .navwrap.mbv{
     display: none;
 }
 
 @media only screen and (max-width: 946px) {
-    .container-ot .bottom .navwrap.mb{
+    .container-ot  .navwrap.mb{
         display: none;
     }
-    .container-ot .bottom .navwrap.mbv.open{
+    .container-ot  .navwrap.mbv.open{
         display: block;
     }
-    .container-ot .bottom .navwrap.mbv,
+    .container-ot  .navwrap.mbv,
     .container-ot .topbar .btwrap {
         display: none;
     }
-        .container-ot .msection .filter{
+        .container-ot  .filter{
             width: 100%;
             flex-wrap: wrap;
         }
-    .container-ot .msection .profilecards,
-    .container-ot .bottom{
+    .container-ot  .profilecards,
+    .container-ot {
         grid-template-columns: 1fr;
     }
     .container-ot{

@@ -95,12 +95,7 @@ export default function EquityCalculator() {
 
   return (
     <div className="min-h-screen bg-black text-white p-3">
-      <button className="flex items-center bg-black gap-2 text-gray-400 mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Back
-        </button>
+      
     <div className="pl-12">
       <div className="mb-8">
       

@@ -1,10 +1,11 @@
-.container-ot-exp{
+/* Main Container */
+.container-ot-exp {
     display: flex;
     flex-direction: column;
+    min-height: 100vh; /* Ensures it grows dynamically */
     padding: 0;
     gap: 0;
-    overflow: hidden;
-    height: 100vh;
+    /* overflow: hidden; */
     display: grid;
     grid-template-rows: 70px 1fr;
 }
@@ -14,7 +15,7 @@
     font-family: "Manrope";
 }
 
-.container-ot-exp .topbar{
+.container-ot-exp .topbar {
     width: 100%;
     height: auto;
     border-bottom: 1px solid #75757569;
@@ -53,12 +54,12 @@
     overflow: hidden;
 }
 
-.container-ot-exp .esection{
+.container-ot-exp .esection {
     background: #0d0d0d;
-    max-height: max-content;
     display: grid;
     grid-template-columns: 1fr 0.3fr;
-    overflow: scroll;
+    overflow-y: auto; 
+    max-height: 100%; /* Prevents unwanted height expansion */
 }
 
 .container-ot-exp .esection .anim{

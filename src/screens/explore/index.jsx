@@ -6,8 +6,10 @@ import Navigation from "../../components/navigation/component";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import API_KEY from "../../../key.js";
+import { Header,Sidebar } from "../layout/bars.jsx";
 
 export default function Explore(){
+  const [sidebarOpen, setSidebarOpen] = useState(true);
     const navigate = useNavigate();
     const [openNav, setNav] = useState(false);
     const [founders, setFounders] = useState([]);
@@ -60,41 +62,16 @@ export default function Explore(){
 
 
     return (
+         <div className="min-h-screen bg-black text-white flex flex-col">
+            <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+            <div className="flex flex-1 relative">
+              <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      
+              <main className={`flex-1 p-3 pt-20 transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-24"}`}>   
       <div className="container-ot-exp">
-        <div className="topbar">
-          <div className="wrap">
-            <img src={logo} alt="logo" className="logo" />
-            <p className="title">Vertx AI</p>
-          </div>
-          <ion-icon
-            className="menu"
-            name="menu-outline"
-            color={"white"}
-            style={{ fontSize: "25px" }}
-            onClick={() => setNav(true)}
-          ></ion-icon>
-          <div className="btwrap mb">
-            {!window.localStorage.getItem("token") ? (
-              <Button
-                context={"Login"}
-                theme={"dark"}
-                callback={() => {
-                  navigate("/authentication");
-                }}
-              />
-            ) : null}
-          </div>
-        </div>
+        
         <div className="bottom" style={{ height: "100%" }}>
-          <div className="navwrap mb" style={{ height: "calc(100vh - 70px)" }}>
-            <Navigation cb={() => setNav(false)} />
-          </div>
-          <div
-            className={openNav ? "navwrap mbv open" : "navwrap mbv"}
-            style={{ height: "calc(100vh - 70px)" }}
-          >
-            <Navigation cb={() => setNav(false)} />
-          </div>
+         
           <div className="esection">
             <div className="anim">
               <p className="head">✴ Find your Co Founder ✴</p>
@@ -102,18 +79,7 @@ export default function Explore(){
                 Match with the right co-founder tailored to your unique business
                 requirements through the Vertx platform
               </p>
-              {/* <div className="inpwrapper">
-                <input
-                  type="text"
-                  placeholder="Search for Co Founders ✦"
-                  className="search"
-                  value={prompt}
-                  onChange={(e) => setPrompt(e.target.value)}
-                />
-                <button className="cam">
-                  <ion-icon name="send-outline"></ion-icon>
-                </button>
-              </div> */}
+           
               <div className="ftcards">
                 {founders && founders.length > 0 ? (
                   finalData ? (
@@ -212,6 +178,9 @@ export default function Explore(){
             </div>
           </div>
         </div>
+      </div>
+      </main>
+      </div>
       </div>
     );
 }

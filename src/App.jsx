@@ -21,6 +21,13 @@ import ValuationCalculator from "./screens/Resources/Startup-valuation/Startup-v
 import AandF from "./screens/Resources/AandF/AandF";
 import DocandSa from "./screens/Resources/DOCandSA/DocandSa";
 import Categories from "./screens/Resources/categories/categories";
+import PrivacyPolicy from "./screens/More/PrivacyPolicy";
+import TermsAndConditions from "./screens/More/TermsandConditions";
+import Welcome_founder from "./screens/explore/welcome_founder.jsx";
+import Put_a_face from "./screens/explore/Put_a_face.jsx";
+import Skills from "./screens/explore/Skills.jsx";
+import ShowYourProject from "./screens/explore/ShowYourProject.jsx";
+import Bio from "./screens/explore/Bio.jsx";
 function App() {
   return (
     <Routes>
@@ -33,7 +40,7 @@ function App() {
       <Route path="/info" element={<Questions />} />
 
       <Route path="/outreach" element={<Outreach />} />
-      <Route path="/explore" element={<Explore />} />
+      {/* <Route path="/explore" element={<Explore />} /> */}
       <Route path="/sub" element={<PricingPage/> } />
       <Route path="/flow/outbound" element={<GenerateEmail />} />
       <Route path="/flow/chat" element={<Chat />} />
@@ -43,7 +50,7 @@ function App() {
    
       <Route path='/payment' element={<Cashfree1 />} />
        
-       <Route path="/category" element={<Categories /> } />
+       <Route path="/resources" element={<Categories /> } />
       <Route path="/cal1" element={<EquityCalculator />} />
        <Route path="/cal2" element={<ValuationCalculator /> } />
        <Route path="/cal3" element={<AandF />} />
@@ -51,6 +58,17 @@ function App() {
 
       <Route path="/admin" element={<Admin />} />
 
+
+      <Route path="/privacy" element={<PrivacyPolicy /> } />
+      <Route path="/terms" element={<TermsAndConditions /> } />
+
+
+      <Route path="/explore" element={<Welcome_founder /> } />
+      <Route path="/putaface" element={<Put_a_face /> } />
+      <Route path="/skills" element={<Skills /> } />
+      <Route path="/project" element={<ShowYourProject /> } />
+      <Route path="/bio" element={<Bio /> } />
+      
       <Route path="*" element={<Nopage />} />
     </Routes>
   );
