@@ -212,7 +212,7 @@ export default function Welcome_founder() {
             </form>
             
             <div className="flex justify-center mt-8">
-            <button className="bg-white text-black font-bold py-3 px-12 rounded-[10px] text-lg ml-auto" onClick={() =>handleSubmit()}>
+            <button className="bg-white text-black font-bold py-3 px-12 rounded-[10px] text-lg ml-auto" onClick={() => navigate("/putaface") }>
   Continue
 </button>
 
