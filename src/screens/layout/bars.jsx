@@ -3,6 +3,7 @@ import "./style.css";
 import { useNavigate } from 'react-router-dom';
 import Button from "../../components/button/component";
 import PrivacyPolicy from "../More/PrivacyPolicy"; // Import the PrivacyPolicy component
+import TermsAndConditions from "../More/TermsandConditions";
 
 export function Header({ sidebarOpen, setSidebarOpen }) {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [activeNav, setActiveNav] = useState("Explore");
   const [currentPage, setPage] = useState("Explore");
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
   
   useEffect(() => {
     setPage(window.location.href.split("/").pop());
@@ -110,6 +112,11 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     setShowPrivacyModal(false);
   };
 
+  const closePopup = () => {
+    setShowSearchModal(false);
+  }
+  
+
   return (
     <>
       <aside className={`sidebar ${sidebarOpen ? "expanded" : "collapsed"}`}>
@@ -152,12 +159,12 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         {More && (
           <div className="py-4 bg-[#171717] m-4 rounded-xl flex flex-col justify-center align-center text-center">
             <button onClick={() => setShowPrivacyModal(true)} className="hover:text-white py-2">Privacy Policy</button>
-            <a className="hover:text-white py-2">Terms of Use</a>
+            <button onClick={() => setShowSearchModal(true)} className="hover:text-white py-2">Terms Of use</button>
             <a className="hover:text-white py-2">Community</a>
           </div>
         )}
 
-        {!window.localStorage.getItem("token") ? (
+        {window.localStorage.getItem("token") ? (
           <div className={`w-4/5 flex flex-col gap-[15px] ml-[17px] ${More ? "mt-[30%]" : "mt-[80%]"}`}>
             <Button
               theme={"light"}
@@ -218,6 +225,19 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </div>
         </div>
       )}
+
+     { showSearchModal && (
+        <div className="fixed inset-0 z-50">
+          <div 
+            className="absolute inset-0 bg-[#111111] opacity-90"
+            onClick={closePopup}
+          ></div>
+          <div className="relative z-10">
+            <TermsAndConditions onClose={closePopup} />
+          </div>
+        </div>
+      )}
+
     </>
   );
 }

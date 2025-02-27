@@ -1,13 +1,13 @@
 import React from 'react';
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy = ({onClose}) => {
   return (
     <div className="fixed inset-0 bg-transparent  flex justify-center items-center z-50">
  <div className="w-[70%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-[95%] overflow-hidden relative">
     <main className="overflow-y-scroll pt-12 h-full scrollbar-hide">
     <div className="bg-black text-gray-300 min-h-screen flex flex-col">
       <header className="p-6">
-        <button className="text-gray-400 hover:text-white">
+        <button className="text-gray-400 hover:text-white" onClick={onClose}>
           <svg width="32" height="26" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#757575" strokeWidth="0.5"/>
             <path d="M13.2167 13.6667L16.95 17.4L16 18.3333L10.6667 13L16 7.66667L16.95 8.6L13.2167 12.3333H21.3333V13.6667H13.2167Z" fill="#757575"/>

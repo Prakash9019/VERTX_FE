@@ -20,14 +20,14 @@ export default function Welcome_founder() {
 
   const [message, setMessage] = useState("");
 
-  // Handle Input Change
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   // Handle Form Submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
     
     try {
       const response = await fetch("http://localhost:5000/profile", {
@@ -41,7 +41,9 @@ export default function Welcome_founder() {
       const result = await response.json();
 
       if (response.ok) {
+        console.log(result);
         setMessage("Successfully submitted!");
+        navigate("/putaface")
       } else {
         setMessage(result.error || "Something went wrong!");
       }
@@ -72,9 +74,11 @@ export default function Welcome_founder() {
                   <div className="border-b-[1px] border-[#1D1C1C]">
                   
 
-                        <input onChange={handleChange}
-                        value={formData.firstName}
+                        <input
+                        name="firstName"
                       type="text" 
+                      onChange={handleChange}
+                      value={formData.firstName}
                       placeholder="E.g Mark" 
                       className="w-full p-2 bg-transparent text-gray-400 focus:outline-none"
                     />
@@ -86,6 +90,7 @@ export default function Welcome_founder() {
                         <input onChange={handleChange}
                         value={formData.lastName}
                       type="text" 
+                      name="lastName"
                       placeholder="E.g Zukerberg" 
                       className="w-full p-2 bg-transparent text-gray-400 focus:outline-none"
                     />
@@ -98,6 +103,7 @@ export default function Welcome_founder() {
                 <div className="border-b-[1px] border-[#1D1C1C]">
                     <input onChange={handleChange}
                      value={formData.city}
+                     name="city"
                     type="text" 
                     placeholder="Type and select your residing city." 
                     className="w-full p-2 bg-transparent text-gray-400 focus:outline-none"
@@ -110,6 +116,7 @@ export default function Welcome_founder() {
                 <div className="border-b-[1px] border-[#1D1C1C]">
                     <input onChange={handleChange}
                     type="text" 
+                    name="headline"
                     value={formData.headline}
                     placeholder="What everyone will see first.." 
                     className="w-full p-2 bg-transparent text-gray-400 focus:outline-none"
@@ -128,6 +135,7 @@ export default function Welcome_founder() {
 
                     </span>
                       <input onChange={handleChange}
+                      name="portfolioLink"
                        value={formData.portfolioLink}
                       type="text" 
                       placeholder="https://portfolio.com/..." 
@@ -153,6 +161,7 @@ export default function Welcome_founder() {
                     </span>
                       <input onChange={handleChange}
                        value={formData.linkedinLink}
+                       name="linkedinLink"
                       type="text" 
                       placeholder="https://linkedin.com/..." 
                       className="w-full bg-transparent text-gray-400 focus:outline-none"
@@ -176,6 +185,7 @@ export default function Welcome_founder() {
                     </span>
                       <input onChange={handleChange}
                        value={formData.github}
+                       name="github"
                       type="text" 
                       placeholder="https://github.com/..." 
                       className="w-full bg-transparent text-gray-400 focus:outline-none"
@@ -191,6 +201,7 @@ export default function Welcome_founder() {
                     </span>
                       <input onChange={handleChange}
                        value={formData.twitter}
+                       name="twitter"
                       type="text" 
                       placeholder="https://x.com/..." 
                       className="w-full bg-transparent text-gray-400 focus:outline-none"
@@ -201,7 +212,7 @@ export default function Welcome_founder() {
             </form>
             
             <div className="flex justify-center mt-8">
-            <button className="bg-white text-black font-bold py-3 px-12 rounded-[10px] text-lg ml-auto" onClick={() => navigate("/putaface")}>
+            <button className="bg-white text-black font-bold py-3 px-12 rounded-[10px] text-lg ml-auto" onClick={() =>handleSubmit()}>
   Continue
 </button>
 
