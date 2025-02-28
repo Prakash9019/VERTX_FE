@@ -2,9 +2,19 @@ import "./style.css";
 import logo from "../../assets/logo.png";
 import { useSearchParams, useNavigate } from "react-router";
 import Button from "../../components/button/component";
+import { useCopyProtection } from "../../context/CopyProtectionContext";
+import { useCopyBlocker } from "../../hooks/useCopyBlocker";
+import { useEffect } from "react";
 
 export default function Nopage() {
   const navigate =useNavigate();
+  const { setIsProtected } = useCopyProtection();
+
+  useEffect(() => {
+    setIsProtected(true); // 
+  }, []);
+
+  useCopyBlocker(true); // ✅ Protection enable
 
   return (
     <div className="auth-container">
