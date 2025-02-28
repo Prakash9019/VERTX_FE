@@ -29,6 +29,7 @@ import Put_a_face from "./screens/explore/Put_a_face.jsx";
 import Skills from "./screens/explore/Skills.jsx";
 import ShowYourProject from "./screens/explore/ShowYourProject.jsx";
 import Bio from "./screens/explore/Bio.jsx";
+import AddaProject from "./screens/explore/AddaProject.jsx";
 function App() {
   return (
     <Routes>
@@ -67,6 +68,7 @@ function App() {
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/putaface" element={<Put_a_face /> } />
       <Route path="/skills" element={<Skills /> } />
+      <Route path="/newproject" element={<AddaProject /> } />
       <Route path="/project" element={<ShowYourProject /> } />
       <Route path="/bio" element={<Bio /> } />
       

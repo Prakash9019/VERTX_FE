@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { Header, Sidebar } from "../layout/bars"
 import { useNavigate } from "react-router"
-
+import axios from "axios"
 export default function Welcome_founder() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -25,6 +25,26 @@ export default function Welcome_founder() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  useEffect(() => {
+    // Fetch user data when component mounts
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/profile/fetch`,{headers: {'Content-Type': 'application/json',
+          token: localStorage.getItem('token')
+        }});
+        // console.log(response.data[0]);
+        if (response.data.length > 0) {
+          setFormData(response.data[0]);
+          // setIsEditing(true); // Enable edit mode if data exists
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } 
+    };
+
+    fetchUserData();
+  }, []);
+
   // Handle Form Submission
   const handleSubmit = async () => {
     // e.preventDefault();
@@ -39,9 +59,7 @@ export default function Welcome_founder() {
       });
 
       const result = await response.json();
-
       if (response.ok) {
-        console.log(result);
         setMessage("Successfully submitted!");
         navigate("/putaface")
       } else {
@@ -212,7 +230,7 @@ export default function Welcome_founder() {
             </form>
             
             <div className="flex justify-center mt-8">
-            <button className="bg-white text-black font-bold py-3 px-12 rounded-[10px] text-lg ml-auto" onClick={() => navigate("/putaface") }>
+            <button className="bg-white text-black font-bold py-3 px-12 rounded-[10px] text-lg ml-auto" onClick={() =>handleSubmit()}>
   Continue
 </button>
 
