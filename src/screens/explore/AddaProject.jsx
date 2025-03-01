@@ -3,7 +3,7 @@ import { Header, Sidebar } from "../layout/bars";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom"; // Fetch profileId from URL
 import axios from "axios";
-
+import API_KEY from "../../../key";
 function ProjectCard({ project }) {
   const [projectData, setProjectData] = useState(project);
 
@@ -14,7 +14,7 @@ function ProjectCard({ project }) {
 
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:5000/profile/projects/${project.id}`, projectData);
+      await axios.put(`${API_KEY}/profile/projects/${project.id}`, projectData);
       alert("Project updated successfully!");
     } catch (error) {
       console.error("Error updating project:", error);
@@ -193,7 +193,7 @@ export default function AddaProject() {
   const [showNewInput, setShowNewInput] = useState(false); // Show input form
 
   useEffect(() => {
-    fetch(`http://localhost:5000/profile/projects/fetch` , {headers: {'Content-Type': 'application/json',
+    fetch(`${API_KEY}/profile/projects/fetch` , {headers: {'Content-Type': 'application/json',
         token: localStorage.getItem('token')
       }})
       .then((res) => res.json())
@@ -217,7 +217,7 @@ export default function AddaProject() {
       return;
     }
 
-    const response = await fetch(`http://localhost:5000/profile/projects`, {
+    const response = await fetch(`${API_KEY}/profile/projects`, {
       method: "POST",
       headers: { "Content-Type": "application/json" , token: localStorage.getItem('token') },
       body: JSON.stringify(newProject),

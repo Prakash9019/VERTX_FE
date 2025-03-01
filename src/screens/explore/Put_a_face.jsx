@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Header, Sidebar } from "../layout/bars";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import API_KEY from "../../../key";
 
 function timeDifference(createdAt) {
   const createdDate = new Date(createdAt);
@@ -35,7 +36,7 @@ export default function Put_a_face() {
     // Fetch user data when component mounts
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/profile/fetch",{headers: {'Content-Type': 'application/json',
+        const response = await axios.get("${API_KEY}/profile/fetch",{headers: {'Content-Type': 'application/json',
           token: localStorage.getItem('token')
         }});
         // console.log(response.data[0]);
@@ -43,7 +44,7 @@ export default function Put_a_face() {
           setUserId(response.data[0]._id);
           setTimeDifference(timeDifference(response.data[0].createdAt)); // Update time difference when data is fetched
           setUserData(response.data[0]);
-          setAvatar(`http://localhost:5000/${response.data[0].avatar }`);
+          setAvatar(`${API_KEY}/${response.data[0].avatar }`);
           console.log(response.data[0]);
           // setIsEditing(true); // Enable edit mode if data exists
         }
@@ -63,11 +64,11 @@ export default function Put_a_face() {
     formData.append("avatar", file);
      console.log(file);
     try {
-      const response = await axios.post(`http://localhost:5000/profile/${userId}/upload-avatar`, formData, {
+      const response = await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
         console.log(response);
-      setAvatar(`http://localhost:5000/${response.data.avatarUrl}`);
+      setAvatar(`${API_KEY}/${response.data.avatarUrl}`);
     } catch (error) {
       console.error("Error uploading avatar:", error);
     }

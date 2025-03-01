@@ -29,7 +29,7 @@ export default function Welcome_founder() {
     // Fetch user data when component mounts
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/profile/fetch`,{headers: {'Content-Type': 'application/json',
+        const response = await axios.get(`${API_KEY}/profile/fetch`,{headers: {'Content-Type': 'application/json',
           token: localStorage.getItem('token')
         }});
         // console.log(response.data[0]);
@@ -50,7 +50,7 @@ export default function Welcome_founder() {
     // e.preventDefault();
     
     try {
-      const response = await fetch("http://localhost:5000/profile", {
+      const response = await fetch("${API_KEY}/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json",
           token: localStorage.getItem('token')

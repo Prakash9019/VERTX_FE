@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Header, Sidebar } from "../layout/bars";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import API_KEY from "../../../key";
 
 // Skills & corresponding disciplines mapping
 const skillsData = {
@@ -67,7 +68,7 @@ export default function Skills() {
           "Content-Type": "application/json",
           token: localStorage.getItem('token')
         };
-        const response = await axios.get("http://localhost:5000/profile/skills",{headers}); // API to get saved skills
+        const response = await axios.get("${API_KEY}/profile/skills",{headers}); // API to get saved skills
         console.log(response);
         const { achievement, skills, disciplines } = response.data.data;
         setAchievement(achievement || "");
@@ -107,7 +108,7 @@ export default function Skills() {
         "Content-Type": "application/json",
         token: localStorage.getItem('token')
       };
-      await axios.post("http://localhost:5000/profile/skills", {
+      await axios.post("${API_KEY}/profile/skills", {
         achievement,
         skills: selectedSkills,
         disciplines: selectedDisciplines

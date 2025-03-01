@@ -3,6 +3,7 @@
 import { useState,useEffect } from "react"
 import { Header, Sidebar } from "../layout/bars"
 import axios from "axios"
+import API_KEY from "../../../key";
 
 function timeDifference(createdAt) {
   const createdDate = new Date(createdAt);
@@ -50,7 +51,7 @@ export default function Bio() {
     // Fetch user data when component mounts
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/profile/fetch`,{headers: {'Content-Type': 'application/json',
+        const response = await axios.get(`${API_KEY}/profile/fetch`,{headers: {'Content-Type': 'application/json',
           token: localStorage.getItem('token')
         }});
         // console.log(response.data[0]);
@@ -82,7 +83,7 @@ export default function Bio() {
 
   // Fetch Projects from Backend
   useEffect(() => {
-    fetch(`http://localhost:5000/profile/projects/fetch` , {headers: {'Content-Type': 'application/json',
+    fetch(`${API_KEY}/profile/projects/fetch` , {headers: {'Content-Type': 'application/json',
       token: localStorage.getItem('token')
     }})
       .then((res) => res.json())
@@ -126,7 +127,7 @@ export default function Bio() {
 
     if (projectId) {
       // Update Existing Project
-      fetch(`http://localhost:5000/profile/projects/${projectId}`, {
+      fetch(`${API_KEY}/profile/projects/${projectId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" , "token" :localStorage.getItem("token") },
         body: JSON.stringify(payload),
@@ -140,7 +141,7 @@ export default function Bio() {
       });
     } else {
       // Create New Project
-      fetch("http://localhost:5000/profile/projects", {
+      fetch("${API_KEY}/profile/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" , "token": localStorage.getItem("token") },
         body: JSON.stringify(payload),
@@ -230,7 +231,7 @@ export default function Bio() {
         "Content-Type": "application/json",
         token: localStorage.getItem('token')
       };
-      await axios.post("http://localhost:5000/profile/skills", {
+      await axios.post("${API_KEY}/profile/skills", {
         achievement,
         skills: selectedSkills,
         disciplines: selectedDisciplines
@@ -245,7 +246,7 @@ export default function Bio() {
     // e.preventDefault();
     
     try {
-      const response = await fetch("http://localhost:5000/profile", {
+      const response = await fetch("${API_KEY}/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json",
           token: localStorage.getItem('token')
