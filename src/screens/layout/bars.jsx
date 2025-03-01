@@ -190,6 +190,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     setActiveNav(item.text);
                     navigate(item.link);
                   }}
+                  
                   className={`nav-button w-full ${!More && currentPage === item.name ? "active" : ""}`}
                 >
                   {item.icon}
