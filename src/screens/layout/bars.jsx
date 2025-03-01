@@ -5,40 +5,141 @@ import Button from "../../components/button/component";
 import PrivacyPolicy from "../More/PrivacyPolicy"; // Import the PrivacyPolicy component
 import TermsAndConditions from "../More/TermsandConditions";
 
+// Import the auth components directly instead of navigating
+import LandingAuth from "../landing/index"; // Update this path to match your project structure
+
 export function Header({ sidebarOpen, setSidebarOpen }) {
   const navigate = useNavigate();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  
+  const openLoginModal = () => {
+    setShowLoginModal(true);
+  };
+  
+  const closeLoginModal = () => {
+    setShowLoginModal(false);
+  };
+  
   return (
-    <header className="top-bar">
-      <button className="menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M3 12h18M3 6h18M3 18h18" />
+    <>
+      <header className="top-bar">
+        <button className="menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M3 12h18M3 6h18M3 18h18" />
+          </svg>
+        </button>
+          
+        <div className="logo">
+          <svg width="140" height="32" viewBox="0 0 92 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M56.188Z" fill="white"/>
+            <path d="M6.72 3.8H8V3.8Z" fill="white"/>
+          </svg>
+        </div>
+       
+        <div className="btwrap mb">
+          {!window.localStorage.getItem("token") ? (
+            <Button
+              context={"Login"}
+              theme={"dark"}
+              callback={openLoginModal}
+            />
+          ) : (
+            <div className="header-right">
+              <button className="profile-button">Profile</button>
+            </div>
+          )}
+        </div>
+      </header>
+      
+      {/* Login Modal with backdrop */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-50">
+          <div 
+            className="absolute inset-0 bg-black opacity-80 backdrop-blur-sm"
+            onClick={closeLoginModal}
+          ></div>
+          <div className="relative z-10 flex items-center justify-center h-full">
+            <LoginPopup onClose={closeLoginModal} />
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+// Custom Login Popup Component based on LandingAuth
+function LoginPopup({ onClose }) {
+  const navigate = useNavigate();
+  
+  const fetchGoogleUrl = async () => {
+    try {
+      const response = await axios.get(API_KEY + "/auth/oauth");
+      if(response.status == 200){
+        console.log(response?.data?.msg);
+        window.location.href = response.data.msg;
+      }
+    } catch (error) {
+      console.error("Error fetching Google auth URL:", error);
+    }
+  };
+  
+  return (
+    <div className="login-popup bg-black rounded-lg max-w-4xl w-full px-48 py-40 relative">
+      <button 
+        onClick={onClose}
+        className="absolute top-8 right-8 text-white hover:text-gray-300"
+        aria-label="Close"
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M18 6L6 18M6 6l12 12" />
         </svg>
       </button>
-        
-      <div className="logo">
-      <svg width="140" height="32" viewBox="0 0 92 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M56.184 3.8H61.512V5.608H56.936L56.36 6.2V8.424H59.736V10.232H56.36V15H54.424V5.592L56.184 3.8ZM63.5218 3.8H65.4578V12.472L65.9538 13.192H69.3298V12.024H71.2658V15H64.9778L63.5218 12.792V3.8ZM74.6195 3.8H79.4355L80.8435 5.944V13.464L79.3875 15H74.5875L73.1315 12.856V5.336L74.6195 3.8ZM75.0675 12.504L75.5315 13.192H78.6035L78.9075 12.872V6.296L78.4435 5.608H75.3555L75.0675 5.928V12.504ZM82.3893 3.8H84.3253V11.608L85.0773 12.728H85.1573L85.6053 12.296V8.04H87.5413V11.832L88.0853 12.744H88.1493L88.8213 12.008V3.8H90.7573V12.856L88.6773 15H87.1733L86.6453 14.088L85.7973 15H84.3093L82.3893 12.152V3.8Z" fill="white"/>
-          <path d="M6.72 3.8H8.656V11.176L5.008 15H3.584L0.944 11.096V3.8H2.88V10.728L4.416 13.016L6.72 10.6V3.8ZM11.8498 3.8H18.0898V5.608H12.5858L12.2978 5.928V8.44H15.9938V10.248H12.2978V12.488L12.7618 13.192H18.0898V15H11.8018L10.3618 12.856V5.32L11.8498 3.8ZM20.1155 3.8H25.9875L27.8595 6.536V8.408L26.3875 9.928L27.8595 12.088V15H25.9235V12.424L24.4675 10.296H22.8995L22.0515 9.768V15H20.1155V3.8ZM22.0515 5.608V8.488H25.2995L25.9235 7.848V6.92L25.0115 5.608H22.0515ZM29.4053 3.8H37.7573V5.608H33.5013L34.5573 6.552V15H32.6213V7L32.1573 5.608H29.4053V3.8ZM44.791 3.8H46.727V7.208L45.207 8.76L46.727 10.984V15H44.791V11.352L43.975 10.216H43.239L41.559 11.976V15H39.623V11.368L41.143 9.816L39.623 7.592V3.8H41.559V7.224L42.343 8.408H43.111L44.791 6.648V3.8Z" fill="white"/>
-        </svg>
-      </div>
-     
-      <div className="btwrap mb">
-        {!window.localStorage.getItem("token") ? (
+      
+      {/* Fixed Width Content (Reduced to 300px) */}
+      <div className="section w-[300px] mx-auto">
+        <p className="title text-center text-2xl">Join Today.</p>
+        <div className="wrapper w-full">
           <Button
-            context={"Login"}
-            theme={"dark"}
+            context={"Sign in with Google"}
+            theme="dark"
+            callback={() => fetchGoogleUrl()}
+          />
+          
+          <div className="separator flex items-center justify-center w-full">
+            <div className="line flex-1"></div>
+            <p className="sub mx-4">or</p>
+            <div className="line flex-1"></div>
+          </div>
+          
+          <Button
+            context={"Create account"}
+            theme="light"
             callback={() => {
-              navigate("/authentication");
+              onClose();
+              navigate("/signup");
             }}
           />
-        ) : (
-          <div className="header-right">
-            <button className="profile-button">Profile</button>
-          </div>
-        )}
+          
+          <p className="cnd text-center text-lg">
+            By signing up, you agree to the Terms of Service and Privacy
+            Policy, including Cookie Use.
+          </p>
+  
+          <p className="subhead text-center text-lg">Already have an account?</p>
+          <Button
+            context={"Log in"}
+            theme="dark"
+            callback={() => {
+              onClose();
+              navigate("/signin");
+            }}
+          />
+        </div>
       </div>
-    </header>
+    </div>
   );
+  
+  
 }
 
 export function Sidebar({ sidebarOpen, setSidebarOpen }) {
@@ -103,8 +204,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     { 
       icon: (
         <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 13.3333C3.63333 13.3333 3.31944 13.2028 3.05833 12.9417C2.79722 12.6806 2.66667 12.3667 2.66667 12C2.66667 11.6333 2.79722 11.3195 3.05833 11.0583C3.31944 10.7972 3.63333 10.6667 4 10.6667C4.36667 10.6667 4.68056 10.7972 4.94167 11.0583C5.20278 11.3195 5.33333 11.6333 5.33333 12C5.33333 12.3667 5.20278 12.6806 4.94167 12.9417C4.68056 13.2028 4.36667 13.3333 4 13.3333ZM8 13.3333C7.63333 13.3333 7.31945 13.2028 7.05833 12.9417C6.79722 12.6806 6.66667 12.3667 6.66667 12C6.66667 11.6333 6.79722 11.3195 7.05833 11.0583C7.31945 10.7972 7.63333 10.6667 8 10.6667C8.36667 10.6667 8.68056 10.7972 8.94167 11.0583C9.20278 11.3195 9.33333 11.6333 9.33333 12C9.33333 12.3667 9.20278 12.6806 8.94167 12.9417C8.68056 13.2028 8.36667 13.3333 8 13.3333ZM12 13.3333C11.6333 13.3333 11.3194 13.2028 11.0583 12.9417C10.7972 12.6806 10.6667 12.3667 10.6667 12C10.6667 11.6333 10.7972 11.3195 11.0583 11.0583C11.3194 10.7972 11.6333 10.6667 12 10.6667C12.3667 10.6667 12.6806 10.7972 12.9417 11.0583C13.2028 11.3195 13.3333 11.6333 13.3333 12C13.3333 12.3667 13.2028 12.6806 12.9417 12.9417C12.6806 13.2028 12.3667 13.3333 12 13.3333ZM4 9.33334C3.63333 9.33334 3.31944 9.20278 3.05833 8.94167C2.79722 8.68056 2.66667 8.36667 2.66667 8.00001C2.66667 7.63334 2.79722 7.31945 3.05833 7.05834C3.31944 6.79723 3.63333 6.66667 4 6.66667C4.36667 6.66667 4.68056 6.79723 4.94167 7.05834C5.20278 7.31945 5.33333 7.63334 5.33333 8.00001C5.33333 8.36667 5.20278 8.68056 4.94167 8.94167C4.68056 9.20278 4.36667 9.33334 4 9.33334ZM8 9.33334C7.63333 9.33334 7.31945 9.20278 7.05833 8.94167C6.79722 8.68056 6.66667 8.36667 6.66667 8.00001C6.66667 7.63334 6.79722 7.31945 7.05833 7.05834C7.31945 6.79723 7.63333 6.66667 8 6.66667C8.36667 6.66667 8.68056 6.79723 8.94167 7.05834C9.20278 7.31945 9.33333 7.63334 9.33333 8.00001C9.33333 8.36667 9.20278 8.68056 8.94167 8.94167C8.68056 9.20278 8.36667 9.33334 8 9.33334ZM12 9.33334C11.6333 9.33334 11.3194 9.20278 11.0583 8.94167C10.7972 8.68056 10.6667 8.36667 10.6667 8.00001C10.6667 7.63334 10.7972 7.31945 11.0583 7.05834C11.3194 6.79723 11.6333 6.66667 12 6.66667C12.3667 6.66667 12.6806 6.79723 12.9417 7.05834C13.2028 7.31945 13.3333 7.63334 13.3333 8.00001C13.3333 8.36667 13.2028 8.68056 12.9417 8.94167C12.6806 9.20278 12.3667 9.33334 12 9.33334ZM4 5.33334C3.63333 5.33334 3.31944 5.20278 3.05833 4.94167C2.79722 4.68056 2.66667 4.36667 2.66667 4.00001C2.66667 3.63334 2.79722 3.31945 3.05833 3.05834C3.31944 2.79723 3.63333 2.66667 4 2.66667C4.36667 2.66667 4.68056 2.79723 4.94167 3.05834C5.20278 3.31945 5.33333 3.63334 5.33333 4.00001C5.33333 4.36667 5.20278 4.68056 4.94167 4.94167C4.68056 5.20278 4.36667 5.33334 4 5.33334ZM8 5.33334C7.63333 5.33334 7.31945 5.20278 7.05833 4.94167C6.79722 4.68056 6.66667 4.36667 6.66667 4.00001C6.66667 3.63334 6.79722 3.31945 7.05833 3.05834C7.31945 2.79723 7.63333 2.66667 8 2.66667C8.36667 2.66667 8.68056 2.79723 8.94167 3.05834C9.20278 3.31945 9.33333 3.63334 9.33333 4.00001C9.33333 4.36667 9.20278 4.68056 8.94167 4.94167C8.68056 5.20278 8.36667 5.33334 8 5.33334ZM12 5.33334C11.6333 5.33334 11.3194 5.20278 11.0583 4.94167C10.7972 4.68056 10.6667 4.36667 10.6667 4.00001C10.6667 3.63334 10.7972 3.31945 11.0583 3.05834C11.3194 2.79723 11.6333 2.66667 12 2.66667C12.3667 2.66667 12.6806 2.79723 12.9417 3.05834C13.2028 3.31945 13.3333 3.63334 13.3333 4.00001C13.3333 4.36667 13.2028 4.68056 12.9417 4.94167C12.6806 5.20278 12.3667 5.33334 12 5.33334Z" fill="white"/>
-        </svg>
+        <path d="M4 13.33333334Z" fill="white"/>
+        </svg>  
       ), 
       text: "Resouces",
       link: "/resources",
@@ -121,6 +222,15 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     setShowSearchModal(false);
   }
   
+  // Function to handle More button click
+  const handleMoreClick = () => {
+    // If sidebar is collapsed, expand it first
+    if (!sidebarOpen) {
+      setSidebarOpen(true);
+    }
+    // Toggle the More state
+    setMore(!More);
+  };
 
   return (
     <>
@@ -128,32 +238,28 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <nav>
           <ul className="nav-list">
             {navItems.map((item, index) => (
-              <li key={index}>
+              <li key={index} className="w-full">
                 <button
                   onClick={() => {
                     console.log(item.text);
                     setActiveNav(item.text);
                     navigate(item.link);
                   }}
-                  className={`flex items-center gap-3 p-3 rounded-full hover:bg-zinc-900 relative
-                    ${!More && currentPage === item.name ? "font-bold before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-white before:rounded-full" : ""}`}
+                  className={`nav-button w-full ${!More && currentPage === item.name ? "active" : ""}`}
                 >
                   {item.icon}
-                  <a href={item.link} className="lk">
-                    <span className="nav-text">{item.text}</span>
-                  </a>
+                  <span className="nav-text">{item.text}</span>
                 </button>
               </li>
             ))}
 
-            <li key={123}>
+            <li key={123} className="w-full">
               <button
-                onClick={() => {setMore(!More)}}
-                className={`flex items-center gap-3 p-3 rounded-full hover:bg-zinc-900 relative
-                  ${More ? "font-bold before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-white before:rounded-full" : ""}`}
+                onClick={handleMoreClick}
+                className={`nav-button w-full ${More ? "active" : ""}`}
               >
-               <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 <path d="M4 9.33334C3.63333 9.33334 3.31944 9.20278 3.05833 8.94167C2.79722 8.68056 2.66667 8.36667 2.66667 8.00001C2.66667 7.63334 2.79722 7.31945 3.05833 7.05834C3.31944 6.79723 3.63333 6.66667 4 6.66667C4.36667 6.66667 4.68056 6.79723 4.94167 7.05834C5.20278 7.31945 5.33333 7.63334 5.33333 8.00001C5.33333 8.36667 5.20278 8.68056 4.94167 8.94167C4.68056 9.20278 4.36667 9.33334 4 9.33334ZM8 9.33334C7.63333 9.33334 7.31945 9.20278 7.05833 8.94167C6.79722 8.68056 6.66667 8.36667 6.66667 8.00001C6.66667 7.63334 6.79722 7.31945 7.05833 7.05834C7.31945 6.79723 7.63333 6.66667 8 6.66667C8.36667 6.66667 8.68056 6.79723 8.94167 7.05834C9.20278 7.31945 9.33333 7.63334 9.33333 8.00001C9.33333 8.36667 9.20278 8.68056 8.94167 8.94167C8.68056 9.20278 8.36667 9.33334 8 9.33334ZM12 9.33334C11.6333 9.33334 11.3194 9.20278 11.0583 8.94167C10.7972 8.68056 10.6667 8.36667 10.6667 8.00001C10.6667 7.63334 10.7972 7.31945 11.0583 7.05834C11.3194 6.79723 11.6333 6.66667 12 6.66667C12.3667 6.66667 12.6806 6.79723 12.9417 7.05834C13.2028 7.31945 13.3333 7.63334 13.3333 8.00001C13.3333 8.36667 13.2028 8.68056 12.9417 8.94167C12.6806 9.20278 12.3667 9.33334 12 9.33334Z" fill="white"/>
+                <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M4 9.33334C334Z" fill="white"/>
                  </svg>
                 <span className="nav-text">More</span>
               </button>
@@ -192,9 +298,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
           >
             {sidebarOpen ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M11 18l-6-6 6-6" />
-            </svg>
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+             <path d="M19 12H5M11 18l-6-6 6-6" />
+           </svg>
             ) : (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M13 18l6-6-6-6" />
@@ -228,7 +334,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </div>
         </div>
       )}
-
     </>
   );
 }
