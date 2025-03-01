@@ -168,7 +168,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             <a className="hover:text-white py-2">Community</a>
             <hr className="w-1/3 border-t-2 border-gray-400 mx-auto" />
 
-            <button onClick={() =>  {window.localStorage.removeItem("token");    navigate("/authentication");}} className="hover:text-white py-4">GET OUT</button>
+            <button onClick={() =>  {window.localStorage.removeItem("token");    navigate("/authentication");}} className="hover:text-white py-4">Get Out</button>
            
           </div>
         )}

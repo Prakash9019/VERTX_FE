@@ -226,6 +226,7 @@ import axios from "axios";
 import { Header, Sidebar } from "../layout/bars.jsx";
 import image from "./image.png";
 import Card from "../../components/investorCard/component";
+import gify from "./gify.gif"
 
 export default function Outreach() {
   const navigate = useNavigate();
@@ -360,7 +361,9 @@ export default function Outreach() {
             {/* Investor Cards */}
             <div className="profilecards">
               {loading ? (
-                <div className="loading">Loading investors...</div>
+                 <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                 <img src={gify} alt="Loading..." className="w-20 h-20" />
+                 </div>
               ) : (
                 // investors.map((item, index) => (
                 //   <div key={item._id || index} className={currentPage*20 > totalPageSize ? "bg-red" : ""}>
