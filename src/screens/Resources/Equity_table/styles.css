@@ -32,10 +32,11 @@
 .content-wrapper {
   max-width: 64rem;
   margin: 0 auto;
+  padding-left: 2rem; /* Added padding to push content to the right */
 }
 
-/* Back button */
-.back-button {
+/* Back button - kept in original position */
+.back-button { 
   display: flex;
   align-items: center;
   background-color: black;
@@ -53,6 +54,7 @@
 
 .section-header {
   margin-bottom: 2rem;
+  margin-left: 2rem; /* Added margin to move section content right */
 }
 
 .intro-section {
@@ -89,6 +91,7 @@
 /* Definitions section */
 .definitions-section {
   margin-bottom: 3rem;
+  margin-left: 2rem; /* Added margin to move section content right */
 }
 
 .definitions-table-container {
@@ -127,6 +130,7 @@
 /* Calculator section */
 .calculator-section {
   margin-bottom: 3rem;
+  margin-left: 2rem; /* Added margin to move section content right */
 }
 
 .calculator-container {
@@ -263,6 +267,7 @@
 /* FAQs section */
 .faqs-section {
   margin-bottom: 3rem;
+  margin-left: 2rem; /* Added margin to move section content right */
 }
 
 .faqs-container {
@@ -272,7 +277,7 @@
 }
 
 .faq-item {
-  border: 1px solid #1f2937;
+  border: 1px solid #757575;
   border-radius: 0.5rem;
   padding: 1rem 1.5rem;
 }
@@ -293,6 +298,7 @@
   text-align: center;
   color: #6b7280;
   font-size: 0.875rem;
+  margin-left: 2rem; /* Added margin to move section content right */
 }
 
 .footer-content {
@@ -397,4 +403,4 @@
 
 .close-modal-btn:hover {
   background-color: #374151;
-} 
+}
