@@ -20,12 +20,7 @@ export default function ShowYourProject() {
             
             <div className="bg-[#151515] rounded-3xl p-6 shadow-xl border border-[#1D1C1C] w-full">
               <div className="flex flex-col items-start">
-                <div className="flex justify-between items-center w-full mb-4">
-                  <h2 className="text-2xl font-bold">Projects</h2>
-                  <button className="flex items-center text-[#757575]">
-                    <span className="text-2xl mr-1">+</span> Add Project
-                  </button>
-                </div>
+               
                 
                 <div className="flex justify-between items-center w-full mb-4">
                   <div className="text-[#CAC5C5] text-[25px] font-extrabold">Stealth Project</div>
