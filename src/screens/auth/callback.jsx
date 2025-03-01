@@ -70,33 +70,21 @@ import Button from "../../components/button/component";
 export default function Callback() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  const code = params.get("code");
-
-  const callback = async () => {
-    if (!code) return; // Ensure code exists
-
-    try {
-      console.log("Making API call with code:", code);
-      const response = await axios.get(`${API_KEY}/auth/callback?code=${code}`);
-
-      console.log("Response:", response);
-
-      if (response.status === 200) {
-        console.log("Success:", response.data);
-        window.localStorage.setItem("token", response.data.token);
-        navigate("/outreach"); // Navigate only if success
-      }
-    } catch (error) {
-      console.error("Error in callback:", error.response || error);
-    }
-  };
+  
+  const token = params.get("token"); // Extract token from URL
 
   useEffect(() => {
-    console.log("Code in URL:", code);
-    if (code) {
-      callback();
+    console.log("Extracted token:", token);
+
+    if (token) {
+      window.localStorage.setItem("token", token);
+      
+      setTimeout(() => {
+        navigate("/outreach");
+      }, 500);
     }
-  }, [code]); // Ensure useEffect only runs when `code` changes
+  }, [token, navigate]);
+
 
   return (
     <div className="auth-container lg">
