@@ -19,11 +19,14 @@ export default function Callback() {
       .catch((e) => {
         return e.response;
       });
-      console.log(response.data)
+      console.log(response)
+      console.log(response.data);
       if(response.status == 200){
         window.localStorage.setItem("token", response?.data?.token);
         navigate("/outreach");
       }
+      window.localStorage.setItem("token", response?.data?.token);
+        navigate("/outreach");
   };
   
   useEffect(() => {
