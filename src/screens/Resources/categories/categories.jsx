@@ -6,7 +6,7 @@ import FinancialModeling from "../AandF/AandF"
 import EquityManagement from "../Equity_table/Equity_table"
 import ValuationCalculator from "../Startup-valuation/Startup-valuation"
 import DocandSa from "../DOCandSA/DocandSa"
-import { Header, Sidebar } from "../../layout/bars"
+import { Header, Sidebar } from "../../layout/bars" 
 
 function Categories() {
   const [sidebarOpen, setSidebarOpen] = useState(true)

@@ -14,11 +14,25 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   // Function to close the login modal
   const closeLoginModal = () => {
     setShowLoginModal(false);
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
+
+  // Function to open the login modal
+  const openLoginModal = () => {
+    setShowLoginModal(true);
+    document.body.style.overflow = "hidden"; // Prevent scrolling of background content
   };
 
   // Function to close the profile modal
   const closeProfileModal = () => {
     setShowProfileModal(false);
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
+
+  // Function to open the profile modal
+  const openProfileModal = () => {
+    setShowProfileModal(true);
+    document.body.style.overflow = "hidden"; // Prevent scrolling of background content
   };
 
   return (
@@ -30,10 +44,10 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
       </button>
         
       <div className="logo">
-      <svg width="140" height="32" viewBox="0 0 92 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M56.2V3.8Z" fill="white"/>
-          <path d="M6.72 3.8Z" fill="white"/>
-        </svg>
+      <svg width="47" height="12" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.72 0.799999H8.656V8.176L5.008 12H3.584L0.944 8.096V0.799999H2.88V7.728L4.416 10.016L6.72 7.6V0.799999ZM11.8498 0.799999H18.0898V2.608H12.5858L12.2978 2.928V5.44H15.9938V7.248H12.2978V9.488L12.7618 10.192H18.0898V12H11.8018L10.3618 9.856V2.32L11.8498 0.799999ZM20.1155 0.799999H25.9875L27.8595 3.536V5.408L26.3875 6.928L27.8595 9.088V12H25.9235V9.424L24.4675 7.296H22.8995L22.0515 6.768V12H20.1155V0.799999ZM22.0515 2.608V5.488H25.2995L25.9235 4.848V3.92L25.0115 2.608H22.0515ZM29.4053 0.799999H37.7573V2.608H33.5013L34.5573 3.552V12H32.6213V4L32.1573 2.608H29.4053V0.799999ZM44.791 0.799999H46.727V4.208L45.207 5.76L46.727 7.984V12H44.791V8.352L43.975 7.216H43.239L41.559 8.976V12H39.623V8.368L41.143 6.816L39.623 4.592V0.799999H41.559V4.224L42.343 5.408H43.111L44.791 3.648V0.799999Z" fill="white"/>
+</svg>
+
       </div>
      
       <div className="btwrap mb">
@@ -41,26 +55,24 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
           <Button
             context={"Login"}
             theme={"dark"}
-            callback={() => {
-              setShowLoginModal(true);
-            }}
+            callback={openLoginModal}
           />
         ) : (
           <div className="header-right">
-            <button className="profile-button" onClick={() => setShowProfileModal(true)}>Profile</button>
+            <button className="profile-button" onClick={openProfileModal}>Profile</button>
           </div>
         )}
       </div>
 
       {/* Login Modal with backdrop */}
       {showLoginModal && (
-        
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div 
-            className="absolute inset-0 bg-[#111111] opacity-90"
-            onClick={closeLoginModal}
-          ></div>
-          <div className="relative z-10 w-auto max-w-4xl">
+        <div className="backdrop" onClick={closeLoginModal}>
+          <div className="popup" onClick={(e) => e.stopPropagation()}>
+            <div className="topsec">
+              <button className="btn" onClick={closeLoginModal}>
+                <ion-icon name="arrow-back-outline"></ion-icon>
+              </button>
+            </div>
             <LandingAuth onClose={closeLoginModal} />
           </div>
         </div>
@@ -68,12 +80,13 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
 
       {/* Profile Modal with backdrop */}
       {showProfileModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div 
-            className="absolute inset-0 bg-[#111111] opacity-90"
-            onClick={closeProfileModal}
-          ></div>
-          <div className="relative z-10 w-auto max-w-3xl">
+        <div className="backdrop" onClick={closeProfileModal}>
+          <div className="popup" onClick={(e) => e.stopPropagation()}>
+            <div className="topsec">
+              <button className="btn" onClick={closeProfileModal}>
+                <ion-icon name="arrow-back-outline"></ion-icon>
+              </button>
+            </div>
             <LandingAuth onClose={closeProfileModal} />
           </div>
         </div>
@@ -134,7 +147,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     // { 
     //   icon: (
     //     <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    //     <path d="M5.73333 15L4.46667 12.8667L2.06667 12.3333L2.3 9.86667L0.666667 8L2.3 6.13333L2.06667 3.66667L4.46667 3.13333L5.73333 1L8 1.96667L10.2667 1L11.5333 3.13333L13.9333 3.66667L13.7 6.13333L15.3333 8L13.7 9.86667L13.9333 12.3333L11.5333 12.8667L10.2667 15L8 14.0333L5.73333 15ZM6.3 13.3L8 12.5667L9.73333 13.3L10.6667 11.7L12.5 11.2667L12.3333 9.4L13.5667 8L12.3333 6.56667L12.5 4.7L10.6667 4.3L9.7 2.7L8 3.43333L6.26667 2.7L5.33333 4.3L3.5 4.7L3.66667 6.56667L2.43333 8L3.66667 9.4L3.5 11.3L5.33333 11.7L6.3 13.3ZM7.3 10.3667L11.0667 6.6L10.1333 5.63333L7.3 8.46667L5.86667 7.06667L4.93333 8L7.3 10.3667Z" fill="white"/>
+    //     <path d="M5.733330.3667Z" fill="white"/>
     //     </svg>
     //   ), 
     //   text: "Activity",
@@ -151,21 +164,31 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
       link: "/resources",
       name: "resources",
     },
-    
-
-
-
-
   ];
 
   // Function to close the privacy policy modal
   const closePrivacyModal = () => {
     setShowPrivacyModal(false);
+    document.body.style.overflow = "auto"; // Restore scrolling
   };
 
-  const closePopup = () => {
+  // Function to open the privacy policy modal
+  const openPrivacyModal = () => {
+    setShowPrivacyModal(true);
+    document.body.style.overflow = "hidden"; // Prevent scrolling
+  };
+
+  // Function to close the search modal
+  const closeSearchModal = () => {
     setShowSearchModal(false);
-  }
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
+
+  // Function to open the search modal
+  const openSearchModal = () => {
+    setShowSearchModal(true);
+    document.body.style.overflow = "hidden"; // Prevent scrolling
+  };
   
   // Function to handle More button click
   const handleMoreClick = () => {
@@ -190,7 +213,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     setActiveNav(item.text);
                     navigate(item.link);
                   }}
-                  
+
                   className={`nav-button w-full ${!More && currentPage === item.name ? "active" : ""}`}
                 >
                   {item.icon}
@@ -204,10 +227,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 onClick={handleMoreClick}
                 className={`nav-button w-full ${More ? "active" : ""}`}
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M3.99984 9.33332C3.63317 9.33332 3.31928 9.20277 3.05817 8.94166C2.79706 8.68055 2.6665 8.36666 2.6665 7.99999C2.6665 7.63332 2.79706 7.31943 3.05817 7.05832C3.31928 6.79721 3.63317 6.66666 3.99984 6.66666C4.3665 6.66666 4.68039 6.79721 4.9415 7.05832C5.20262 7.31943 5.33317 7.63332 5.33317 7.99999C5.33317 8.36666 5.20262 8.68055 4.9415 8.94166C4.68039 9.20277 4.3665 9.33332 3.99984 9.33332ZM7.99984 9.33332C7.63317 9.33332 7.31928 9.20277 7.05817 8.94166C6.79706 8.68055 6.6665 8.36666 6.6665 7.99999C6.6665 7.63332 6.79706 7.31943 7.05817 7.05832C7.31928 6.79721 7.63317 6.66666 7.99984 6.66666C8.3665 6.66666 8.68039 6.79721 8.9415 7.05832C9.20262 7.31943 9.33317 7.63332 9.33317 7.99999C9.33317 8.36666 9.20262 8.68055 8.9415 8.94166C8.68039 9.20277 8.3665 9.33332 7.99984 9.33332ZM11.9998 9.33332C11.6332 9.33332 11.3193 9.20277 11.0582 8.94166C10.7971 8.68055 10.6665 8.36666 10.6665 7.99999C10.6665 7.63332 10.7971 7.31943 11.0582 7.05832C11.3193 6.79721 11.6332 6.66666 11.9998 6.66666C12.3665 6.66666 12.6804 6.79721 12.9415 7.05832C13.2026 7.31943 13.3332 7.63332 13.3332 7.99999C13.3332 8.36666 13.2026 8.68055 12.9415 8.94166C12.6804 9.20277 12.3665 9.33332 11.9998 9.33332Z" fill="white"/>
 </svg>
-
                 <span className="nav-text">More</span>
               </button>
             </li>
@@ -216,12 +238,12 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
         {More && (
           <div className="py-4 bg-[#171717] m-4 rounded-xl flex flex-col justify-center align-center text-center py-2">
-            <button onClick={() => setShowPrivacyModal(true)} className="hover:text-white py-2">Privacy Policy</button>
-            <button onClick={() => setShowSearchModal(true)} className="hover:text-white py-2">Terms Of use</button>
+            <button onClick={openPrivacyModal} className="hover:text-white py-2">Privacy Policy</button>
+            <button onClick={openSearchModal} className="hover:text-white py-2">Terms Of use</button>
             <a className="hover:text-white py-2">Community</a>
             <hr className="w-1/3 border-t-2 border-gray-400 mx-auto" />
 
-            <button onClick={() =>  {window.localStorage.removeItem("token");    navigate("/authentication");}} className="hover:text-white py-4">Get Out</button>
+            <button onClick={() =>  {window.localStorage.removeItem("token"); navigate("/authentication");}} className="hover:text-white py-4">Get Out</button>
            
           </div>
         )}
@@ -245,13 +267,17 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
           >
             {sidebarOpen ? (
-             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-             <path d="M19 12H5M11 18l-6-6 6-6" />
+           <svg width="20" height="20" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+           <path d="M2.1875 0.8125L0.46875 2.53125C0.21875 2.78125 0.21875 3.21875 0.46875 3.46875L2.1875 5.1875C2.625 5.625 3.34375 5.3125 3.34375 4.71875V1.28125C3.34375 0.6875 2.625 0.375 2.1875 0.8125Z" fill="#7D7373"/>
            </svg>
+          
+            
             ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M13 18l6-6-6-6" />
-            </svg>
+              <svg width="20" height="20" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.8125 5.1875L3.53125 3.46875C3.78125 3.21875 3.78125 2.78125 3.53125 2.53125L1.8125 0.8125C1.375 0.375 0.65625 0.6875 0.65625 1.28125V4.71875C0.65625 5.3125 1.375 5.625 1.8125 5.1875Z" fill="#7D7373"/>
+              </svg>
+              
+
             )}
           </button>
         </div>
@@ -259,25 +285,28 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
       {/* Privacy Policy Modal with backdrop */}
       {showPrivacyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div 
-            className="absolute inset-0 bg-[#111111] opacity-90"
-            onClick={closePrivacyModal}
-          ></div>
-          <div className="relative z-10 w-auto max-w-3xl">
+        <div className="backdrop" onClick={closePrivacyModal}>
+          <div className="popup" onClick={(e) => e.stopPropagation()}>
+            <div className="topsec">
+              <button className="btn" onClick={closePrivacyModal}>
+                <ion-icon name="arrow-back-outline"></ion-icon>
+              </button>
+            </div>
             <PrivacyPolicy onClose={closePrivacyModal} />
           </div>
         </div>
       )}
 
-     { showSearchModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div 
-            className="absolute inset-0 bg-[#111111] opacity-90"
-            onClick={closePopup}
-          ></div>
-          <div className="relative z-10 w-auto max-w-3xl">
-            <TermsAndConditions onClose={closePopup} />
+      {/* Terms and Conditions Modal with backdrop */}
+      {showSearchModal && (
+        <div className="backdrop" onClick={closeSearchModal}>
+          <div className="popup" onClick={(e) => e.stopPropagation()}>
+            <div className="topsec">
+              <button className="btn" onClick={closeSearchModal}>
+                <ion-icon name="arrow-back-outline"></ion-icon>
+              </button>
+            </div>
+            <TermsAndConditions onClose={closeSearchModal} />
           </div>
         </div>
       )}
