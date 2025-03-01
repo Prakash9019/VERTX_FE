@@ -162,7 +162,7 @@ export default function Outreach() {
                       Ticket <i className="material-icons text-white">lock</i>
                     </div>
                     <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                      Bookmarked <i className="material-icons text-white">lock</i>
+                      Bookmarked
                     </div>
                   </>
                 ) : (
