@@ -51,8 +51,13 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [showSearchModal, setShowSearchModal] = useState(false);
   
   useEffect(() => {
-    setPage(window.location.href.split("/").pop());
-  }, []);
+    // Check if the path includes "explore" to keep the bar active
+    if (location.pathname.includes("explore")) {
+      setPage("explore");
+    } else {
+      setPage(location.pathname.split("/").pop()); // Fallback for other pages
+    }
+  }, [location.pathname]); // Dependency ensures it updates when URL changes
   
   const navItems = [
     { 
@@ -168,25 +173,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </div>
         )}
 
-        {window.localStorage.getItem("token") ? (
-          <div className={`w-4/5 flex flex-col gap-[15px] absolute bottom-[25%] left-1/2 transform -translate-x-1/2`}>
-            <Button
-              theme={"light"}
-              context={"VERTX FLOW"}
-              callback={() => {
-                navigate("/flow/match flow");
-              }}
-            />
-            <Button
-              theme={"dark"}
-              context={"GET OUT"}
-              callback={() => {
-                window.localStorage.removeItem("token");
-                navigate("/authentication");
-              }}
-            />
-          </div>
-        ) : (
           <div className={`w-4/5 flex flex-col gap-[15px] absolute bottom-[15%] left-1/2 transform -translate-x-1/2`}>
  
             <Button
@@ -197,7 +183,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
               }}
             />
           </div>
-        )}
+       
 
         <div className="sidebar-toggle-wrapper">
           <button 

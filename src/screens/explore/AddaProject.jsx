@@ -460,7 +460,7 @@ export default function AddaProject() {
               </button>
               <button
                 className="bg-white text-black font-bold py-3 px-12 rounded-[10px] text-lg"
-                onClick={() => navigate("/bio")}
+                onClick={() => navigate("/explore/bio")}
               >
                 Continue
               </button>

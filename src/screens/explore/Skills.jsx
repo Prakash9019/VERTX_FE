@@ -1,91 +1,201 @@
-"use client"
+"use client";
+import React, { useState, useEffect } from "react";
+import { Header, Sidebar } from "../layout/bars";
+import { useNavigate } from "react-router";
+import axios from "axios";
 
-import React, { useState, useEffect } from "react"
-import { Header, Sidebar } from "../layout/bars"
-import { useNavigate } from "react-router"
+// Skills & corresponding disciplines mapping
+const skillsData = {
+  "Business & Operations": [
+    "Client Management", "E-commerce", "HR & Recruitment", "PR (Public Relations)",
+    "Business Development", "Business Operations", "Business Strategy",
+    "Customer Success", "Finance", "Business Analytics", "Program Management", "Sales"
+  ],
+  "Growth & Marketing": [
+    "Brand Management", "Client Management", "Marketing Management", "Growth Analytics",
+    "Growth Operations", "Growth Strategy", "Advertising", "Growth Hacking", "SEO"
+  ],
+  "Investment & Funding": [
+    "Hedge Funds", "Angel Investment", "Investment", "Private Equity",
+    "Fundraising", "Venture Capital"
+  ],
+  "Leadership": [
+    "CFO", "CMO", "CPO", "CEO", "Chief of Staff", "COO", "CTO",
+    "Management", "Mentoring", "Team Management"
+  ],
+  "Legal": [
+    "Contract Law", "IP Law", "Property Law", "Corporate Law", "Law", "Risk Management"
+  ],
+  "Product & Design": [
+    "Product Ownership", "UI Design", "Visual Design", "CX Design",
+    "Product Management", "Service Design", "User Research", "UX Design"
+  ],
+  "Science": [
+    "Biomedical Science", "Chemistry", "Physics", "Biology",
+    "Cancer Research", "Genetics", "Healthcare", "Medicine",
+    "Neuroscience", "Nutrition", "Psychology"
+  ],
+  "Software Engineering": [
+    "DevOps", "Frontend Dev", "Mobile Dev", "QA (Quality Assurance)",
+    "Systems Engineering", "AI", "AR/VR", "Backend Dev", "Blockchain",
+    "Cloud Computing", "Cybersecurity", "Data Engineering", "Game Dev", "Web Dev"
+  ],
+  "Data": [
+    "Data Visualisation", "AI", "Blockchain", "Data Analytics",
+    "Database Administration", "Data Engineering", "Data Science", "Statistics"
+  ],
+  "Other": [
+    "Access To Grants And Incubators", "Agile", "AI Interviewing", "Algorithmic Trading",
+    "Art Direction", "Automation", "Behavioral Science", "Biochemistry",
+    "Biomedical Sciences", "Blockchain Strategy", "Blogging"
+  ]
+};
 
 export default function Skills() {
-  const navigate=useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(true)
-  
+  const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [achievement, setAchievement] = useState("");
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedDisciplines, setSelectedDisciplines] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch existing data from backend
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const headers = {
+          "Content-Type": "application/json",
+          token: localStorage.getItem('token')
+        };
+        const response = await axios.get("http://localhost:5000/profile/skills",{headers}); // API to get saved skills
+        console.log(response);
+        const { achievement, skills, disciplines } = response.data.data;
+        setAchievement(achievement || "");
+        setSelectedSkills(skills || []);
+        setSelectedDisciplines(disciplines || []);
+      } catch (error) {
+        console.error("Error fetching skills data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Toggle skill selection
+  const handleSkillClick = (skill) => {
+    setSelectedSkills((prev) =>
+      prev.includes(skill)
+        ? prev.filter((s) => s !== skill) // Remove if already selected
+        : [...prev, skill] // Add if not selected
+    );
+  };
+
+  // Toggle discipline selection
+  const handleDisciplineClick = (discipline) => {
+    setSelectedDisciplines((prev) =>
+      prev.includes(discipline)
+        ? prev.filter((d) => d !== discipline) // Remove if already selected
+        : [...prev, discipline] // Add if not selected
+    );
+  };
+
+  // Submit data to backend
+  const handleSubmit = async () => {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        token: localStorage.getItem('token')
+      };
+      await axios.post("http://localhost:5000/profile/skills", {
+        achievement,
+        skills: selectedSkills,
+        disciplines: selectedDisciplines
+      },{headers});
+      navigate("/explore/newproject"); // Move to next step
+    } catch (error) {
+      console.error("Error saving skills:", error);
+    }
+  };
+
+  if (loading) {
+    return <p className="text-white text-center mt-10">Loading...</p>;
+  }
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="flex flex-1 relative">
+      <div className="flex flex-1">
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main className={`flex-1 flex items-center justify-center transition-all duration-300 ${sidebarOpen ? 'ml-64' : '-ml-20'}`}>
-          <div className="max-w-3xl w-full px-4">
+        <main className={`flex-1 flex items-center justify-center transition-all ${sidebarOpen ? "ml-64" : "-ml-20"}`}>
+          <div className="max-w-4xl w-full px-4">
             <h1 className="text-4xl font-bold mb-2">Skills to survive</h1>
-            <p className="text-xl text-[#CAC5C5] mb-8">Tell me about your background</p>
-            
-            <div className="bg-[#151515] rounded-[20px] p-8 shadow-xl border border-[#1D1C1C] w-full">
+            <p className="text-xl text-gray-400 mb-8">Tell me about your background</p>
 
-              <div className="flex flex-col items-start">
+            <div className="bg-[#151515] rounded-3xl p-12 shadow-xl border border-white-600">
+              {/* Achievement Input */}
+              <div className="mb-8">
                 <h2 className="text-2xl font-bold mb-4">Achievement</h2>
-                <div className="relative w-full mb-6">
-                <input 
-  type="text" 
-  placeholder="Something you are proud of..." 
-  className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder-[#424242]"
-/>
-
-                  <div className="absolute right-0 top-1/2 transform -translate-y-1/2">
-                    <svg width="16" height="35" viewBox="0 0 16 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7.59625 28.4953L4.43115 25.3302H10.7613L7.59625 28.4953Z" fill="#757575"/>
-                      <path d="M8.00008 5.25001L10.9167 8.16667H5.08342L8.00008 5.25001Z" fill="#757575"/>
-                      <rect x="5" y="11" width="6" height="12" fill="#757575"/>
-                    </svg>
-                  </div>
-                  <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
-                </div>
-                <h2 className="text-2xl font-bold mb-4">Skills</h2>
-                <div className="flex flex-wrap gap-2 w-full">
-                  <div className="bg-white text-black rounded-full px-3 py-1 text-sm font-bold">
-                    Business & Operations
-                  </div>
-                  
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] text-[#757575] text-sm font-bold">
-                    Growth & Marketing
-                  </div>
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] text-[#757575] text-sm font-bold">
-                    Investing & Funding
-                  </div>
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] text-[#757575] text-sm font-bold">
-                    Science
-                  </div>
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] mt-1 text-[#757575] text-sm font-bold">
-                    Leadership
-                  </div>
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] mt-1 text-[#757575] text-sm font-bold">
-                    Legal
-                  </div>
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] mt-1 text-[#757575] text-sm font-bold">
-                    Product & Design
-                  </div>
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] mt-1 text-[#757575] text-sm font-bold">
-                    Data
-                  </div>
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] mt-1 text-[#757575] text-sm font-bold">
-                    Other
-                  </div>
-                  <div className="bg-transparent rounded-full px-3 py-1 border border-[#757575] mt-1 text-[#757575] text-sm font-bold">
-                    Software Engineering
-                  </div>
-                </div>
+                <input
+                  type="text"
+                  placeholder="Something you are proud of..."
+                  className="w-full bg-transparent border-b border-gray-600 text-gray-400 p-2 outline-none"
+                  value={achievement}
+                  onChange={(e) => setAchievement(e.target.value)}
+                />
               </div>
+
+              {/* Skills Selection */}
+              <h2 className="text-2xl font-bold mb-4">Skills</h2>
+              <div className="flex flex-wrap gap-3">
+                {Object.keys(skillsData).map((skill) => (
+                  <div
+                    key={skill}
+                    className={`px-4 py-2 rounded-full cursor-pointer transition ${
+                      selectedSkills.includes(skill) ? "bg-white text-black" : "border border-gray-600 text-gray-400"
+                    }`}
+                    onClick={() => handleSkillClick(skill)}
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+
+              {/* Display Disciplines of Selected Skills */}
+              {selectedSkills.length > 0 && (
+                <div className="mt-6">
+                  <h2 className="text-2xl font-bold mb-4">Disciplines</h2>
+                  <div className="flex flex-wrap gap-3">
+                    {selectedSkills.flatMap((skill) =>
+                      skillsData[skill].map((discipline) => (
+                        <div
+                          key={discipline}
+                          className={`px-4 py-2 rounded-full cursor-pointer transition ${
+                            selectedDisciplines.includes(discipline) ? "bg-white text-black" : "border border-gray-600 text-gray-400"
+                          }`}
+                          onClick={() => handleDisciplineClick(discipline)}
+                        >
+                          {discipline}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
-            
-            <div className="flex justify-between mt-6 w-full">
-              <button className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]">
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-between mt-8">
+              <button className="bg-[#1D1C1C] text-white font-bold py-3 px-12 rounded-lg border border-gray-600">
                 Back
               </button>
-              <button className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]" onClick={()=> navigate("/project")}>
-                Continue
+              <button className="bg-white text-black font-bold py-3 px-12 rounded-lg ml-4" onClick={handleSubmit}>
+                Save & Continue
               </button>
             </div>
           </div>
         </main>
       </div>
     </div>
-  )
+  );
 }

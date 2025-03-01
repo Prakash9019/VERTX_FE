@@ -66,11 +66,11 @@ function App() {
 
 
       <Route path="/explore" element={<Welcome_founder /> } />
-      <Route path="/putaface" element={<Put_a_face /> } />
-      <Route path="/skills" element={<Skills /> } />
-      <Route path="/newproject" element={<AddaProject /> } />
-      <Route path="/project" element={<ShowYourProject /> } />
-      <Route path="/bio" element={<Bio /> } />
+      <Route path="/explore/putaface" element={<Put_a_face /> } />
+      <Route path="/explore/skills" element={<Skills /> } />
+      <Route path="/explore/newproject" element={<AddaProject /> } />
+      <Route path="/explore/project" element={<ShowYourProject /> } />
+      <Route path="/explore/bio" element={<Bio /> } />
       
       <Route path="*" element={<Nopage />} />
     </Routes>
