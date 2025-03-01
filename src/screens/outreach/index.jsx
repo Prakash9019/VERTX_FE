@@ -239,7 +239,7 @@ export default function Outreach() {
   const [pageSize, setPageSize] = useState(20);
   const [totalRecords, setTotalRecords] = useState(0);
   const [totalPageSize, setTotalPageSize] = useState(20);
-  const [model, setModel] = useState("");
+  const [model, setModel] = useState("EXPLORE");
    const [maxLimit,setmaxLimit] = useState(0);
   // Filters state
   const [filters, setFilters] = useState({
@@ -320,13 +320,13 @@ export default function Outreach() {
               {model === "EXPLORE" ? (
                 <>
                   <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                    Country <Lock />
+                    Country <i className="material-icons text-white">lock</i>
                   </div>
                   <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                    Investor Type <Lock />
+                    Investor Type <i className="material-icons text-white">lock</i>
                   </div>
                   <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                    Industries <Lock />
+                    Industries <i className="material-icons text-white">lock</i>
                   </div>
                 </>
               ) : (

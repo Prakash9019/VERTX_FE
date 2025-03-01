@@ -43,7 +43,7 @@ export default function Put_a_face() {
           setUserId(response.data[0]._id);
           setTimeDifference(timeDifference(response.data[0].createdAt)); // Update time difference when data is fetched
           setUserData(response.data[0]);
-          setAvatar(`http://localhost:5000/${response.data[0].avatar }`);
+          setAvatar(response.data[0].avatar);
           console.log(response.data[0]);
           // setIsEditing(true); // Enable edit mode if data exists
         }
@@ -55,23 +55,34 @@ export default function Put_a_face() {
     fetchUserData();
   }, []);
 
+  const [image, setImage] = useState(null);
   const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    const formData = new FormData();
-    formData.append("avatar", file);
-     console.log(file);
-    try {
-      const response = await axios.post(`http://localhost:5000/profile/${userId}/upload-avatar`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-        console.log(response);
-      setAvatar(`http://localhost:5000/${response.data.avatarUrl}`);
-    } catch (error) {
-      console.error("Error uploading avatar:", error);
-    }
+  
+    // Convert image to Base64
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      const base64Image = reader.result;
+  
+      // Instantly show the image in frontend
+      setAvatar(base64Image);
+  
+      try {
+        const response = await axios.post(`http://localhost:5000/profile/${userId}/upload-avatar`, 
+          { avatar: base64Image }, // Send Base64 directly
+          { headers: { "Content-Type": "application/json" } }
+        );
+  
+        // console.log(response);
+        setAvatar(response.data.avatar); // Update avatar with response from backend
+      } catch (error) {
+        console.error("Error uploading avatar:", error);
+      }
+    };
   };
+  
 
   // if (loading) return <p className="text-center text-white">Loading...</p>;
 
@@ -108,11 +119,14 @@ export default function Put_a_face() {
 
                   <div className="relative">
                     <div className="rounded-full w-32 h-32 overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center -mt-30">
-                      <img
+                    {avatar ?   <img
                         alt="User Avatar"
                         className="w-full h-full object-cover"
                         src={avatar || "/api/placeholder/128/128"}
-                      />
+                      /> :
+                      <input type="file" accept="image/*"  className="w-full h-full object-cover" onChange={(e) => setImage(e.target.files[0])}  />
+                        }
+                    
                     </div>
 
                     <label htmlFor="avatarUpload" className="absolute bottom-0 right-0 bg-white rounded-md p-1 cursor-pointer">

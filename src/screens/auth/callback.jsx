@@ -22,6 +22,7 @@ export default function Callback() {
       console.log(response.data)
       if(response.status == 200){
         window.localStorage.setItem("token", response?.data?.token);
+        navigate("/outreach");
       }
   };
   
