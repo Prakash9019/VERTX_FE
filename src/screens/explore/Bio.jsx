@@ -313,13 +313,12 @@ export default function Bio() {
 <rect x="0.5" y="0.5" width="15" height="15" stroke="black"/>
 <path d="M6.16647 14.6667L5.89981 12.5333C5.75536 12.4778 5.61925 12.4111 5.49147 12.3333C5.36369 12.2556 5.23869 12.1722 5.11647 12.0833L3.13314 12.9167L1.2998 9.75L3.01647 8.45C3.00536 8.37222 2.9998 8.29722 2.9998 8.225V7.775C2.9998 7.70278 3.00536 7.62778 3.01647 7.55L1.2998 6.25L3.13314 3.08334L5.11647 3.91667C5.23869 3.82778 5.36647 3.74445 5.4998 3.66667C5.63314 3.58889 5.76647 3.52222 5.89981 3.46667L6.16647 1.33334H9.83314L10.0998 3.46667C10.2442 3.52222 10.3804 3.58889 10.5081 3.66667C10.6359 3.74445 10.7609 3.82778 10.8831 3.91667L12.8665 3.08334L14.6998 6.25L12.9831 7.55C12.9942 7.62778 12.9998 7.70278 12.9998 7.775V8.225C12.9998 8.29722 12.9887 8.37222 12.9665 8.45L14.6831 9.75L12.8498 12.9167L10.8831 12.0833C10.7609 12.1722 10.6331 12.2556 10.4998 12.3333C10.3665 12.4111 10.2331 12.4778 10.0998 12.5333L9.83314 14.6667H6.16647ZM8.03314 10.3333C8.67758 10.3333 9.22758 10.1056 9.68314 9.65C10.1387 9.19445 10.3665 8.64445 10.3665 8C10.3665 7.35556 10.1387 6.80556 9.68314 6.35C9.22758 5.89445 8.67758 5.66667 8.03314 5.66667C7.37758 5.66667 6.8248 5.89445 6.3748 6.35C5.92481 6.80556 5.6998 7.35556 5.6998 8C5.6998 8.64445 5.92481 9.19445 6.3748 9.65C6.8248 10.1056 7.37758 10.3333 8.03314 10.3333Z" fill="#757575"/>
 </svg>
-
             </div>
 
-            <div className="bg-black rounded-3xl shadow-lg overflow-hidden border" style={{ borderColor: "#757575" }}>
+            <div className="bg-black rounded-3xl shadow-lg overflow-hidden border" style={{ borderColor: "#757575", borderRadius: "20px" }}>
               {/* Profile Top Section */}
               {!editingProfile ? (
-                <div className="p-8 border-b border-gray-800">
+                <div className="p-6 border-b border-gray-800">
                   <div className="flex justify-between items-center">
                     <div>
                       <div className="flex items-center mb-2">
@@ -328,20 +327,18 @@ export default function Bio() {
                         <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
 </svg>
-
-  <span style={{ color: "#CAC5C5" }}>Edit</span>
-</button>
-
+                          <span style={{ color: "#CAC5C5" }}>Edit</span>
+                        </button>
                       </div>
                       <p className="text-[25px] text-[#D9D9D9] mb-1">{formData.city}</p>
                       <p className="text-xl text-gray-400 mb-4">@markzuckerberg</p>
                       <p className="text-xl mb-6">{formData.headline}</p>
 
-                      <div className="flex space-x-4">
-                        <div className="bg-black rounded-full px-4 py-2 border-[0.5px] border-[#757575] text-white">
+                      <div className="flex space-x-3">
+                        <div className="bg-black rounded-full px-3 py-1 border border-[#757575] text-white text-xs">
                           #New here
                         </div>
-                        <div className="bg-black rounded-full px-4 py-2 border-[0.5px] border-[#757575] flex items-center text-white">
+                        <div className="bg-black rounded-full px-3 py-1 border border-[#757575] flex items-center text-white text-xs">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.92532 9.74166L9.74199 8.92499L7.58366 6.76666V4.08332H6.41699V7.23332L8.92532 9.74166ZM7.00033 12.8333C6.19338 12.8333 5.43505 12.6802 4.72533 12.3739C4.0156 12.0677 3.39824 11.6521 2.87324 11.1271C2.34824 10.6021 1.93262 9.98471 1.62637 9.27499C1.32012 8.56527 1.16699 7.80693 1.16699 6.99999C1.16699 6.19305 1.32012 5.43471 1.62637 4.72499C1.93262 4.01527 2.34824 3.39791 2.87324 2.87291C3.39824 2.34791 4.0156 1.93228 4.72533 1.62603C5.43505 1.31978 6.19338 1.16666 7.00033 1.16666C7.80727 1.16666 8.5656 1.31978 9.27532 1.62603C9.98505 1.93228 10.6024 2.34791 11.1274 2.87291C11.6524 3.39791 12.068 4.01527 12.3743 4.72499C12.6805 5.43471 12.8337 6.19305 12.8337 6.99999C12.8337 7.80693 12.6805 8.56527 12.3743 9.27499C12.068 9.98471 11.6524 10.6021 11.1274 11.1271C10.6024 11.6521 9.98505 12.0677 9.27532 12.3739C8.5656 12.6802 7.80727 12.8333 7.00033 12.8333ZM7.00033 11.6667C8.29338 11.6667 9.39442 11.2121 10.3034 10.3031C11.2125 9.39409 11.667 8.29305 11.667 6.99999C11.667 5.70693 11.2125 4.60589 10.3034 3.69686C9.39442 2.78784 8.29338 2.33332 7.00033 2.33332C5.70727 2.33332 4.60623 2.78784 3.6972 3.69686C2.78817 4.60589 2.33366 5.70693 2.33366 6.99999C2.33366 8.29305 2.78817 9.39409 3.6972 10.3031C4.60623 11.2121 5.70727 11.6667 7.00033 11.6667Z" fill="#757575"/>
 </svg>
@@ -352,7 +349,7 @@ export default function Bio() {
                     </div>
 
                     <div className="relative">
-                      <div className="rounded-full w-32 h-32 overflow-hidden border border-[#757575] bg-gray-800">
+                      <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800">
                         {/* Placeholder for profile image */}
                       </div>
                       <div className="absolute bottom-0 right-0 bg-white rounded-md p-1">
@@ -367,61 +364,59 @@ export default function Bio() {
 </clipPath>
 </defs>
 </svg>
-
                       </div>
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="p-8 border-b border-gray-800">
-                  <div className="flex justify-between items-center mb-6">
+                <div className="p-6 border-b border-gray-800">
+                  <div className="flex justify-between items-center mb-5">
                     <h2 className="text-2xl font-bold">Bio</h2>
                     <div className="flex space-x-2">
                       <button
                         onClick={() => handleCancel("profile")}
-                        className="bg-[#333333] text-white px-4 py-2 rounded-md"
+                        className="bg-[#333333] text-white px-3 py-1 rounded-md"
                       >
                         Cancel
                       </button>
                       <button
                         onClick={() => handleSave("profile")}
-                        className="bg-white text-black px-4 py-2 rounded-md"
+                        className="bg-white text-black px-3 py-1 rounded-md"
                       >
                         Save
                       </button>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-6 mb-6">
+
+
+                  <div className="grid grid-cols-2 gap-5 mb-5">
                     <div>
-                      <label className="block text-lg mb-2">First Name</label>
+                      <label className="block text-lg font-bold mb-2">First Name</label>
                       <input
                         type="text"
                        name="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
                         className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                        style={{ color: '#CAC5C5' }}
+                        style={{ color: 'CAC5C5' }}
                       />
-
-
-
                     </div>
                     <div>
-                      <label className="block text-lg mb-2">Last Name</label>
+                      <label className="block text-lg font-bold mb-2">Last Name</label>
                       <input
                         type="text"
                         name="lastName"
                         onChange={handleChange}
                       value={formData.lastName}
                         className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                        style={{ color: '#CAC5C5' }}
+                        style={{ color: 'CAC5C5' }}
                       />
                     </div>
                   </div>
 
-                  <div className="mb-6">
-                    <label className="block text-lg mb-2">City</label>
+                  <div className="mb-5">
+                    <label className="block text-lg font-bold mb-2">City</label>
                     <input
                       type="text"
                       name="city"
@@ -429,28 +424,28 @@ export default function Bio() {
                       onChange={handleChange}
                       value={formData.city}
                       className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                      style={{ color: '#CAC5C5' }}
+                      style={{ color: 'CAC5C5' }}
                     />
                   </div>
 
-                  <div className="mb-6">
-                    <label className="block text-lg mb-2">Short headline</label>
+                  <div className="mb-5">
+                    <label className="block text-lg font-bold mb-2">Short headline</label>
                     <input
                       type="text"
                       name="headline"
                       onChange={handleChange}
                       value={formData.headline}
                       className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                      style={{ color: '#CAC5C5' }}
+                      style={{ color: 'CAC5C5' }}
                     />
                   </div>
 
-                  <div className="mb-6">
-                    <label className="block text-lg mb-2">Links</label>
+                  <div className="mb-5">
+                    <label className="block text-lg font-bold mb-2">Links</label>
 
                     <div className="flex items-center mb-3">
                       <div className="w-8 mr-2">
-                        <svg
+                      <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           className="h-6 w-6 text-gray-400"
@@ -465,16 +460,16 @@ export default function Bio() {
                         onChange={handleChange}
                         value={formData.portfolioLink}
                         className="flex-1 bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                        style={{ color: '#CAC5C5' }}
+                        style={{ color: '#424242' }}
                         placeholder="https://portfolio.com/"
                       />
                     </div>
 
                     <div className="flex items-center mb-3">
                       <div className="w-8 mr-2">
-                        <svg viewBox="0 0 24 24" className="h-6 w-6 text-gray-400" fill="currentColor">
+                      <svg viewBox="0 0 24 24" className="h-6 w-6 text-gray-400" fill="currentColor">
                           <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-                        </svg>
+                        </svg>  
                       </div>
                       <input
                         type="text"
@@ -482,14 +477,14 @@ export default function Bio() {
                         onChange={handleChange}
                         value={formData.linkedinLink}
                         className="flex-1 bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                        style={{ color: '#CAC5C5' }}
+                        style={{ color: '#424242' }}
                         placeholder="https://www.linkedin.com/in/..."
                       />
                     </div>
 
                     <div className="flex items-center mb-3">
                       <div className="w-8 mr-2">
-                        <svg viewBox="0 0 24 24" className="h-6 w-6 text-gray-400" fill="currentColor">
+                      <svg viewBox="0 0 24 24" className="h-6 w-6 text-gray-400" fill="currentColor">
                           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                       </div>
@@ -499,14 +494,14 @@ export default function Bio() {
                         onChange={handleChange}
                       value={formData.github}
                         className="flex-1 bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                        style={{ color: '#CAC5C5' }}
+                        style={{ color: '#424242' }}
                         placeholder="https://github.com/"
                       />
                     </div>
 
                     <div className="flex items-center">
                       <div className="w-8 mr-2">
-                        <svg viewBox="0 0 24 24" className="h-6 w-6 text-gray-400" fill="currentColor">
+                      <svg viewBox="0 0 24 24" className="h-6 w-6 text-gray-400" fill="currentColor">
                           <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
                         </svg>
                       </div>
@@ -516,7 +511,7 @@ export default function Bio() {
                         onChange={handleChange}
                         value={formData.twitter}
                         className="flex-1 bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                        style={{ color: '#CAC5C5' }}
+                        style={{ color: '#424242' }}
                         placeholder="https://x.com/"
                       />
                     </div>
@@ -527,19 +522,18 @@ export default function Bio() {
               {/* Background Section */}
               {!editingBackground ? (
                 <div
-                  className="shadow-lg overflow-hidden border-t pt-5 pl-8"
+                  className="shadow-lg overflow-hidden border-t pt-5 pl-6 pr-6"
                   style={{ background: "#111111", borderColor: "#757575" }}
                 >
-<div className="flex items-center justify-between pr-8 mb-6">
-  <h2 className="text-2xl font-bold">Background</h2>
-  <button className="flex items-center gap-1 text-gray-400" onClick={() => setEditingBackground(true)}>
-  <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div className="flex items-center justify-between mb-5">
+                    <h2 className="text-2xl font-bold">Background</h2>
+                    <button className="flex items-center gap-1 text-gray-400" onClick={() => setEditingBackground(true)}>
+                    <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
 </svg>
-
-    <span style={{ color: "#CAC5C5" }}>Edit</span>
-  </button>
-</div>
+                      <span style={{ color: "#CAC5C5" }}>Edit</span>
+                    </button>
+                  </div>
 
 
                   <div className="mb-8">
@@ -553,7 +547,7 @@ export default function Bio() {
                       {formData.skills?.map((skill, index) => (
                         <div
                           key={index}
-                          className="bg-black rounded-full px-4 py-2 border-[0.5px] border-[#757575] text-white"
+                          className="bg-black rounded-full px-3 py-1 border-[1px] border-[#757575] text-white text-sm"
                         >
                           {skill}
                         </div>
@@ -566,7 +560,7 @@ export default function Bio() {
                       {formData.disciplines?.map((discipline, index) => (
                         <div
                           key={index}
-                          className="bg-black rounded-full px-4 py-2 border-[0.5px] border-[#757575] text-white"
+                          className="bg-black rounded-full px-3 py-1 border-[1px] border-[#757575] text-white text-sm"
                         >
                           {discipline}
                         </div>
@@ -575,32 +569,33 @@ export default function Bio() {
                   </div>
                 </div>
               ) : (
-                <div className="p-8 border-t" style={{ background: "#111111", borderColor: "#757575" }}>
-                  <div className="flex justify-between items-center mb-6">
+                <div className="p-6 border-t" style={{ background: "#111111", borderColor: "#757575" }}>
+                  <div className="flex justify-between items-center mb-5">
                     <h2 className="text-2xl font-bold">Background</h2>
                     <div className="flex space-x-2">
                       <button
                         onClick={() => handleCancel("background")}
-                        className="bg-[#333333] text-white px-4 py-2 rounded-md"
+                        className="bg-[#333333] text-white px-3 py-1 rounded-md"
                       >
                         Cancel
                       </button>
                       <button
                         onClick={() => handleSave("background")}
-                        className="bg-white text-black px-4 py-2 rounded-md"
+                        className="bg-white text-black px-3 py-1 rounded-md"
                       >
                         Save
                       </button>
                     </div>
                   </div>
 
-                  <div className="mb-8">
-                    <h3 className="text-xl mb-3">Achievement</h3>
+                  <div className="mb-6">
+                    <h3 className="text-xl font-bold mb-2">Achievement</h3>
                     <textarea
                       value={achievement}
                       onChange={(e) => setAchievement(e.target.value)}
                       className="w-full bg-black border border-gray-700 rounded-md p-2 text-white"
                       rows="3"
+                      style={{ color: '#424242' }}
                     />
                   </div>
 
@@ -643,8 +638,8 @@ export default function Bio() {
               )}
 
               {/* Projects Section */}
-              <div className="p-8 border-b" style={{ background: "#111111", borderColor: "#757575" }}>
-                <div className="flex items-center justify-between mb-6">
+              <div className="p-6 border-b" style={{ background: "#111111", borderColor: "#757575" }}>
+                <div className="flex items-center justify-between mb-5">
                   <h2 className="text-2xl font-bold">Projects</h2>
                   <button className="text-white bg-transparent border-none" onClick={handleAddProject}>+ Add Project</button>
                 </div>
@@ -674,23 +669,23 @@ export default function Bio() {
                       <div className="flex space-x-2">
                         <button
                           onClick={() => handleCancel("project")}
-                          className="bg-[#333333] text-white px-4 py-2 rounded-md"
+                          className="bg-[#333333] text-white px-3 py-1 rounded-md"
                         >
                           Cancel
                         </button>
                         <button
                           onClick={() => handleSave("project")}
-                          className="bg-white text-black px-4 py-2 rounded-md"
+                          className="bg-white text-black px-3 py-1 rounded-md"
                         >
                           Save
                         </button>
                       </div>
                     </div>
 
-                    <div className="flex mb-6">
-                      <div className="bg-[#1D1C1C] w-20 h-20 rounded-lg mr-6"></div>
+                    <div className="flex mb-5">
+                      <div className="bg-[#1D1C1C] w-16 h-16 rounded-lg mr-5"></div>
                       <div className="flex-1">
-                        <h4 className="text-md mb-2">Project name</h4>
+                        <h4 className="text-base font-bold mb-1">Project name</h4>
                         <input
                           type="text"
                           placeholder="Stealth project"
@@ -699,23 +694,20 @@ export default function Bio() {
                           className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none mb-4"
                         />
 
-                        <h4 className="text-md mb-2">Idea description</h4>
+                        <h4 className="text-base font-bold mb-1">Idea description</h4>
                         <input
                         type="text"
                         value={projectDescription}
                           placeholder="Describe your idea in few words..."
-                          onChange={(e) => setProjectDescription(e.target.value)}
-                          className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none mb-4"
-                          rows="2"
+                            className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder:text-sm placeholder:text-[#424242] !important"
                         />
 
-                        <h4 className="text-md mb-2">Link</h4>
+                        <h4 className="text-base font-bold mb-1">Link</h4>
                         <input
                           type="text"
                           value={projectLink}
                           placeholder="https://yourproject.com/"
-                          onChange={(e) => setProjectLink(e.target.value)}
-                          className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none mb-4"
+                           className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder:text-sm placeholder:text-[#424242] !important"
                         />
 
                         <h4 className="text-md mb-2">Pitch</h4>
@@ -723,17 +715,15 @@ export default function Bio() {
                         type="text"
                         value={projectPitch}
                           placeholder="Pitch your idea in more detail..."
-                          onChange={(e) => setProjectPitch(e.target.value)}
-                          className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                          rows="2"
+                            className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder:text-sm placeholder:text-[#424242] !important"
                         />
                       </div>
                     </div>
                  
 
-                <div className="mb-8">
-                  <h3 className="text-xl mb-3">Stage</h3>
-                  <div className="flex flex-wrap gap-3">
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-2">Stage</h3>
+                  <div className="flex flex-wrap gap-2">
                     {editingProject ? (
                      <>
                       {["Idea", "Prototype", "Revenue", "Scale"].map((stage) => (
@@ -750,16 +740,16 @@ export default function Bio() {
               ))}
                      </>
                     ) : (
-                      <div className="bg-black rounded-full px-4 py-2 border-[0.5px] border-[#757575] text-white">
+                      <div className="bg-black rounded-full px-3 py-1 border-[1px] border-[#757575] text-white text-sm">
                         {projectStage}
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div className="mb-8">
-                  <h3 className="text-xl mb-3">Workplace</h3>
-                  <div className="flex flex-wrap gap-3">
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-2">Workplace</h3>
+                  <div className="flex flex-wrap gap-2">
                     {editingProject ? (
                       <>
                        {["Remote", "Hybrid", "Office"].map((workplace) => (
