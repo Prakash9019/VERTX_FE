@@ -212,9 +212,9 @@ export default function Outreach() {
                   <>
                     {isUpgradeRequired && (
                       <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                        <div className="bg-white p-4 rounded text-center text-black text-lg">
+                        <button className="bg-white p-4 rounded text-center text-black text-lg" onClick={()=> navigate("/sub")}>
                           🔒 Upgrade to unlock
-                        </div>
+                        </button>
                       </div>
                     )}
                     {investors.map((item, index) => (

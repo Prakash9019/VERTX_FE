@@ -73,9 +73,13 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
             callback={openLoginModal}
           />
         ) : (
-          <div className="header-right">
-            <button className="profile-button" onClick={openProfileModal}>Profile</button>
-          </div>
+          <Button
+          theme={"light"}
+          context={"Profile"}
+          callback={() => {
+            navigate("/explore");
+          }}
+        />
         )}
       </div>
 
@@ -258,7 +262,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             <a className="hover:text-white py-2">Community</a>
             <hr className="w-1/3 border-t-2 border-gray-400 mx-auto" />
 
-            <button onClick={() =>  {window.localStorage.removeItem("token"); navigate("/authentication");}} className="hover:text-white py-4">Get Out</button>
+            <button onClick={() =>  {window.localStorage.removeItem("token"); navigate("/authentication");}} className="hover:text-white py-4">Log Out</button>
            
           </div>
         )}
@@ -269,7 +273,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
               theme={"light"}
               context={"VERTX FLOW"}
               callback={() => {
-                navigate("/flow/match flow");
+                navigate("/sub");
               }}
             />
           </div>
