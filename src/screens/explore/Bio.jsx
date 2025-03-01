@@ -231,7 +231,7 @@ export default function Bio() {
         "Content-Type": "application/json",
         token: localStorage.getItem('token')
       };
-      await axios.post("${API_KEY}/profile/skills", {
+      await axios.post(`${API_KEY}/profile/skills`, {
         achievement,
         skills: selectedSkills,
         disciplines: selectedDisciplines
@@ -246,7 +246,7 @@ export default function Bio() {
     // e.preventDefault();
     
     try {
-      const response = await fetch("${API_KEY}/profile", {
+      const response = await fetch(`${API_KEY}/profile`, {
         method: "POST",
         headers: { "Content-Type": "application/json",
           token: localStorage.getItem('token')

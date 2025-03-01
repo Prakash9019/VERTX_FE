@@ -68,7 +68,7 @@ export default function Skills() {
           "Content-Type": "application/json",
           token: localStorage.getItem('token')
         };
-        const response = await axios.get("${API_KEY}/profile/skills",{headers}); // API to get saved skills
+        const response = await axios.get(`${API_KEY}/profile/skills`,{headers}); // API to get saved skills
         console.log(response);
         const { achievement, skills, disciplines } = response.data.data;
         setAchievement(achievement || "");
@@ -108,7 +108,7 @@ export default function Skills() {
         "Content-Type": "application/json",
         token: localStorage.getItem('token')
       };
-      await axios.post("${API_KEY}/profile/skills", {
+      await axios.post(`${API_KEY}/profile/skills`, {
         achievement,
         skills: selectedSkills,
         disciplines: selectedDisciplines

@@ -36,7 +36,7 @@ export default function Put_a_face() {
     // Fetch user data when component mounts
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("${API_KEY}/profile/fetch",{headers: {'Content-Type': 'application/json',
+        const response = await axios.get(`${API_KEY}/profile/fetch`,{headers: {'Content-Type': 'application/json',
           token: localStorage.getItem('token')
         }});
         // console.log(response.data[0]);

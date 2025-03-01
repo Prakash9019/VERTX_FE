@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 import { Header, Sidebar } from "../layout/bars"
 import { useNavigate } from "react-router"
 import axios from "axios"
+import API_KEY from "../../../key"
 export default function Welcome_founder() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -50,7 +51,7 @@ export default function Welcome_founder() {
     // e.preventDefault();
     
     try {
-      const response = await fetch("${API_KEY}/profile", {
+      const response = await fetch(`${API_KEY}/profile`, {
         method: "POST",
         headers: { "Content-Type": "application/json",
           token: localStorage.getItem('token')
