@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom"; // Fetch profileId from URL
 import axios from "axios";
 import API_KEY from "../../../key";
+import gify from "../outreach/gify.gif"
 function ProjectCard({ project }) {
   const [projectData, setProjectData] = useState(project);
 
@@ -249,7 +250,9 @@ export default function AddaProject() {
             <p className="text-xl text-gray-400 mb-8">What have you built so far?</p>
 
             {loading ? (
-              <p>Loading projects...</p>
+               <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                                      <img src={gify} alt="Loading..." className="w-20 h-20" />
+                                    </div>
             ) : projects.length === 0 ? (
               <div className="bg-[#151515] rounded-3xl p-12 shadow-xl border border-white-600 w-full">
                 <div className="flex flex-col items-start">
@@ -414,48 +417,11 @@ export default function AddaProject() {
               </div>
             </div>
                 </>
-            //   <div className="bg-[#151515] rounded-3xl p-6 shadow-xl border border-[#1D1C1C] w-full mt-4">
-            //     <input
-                //   type="text"
-                //   name="name"
-                //   value={newProject.name}
-                //   onChange={handleInputChange}
-            //       placeholder="Project Name"
-            //       className="w-full bg-transparent border-b border-gray-600 text-gray-400 pb-2"
-            //     />
-            //     <input
-            //       type="text"
-            //       name="idea_description"
-            //       value={newProject.idea_description}
-            //       onChange={handleInputChange}
-            //       placeholder="Idea Description"
-            //       className="w-full bg-transparent border-b border-gray-600 text-gray-400 pb-2 mt-2"
-            //     />
-            //     <input
-            //       type="text"
-            //       name="link"
-            //       value={newProject.link}
-            //       onChange={handleInputChange}
-            //       placeholder="Project Link"
-            //       className="w-full bg-transparent border-b border-gray-600 text-gray-400 pb-2 mt-2"
-            //     />
-            //     <button
-            //       className="bg-white text-black px-4 py-2 rounded-lg mt-4"
-            //       onClick={addProject}
-            //     >
-            //       Save
-            //     </button>
-            //     <button
-            //       className="text-gray-400 ml-4"
-            //       onClick={() => setShowNewInput(false)}
-            //     >
-            //       Cancel
-            //     </button>
-            //   </div>
+           
             )}
 
             <div className="flex mt-6 space-x-4">
-              <button className="bg-[#1D1C1C] text-white font-bold py-3 px-12 rounded-[10px] text-lg border border-gray-600">
+              <button className="bg-[#1D1C1C] text-white font-bold py-3 px-12 rounded-[10px] text-lg border border-gray-600"  onClick={() => navigate(-1)}>
                 Back
               </button>
               <button

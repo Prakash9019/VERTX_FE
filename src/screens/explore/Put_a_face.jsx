@@ -5,7 +5,8 @@ import { Header, Sidebar } from "../layout/bars";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import API_KEY from "../../../key";
-
+import { User } from "lucide-react";
+import gify from "../outreach/gify.gif"
 function timeDifference(createdAt) {
   const createdDate = new Date(createdAt);
   const currentDate = new Date();
@@ -27,7 +28,7 @@ export default function Put_a_face() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [userData, setUserData] = useState(null);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [avatar, setAvatar] = useState(null);
   const[userId, setUserId] = useState(null);
   const [time, setTimeDifference] = useState(null);
@@ -44,37 +45,57 @@ export default function Put_a_face() {
           setUserId(response.data[0]._id);
           setTimeDifference(timeDifference(response.data[0].createdAt)); // Update time difference when data is fetched
           setUserData(response.data[0]);
-          setAvatar(`${API_KEY}/${response.data[0].avatar }`);
+          setAvatar(response.data[0].avatar);
           console.log(response.data[0]);
           // setIsEditing(true); // Enable edit mode if data exists
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
-      } 
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchUserData();
   }, []);
 
-  const handleAvatarChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // const handleAvatarChange = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
+  //   const formData = new FormData();
+  //   formData.append("avatar", file);
+  //    console.log(file);
+  //   try {
+  //     const response = await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
+  //       console.log(response);
+  //     setAvatar(`${API_KEY}/${response.data.avatarUrl}`);
+  //   } catch (error) {
+  //     console.error("Error uploading avatar:", error);
+  //   }
+  // };
+
+  const handleAvatarChange = async (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => setAvatar(reader.result);
+    reader.readAsDataURL(file);
     const formData = new FormData();
     formData.append("avatar", file);
-     console.log(file);
-    try {
-      const response = await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-        console.log(response);
-      setAvatar(`${API_KEY}/${response.data.avatarUrl}`);
-    } catch (error) {
-      console.error("Error uploading avatar:", error);
-    }
+    console.log(userId);
+    await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then(res => console.log("Avatar Updated:", res.data))
+    .catch(err => console.error("Error:", err));
   };
+  
 
-  // if (loading) return <p className="text-center text-white">Loading...</p>;
+  if (loading) return <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                          <img src={gify} alt="Loading..." className="w-20 h-20" />
+                        </div>
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
@@ -109,11 +130,15 @@ export default function Put_a_face() {
 
                   <div className="relative">
                     <div className="rounded-full w-32 h-32 overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center -mt-30">
-                      <img
-                        alt="User Avatar"
-                        className="w-full h-full object-cover"
-                        src={avatar || "/api/placeholder/128/128"}
-                      />
+                    {avatar ? (
+          <img
+            alt="User Avatar"
+            className="w-full h-full object-cover"
+            src={avatar} // Show preview or uploaded avatar
+          />
+        ) : (
+          <User className="w-16 h-16 text-gray-400" /> // Default user icon
+        )}
                     </div>
 
                     <label htmlFor="avatarUpload" className="absolute bottom-0 right-0 bg-white rounded-md p-1 cursor-pointer">
@@ -128,7 +153,7 @@ export default function Put_a_face() {
             </div>
 
             <div className="flex justify-between mt-8">
-              <button className="bg-[#1D1C1C] text-white font-bold py-3 px-12 rounded-[10px] text-lg border border-gray-600">
+              <button className="bg-[#1D1C1C] text-white font-bold py-3 px-12 rounded-[10px] text-lg border border-gray-600"  onClick={() => navigate(-1)}>
                 Back
               </button>
               <button className="bg-white text-black font-bold py-3 px-12 rounded-[10px] text-lg ml-[20px]" onClick={() => navigate("/explore/skills")}>

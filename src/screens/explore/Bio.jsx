@@ -66,6 +66,9 @@ export default function Bio() {
       } catch (error) {
         console.error("Error fetching user data:", error);
       } 
+      // finally {
+      //   setLoading(false);
+      // }
     };
 
     fetchUserData();

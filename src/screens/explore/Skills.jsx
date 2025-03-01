@@ -4,6 +4,7 @@ import { Header, Sidebar } from "../layout/bars";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import API_KEY from "../../../key";
+import gify from "../outreach/gify.gif"
 
 // Skills & corresponding disciplines mapping
 const skillsData = {
@@ -120,7 +121,9 @@ export default function Skills() {
   };
 
   if (loading) {
-    return <p className="text-white text-center mt-10">Loading...</p>;
+    return <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                        <img src={gify} alt="Loading..." className="w-20 h-20" />
+                      </div>
   }
 
   return (
@@ -187,7 +190,7 @@ export default function Skills() {
 
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-8">
-              <button className="bg-[#1D1C1C] text-white font-bold py-3 px-12 rounded-lg border border-gray-600">
+              <button className="bg-[#1D1C1C] text-white font-bold py-3 px-12 rounded-lg border border-gray-600"  onClick={() => navigate(-1)}>
                 Back
               </button>
               <button className="bg-white text-black font-bold py-3 px-12 rounded-lg ml-4" onClick={handleSubmit}>
