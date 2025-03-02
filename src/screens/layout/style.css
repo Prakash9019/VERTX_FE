@@ -1,7 +1,7 @@
 :root {
-  --header-height: 60px;
-  --sidebar-collapsed-width: 75px;
-  --sidebar-expanded-width: 240px;
+  --header-height: 4rem;
+  --sidebar-collapsed-width: 5rem;
+  --sidebar-expanded-width: 15vw;
   --background: #000000;
   --foreground: #ffffff;
   --border-color: #333333;
@@ -11,7 +11,7 @@
 .nav-link {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 1em;
   text-decoration: none;
   color: white;
   transition: background 0.3s ease-in-out;
@@ -19,7 +19,7 @@
 
 .nav-link.active {
   background: #4CAF50;
-  border-radius: 5px;
+  border-radius: 0.3rem;
 }
 
 .sidebar {
@@ -31,8 +31,8 @@
   flex-direction: column;
   top: var(--header-height);
   overflow-y: auto;
-  border-right: 2px solid var(--border-color);
-  transition: width 0.3s ease, transform 0.3s ease;
+  border-right: 0.15rem solid var(--border-color);
+  transition: width 0.3s ease;
   width: var(--sidebar-collapsed-width);
   z-index: 50;
 }
@@ -45,38 +45,19 @@
   width: var(--sidebar-collapsed-width);
 }
 
-.sidebar-toggle-wrapper {
-  position: fixed;
-  top: var(--header-height);
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 60;
-  transition: left 0.3s ease;
-}
-
-.sidebar.expanded .sidebar-toggle-wrapper {
-  left: calc(var(--sidebar-expanded-width) - 16px);
-}
-
-.sidebar.collapsed .sidebar-toggle-wrapper {
-  left: calc(var(--sidebar-collapsed-width) - 16px); 
-}
-
 .sidebar-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 2.5rem;
+  height: 2.5rem;
   background-color: var(--background);
-  border: 2px solid var(--border-color);
+  border: 0.15rem solid var(--border-color);
   border-radius: 50%;
   color: var(--foreground);
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-toggle:hover {
@@ -88,23 +69,22 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 1rem 0;
+  gap: 0.5em;
+  padding: 1em 0;
   margin: 0;
   width: 100%;
 }
 
 .nav-button {
-  position: relative;
   display: flex;
   align-items: center;
-  height: 48px;
+  height: 3rem;
   background: none;
   border: none;
   color: var(--foreground);
   cursor: pointer;
   transition: all 0.2s ease;
-  padding: 0 1rem;
+  padding: 0 1em;
   width: 100%;
 }
 
@@ -112,29 +92,8 @@
   background-color: var(--accent);
 }
 
-.nav-button.active {
-  position: relative;
-  background-color: var(--accent);
-}
-
-.nav-button.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 3px;
-  background-color: var(--foreground);
-  border-radius: 0 2px 2px 0;
-}
-
-.nav-button svg {
-  min-width: 24px;
-  height: 24px;
-}
-
 .nav-text {
-  margin-left: 1rem;
+  margin-left: 1em;
   font-weight: 500;
   font-size: 1rem;
   white-space: nowrap;
@@ -152,8 +111,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 2vw;
+  border-bottom: 0.1rem solid var(--border-color);
   background-color: var(--background);
   position: fixed;
   top: 0;
@@ -163,27 +122,17 @@
   height: var(--header-height);
 }
 
-.menu-toggle {
-  display: none;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
 .profile-button {
   background-color: black;
   color: white;
   border: none;
-  padding: 0.5rem 1.25rem;
+  padding: 0.5em 1.25em;
   border-radius: 999px;
   font-weight: 500;
   font-size: 0.875rem;
   cursor: pointer;
   transition: opacity 0.2s ease;
-  border: 1px solid white;
+  border: 0.1rem solid white;
 }
 
 .profile-button:hover {
@@ -197,17 +146,6 @@
   align-items: center;
 }
 
-.logo svg {
-  width: 140px;
-  height: auto;
-}
-
-@media (max-width: 1024px) {
-  .sidebar {
-    width: var(--sidebar-expanded-width);
-  }
-}
-
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
@@ -218,42 +156,15 @@
     background-color: var(--background);
     overflow-y: auto;
     transform: translateX(-100%);
+    width: 50vw;
   }
 
   .sidebar.expanded {
     transform: translateX(0);
+    width: 70vw;
   }
 
   .sidebar-toggle-wrapper {
     display: none;
-  }
-
-  .menu-toggle {
-    display: block;
-    background: none;
-    border: none;
-    color: var(--foreground);
-    cursor: pointer;
-    padding: 0.5rem;
-    margin-right: auto;
-  }
-
-  .top-bar {
-    padding: 0.75rem 1rem;
-  }
-
-  .header-right {
-    gap: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-text {
-    font-size: 0.875rem;
-  }
-
-  .profile-button {
-    font-size: 0.75rem;
-    padding: 0.4rem 1rem;
   }
 }
