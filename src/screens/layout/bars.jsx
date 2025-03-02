@@ -5,7 +5,7 @@ import Button from "../../components/button/component";
 import PrivacyPolicy from "../More/PrivacyPolicy"; 
 import TermsAndConditions from "../More/TermsandConditions";
 import LandingAuth from "../landing/index"; 
-import logo1 from "../../logo1.png"
+
 export function Header({ sidebarOpen, setSidebarOpen }) {
   const navigate = useNavigate();
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -19,11 +19,11 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
 
   // Function to open the login modal
   const openLoginModal = () => {
-    setSidebarOpen(false);
     setShowLoginModal(true);
     document.body.style.overflow = "hidden"; // Prevent scrolling of background content
   };
 
+  // Function to close the profile modal
   const closeProfileModal = () => {
     setShowProfileModal(false);
     document.body.style.overflow = "auto"; // Restore scrolling
@@ -35,31 +35,18 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
     document.body.style.overflow = "hidden"; // Prevent scrolling of background content
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setSidebarOpen(false);
-      }
-    };
-
-    handleResize(); // Run once on mount
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [setSidebarOpen]);
-
   return (
     <header className="top-bar">
       <button className="menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M3 12h18M3 6h18M3 18h18" />
         </svg>
       </button>
         
       <div className="logo">
-      <img src={logo1} className="w-22 h-12" />
+      <svg width="47" height="12" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.72 0.799999H8.656V8.176L5.008 12H3.584L0.944 8.096V0.799999H2.88V7.728L4.416 10.016L6.72 7.6V0.799999ZM11.8498 0.799999H18.0898V2.608H12.5858L12.2978 2.928V5.44H15.9938V7.248H12.2978V9.488L12.7618 10.192H18.0898V12H11.8018L10.3618 9.856V2.32L11.8498 0.799999ZM20.1155 0.799999H25.9875L27.8595 3.536V5.408L26.3875 6.928L27.8595 9.088V12H25.9235V9.424L24.4675 7.296H22.8995L22.0515 6.768V12H20.1155V0.799999ZM22.0515 2.608V5.488H25.2995L25.9235 4.848V3.92L25.0115 2.608H22.0515ZM29.4053 0.799999H37.7573V2.608H33.5013L34.5573 3.552V12H32.6213V4L32.1573 2.608H29.4053V0.799999ZM44.791 0.799999H46.727V4.208L45.207 5.76L46.727 7.984V12H44.791V8.352L43.975 7.216H43.239L41.559 8.976V12H39.623V8.368L41.143 6.816L39.623 4.592V0.799999H41.559V4.224L42.343 5.408H43.111L44.791 3.648V0.799999Z" fill="white"/>
+</svg>
 
       </div>
      
@@ -71,13 +58,9 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
             callback={openLoginModal}
           />
         ) : (
-          <Button
-          theme={"light"}
-          context={"Profile"}
-          callback={() => {
-            navigate("/explore");
-          }}
-        />
+          <div className="header-right">
+            <button className="profile-button" onClick={openProfileModal}>Profile</button>
+          </div>
         )}
       </div>
 
@@ -85,11 +68,11 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
       {showLoginModal && (
         <div className="backdrop" onClick={closeLoginModal}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>
-            {/* <div className="topsec">
+            <div className="topsec">
               <button className="btn" onClick={closeLoginModal}>
                 <ion-icon name="arrow-back-outline"></ion-icon>
               </button>
-            </div> */}
+            </div>
             <LandingAuth onClose={closeLoginModal} />
           </div>
         </div>
@@ -259,7 +242,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             <button onClick={openSearchModal} className="hover:text-white py-2">Terms Of use</button>
             <a className="hover:text-white py-2">Community</a>
             <hr className="w-1/3 border-t-2 border-gray-400 mx-auto" />
-            <button onClick={() =>  {window.localStorage.removeItem("token"); navigate("/outreach");}} className="hover:text-white py-4">Log Out</button>
+
+            <button onClick={() =>  {window.localStorage.removeItem("token"); navigate("/authentication");}} className="hover:text-white py-4">Get Out</button>
            
           </div>
         )}
@@ -270,7 +254,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
               theme={"light"}
               context={"VERTX FLOW"}
               callback={() => {
-                navigate("/sub");
+                navigate("/flow/match flow");
               }}
             />
           </div>
