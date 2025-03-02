@@ -34,7 +34,7 @@
   border-right: 2px solid var(--border-color);
   transition: width 0.3s ease, transform 0.3s ease;
   width: var(--sidebar-collapsed-width);
-  z-index: 50;
+  z-index:19;
 }
 
 .sidebar.expanded {
@@ -46,13 +46,15 @@
 }
 
 .sidebar-toggle-wrapper {
+
   position: fixed;
   top: var(--header-height);
+  padding-top: 30px;
   transform: translateY(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 60;
+  z-index: 20;
   transition: left 0.3s ease;
 }
 

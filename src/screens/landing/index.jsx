@@ -42,22 +42,11 @@ export default function LandingAuth({ onClose }) {
   };
   
   return (
-    <div className="w-full min-h-[550px] bg-black px-20 pl-80 pr-80 pb-12 pt-6 flex flex-col justify-center mx-auto rounded-lg shadow-lg relative backdrop-blur-md bg-opacity-80">
+    <div className="w-full min-h-[550px] bg-black px-20 pl-80 pr-80 pb-12 pt-6 flex flex-col justify-center mx-auto rounded-lg shadow-lg relative backdrop-blur-md bg-opacity-80 z-150">
 
 
 
-      {/* Back button */}
-      <div className="absolute top-4 left-4 z-20">
-        <button 
-          onClick={handleBack} 
-          className="rounded-full bg-transparent p-2 text-white hover:bg-gray-900 border border-gray-700 h-10 w-10 flex items-center justify-center"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-        </button>
-      </div>
-      
+
       <div className="w-full flex flex-col justify-center items-center mt-8">
         <div className="text-center w-full">
           <p className="font-['Manrope'] text-white text-3xl font-bold mb-8 text-center">
