@@ -118,7 +118,7 @@ export default function Welcome_founder() {
             <p className="text-xl text-[#CAC5C5] mb-4">Introduce yourself</p>
           </div>
 
-          <form className="bg-[#151515] rounded-[20px] p-4 shadow-xl border border-[#1D1C1C] w-full max-w-2xl mx-auto mb-4">
+          <form className="bg-[black] rounded-[20px] p-4 shadow-xl border border-[#1D1C1C] w-full max-w-2xl mx-auto mb-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
               <div>
                 <label className="block text-lg font-semibold text-[#CAC5C5]">First Name</label>
