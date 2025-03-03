@@ -112,10 +112,10 @@ export default function EquityCalculator({ onClose }) {
 
   return (
     <div className="container-main">
-      <div className="flex-container">
-        <div className="content-wrapper">
+      {/* <div className="flex-container">
+        <div className="content-wrapper"> */}
           {/* Back button added */}
-          <div className="p-4">
+          <div className="p-2 max-sm:ml-4">
             <button className=" text-gray-400 hover:text-white" onClick={onClose}>
               <svg width="32" height="26" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#757575" strokeWidth="0.5" />
@@ -347,8 +347,8 @@ export default function EquityCalculator({ onClose }) {
               </div>
             </div>
           )}
-        </div>
-      </div>
+        {/* </div>
+      </div> */}
     </div>
   )
 }

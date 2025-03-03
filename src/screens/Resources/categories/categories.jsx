@@ -75,7 +75,7 @@ function Categories() {
       {/* Popup */}
       {isPopupOpen && selectedTool !== null && (
         <div className="fixed inset-0 bg-white bg-opacity-30 backdrop-blur-[2px] flex justify-center items-center z-50">
-          <div className="w-[70%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-[95%] overflow-hidden relative">
+          <div className="w-[70%] max-sm:w-[95%] bg-black rounded-2xl border border-[#75757569] p-6 max-sm:p-2 pb-10 h-[95%] overflow-hidden relative">
             {/* Popup Content */}
             <main className="overflow-y-scroll h-full scrollbar-hide">
               <div className="max-w-5xl mx-auto">
