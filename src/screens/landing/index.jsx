@@ -58,7 +58,7 @@ export default function LandingAuth({ onClose }) {
   // Function to handle next button click
   const handleNextClick = async () => {
     try {
-      const response = await fetch("http://localhost:5000/auth/checkUser", {
+      const response = await fetch(API_KEY +"/auth/checkUser", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

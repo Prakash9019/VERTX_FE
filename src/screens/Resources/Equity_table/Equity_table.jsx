@@ -10,7 +10,40 @@ export default function EquityCalculator({ onClose }) {
     { id: "2", name: "Prakash", percentage: 50, checks: 0 },
   ])
   const [newFounderName, setNewFounderName] = useState("")
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkIsMobile = () => {
+      const mobile = window.innerWidth < 990;
+      setIsMobile(mobile);
+      // Auto close sidebar on mobile
+      // if (mobile && sidebarOpen) {
+      //   setSidebarOpen(false);
+      // }
+    }
+    
+    // Initial check
+    checkIsMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIsMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, [isMobile]);
+
+  // Ensure the body and html have black background
+  useEffect(() => {
+    // Set black background color
+    document.body.style.backgroundColor = "black";
+    document.documentElement.style.backgroundColor = "black";
+    
+    // Cleanup function to reset styles when component unmounts
+    return () => {
+      document.body.style.backgroundColor = "";
+      document.documentElement.style.backgroundColor = "";
+    };
+  }, []);
 
   const questions = [
     "Who is the CEO?",
@@ -212,6 +245,8 @@ export default function EquityCalculator({ onClose }) {
                       </table>
                     </div>
                   </div>
+                
+                
                   <div className="pie-chart-container">
                     <div className="pie-chart-wrapper">
                       <div className="pie-chart">
@@ -265,6 +300,8 @@ export default function EquityCalculator({ onClose }) {
                       </button>
                     </div>
                   </div>
+
+
                 </div>
               </div>
             </div>

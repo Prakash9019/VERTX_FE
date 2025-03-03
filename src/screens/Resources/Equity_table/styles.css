@@ -53,8 +53,8 @@
 }
 
 .section-header {
-  margin-bottom: 2rem;
-  margin-left: 2rem; /* Added margin to move section content right */
+  margin-bottom: 1.5rem;
+  margin-left: 0.5rem; /* Added margin to move section content right */
 }
 
 .intro-section {
@@ -142,7 +142,19 @@
 
 .calculator-flex {
   display: flex;
+  /* flex-direction: column-reverse; */
 }
+
+.calculator-flex {
+  display: flex;
+}
+
+@media (max-width: 963px) {
+  .calculator-flex {
+    flex-direction: column-reverse;
+  }
+}
+
 
 .calculator-questions {
   flex: 1;
@@ -194,10 +206,21 @@
 
 /* Pie chart section */
 .pie-chart-container {
+  display: flex;
   width: 24rem;
   padding: 2rem;
   flex-direction: column;
 }
+
+@media (max-width: 963px) {
+  .pie-chart-container {
+    width: auto;
+    gap:1rem;
+    flex-direction: row;
+  }
+}
+
+
 
 .pie-chart-wrapper {
   margin-bottom: 2rem;
@@ -217,7 +240,6 @@
 
 /* Founder equity display */
 .founder-equity-display {
-  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
