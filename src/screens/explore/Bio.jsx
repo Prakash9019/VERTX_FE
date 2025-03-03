@@ -66,9 +66,6 @@ export default function Bio() {
       } catch (error) {
         console.error("Error fetching user data:", error);
       } 
-      // finally {
-      //   setLoading(false);
-      // }
     };
 
     fetchUserData();
@@ -701,6 +698,7 @@ export default function Bio() {
                         <input
                         type="text"
                         value={projectDescription}
+                        onChange={(e) => setProjectDescription(e.target.value)}
                           placeholder="Describe your idea in few words..."
                             className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder:text-sm placeholder:text-[#424242] !important"
                         />
@@ -709,6 +707,7 @@ export default function Bio() {
                         <input
                           type="text"
                           value={projectLink}
+                          onChange={(e) => setProjectLink(e.target.value)}
                           placeholder="https://yourproject.com/"
                            className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder:text-sm placeholder:text-[#424242] !important"
                         />
@@ -717,6 +716,7 @@ export default function Bio() {
                                                 <input
                         type="text"
                         value={projectPitch}
+                        onChange={(e) => setProjectPitch(e.target.value)}
                           placeholder="Pitch your idea in more detail..."
                             className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder:text-sm placeholder:text-[#424242] !important"
                         />
