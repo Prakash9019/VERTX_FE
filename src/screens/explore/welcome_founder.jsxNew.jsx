@@ -285,22 +285,22 @@ export default function Welcome_founder() {
 
       {/* Mobile Footer Navigation */}
       {isMobile && (
-        <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-[#1D1C1C] py-3 px-4">
-          <div className="flex justify-around items-center">
-            <div onClick={() => handleNavigation("/explore")}>
-              <NavIconFooter icon={<Search />} label="Explore" active={currentPage === "explore"} />
-            </div>
-            <div onClick={() => handleNavigation("/outreach")}>
-              <NavIconFooter icon={<Target />} label="Outreach" active={currentPage === "outreach"} />
-            </div>
-            <div onClick={() => handleNavigation("/enagage")}>
-              <NavIconFooter icon={<Users />} label="Engage" active={currentPage === "enagage"} />
-            </div>
-            <div onClick={() => handleNavigation("/resources")}>
-              <NavIconFooter icon={<Grid />} label="Resources" active={currentPage === "resources"} />
-            </div>
-          </div>
-        </div>
+         <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0">
+         <div className="flex flex-col items-center">
+           <NavIconFooter icon={<Search />} label="Home" active={false} />
+         </div>
+         <div className="flex flex-col items-center relative">
+           {/* Indicator above the active icon */}
+           <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>
+           <NavIconFooter icon={<Target />} label="Outreach" active={true} />
+         </div>
+         <div className="flex flex-col items-center">
+           <NavIconFooter icon={<Users />} label="Engage" active={false} />
+         </div>
+         <div className="flex flex-col items-center">
+           <NavIconFooter icon={<Grid />} label="Resources" active={false} />
+         </div>
+       </div>
       )}
     </Layout>
   )

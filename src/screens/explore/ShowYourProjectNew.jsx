@@ -191,12 +191,22 @@ export default function ShowYourProject() {
 
             {/* Mobile Navigation Footer */}
             {isMobile && (
-                <div className="fixed bottom-0 left-0 right-0 bg-black py-3 px-6 border-t border-[#1D1C1C] flex justify-around">
-                    <NavIconFooter icon={<Search />} label="Explore" active={true} />
-                    <NavIconFooter icon={<Target />} label="Outreach" />
-                    <NavIconFooter icon={<Users />} label="Engage" />
-                    <NavIconFooter icon={<Grid />} label="Resources" />
-                </div>
+                 <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0">
+                 <div className="flex flex-col items-center">
+                   <NavIconFooter icon={<Search />} label="Home" active={false} />
+                 </div>
+                 <div className="flex flex-col items-center relative">
+                   {/* Indicator above the active icon */}
+                   <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>
+                   <NavIconFooter icon={<Target />} label="Outreach" active={true} />
+                 </div>
+                 <div className="flex flex-col items-center">
+                   <NavIconFooter icon={<Users />} label="Engage" active={false} />
+                 </div>
+                 <div className="flex flex-col items-center">
+                   <NavIconFooter icon={<Grid />} label="Resources" active={false} />
+                 </div>
+               </div>
             )}
         </div>
     )

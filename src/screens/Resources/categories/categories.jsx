@@ -1,17 +1,34 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./style.css"
 import FinancialModeling from "../AandF/AandF"
 import EquityManagement from "../Equity_table/Equity_table"
 import ValuationCalculator from "../Startup-valuation/Startup-valuation"
 import DocandSa from "../DOCandSA/DocandSa"
-import { Header, Sidebar } from "../../layout/bars" 
+import { Header, Sidebar, MainContent, Layout, NavIconFooter } from "../../layout/barsNew" 
+import { Search, Target, Users, Grid } from "lucide-react"
 
 function Categories() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [selectedTool, setSelectedTool] = useState(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    // Initial check
+    checkIsMobile()
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIsMobile)
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
 
   const openPopup = (index) => {
     setSelectedTool(index)
@@ -34,48 +51,51 @@ function Categories() {
   ]
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
-      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="flex flex-1 relative">
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-        <main className={`flex-1 p-3 pt-20 transition-all duration-300 ${sidebarOpen ? "ml-64" : "-ml-30"}`}>
-          <div className="main-content2">
-            <div className="content2">
-              <div className="tools-grid">
-                {tools.map((tool, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="tool-card"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      openPopup(index)
-                    }}
-                  >
-                    <h2 className="tool-title">{tool.title}</h2>
-                  </a>
-                ))}
-              </div>
-            </div>
+    <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+      <div className="main-content2">
+        <div className="content2">
+          <div className="tools-grid">
+            {tools.map((tool, index) => (
+              <a
+                key={index}
+                href="#"
+                className="tool-card"
+                onClick={(e) => {
+                  e.preventDefault()
+                  openPopup(index)
+                }}
+              >
+                <h2 className="tool-title">{tool.title}</h2>
+              </a>
+            ))}
           </div>
-
-          {/* Popup */}
-          {isPopupOpen && selectedTool !== null && (
-            <div className="fixed inset-0 bg-white bg-opacity-30 backdrop-blur-[2px] flex justify-center items-center z-50">
-              <div className="w-[70%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-[95%] overflow-hidden relative">
-                {/* Popup Content */}
-                <main className="overflow-y-scroll h-full scrollbar-hide">
-                  <div className="max-w-5xl mx-auto">
-                    {tools[selectedTool].component}
-                  </div>
-                </main>
-              </div>
-            </div>
-          )}
-        </main>
+        </div>
       </div>
-    </div>
+
+      {/* Popup */}
+      {isPopupOpen && selectedTool !== null && (
+        <div className="fixed inset-0 bg-white bg-opacity-30 backdrop-blur-[2px] flex justify-center items-center z-50">
+          <div className="w-[70%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-[95%] overflow-hidden relative">
+            {/* Popup Content */}
+            <main className="overflow-y-scroll h-full scrollbar-hide">
+              <div className="max-w-5xl mx-auto">
+                {tools[selectedTool].component}
+              </div>
+            </main>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Navigation Footer */}
+      {isMobile && (
+        <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-[#333] py-3 px-4 flex justify-around items-center">
+          <NavIconFooter icon={<Search />} label="Explore" active={true} />
+          <NavIconFooter icon={<Target />} label="Outreach" />
+          <NavIconFooter icon={<Users />} label="Engage" />
+          <NavIconFooter icon={<Grid />} label="Resources" />
+        </div>
+      )}
+    </Layout>
   )
 }
 
