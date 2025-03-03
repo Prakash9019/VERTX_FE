@@ -48,7 +48,10 @@ function Categories() {
   const openPopup = (index) => {
     setSelectedTool(index)
     setIsPopupOpen(true)
-    document.body.style.overflow = "hidden" // Prevent scrolling
+    // Allow scrolling on mobile devices
+    if (!isMobile) {
+      document.body.style.overflow = "hidden"
+    }
   }
 
   const closePopup = () => {
@@ -67,32 +70,44 @@ function Categories() {
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className="main-content2">
-        <div className="content2">
-          <div className="tools-grid">
-            {tools.map((tool, index) => (
-              <a
-                key={index}
-                href="#"
-                className="tool-card"
-                onClick={(e) => {
-                  e.preventDefault()
-                  openPopup(index)
-                }}
-              >
-                <h2 className="tool-title">{tool.title}</h2>
-              </a>
-            ))}
+      <div className="flex flex-col min-h-screen">
+        <div className={`${isMobile ? 'px-4 -mt-5 pb-24 flex-grow' : 'w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
+          <div className="main-content2 ">
+            <div className="content2">
+              <div className="tools-grid">
+                {tools.map((tool, index) => (
+                  <a
+                    key={index}
+                    href="#"
+                    className="tool-card"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      openPopup(index)
+                    }}
+                  >
+                    <h2 className="tool-title">{tool.title}</h2>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Popup */}
+      {/* Popup with proper overflow handling for mobile */}
       {isPopupOpen && selectedTool !== null && (
         <div className="fixed inset-0 bg-white bg-opacity-30 backdrop-blur-[2px] flex justify-center items-center z-50">
-          <div className="w-[70%] max-sm:w-[95%] bg-black rounded-2xl border border-[#75757569] p-6 max-sm:p-2 pb-10 h-[95%] overflow-hidden relative">
-            {/* Popup Content */}
-            <main className="overflow-y-scroll h-full scrollbar-hide">
+          <div className={`w-[70%] max-sm:w-[95%] bg-black rounded-2xl border border-[#75757569] p-6 max-sm:p-2 pb-10 ${isMobile ? 'h-[85%] overflow-y-auto' : 'h-[95%]'} relative`}>
+            {/* Close button at the top right */}
+            <button 
+              onClick={closePopup}
+              className="absolute top-2 right-2 p-2 text-white bg-gray-800 rounded-full z-10"
+            >
+              ✕
+            </button>
+            
+            {/* Popup Content with proper scrolling */}
+            <main className={`${isMobile ? '' : 'overflow-y-auto'} h-full scrollbar-hide`}>
               <div className="max-w-5xl mx-auto">
                 {tools[selectedTool].component}
               </div>
@@ -101,7 +116,7 @@ function Categories() {
         </div>
       )}
 
-      {/* Using the MobileFooter component instead of custom MobileNavFooter */}
+      {/* Using the MobileFooter component */}
       {isMobile && <MobileFooter currentPage={currentPage} />}
     </Layout>
   )

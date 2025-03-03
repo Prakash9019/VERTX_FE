@@ -56,7 +56,7 @@ body {
 }
 
 .content2 {
-  padding: 2rem;
+  padding: 1.5rem;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -98,14 +98,53 @@ body {
   .tools-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  .tool-card {
+    min-height: 180px;
+    padding: 1.5rem;
+  }
+  
+  .tool-title {
+    font-size: 1.25rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .main-content {
+  .main-content2 {
     margin-left: 0;
   }
   
   .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .content2 {
+    padding: 1rem;
+  }
+  
+  .tool-card {
+    min-height: 150px;
+    padding: 1.25rem;
+  }
+  
+  .tool-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tools-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .tool-card {
+    min-height: 120px;
+    padding: 1rem;
+  }
+  
+  .content2 {
+    padding: 0.75rem;
   }
 }

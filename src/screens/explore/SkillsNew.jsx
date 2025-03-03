@@ -161,77 +161,114 @@ export default function Skills() {
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className="flex-1 flex items-center justify-center">
-        <div className="max-w-4xl w-full px-4 pb-16">
-          <h1 className="text-4xl font-bold mb-2">Skills to survive</h1>
-          <p className="text-xl text-gray-400 mb-8">Tell me about your background</p>
-
-          <div className="bg-[#151515] rounded-3xl p-12 shadow-xl border border-white-600">
-            {/* Achievement Input */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">Achievement</h2>
-              <input
-                type="text"
-                placeholder="Something you are proud of..."
-                className="w-full bg-transparent border-b border-gray-600 text-gray-400 p-2 outline-none"
-                value={achievement}
-                onChange={(e) => setAchievement(e.target.value)}
-              />
+      <div className="flex flex-col min-h-screen">
+        <div className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'flex-1 flex items-center justify-center'} overflow-y-auto`}>
+          <div className={`${isMobile ? 'w-full' : 'max-w-3xl w-full px-4'}`}>
+            <div className={`text-left ${isMobile ? 'ml-0' : 'ml-0'}`}>
+              <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold mb-1`}>Skills to survive</h1>
+              <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-4`}>Tell me about your background</p>
             </div>
-
-            {/* Skills Selection */}
-            <h2 className="text-2xl font-bold mb-4">Skills</h2>
-            <div className="flex flex-wrap gap-3">
-              {Object.keys(skillsData).map((skill) => (
-                <div
-                  key={skill}
-                  className={`px-4 py-2 rounded-full cursor-pointer transition ${
-                    selectedSkills.includes(skill) ? "bg-white text-black" : "border border-gray-600 text-gray-400"
-                  }`}
-                  onClick={() => handleSkillClick(skill)}
-                >
-                  {skill}
+            
+            <div className="bg-[black] rounded-[20px] p-4 md:p-8 shadow-xl border border-[#1D1C1C] w-full">
+              <div className="flex flex-col items-start">
+                {/* Achievement Input */}
+                <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold mb-3`}>Achievement</h2>
+                <div className="relative w-full mb-5">
+                  <input 
+                    type="text" 
+                    placeholder="Something you are proud of..." 
+                    className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder-[#424242]"
+                    value={achievement}
+                    onChange={(e) => setAchievement(e.target.value)}
+                  />
+                  <div className="absolute right-0 top-1/2 transform -translate-y-1/2">
+                    <svg width="16" height="35" viewBox="0 0 16 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7.59625 28.4953L4.43115 25.3302H10.7613L7.59625 28.4953Z" fill="#757575"/>
+                      <path d="M8.00008 5.25001L10.9167 8.16667H5.08342L8.00008 5.25001Z" fill="#757575"/>
+                      <rect x="5" y="11" width="6" height="12" fill="#757575"/>
+                    </svg>
+                  </div>
+                  <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
                 </div>
-              ))}
-            </div>
 
-            {/* Display Disciplines of Selected Skills */}
-            {selectedSkills.length > 0 && (
-              <div className="mt-6">
-                <h2 className="text-2xl font-bold mb-4">Disciplines</h2>
-                <div className="flex flex-wrap gap-3">
-                  {selectedSkills.flatMap((skill) =>
-                    skillsData[skill].map((discipline) => ( 
-                      <div
-                        key={discipline}
-                        className={`px-4 py-2 rounded-full cursor-pointer transition ${
-                          selectedDisciplines.includes(discipline) ? "bg-white text-black" : "border border-gray-600 text-gray-400"
-                        }`}
-                        onClick={() => handleDisciplineClick(discipline)}
-                      >
-                        {discipline}
-                      </div>
-                    ))
-                  )}
+                {/* Skills Selection */}
+                <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold mb-3`}>Skills</h2>
+                <div className="flex flex-wrap gap-1.5 md:gap-2 w-full">
+                  {Object.keys(skillsData).map((skill) => (
+                    <div
+                      key={skill}
+                      className={`${
+                        selectedSkills.includes(skill) 
+                          ? "bg-white text-black" 
+                          : "bg-transparent border border-[#757575] text-[#757575]"
+                      } rounded-full px-2 py-0.5 md:px-3 md:py-1 text-xs md:text-sm font-bold cursor-pointer mb-1`}
+                      onClick={() => handleSkillClick(skill)}
+                    >
+                      {skill}
+                    </div>
+                  ))}
                 </div>
+
+                {/* Display Disciplines of Selected Skills */}
+                {selectedSkills.length > 0 && (
+                  <div className="mt-5 w-full">
+                    <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold mb-3`}>Disciplines</h2>
+                    <div className="flex flex-wrap gap-1.5 md:gap-2 w-full">
+                      {selectedSkills.flatMap((skill) =>
+                        skillsData[skill].map((discipline) => (
+                          <div
+                            key={discipline}
+                            className={`${
+                              selectedDisciplines.includes(discipline)
+                                ? "bg-white text-black"
+                                : "bg-transparent border border-[#757575] text-[#757575]"
+                            } rounded-full px-2 py-0.5 md:px-3 md:py-1 text-xs md:text-sm font-bold cursor-pointer mb-1`}
+                            onClick={() => handleDisciplineClick(discipline)}
+                          >
+                            {discipline}
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between mt-8">
-            <button className="bg-[#1D1C1C] text-white font-bold py-3 px-12 rounded-lg border border-gray-600" onClick={() => navigate(-1)}>
-              Back
-            </button>
-            <button className="bg-white text-black font-bold py-3 px-12 rounded-lg ml-4" onClick={handleSubmit}>
-              Save & Continue
-            </button>
+            </div>
+            
+            {/* Navigation Buttons */}
+            <div className={`flex ${isMobile ? 'justify-center mt-6 mb-16' : 'justify-between mt-6'} w-full`}>
+              {isMobile ? (
+                <>
+                  <button 
+                    className="bg-white text-black font-bold py-2.5 px-8 rounded-[10px] text-lg w-full"
+                    onClick={handleSubmit}
+                  >
+                    Continue
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
+                    onClick={() => navigate(-1)}
+                  >
+                    Back
+                  </button>
+                  <button 
+                    className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]"
+                    onClick={handleSubmit}
+                  >
+                    Continue
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
+        
+        {/* Using the MobileFooter component for mobile devices */}
+        {isMobile && <MobileFooter currentPage={currentPage} />}
       </div>
-      
-      {/* Using the MobileFooter component instead of custom MobileNavFooter */}
-      {isMobile && <MobileFooter currentPage={currentPage} />}
     </Layout>
   );
 }
