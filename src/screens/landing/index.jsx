@@ -3,13 +3,18 @@ import { useState } from "react";
 import axios from "axios";
 import API_KEY from "../../../key.js";
 import logo from "../../assets/logo.png";
+import Input from "../../components/input/component.jsx";
 
 export default function LandingAuth({ onClose }) {
   const navigate = useNavigate();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
-  const [username, setUsername] = useState("");
-  
+  const [email, setemail] = useState("");
+  const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const [resp, setResp] = useState("");
+
+  const [show,setShow] = useState(false);
   const fetchGoogleUrl = async () => {
     const response = await axios.get(API_KEY + "/auth/oauth").catch((e) => e.response);
     console.log(response?.data?.msg);
@@ -18,6 +23,30 @@ export default function LandingAuth({ onClose }) {
       window.location.href = response.data.msg;
     }
   }
+  const signinHandler = async () => {
+    
+    // setLoad(true)
+    const response = await axios
+      .post(API_KEY + "/auth/signin", {
+        email,
+        password,
+      })
+      .catch((e) => {
+        return e.response;
+      });
+
+    if(response){
+        // setLoad(false);
+        console.log(response);
+        console.log(response?.data?.msg);
+        setResp(response?.data?.msg);
+        if (response.status == 200) {
+          window.localStorage.setItem("token", response?.data?.token);
+          navigate("/callback")
+        }
+        setShow(true);
+    }
+  };
   
   // Function to handle login button click
   const handleLoginClick = () => {
@@ -26,8 +55,35 @@ export default function LandingAuth({ onClose }) {
   };
   
   // Function to handle next button click
-  const handleNextClick = () => {
-    setShowPasswordForm(true);
+  const handleNextClick = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/auth/checkUser", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email:email }),
+    });
+    console.log(response);
+    const data = await response.json();
+    if (!response.ok) {
+      const errorMessage = data.message || 'An unknown error occurred'; // Fallback message
+       throw new Error(errorMessage); // Throw dynamic erro   
+  }
+
+      
+      if (data.status) {
+        setShowPasswordForm(true);
+        setErrorMessage('');
+      } else {
+        setErrorMessage('User does not exist');
+        setShowPasswordForm(false);
+      }
+    } catch (error) {
+      // console.error( error);
+      setErrorMessage(error.message);
+    }
+
   };
   
   // Function to go back
@@ -40,6 +96,7 @@ export default function LandingAuth({ onClose }) {
       onClose();
     }
   };
+  const [errorMessage,setErrorMessage]=useState("");
   
   return (
     <div className="w-full min-h-[550px] bg-black px-20 pl-80 pr-80 pb-12 pt-6 flex flex-col justify-center mx-auto rounded-lg shadow-lg relative backdrop-blur-md bg-opacity-80 z-150">
@@ -132,11 +189,14 @@ export default function LandingAuth({ onClose }) {
                 <div className="w-full">
                   <input
                     type="text"
-                    placeholder="username or email"
+                    placeholder="email or email"
                     className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={email}
+                    onChange={(e) => setemail(e.target.value)}
                   />
+                    {errorMessage && (
+                      <p className="text-red-500 mt-4">{errorMessage}</p>
+                   )}
                   
                   <Button
                     context={"Next"}
@@ -158,39 +218,37 @@ export default function LandingAuth({ onClose }) {
             {/* Password Form */}
             {showPasswordForm && (
               <div className="w-full">
-                <input
-                  type="text"
-                  placeholder="username or email"
-                  className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  disabled
-                />
-                
-                <input
-                  type="password"
-                  placeholder="Enter password"
-                  className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
-                  autoFocus
-                />
-                
-                <Button
-                  context={"Next"}
-                  theme="light"
-                  callback={() => {
-                    // Handle login submission
-                    navigate("/home");
-                    if (onClose) onClose();
-                  }}
-                />
-                
-                <Button
-                  context={"Forgot password?"}
-                  theme="dark"
-                  callback={() => {
-                    // Handle forgot password
-                  }}
-                />
+                  <Input
+                          state={email}
+                          setState={setemail}
+                          label={"Enter your email"}
+                          theme={"dark"}
+                        />
+                        <Input
+                          state={password}
+                          setState={setPassword}
+                          label={"Set a strong password"}
+                          theme={"dark"}
+                          password={true}
+                        />
+                 <div className="btnWrap">
+                          <Button
+                            theme={disabled ? "light disabled" : "light"}
+                            context={"Next"}
+                            callback={() => signinHandler()}
+                            disabled={password.length > 0 ? true : false}
+                          />
+                          <Button
+                            disabled={false}
+                            theme={"dark"}
+                            context={"Forget password"}
+                            callback={() => {}}
+                          />
+                        </div>
+                        <a href="/signup" className="subhead">
+                          Don't have an account? <span>Sign up</span>
+                        </a>
+                        {show ? <div className="notification">{resp}</div> : null}
               </div>
             )}
           </div>

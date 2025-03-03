@@ -7,7 +7,7 @@ export default function Input({theme, label, state, setState, dis, password}){
       <div className="pas">
         <input
           type={hide ? "password": "text"}
-          className={`inp ${theme}`}
+          className={`w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3`}
           value={state}
           onChange={(e) => setState(e.target.value)}
           placeholder={label}
@@ -25,7 +25,7 @@ export default function Input({theme, label, state, setState, dis, password}){
       return (
         <input
           type="text"
-          className={`inp ${theme}`}
+          className={`w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3`}
           value={state}
           onChange={(e) => setState(e.target.value)}
           placeholder={label}
