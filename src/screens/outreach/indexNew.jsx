@@ -1,13 +1,14 @@
-import "./style.css";
+// import "./style.css";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { industries, Country, investorType } from "./filters.js";
 import { Lock, Search, Target, Users, Grid } from 'lucide-react';
 import API_KEY from "../../../key";
 import axios from "axios";
-import { Header, Sidebar, NavIconFooter, Layout, MainContent, FilterButton } from "../layout/bars.jsx";
+import { Header, Sidebar, NavIconFooter, Layout, MainContent, FilterButton } from "../layout/barsNew.jsx";
 import Card from "../../components/investorCard/component";
 import gify from "./gify.gif";
+import "./styleNew.css"
 
 export default function Outreach() {
   const navigate = useNavigate();
@@ -319,28 +320,28 @@ export default function Outreach() {
                 {error && <div className="error-message">{error}</div>}
 
                 {/* Investor Cards */}
-                <div className="profilecards">
-                  {loading ? (
-                    <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
-                      <img src={gify} alt="Loading..." className="w-20 h-20" />
-                    </div>
-                  ) : (
-                    <>
-                      {isUpgradeRequired && (
-                        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                          <button className="bg-white p-4 rounded text-center text-black text-lg" onClick={()=> navigate("/sub")}>
-                            🔒 Upgrade to unlock
-                          </button>
-                        </div>
-                      )}
-                      {investors.map((item, index) => (
-                        <div key={item._id || index} className={`pcard ${isUpgradeRequired ? 'blur-sm' : ''}`}>
-                          <Card data={item} />
-                        </div>
-                      ))}
-                    </>
-                  )}
-                </div>
+                 <div className="profilecards">
+                                {loading ? (
+                                  <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                                    <img src={gify} alt="Loading..." className="w-20 h-20" />
+                                  </div>
+                                ) : (
+                                  <>
+                                    {isUpgradeRequired && (
+                                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                                        <button className="bg-white p-4 rounded text-center text-black text-lg" onClick={()=> navigate("/sub")}>
+                                          🔒 Upgrade to unlock
+                                        </button>
+                                      </div>
+                                    )}
+                                    {investors.map((item, index) => (
+                                      <div key={item._id || index} className={` ${isUpgradeRequired ? 'blur-sm' : ''}`}>
+                                        <Card data={item} />
+                                      </div>
+                                    ))}
+                                  </>
+                                )}
+                              </div>
                 
                 {/* Pagination Controls */}
                 <div className="pagination mt-8 mb-12">

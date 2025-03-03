@@ -12,7 +12,7 @@ import Explore from "./screens/explore";
 import LandingAuth from "./screens/landing"
 import Matchflow from "./screens/matchflow";
 //asa
-import Outreach from "./screens/outreach";
+import Outreach from "./screens/outreach/indexNew.jsx";
 import Questions from "./screens/questions";
 import PricingPage from "./screens/Subscription";
 import Cashfree from "./screens/Cashfree/cashfree";
