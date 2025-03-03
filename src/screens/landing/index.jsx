@@ -98,7 +98,7 @@ export default function LandingAuth({ onClose }) {
 
   return (
     <div className="fixed inset-0 bg-white bg-opacity-50 backdrop-blur-[2px] flex justify-center items-center z-50">
-      <div className="w-[60%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-[70%] overflow-auto relative">
+      <div className="w-[60%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-[70%]  relative">
         <div className="absolute top-4 left-4 z-20">
           <button
             onClick={handleBack}
