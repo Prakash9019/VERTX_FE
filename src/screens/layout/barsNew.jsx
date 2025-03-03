@@ -200,15 +200,22 @@ export function MainContent({ sidebarOpen, children }) {
 
 // Navigation Item Component for sidebar
 function NavItem({ icon, label, expanded,active ,name }) {
+  const navigate=useNavigate();
   return (
-    <div className={`flex items-center py-4 px-4 relative ${active === name ? "text-white" : "text-gray-400"} hover:text-white cursor-pointer`}>
-    
+    <button
+    onClick={() => {
+      console.log(`/${name}`);
+      navigate(`/${name}`);
+    }}
+
+    className={`flex items-center py-4 px-4 relative ${active === name ? "text-white" : "text-gray-400"} hover:text-white cursor-pointer`}>
+  
       <div className="w-6 h-6">{icon}</div>
       {expanded && <span className="ml-4 text-lg">{label}</span>}
       {active === name && !expanded && (
         <div className="absolute right-0 w-1 h-8 bg-white rounded-md"></div>
       )}
-    </div>
+    </button>
   )
 }
 
