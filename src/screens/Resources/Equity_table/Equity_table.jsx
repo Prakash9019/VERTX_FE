@@ -32,25 +32,17 @@ export default function EquityCalculator({ onClose }) {
       question: "How does fundraising impact founder equity?",
       answer: "When a startup raises funds, new shares are issued, diluting the founder's percentage ownership. However, the total company value increases, so their remaining stake may be worth more."
     },
-    {
-      question: "When a startup raises funds, new shares are issued, diluting the founder's percentage ownership. However, the total company value increases, so their remaining stake may be worth more."
-
-    },
+   
     {
       question: "What happens when employees are given stock options?",
       answer: "Stock options reserve equity for employees. When exercised, it dilutes existing shareholders but helps in retaining top talent."
     },
-    {
-      question: "Stock options reserve equity for employees. When exercised, it dilutes existing shareholders but helps in retaining top talent."
-
-    },
+    
     {
       question: "How do SAFE & Convertible Notes affect the Cap Table?",
       answer: "These convert into equity later, often at a discount or using a valuation cap. Founders should track their impact to avoid unexpected dilution."
     },
-    {
-      question: "These convert into equity later, often at a discount or using a valuation cap. Founders should track their impact to avoid unexpected dilution."
-    }
+    
   ]
 
   const handleCheckChange = (founderId, questionIndex, checked) => {

@@ -90,8 +90,8 @@
 
 /* Definitions section */
 .definitions-section {
-  margin-bottom: 3rem;
-  margin-left: 2rem; /* Added margin to move section content right */
+  margin-bottom: 1.5rem;
+  margin-left: 0.5rem; /* Added margin to move section content right */
 }
 
 .definitions-table-container {
@@ -129,8 +129,8 @@
 
 /* Calculator section */
 .calculator-section {
-  margin-bottom: 3rem;
-  margin-left: 2rem; /* Added margin to move section content right */
+  margin-bottom: 1.5rem;
+  margin-left: 0.5rem; /* Added margin to move section content right */
 }
 
 .calculator-container {
@@ -266,8 +266,8 @@
 
 /* FAQs section */
 .faqs-section {
-  margin-bottom: 3rem;
-  margin-left: 2rem; /* Added margin to move section content right */
+  margin-bottom: 1.5rem;
+  margin-left: 0.5rem; /* Added margin to move section content right */
 }
 
 .faqs-container {
