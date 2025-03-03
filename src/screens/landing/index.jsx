@@ -234,7 +234,7 @@ export default function LandingAuth({ onClose }) {
                       theme={disabled ? "light disabled" : "light"}
                       context={"Next"}
                       callback={() => signinHandler()}
-                      disabled={password.length > 0 ? true : false}
+                      disabled={password.length > 0 ? false : true}
                     />
                     <Button
                       disabled={false}
