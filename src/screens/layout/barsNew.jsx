@@ -152,9 +152,18 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         {sidebarOpen ? (
           <>
             <div className="flex flex-col items-center space-y-4 mb-4">
+              {window.localStorage.getItem('token') ?
+              <>
               <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold">Profile</button>
               <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold">Vertex Flow</button>
-            </div>
+               </>
+              :
+                <>
+                <button className="w-40 h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold">Sign Up</button>
+                <button className="w-40 h-10 bg-[##1F1F1F] text-[#FBFAF4] border border-gray-300 rounded-md font-bold" onClick={ () => navigate("/authentication")}>Log in</button>
+                </>
+            }
+             </div>
           </>
         ) : (
           <>
