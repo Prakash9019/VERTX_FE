@@ -5,7 +5,7 @@ import { industries, Country, investorType } from "./filters.js";
 import { Lock, Search, Target, Users, Grid } from 'lucide-react';
 import API_KEY from "../../../key";
 import axios from "axios";
-import { Header, Sidebar, NavIconFooter, Layout, MainContent, FilterButton } from "../layout/barsNew.jsx";
+import { Header, Sidebar, NavIconFooter, Layout, MainContent, FilterButton, MobileFooter } from "../layout/barsNew.jsx";
 import Card from "../../components/investorCard/component";
 import gify from "./gify.gif";
 import "./styleNew.css"
@@ -28,6 +28,9 @@ export default function Outreach() {
   
   // Sidebar state
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  
+  // Current page for navigation highlighting
+  const [currentPageNav, setCurrentPageNav] = useState("outreach");
 
   // Filters state
   const [filters, setFilters] = useState({
@@ -57,6 +60,12 @@ export default function Outreach() {
     // Cleanup
     return () => window.removeEventListener('resize', checkIsMobile);
   }, [sidebarOpen]);
+  
+  // Set current page for navigation highlighting
+  useEffect(() => {
+    // This should be "outreach" for this page
+    setCurrentPageNav("outreach");
+  }, []);
 
   // Ensure the body and html have black background
   useEffect(() => {
@@ -226,23 +235,8 @@ export default function Outreach() {
           </div>
         </div>
         
-        {/* Mobile footer navigation */}
-        <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0">
-          <div className="flex flex-col items-center">
-            <NavIconFooter icon={<Search />} label="Home" active={false} />
-          </div>
-          <div className="flex flex-col items-center relative">
-            {/* Indicator above the active icon */}
-            <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>
-            <NavIconFooter icon={<Target />} label="Outreach" active={true} />
-          </div>
-          <div className="flex flex-col items-center">
-            <NavIconFooter icon={<Users />} label="Engage" active={false} />
-          </div>
-          <div className="flex flex-col items-center">
-            <NavIconFooter icon={<Grid />} label="Resources" active={false} />
-          </div>
-        </div>
+        {/* Mobile footer using MobileFooter component */}
+        <MobileFooter currentPage={currentPageNav} />
       </div>
     );
   }

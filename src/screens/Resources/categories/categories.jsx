@@ -6,7 +6,7 @@ import FinancialModeling from "../AandF/AandF"
 import EquityManagement from "../Equity_table/Equity_table"
 import ValuationCalculator from "../Startup-valuation/Startup-valuation"
 import DocandSa from "../DOCandSA/DocandSa"
-import { Header, Sidebar, MainContent, Layout, NavIconFooter } from "../../layout/barsNew" 
+import { Header, Sidebar, MainContent, Layout, NavIconFooter, MobileFooter } from "../../layout/barsNew" 
 import { Search, Target, Users, Grid } from "lucide-react"
 
 function Categories() {
@@ -14,10 +14,15 @@ function Categories() {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [selectedTool, setSelectedTool] = useState(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [currentPage, setCurrentPage] = useState("explore")
 
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768)
+      // Automatically collapse sidebar on mobile
+      if (window.innerWidth < 768) {
+        setSidebarOpen(false)
+      }
     }
     
     // Initial check
@@ -29,6 +34,16 @@ function Categories() {
     // Cleanup
     return () => window.removeEventListener('resize', checkIsMobile)
   }, [])
+
+  // Set current page for navigation highlighting
+  useEffect(() => {
+    // Check if the path includes "explore" to keep the bar active
+    if (location.pathname.includes("explore")) {
+      setCurrentPage("explore")
+    } else {
+      setCurrentPage(location.pathname.split("/").pop()) // Fallback for other pages
+    }
+  }, [location.pathname])
 
   const openPopup = (index) => {
     setSelectedTool(index)
@@ -86,15 +101,8 @@ function Categories() {
         </div>
       )}
 
-      {/* Mobile Navigation Footer */}
-      {isMobile && (
-        <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-[#333] py-3 px-4 flex justify-around items-center">
-          <NavIconFooter icon={<Search />} label="Explore" active={true} />
-          <NavIconFooter icon={<Target />} label="Outreach" />
-          <NavIconFooter icon={<Users />} label="Engage" />
-          <NavIconFooter icon={<Grid />} label="Resources" />
-        </div>
-      )}
+      {/* Using the MobileFooter component instead of custom MobileNavFooter */}
+      {isMobile && <MobileFooter currentPage={currentPage} />}
     </Layout>
   )
 }

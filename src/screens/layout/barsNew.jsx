@@ -230,6 +230,35 @@ export function NavIconFooter({ icon, label, active = false }) {
   )
 }
 
+// Mobile Footer Component
+export function MobileFooter({ currentPage }) {
+  const navigate = useNavigate();
+  
+  const handleNavigation = (route) => {
+    navigate(`/${route}`);
+  };
+  
+  return (
+    <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0">
+      <div className="flex flex-col items-center" onClick={() => handleNavigation('explore')}>
+        <NavIconFooter icon={<Search />} label="Home" active={currentPage === "explore"} />
+      </div>
+      <div className="flex flex-col items-center relative" onClick={() => handleNavigation('outreach')}>
+        {currentPage === "outreach" && (
+          <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>
+        )}
+        <NavIconFooter icon={<Target />} label="Outreach" active={currentPage === "outreach"} />
+      </div>
+      <div className="flex flex-col items-center" onClick={() => handleNavigation('enagage')}>
+        <NavIconFooter icon={<Users />} label="Engage" active={currentPage === "enagage"} />
+      </div>
+      <div className="flex flex-col items-center" onClick={() => handleNavigation('resources')}>
+        <NavIconFooter icon={<Grid />} label="Resources" active={currentPage === "resources"} />
+      </div>
+    </div>
+  );
+}
+
 // Filter Button Component
 export function FilterButton({ label, mobile = false }) {
   return (
@@ -243,6 +272,7 @@ export function FilterButton({ label, mobile = false }) {
 // Layout Component
 export function Layout({ sidebarOpen, setSidebarOpen, children }) {
   const [isMobile, setIsMobile] = useState(false);
+  const [currentPage, setCurrentPage] = useState("explore");
   
   useEffect(() => {
     const checkIsMobile = () => {
@@ -255,6 +285,21 @@ export function Layout({ sidebarOpen, setSidebarOpen, children }) {
     return () => window.removeEventListener('resize', checkIsMobile)
   }, [])
   
+  useEffect(() => {
+    // Check if the path includes specific routes to set current page
+    if (location.pathname.includes("explore")) {
+      setCurrentPage("explore");
+    } else if (location.pathname.includes("outreach")) {
+      setCurrentPage("outreach");
+    } else if (location.pathname.includes("enagage")) {
+      setCurrentPage("enagage");
+    } else if (location.pathname.includes("resources")) {
+      setCurrentPage("resources");
+    } else {
+      setCurrentPage(location.pathname.split("/").pop()); // Fallback for other pages
+    }
+  }, [location.pathname]);
+  
   return (
     <div className="flex flex-col h-screen bg-black text-white">
       {isMobile && <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}
@@ -265,6 +310,8 @@ export function Layout({ sidebarOpen, setSidebarOpen, children }) {
           {children}
         </MainContent>
       </div>
+      
+      {isMobile && <MobileFooter currentPage={currentPage} />}
     </div>
   );
 }

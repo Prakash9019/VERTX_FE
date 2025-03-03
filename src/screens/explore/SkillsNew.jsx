@@ -1,11 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { 
-  Header, 
-  Sidebar, 
-  Layout, 
-  NavIconFooter 
-} from "../layout/barsNew";
+import { Header, Sidebar, Layout, NavIconFooter, MobileFooter } from "../layout/barsNew"
 import { useNavigate } from "react-router";
 import axios from "axios";
 import API_KEY from "../../../key";
@@ -73,6 +68,10 @@ export default function Skills() {
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768);
+      // Automatically collapse sidebar on mobile
+      if (window.innerWidth < 768) {
+        setSidebarOpen(false);
+      }
     };
     
     // Initial check
@@ -84,6 +83,16 @@ export default function Skills() {
     // Cleanup
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
+
+  // Set current page for navigation highlighting
+  useEffect(() => {
+    // Check if the path includes "explore" to keep the bar active
+    if (location.pathname.includes("explore")) {
+      setCurrentPage("explore");
+    } else {
+      setCurrentPage(location.pathname.split("/").pop()); // Fallback for other pages
+    }
+  }, [location.pathname]);
 
   // Fetch existing data from backend
   useEffect(() => {
@@ -149,30 +158,6 @@ export default function Skills() {
       <img src={gify} alt="Loading..." className="w-20 h-20" />
     </div>;
   }
-
-  // Mobile footer navigation
-  const MobileNavFooter = () => {
-    if (!isMobile) return null;
-    
-    return (
-      <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0">
-      <div className="flex flex-col items-center">
-        <NavIconFooter icon={<Search />} label="Home" active={false} />
-      </div>
-      <div className="flex flex-col items-center relative">
-        {/* Indicator above the active icon */}
-        <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>
-        <NavIconFooter icon={<Target />} label="Outreach" active={true} />
-      </div>
-      <div className="flex flex-col items-center">
-        <NavIconFooter icon={<Users />} label="Engage" active={false} />
-      </div>
-      <div className="flex flex-col items-center">
-        <NavIconFooter icon={<Grid />} label="Resources" active={false} />
-      </div>
-    </div>
-    );
-  };
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
@@ -244,7 +229,9 @@ export default function Skills() {
           </div>
         </div>
       </div>
-      <MobileNavFooter />
+      
+      {/* Using the MobileFooter component instead of custom MobileNavFooter */}
+      {isMobile && <MobileFooter currentPage={currentPage} />}
     </Layout>
   );
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { Header, Sidebar, Layout, NavIconFooter } from "../layout/barsNew"
+import { Header, Sidebar, Layout, NavIconFooter, MobileFooter } from "../layout/barsNew"
 import { useNavigate } from "react-router"
 import { Search, Target, Users, Grid } from "lucide-react"
 
@@ -9,6 +9,7 @@ export default function ShowYourProject() {
     const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(true)
     const [isMobile, setIsMobile] = useState(false);
+    const [currentPage, setCurrentPage] = useState("explore");
   
     useEffect(() => {
       const checkIsMobile = () => {
@@ -24,6 +25,16 @@ export default function ShowYourProject() {
       // Cleanup
       return () => window.removeEventListener('resize', checkIsMobile)
     }, [])
+
+    // Set current page for navigation highlighting
+    useEffect(() => {
+      // Check if the path includes "explore" to keep the bar active
+      if (location.pathname.includes("explore")) {
+        setCurrentPage("explore");
+      } else {
+        setCurrentPage(location.pathname.split("/").pop()); // Fallback for other pages
+      }
+    }, [location.pathname]);
 
     return (
         <div className="min-h-screen bg-black text-white flex flex-col">
@@ -189,25 +200,8 @@ export default function ShowYourProject() {
                 </div>
             </Layout>
 
-            {/* Mobile Navigation Footer */}
-            {isMobile && (
-                 <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0">
-                 <div className="flex flex-col items-center">
-                   <NavIconFooter icon={<Search />} label="Home" active={false} />
-                 </div>
-                 <div className="flex flex-col items-center relative">
-                   {/* Indicator above the active icon */}
-                   <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>
-                   <NavIconFooter icon={<Target />} label="Outreach" active={true} />
-                 </div>
-                 <div className="flex flex-col items-center">
-                   <NavIconFooter icon={<Users />} label="Engage" active={false} />
-                 </div>
-                 <div className="flex flex-col items-center">
-                   <NavIconFooter icon={<Grid />} label="Resources" active={false} />
-                 </div>
-               </div>
-            )}
+            {/* Using the MobileFooter component instead of custom mobile footer */}
+            {isMobile && <MobileFooter currentPage={currentPage} />}
         </div>
     )
 }
