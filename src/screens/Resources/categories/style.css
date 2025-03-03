@@ -52,7 +52,7 @@ body {
   margin-left: var(--sidebar-width);
   background-color: var(--main-background);
   min-height: 100vh;
-  padding-top: var(--header-height);
+  padding-top: 2rem;
 }
 
 .content2 {

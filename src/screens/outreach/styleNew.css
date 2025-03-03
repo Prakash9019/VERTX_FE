@@ -96,6 +96,32 @@
   flex-wrap: wrap;
 }
 
+.sel {
+  -webkit-appearance: none; /* Remove default styling in Safari */
+  -moz-appearance: none; /* Remove default styling in Firefox */
+  appearance: none; /* Remove default dropdown arrow */
+  background-color: #161616;
+  color: #adadad;
+  padding: 10px;
+  border: 1px solid #75757569;
+  border-radius: 5px;
+  font-family: "Manrope", sans-serif;
+  position: relative;
+  width: 150px; /* Ensure equal width */
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'><path fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+/* Ensure consistent styling on focus */
+.sel:focus {
+  outline: none;
+  border-color: #adadad;
+}
+
+
 .filter .sel {
   width: max-content;
   height: max-content;

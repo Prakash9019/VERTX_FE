@@ -304,7 +304,7 @@ export function Layout({ sidebarOpen, setSidebarOpen, children }) {
     <div className="flex flex-col h-screen bg-black text-white">
       {isMobile && <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}
       
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow">
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <MainContent sidebarOpen={sidebarOpen}>
           {children}

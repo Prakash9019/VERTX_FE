@@ -155,6 +155,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .questions-table-container {
+    overflow-x: auto; /* Ensure horizontal scroll on mobile */
+  }
+}
+
 
 .calculator-questions {
   flex: 1;

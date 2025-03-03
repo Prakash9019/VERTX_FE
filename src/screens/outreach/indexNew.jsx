@@ -80,22 +80,7 @@ export default function Outreach() {
     };
   }, []);
 
-  useEffect(() => {
-    async function fetchUserPlan() {
-      try {
-        const userRes = await axios.get(`${API_KEY}/payment/me`, { headers: { token: localStorage.getItem('token') } });
-        const plan = userRes.data.plan;
-        setModel(plan);
-        let newTotalPageSize = 20;
-        if (plan === 'EXPLORE' || plan === 'OUTREACH') newTotalPageSize = 40;
-        else if (plan === 'ENTERPRISE') newTotalPageSize = 100;
-        setTotalPageSize(newTotalPageSize);
-      } catch (err) {
-        console.error('Error fetching user plan:', err);
-      }
-    }
-    fetchUserPlan();
-  }, []);
+ 
 
   useEffect(() => {
     async function getInvestors() {
@@ -257,59 +242,53 @@ export default function Outreach() {
                 <p className="head mt-14 text-white font-bold">Explore and connect.</p>
 
                 {/* Filters */}
-                <div className="filter">
-                  {model === "EXPLORE" ? (
-                    <>
-                      <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                        Country <i className="material-icons text-white">lock</i>
-                      </div>
-                      <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                        Investor Type <i className="material-icons text-white">lock</i>
-                      </div>
-                      <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                        Industries <i className="material-icons text-white">lock</i>
-                      </div>
-                      <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                        Ticket <i className="material-icons text-white">lock</i>
-                      </div>
-                      <div className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-                        Bookmarked
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <select className="sel" onChange={(e) => handleFilterChange("country", e.target.value)}>
-                        <option value="" disabled selected>Country</option>
-                        {Country.map((country, i) => (
-                          <option key={i} value={country}>{country}</option>
-                        ))}
-                      </select> 
+                {/* <div className="filter"> */}
+                <div className="flex gap-3 overflow-x-auto p-2 w-full">
+  <div className="flex flex-row justify-between items-center min-w-[150px] px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
+    <select
+      className="w-full bg-transparent text-[#adadad] outline-none"
+      onChange={(e) => handleFilterChange("country", e.target.value)}
+    >
+      <option value="" disabled selected>Country</option>
+      {Country.map((country, i) => (
+        <option key={i} value={country} className="text-black">{country}</option>
+      ))}
+    </select>
+  </div>
 
-                      <select className="sel" onChange={(e) => handleFilterChange("investorType", e.target.value)}>
-                        <option value="" disabled selected>Investor Type</option>
-                        {investorType.map((investorType, i) => (
-                          <option key={i} value={investorType}>{investorType}</option>
-                        ))}
-                      </select>
+  <select
+    className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md"
+    onChange={(e) => handleFilterChange("investorType", e.target.value)}
+  >
+    <option value="" disabled selected>Investor Type</option>
+    {investorType.map((investorType, i) => (
+      <option key={i} value={investorType}>{investorType}</option>
+    ))}
+  </select>
 
-                      <select className="sel" onChange={(e) => handleFilterChange("industry", e.target.value)}>
-                        <option value="" disabled selected>Industries</option>
-                        {industries.map((industry, i) => (
-                          <option key={i} value={industry}>{industry}</option>
-                        ))}
-                      </select>
-                      
-                      <button className="sel">Ticket</button>
-                      <button 
-                        className={`sel ${bookmarked ? 'active-filter' : ''}`}
-                        onClick={toggleBookmarked}
-                        style={{ color: "#757575", borderColor: "#757575" }}
-                      >
-                        Bookmarked
-                      </button>
-                    </>
-                  )}
-                </div>
+  <select
+    className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md"
+    onChange={(e) => handleFilterChange("industry", e.target.value)}
+  >
+    <option value="" disabled selected>Industries</option>
+    {industries.map((industry, i) => (
+      <option key={i} value={industry}>{industry}</option>
+    ))}
+  </select>
+
+  <button className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md">
+    Ticket
+  </button>
+
+  <button
+    className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${bookmarked ? 'bg-[#75757569] text-white' : 'text-[#adadad] bg-[#161616]'}`}
+    onClick={toggleBookmarked}
+  >
+    Bookmarked
+  </button>
+</div>
+
+                {/* </div> */}
 
                 {error && <div className="error-message">{error}</div>}
 
@@ -321,15 +300,9 @@ export default function Outreach() {
                                   </div>
                                 ) : (
                                   <>
-                                    {isUpgradeRequired && (
-                                      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                                        <button className="bg-white p-4 rounded text-center text-black text-lg" onClick={()=> navigate("/sub")}>
-                                          🔒 Upgrade to unlock
-                                        </button>
-                                      </div>
-                                    )}
+                                  
                                     {investors.map((item, index) => (
-                                      <div key={item._id || index} className={` ${isUpgradeRequired ? 'blur-sm' : ''}`}>
+                                      <div key={item._id || index} >
                                         <Card data={item} />
                                       </div>
                                     ))}
@@ -346,7 +319,7 @@ export default function Outreach() {
                   >
                     Previous
                   </button>
-                  <span className="page-info">Page {currentPage} of {totalPages}</span>
+                  <span className="page-info">Page {currentPage} </span>
                   <button 
                     className="pagination-button"
                     disabled={currentPage === totalPages} 

@@ -42,7 +42,6 @@ function App() {
       <Route path="/info" element={<Questions />} />
 
       <Route path="/outreach" element={<Outreach />} />
-      {/* <Route path="/explore" element={<Explore />} /> */}
       <Route path="/sub" element={<PricingPage/> } />
       <Route path="/flow/outbound" element={<GenerateEmail />} />
       <Route path="/flow/chat" element={<Chat />} />
