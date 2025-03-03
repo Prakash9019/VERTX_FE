@@ -111,7 +111,7 @@ export default function Welcome_founder() {
   
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className={`${isMobile ? 'px-4 mt-6 pb-20' : 'max-w-3xl w-full px-4 mx-auto mt-16'}`}>
+      <div className={`${isMobile ? 'px-4 mt-12 pb-20' : 'max-w-3xl w-full px-4 mx-auto mt-16'}`}>
         <div className={`text-left ${isMobile ? 'ml-0' : 'ml-10'}`}>
           <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-10 mb-1`}>Welcome founder.</h1>
           <p className="text-xl text-[#CAC5C5] mb-4">Introduce yourself</p>
