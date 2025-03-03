@@ -28,9 +28,9 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
 
   return (
     <>
-      {/* Header for Mobile */}
+      {/* Header for Mobile - fixed at top */}
       {isMobile && (
-        <div className="flex justify-between items-center p-4 bg-black">
+        <div className="flex justify-between items-center p-4 bg-black fixed top-0 left-0 right-0 z-20">
           <div className="flex items-center">
             <svg viewBox="0 0 24 24" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 3L22 18H2L12 3Z" stroke="white" strokeWidth="2" />
@@ -192,7 +192,7 @@ export function MainContent({ sidebarOpen, children }) {
   }, [])
 
   return (
-    <div className={`flex-1 ${isMobile ? "pt-0" : `ml-${sidebarOpen ? "64" : "24"} pt-9 pr-6 pb-6`}`}>
+    <div className={`flex-1 ${isMobile ? "pt-16 pb-16" : `ml-${sidebarOpen ? "64" : "24"} pt-9 pr-6 pb-6`}`}>
       <div className={`${!isMobile ? "bg-[#111] rounded-[10px] p-6" : "bg-black"} h-full flex flex-col`}>
         {children}
       </div>
@@ -239,7 +239,7 @@ export function MobileFooter({ currentPage }) {
   };
   
   return (
-    <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0">
+    <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0 z-20">
       <div className="flex flex-col items-center" onClick={() => handleNavigation('explore')}>
         <NavIconFooter icon={<Search />} label="Home" active={currentPage === "explore"} />
       </div>
