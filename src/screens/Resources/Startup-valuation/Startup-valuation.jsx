@@ -77,7 +77,7 @@ export default function ValuationCalculator({ onClose }) {
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className={`w-full p-2 bg-black border border-gray-700 rounded-md text-white ${showCurrencyToggle ? "pr-16" : ""} placeholder-[#757575]`}
+            className={`w-full p-2 bg-black border border-gray-700 max-sm:text-sm rounded-md text-white ${showCurrencyToggle ? "pr-16" : ""} placeholder-[#757575]`}
             style={{ borderColor: "#757575" }}
             readOnly={readOnly}
           />
@@ -146,7 +146,7 @@ export default function ValuationCalculator({ onClose }) {
         </div>
 
         {/* Main content shifted to right */}
-        <div className="pl-16 pr-6 w-[90%] mx-auto">
+        <div className=" w-[90%] mx-auto">
           <div>
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-8">Startup Valuation</h1>
@@ -156,9 +156,9 @@ export default function ValuationCalculator({ onClose }) {
                   <h2 className="text-2xl font-bold mb-4">What is Startup Valuation?</h2>
                   <ul className="space-y-2 text-lg">
                     <li>Startup valuation is the process of determining how much a startup is worth. It helps:</li>
-                    <li className="ml-4">Founders understand their company's value before fundraising.</li>
-                    <li className="ml-4">Investors decide how much equity they will receive for their investment.</li>
-                    <li className="ml-4">Employees know the value of their stock options.</li>
+                    <li className="">Founders understand their company's value before fundraising.</li>
+                    <li className="">Investors decide how much equity they will receive for their investment.</li>
+                    <li className="">Employees know the value of their stock options.</li>
                     <li>Valuation changes over time based on funding, traction, revenue, and market conditions.</li>
                   </ul>
                 </div>
@@ -213,7 +213,7 @@ export default function ValuationCalculator({ onClose }) {
                       value={equity}
                       onChange={(e) => setEquity(e.target.value)}
                       placeholder="Enter the equity(%) you've diluted"
-                      className="w-full p-2 bg-black border border-gray-700 rounded-md text-white placeholder-[#757575]"
+                      className="w-full p-2 bg-black border border-gray-700 rounded-md max-sm:text-sm text-white placeholder-[#757575]"
                       style={{ borderColor: "#757575" }}
                     />
                   </div>

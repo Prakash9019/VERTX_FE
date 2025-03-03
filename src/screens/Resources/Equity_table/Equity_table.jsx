@@ -296,7 +296,7 @@ export default function EquityCalculator({ onClose }) {
                       <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M2.5 10.5C2.225 10.5 1.98958 10.4021 1.79375 10.2062C1.59792 10.0104 1.5 9.77499 1.5 9.49999V2.49999C1.5 2.22499 1.59792 1.98957 1.79375 1.79374C1.98958 1.5979 2.225 1.49999 2.5 1.49999H6.9625L5.9625 2.49999H2.5V9.49999H9.5V6.02499L10.5 5.02499V9.49999C10.5 9.77499 10.4021 10.0104 10.2063 10.2062C10.0104 10.4021 9.775 10.5 9.5 10.5H2.5ZM4.5 7.49999V5.37499L9.0875 0.787488C9.1875 0.687488 9.3 0.612488 9.425 0.562488C9.55 0.512488 9.675 0.487488 9.8 0.487488C9.93333 0.487488 10.0604 0.512488 10.1813 0.562488C10.3021 0.612488 10.4125 0.687488 10.5125 0.787488L11.2125 1.49999C11.3042 1.59999 11.375 1.7104 11.425 1.83124C11.475 1.95207 11.5 2.07499 11.5 2.19999C11.5 2.32499 11.4771 2.4479 11.4313 2.56874C11.3854 2.68957 11.3125 2.79999 11.2125 2.89999L6.625 7.49999H4.5ZM5.5 6.49999H6.2L9.1 3.59999L8.75 3.24999L8.3875 2.89999L5.5 5.78749V6.49999Z" fill="white"/>
 </svg>
-                        Manage Co-founders
+                     <p className="max-sm:text-sm"> Manage Co-founders </p>   
                       </button>
                     </div>
                   </div>
@@ -332,7 +332,7 @@ export default function EquityCalculator({ onClose }) {
           {/* Custom Dialog - keeping unchanged as requested */}
           {isDialogOpen && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-              <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 w-96">
+              <div className="bg-[#1D1C1C] p-6 rounded-lg border border-gray-800 w-96">
                 <h2 className="modal-title">Manage Co-founders</h2>
                 <div className="modal-content">
                   <div className="new-founder-form">
