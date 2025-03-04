@@ -5,6 +5,7 @@ import { Search, Target, Users, Grid, ChevronLeft, ChevronRight, Lock } from "lu
 import logo from "../../logo.png"
 import { useNavigate } from "react-router"
 import LandingAuth from "../landing/index" // Update this path to match your project structure
+import API_KEY from "../../../key"
 
 // Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
@@ -99,6 +100,22 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   // Only show sidebar on desktop
   if (isMobile) return null;
 
+  const handleGoogleLogout = async () => {
+    try {
+      // Call the backend to revoke the access token and log out
+      console.log("hello");
+      const response=await axios.post(API_KEY + '/auth/google-logout',{ headers: { token: localStorage.getItem('token') }});
+      console.log(response);
+      // Clear user data from localStorage (or sessionStorage)
+      localStorage.removeItem('token');
+      // Optionally clear any other user-specific data in localStorage
+      window.location.href = '/';  // Redirect to the homepage after logout
+    } catch (error) {
+      console.error("Error during logout", error);
+    }
+  };
+  
+
   return (
     <>
       <div className={`flex flex-col h-full bg-black transition-all duration-300 ${sidebarOpen ? "w-64" : "w-24"} fixed left-0 top-0 bottom-0 z-10`}>
@@ -138,7 +155,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {window.localStorage.getItem('token') ?
                 <>
                   <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold">Profile</button>
-                  <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold">Vertex Flow</button>
+                  <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold" onClick={()=> handleGoogleLogout()}>Vertex Flow</button>
                 </> :
                 <>
                   <button className="w-40 h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold">Sign Up</button>
