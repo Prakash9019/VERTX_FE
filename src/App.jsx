@@ -2,7 +2,7 @@ import {Route, Routes} from "react-router"
 import Nopage from "./screens/404";
 import Admin from "./screens/admin";
 import Signup from "./screens/auth";
-import Callback from "./screens/auth/callback";
+import {Callback, Callback2 } from "./screens/auth/callback";
 import Signin from "./screens/auth/signin";
 import Chat from "./screens/chat";
 import Docflow from "./screens/docflow";
@@ -39,6 +39,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Signin />} />
       <Route path="/callback" element={<Callback />} />
+      <Route path="/callback2" element={<Callback2 />} />
       <Route path="/info" element={<Questions />} />
 
       <Route path="/outreach" element={<Outreach />} />

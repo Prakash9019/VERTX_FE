@@ -98,7 +98,7 @@ export default function LandingAuth({ onClose }) {
 
   const handleLinkedInLogin = () => {
     // Redirect to backend LinkedIn login route
-    window.location.href = "http://localhost:5000/auth/linkedin";
+    window.location.href = `${API_KEY}/auth/linkedin`;
   };
 
 
