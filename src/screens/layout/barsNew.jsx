@@ -31,19 +31,24 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
     <>
       {/* Header for Mobile - fixed at top */}
       {isMobile && (
-        <div className="flex justify-between items-center p-4 bg-black fixed top-0 left-0 right-0 z-20">
-          <div className="flex items-center">
-            <svg viewBox="0 0 24 24" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 3L22 18H2L12 3Z" stroke="white" strokeWidth="2" />
-            </svg>
-            <svg height="25" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-2">
-              <path d="M6.72 0.799999H8.699Z" fill="white"/>
-            </svg>
+        <>
+          <div className="flex justify-between items-center p-4 bg-[#111] fixed top-0 left-0 right-0 z-20">
+            <div className="flex items-center">
+              <svg viewBox="0 0 24 24" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3L22 18H2L12 3Z" stroke="white" strokeWidth="2" />
+              </svg>
+              <svg height="25" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-2">
+                <path d="M6.72 0.799999H8.699Z" fill="white"/>
+              </svg>
+            </div>
+            <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
+              P
+            </div>
           </div>
-          <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
-            P
-          </div>
-        </div>
+          {/* Adding the horizontal line below the header */}
+          <div className="fixed top-16 left-1/2 -translate-x-1/2 z-20 h-[0.5px] w-11/12 bg-[#4B4B4B]"></div>
+
+        </>
       )}
     </>
   )
@@ -210,7 +215,7 @@ export function MainContent({ sidebarOpen, children }) {
 
   return (
     <div className={`flex-1 ${isMobile ? "pt-16 pb-16" : `ml-${sidebarOpen ? "64" : "24"} pt-9 pr-6 pb-6`}`}>
-      <div className={`${!isMobile ? "bg-[#111] rounded-[10px] p-6" : "bg-black"} h-full flex flex-col`}>
+      <div className={`${!isMobile ? "bg-[#111] rounded-[10px] p-6" : "bg-[#111]"} h-full flex flex-col`}>
         {children}
       </div>
     </div>
@@ -256,7 +261,7 @@ export function MobileFooter({ currentPage }) {
   };
   
   return (
-    <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-black fixed bottom-0 left-0 right-0 z-20">
+    <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-[#111] fixed bottom-0 left-0 right-0 z-20">
       <div className="flex flex-col items-center" onClick={() => handleNavigation('explore')}>
         <NavIconFooter icon={<Search />} label="Home" active={currentPage === "explore"} />
       </div>
