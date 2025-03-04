@@ -110,8 +110,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     try {
       // Call the backend to revoke the access token and log out
       console.log("hello");
-      const response=await axios.post(API_KEY + '/auth/google-logout',{ headers: { token: localStorage.getItem('token') }});
-      console.log(response);
+     
       // Clear user data from localStorage (or sessionStorage)
       localStorage.removeItem('token');
       // Optionally clear any other user-specific data in localStorage
