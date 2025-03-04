@@ -1,4 +1,5 @@
 import {Route, Routes} from "react-router"
+import { useEffect } from "react";
 import Nopage from "./screens/404";
 import Admin from "./screens/admin";
 import Signup from "./screens/auth";
@@ -30,7 +31,16 @@ import Skills from "./screens/explore/SkillsNew.jsx";
 import ShowYourProject from "./screens/explore/ShowYourProjectNew.jsx";
 import Bio from "./screens/explore/Bio.jsx";
 import AddaProject from "./screens/explore/AddaProject.jsx";
+import { useCopyProtection } from "./context/CopyProtectionContext.jsx";
+import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
 function App() {
+    const { setIsProtected } = useCopyProtection();
+  
+    useEffect(() => {
+      setIsProtected(true); // 
+    }, []);
+  
+    useCopyBlocker(true); // ✅ Protection enable
   return (
     <Routes>
       <Route path="/" element={<Callback />} />
