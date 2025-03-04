@@ -31,27 +31,25 @@ export default function Put_a_face() {
   const [avatar, setAvatar] = useState(null);
   const [userId, setUserId] = useState(null);
   const [time, setTimeDifference] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
+  
   const [currentPage, setCurrentPage] = useState("explore");
 
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-      // Automatically collapse sidebar on mobile
-      if (window.innerWidth < 768) {
-        setSidebarOpen(false);
-      }
-    };
-    
-    // Initial check
-    checkIsMobile();
-    
-    // Add event listener for window resize
-    window.addEventListener('resize', checkIsMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
+const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+
+useEffect(() => {
+  const checkIsMobile = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+  
+  // Run check immediately
+  checkIsMobile();
+  
+  // Listen for resize events
+  window.addEventListener("resize", checkIsMobile);
+  
+  return () => window.removeEventListener("resize", checkIsMobile);
+}, []);
+
 
   // Set current page for navigation highlighting
   useEffect(() => {

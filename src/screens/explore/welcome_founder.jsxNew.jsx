@@ -10,7 +10,6 @@ import { Search, Target, Users, Grid } from "lucide-react"
 export default function Welcome_founder() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,25 +24,22 @@ export default function Welcome_founder() {
   const [message, setMessage] = useState("");
   const [currentPage, setCurrentPage] = useState("explore");
 
-  // Check if device is mobile based on screen width
+  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768);
-      // Automatically collapse sidebar on mobile
-      if (window.innerWidth < 768) {
-        setSidebarOpen(false);
-      }
-    }
+    };
     
-    // Initial check
+    // Run check immediately
     checkIsMobile();
     
-    // Add event listener for window resize
-    window.addEventListener('resize', checkIsMobile);
+    // Listen for resize events
+    window.addEventListener("resize", checkIsMobile);
     
-    // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
+  
 
   // Set current page for navigation highlighting
   useEffect(() => {

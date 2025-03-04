@@ -8,23 +8,24 @@ import { Search, Target, Users, Grid } from "lucide-react"
 export default function ShowYourProject() {
     const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(true)
-    const [isMobile, setIsMobile] = useState(false);
     const [currentPage, setCurrentPage] = useState("explore");
-  
+
+    const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+
     useEffect(() => {
       const checkIsMobile = () => {
-        setIsMobile(window.innerWidth < 768)
-      }
+        setIsMobile(window.innerWidth < 768);
+      };
       
-      // Initial check
-      checkIsMobile()
+      // Run check immediately
+      checkIsMobile();
       
-      // Add event listener for window resize
-      window.addEventListener('resize', checkIsMobile)
+      // Listen for resize events
+      window.addEventListener("resize", checkIsMobile);
       
-      // Cleanup
-      return () => window.removeEventListener('resize', checkIsMobile)
-    }, [])
+      return () => window.removeEventListener("resize", checkIsMobile);
+    }, []);
+    
 
     // Set current page for navigation highlighting
     useEffect(() => {

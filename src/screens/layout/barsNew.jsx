@@ -10,23 +10,22 @@ import axios from "axios"
 
 // Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
 
-  // Check if device is mobile based on screen width
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
+      setIsMobile(window.innerWidth < 768);
+    };
     
-    // Initial check
-    checkIsMobile()
+    // Run check immediately
+    checkIsMobile();
     
-    // Add event listener for window resize
-    window.addEventListener('resize', checkIsMobile)
+    // Listen for resize events
+    window.addEventListener("resize", checkIsMobile);
     
-    // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile)
-  }, [])
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+  
 
   return (
     <>
@@ -57,28 +56,28 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
 
 // Sidebar Component
 export function Sidebar({ sidebarOpen, setSidebarOpen }) {
-  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const [More, setMore] = useState(false);
   const [activeNav, setActiveNav] = useState("Explore");
   const [currentPage, setPage] = useState("explore");
   const [showAuthPopup, setShowAuthPopup] = useState(false);
 
-  // Check if device is mobile based on screen width
+  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
+      setIsMobile(window.innerWidth < 768);
+    };
     
-    // Initial check
-    checkIsMobile()
+    // Run check immediately
+    checkIsMobile();
     
-    // Add event listener for window resize
-    window.addEventListener('resize', checkIsMobile)
+    // Listen for resize events
+    window.addEventListener("resize", checkIsMobile);
     
-    // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile)
-  }, [])
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+  
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
@@ -200,18 +199,22 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
 // Main Content Component
 export function MainContent({ sidebarOpen, children }) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
 
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    checkIsMobile()
-    window.addEventListener('resize', checkIsMobile)
-    
-    return () => window.removeEventListener('resize', checkIsMobile)
-  }, [])
+useEffect(() => {
+  const checkIsMobile = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+  
+  // Run check immediately
+  checkIsMobile();
+  
+  // Listen for resize events
+  window.addEventListener("resize", checkIsMobile);
+  
+  return () => window.removeEventListener("resize", checkIsMobile);
+}, []);
+
 
   return (
     <div className={`flex-1 ${isMobile ? "pt-16 pb-16" : `ml-${sidebarOpen ? "64" : "24"} pt-9 pr-6 pb-6`}`}>
@@ -293,19 +296,24 @@ export function FilterButton({ label, mobile = false }) {
 
 // Layout Component
 export function Layout({ sidebarOpen, setSidebarOpen, children }) {
-  const [isMobile, setIsMobile] = useState(false);
+ 
   const [currentPage, setCurrentPage] = useState("explore");
-  
+  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
+      setIsMobile(window.innerWidth < 768);
+    };
     
-    checkIsMobile()
-    window.addEventListener('resize', checkIsMobile)
+    // Run check immediately
+    checkIsMobile();
     
-    return () => window.removeEventListener('resize', checkIsMobile)
-  }, [])
+    // Listen for resize events
+    window.addEventListener("resize", checkIsMobile);
+    
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+  
   
   useEffect(() => {
     // Check if the path includes specific routes to set current page

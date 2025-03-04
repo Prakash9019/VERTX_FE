@@ -83,7 +83,7 @@ export function Callback2() {
        console.log(token);
       if (token) {
         // Store the token in local storage
-        // window.localStorage.setItem("token", response?.data?.token);
+        window.localStorage.setItem("token", token);
         navigate("/outreach");  // Redirect to outreach or desired route
       } else {
         console.error("Error fetching data from backend:", token);
@@ -95,10 +95,10 @@ export function Callback2() {
   };
 
   useEffect(() => {
-    if (code) {
+    if (token) {
       callback(); // Trigger the callback function when the code is available
     }
-  }, [code]);
+  }, [token]);
 
   return (
     <div className="auth-container lg">
