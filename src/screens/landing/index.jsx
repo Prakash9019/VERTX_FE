@@ -96,6 +96,12 @@ export default function LandingAuth({ onClose }) {
     }
   };
 
+  const handleLinkedInLogin = () => {
+    // Redirect to backend LinkedIn login route
+    window.location.href = "http://localhost:5000/auth/linkedin";
+  };
+
+
   return (
     <div className="fixed inset-0 bg-white bg-opacity-50 backdrop-blur-[2px] flex justify-center items-center z-50">
       <div className="w-[60%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-[70%]  relative">
@@ -128,9 +134,9 @@ export default function LandingAuth({ onClose }) {
                   />
 
                   <Button
-                    context={"Sign up with Apple"}
+                    context={"Sign up with LinkedIn"}
                     theme="dark"
-                    callback={() => fetchGoogleUrl()}
+                    callback={() => handleLinkedInLogin()}
                   />
 
                   <div className="w-full h-auto grid grid-cols-[1fr_max-content_1fr] justify-center items-center gap-2 text-[#9d9d9d] p-2 text-xs font-['Manrope']">
