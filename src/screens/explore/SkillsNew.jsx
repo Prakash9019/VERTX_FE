@@ -236,35 +236,41 @@ export default function Skills() {
             </div>
             
             {/* Navigation Buttons */}
-            <div className={`flex ${isMobile ? 'justify-center mt-6 mb-16' : 'justify-between mt-6'} w-full`}>
-              {isMobile ? (
-                <>
-                  <button 
-                    className="bg-white text-black font-bold py-2.5 px-8 rounded-[10px] text-lg w-full"
-                    onClick={handleSubmit}
-                  >
-                    Continue
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button 
-                    className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
-                    onClick={() => navigate(-1)}
-                  >
-                    Back
-                  </button>
-                  <button 
-                    className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]"
-                    onClick={handleSubmit}
-                  >
-                    Continue
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+            <div className={`flex ${isMobile ? 'justify-center mt-6 mb-16 max-sm:gap-4' : 'justify-between mt-6'} w-full`}>
+  {isMobile ? (
+    <>
+      <button 
+        className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </button>
+      <button 
+        className="bg-white text-black font-bold py-2.5 px-8 rounded-[10px] text-lg w-[64%]"
+        onClick={handleSubmit}
+      >
+        Continue
+      </button>
+    </>
+  ) : (
+    <>
+      <button 
+        className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </button>
+      <button 
+        className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]"
+        onClick={handleSubmit}
+      >
+        Continue
+      </button>
+    </>
+  )}
+</div>
+</div>
+</div>
         
         {/* Using the MobileFooter component for mobile devices */}
         {isMobile && <MobileFooter currentPage={currentPage} />}

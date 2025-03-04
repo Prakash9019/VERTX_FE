@@ -94,24 +94,30 @@ function Categories() {
         </div>
       </div>
 
-      {/* Popup with proper overflow handling for mobile */}
+      {/* Popup with consistent scroll behavior across devices */}
       {isPopupOpen && selectedTool !== null && (
         <div className="fixed inset-0 bg-white bg-opacity-30 backdrop-blur-[2px] flex justify-center items-center z-50">
-          <div className={`w-[70%] max-sm:w-[95%] bg-black rounded-2xl border border-[#75757569] p-6 max-sm:p-2 pb-10 ${isMobile ? 'h-[85%] overflow-y-auto' : 'h-[95%]'} relative`}>
-            {/* Close button at the top right */}
-            <button 
-              onClick={closePopup}
-              className="absolute top-2 right-2 p-2 text-white bg-gray-800 rounded-full z-10"
-            >
-              ✕
-            </button>
-            
-            {/* Popup Content with proper scrolling */}
-            <main className={`${isMobile ? '' : 'overflow-y-auto'} h-full scrollbar-hide`}>
-              <div className="max-w-5xl mx-auto">
+          <div className="w-[70%] max-sm:w-[95%] bg-black rounded-2xl border border-[#75757569] p-6 max-sm:p-2 h-[95%] max-sm:h-[85%] relative">
+            {/* Single scrollable container for all content including close button */}
+            <div className="overflow-y-auto h-full scrollbar-hide">
+              {/* Close button that scrolls with content */}
+              <div className="flex justify-end ">
+                <button 
+                  onClick={closePopup}
+                  className="p-2  text-white bg-gray-800 rounded-full  hover:bg-gray-700 transition-colors"
+                >
+                  <svg width="24" height="24" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 7L27 27" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+                    <path d="M27 7L7 27" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Popup Content */}
+              <div className="max-w-5xl mx-auto pb-8">
                 {tools[selectedTool].component}
               </div>
-            </main>
+            </div>
           </div>
         </div>
       )}

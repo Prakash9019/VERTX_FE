@@ -140,10 +140,8 @@ export default function EquityCalculator({ onClose }) {
       {/* <div className="flex-container">
         <div className="content-wrapper"> */}
           {/* Back button added */}
-          <div className="p-2 max-sm:ml-4">
-            <button className=" text-gray-400 hover:text-white" onClick={onClose}>
-              X
-            </button>
+          <div className="pt-10 max-sm:ml-4">
+           
           </div>
            
           <div>

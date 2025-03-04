@@ -122,8 +122,9 @@ export default function Put_a_face() {
           
           <div className="bg-[black] rounded-[20px] p-4 md:p-8 shadow-xl border border-[#757575] w-full max-w-[680px] mx-auto">
             <div className="flex flex-col items-start">
-              <div className="flex flex-col md:flex-row items-center justify-between w-full">
-                <div>
+              {/* Modified this section for mobile responsiveness */}
+              <div className="flex flex-row items-center justify-between w-full">
+                <div className={`${isMobile ? 'flex-1' : ''}`}>
                   <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold mb-2`}>{userData?.firstName + userData?.lastName}</h2>
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-1`}>{userData?.city || "Location not provided"}</p>
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#757575] mb-4`}>@{userData?.username || "username"}</p>
@@ -141,8 +142,9 @@ export default function Put_a_face() {
                   </div>
                 </div>
                 
-                <div className="relative mt-8 mb-10 md:mb-20 md:mt-0">
-                  <div className={`rounded-full ${isMobile ? 'w-24 h-24' : 'w-32 h-32'} overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center`}>
+                {/* Profile image now positioned to the right on mobile */}
+                <div className="relative ml-4">
+                  <div className={`rounded-full ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center`}>
                     {avatar ? (
                       <img
                         alt="User Avatar"
@@ -150,7 +152,7 @@ export default function Put_a_face() {
                         src={avatar}
                       />
                     ) : (
-                      <User className={`${isMobile ? 'w-12 h-12' : 'w-16 h-16'} text-gray-400`} />
+                      <User className={`${isMobile ? 'w-10 h-10' : 'w-16 h-16'} text-gray-400`} />
                     )}
                   </div>
 

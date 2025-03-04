@@ -131,18 +131,7 @@ export default function ValuationCalculator({ onClose }) {
       <div className="flex flex-col">
         {/* Back button inside the scrollable area */}
         <div className="p-6">
-          <button 
-            className="text-gray-400 hover:text-white"
-            onClick={handleBackClick}
-          >
-            <svg width="32" height="26" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#757575" strokeWidth="0.5" />
-              <path
-                d="M13.2167 13.6667L16.95 17.4L16 18.3333L10.6667 13L16 7.66667L16.95 8.6L13.2167 12.3333H21.3333V13.6667H13.2167Z"
-                fill="#757575"
-              />
-            </svg>
-          </button>
+         
         </div>
 
         {/* Main content shifted to right */}

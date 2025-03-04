@@ -80,8 +80,6 @@ export default function Outreach() {
     };
   }, []);
 
- 
-
   useEffect(() => {
     async function getInvestors() {
       try {
@@ -133,206 +131,185 @@ export default function Outreach() {
   const totalPages = Math.ceil(totalRecords / pageSize);
   const isUpgradeRequired = currentPage * 20 > totalPageSize;
   
-  // Render different layouts for mobile and desktop
+  // Mobile layout
   if (isMobile) {
     return (
-      <div className="h-screen bg-black overflow-hidden flex flex-col">
-        {/* Mobile Header */}
-        <div className="flex justify-between items-center p-4 bg-black">
-          <div className="flex items-center">
-            <svg viewBox="0 0 24 24" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 3L22 18H2L12 3Z" stroke="white" strokeWidth="2" />
-            </svg>
-            <span className="ml-2 text-white font-bold text-xl">VERTX</span>
-          </div>
-          <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
-            P
-          </div>
-        </div>
-        
-        {/* Filter options - mobile version */}
-        <div className="p-4 pt-0">
-          <div className="flex overflow-x-auto gap-2 pb-3 hide-scrollbar">
-            <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
-              Type <Lock size={14} className="text-white" />
-            </div>
-            <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
-              Industry <Lock size={14} className="text-white" />
-            </div>
-            <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
-              Country <Lock size={14} className="text-white" />
-            </div>
-            <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
-              Ticket <Lock size={14} className="text-white" />
+      <Layout sidebarOpen={false} setSidebarOpen={setSidebarOpen}>
+        <div className="h-screen bg-black overflow-hidden flex flex-col">
+          {/* Mobile Header - removed as Layout component handles this */}
+          
+          {/* Filter options - mobile version */}
+          <div className="p-4 pt-4">
+            <div className="flex overflow-x-auto gap-2 pb-3 hide-scrollbar">
+              <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
+                Type <Lock size={14} className="text-white" />
+              </div>
+              <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
+                Industry <Lock size={14} className="text-white" />
+              </div>
+              <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
+                Country <Lock size={14} className="text-white" />
+              </div>
+              <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
+                Ticket <Lock size={14} className="text-white" />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Mobile main content */}
-        <div className="flex-1 overflow-y-auto bg-black px-4 pb-20">
-          {/* Investor Cards - mobile layout */}
-          {loading ? (
-            <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
-              <img src={gify} alt="Loading..." className="w-20 h-20" />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-4">
-              {investors.map((item, index) => (
-                <div key={item._id || index} className="bg-[#111111] p-4 rounded-lg border border-[#222]">
-                  <div className="mb-2 flex justify-between items-center">
-                    <div>
-                      <h3 className="text-white font-bold">{item.name || "First Check VC"}</h3>
-                      <p className="text-gray-400 text-sm">{item.type || "VC Firm"}</p>
-                    </div>
-                    <div className="flex space-x-2">
-                      <button className="bg-transparent border border-[#333] text-white rounded-full px-4 py-1 text-sm">
-                        Mark
-                      </button>
-                      <button className="bg-transparent border border-[#333] text-white rounded-full px-4 py-1 text-sm">
-                        View Profile
-                      </button>
+          {/* Mobile main content */}
+          <div className="flex-1 overflow-y-auto bg-black px-4 pb-20">
+            {/* Investor Cards - mobile layout */}
+            {loading ? (
+              <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                <img src={gify} alt="Loading..." className="w-20 h-20" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-4">
+                {investors.map((item, index) => (
+                  <div key={item._id || index} className="bg-[#111111] p-4 rounded-lg border border-[#222]">
+                    <div className="mb-2 flex justify-between items-center">
+                      <div>
+                        <h3 className="text-white font-bold">{item.name || "First Check VC"}</h3>
+                        <p className="text-gray-400 text-sm">{item.type || "VC Firm"}</p>
+                      </div>
+                      <div className="flex space-x-2">
+                        <button className="bg-transparent border border-[#333] text-white rounded-full px-4 py-1 text-sm">
+                          Mark
+                        </button>
+                        <button className="bg-transparent border border-[#333] text-white rounded-full px-4 py-1 text-sm">
+                          View Profile
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            )}
+            
+            {/* Pagination for mobile */}
+            <div className="flex justify-center items-center my-6 px-4">
+              <button 
+                className="px-4 py-2 bg-[#222] text-white rounded-md disabled:opacity-50"
+                disabled={currentPage === 1} 
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                Previous
+              </button>
+              <span className="mx-4 text-white">
+                {currentPage} / {totalPages}
+              </span>
+              <button 
+                className="px-4 py-2 bg-[#222] text-white rounded-md disabled:opacity-50"
+                disabled={currentPage === totalPages} 
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                Next
+              </button>
             </div>
-          )}
-          
-          {/* Pagination for mobile */}
-          <div className="flex justify-center items-center my-6 px-4">
-            <button 
-              className="px-4 py-2 bg-[#222] text-white rounded-md disabled:opacity-50"
-              disabled={currentPage === 1} 
-              onClick={() => handlePageChange(currentPage - 1)}
-            >
-              Previous
-            </button>
-            <span className="mx-4 text-white">
-              {currentPage} / {totalPages}
-            </span>
-            <button 
-              className="px-4 py-2 bg-[#222] text-white rounded-md disabled:opacity-50"
-              disabled={currentPage === totalPages} 
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              Next
-            </button>
           </div>
+          
+          {/* Mobile footer using MobileFooter component */}
+          <MobileFooter currentPage={currentPageNav} />
         </div>
-        
-        {/* Mobile footer using MobileFooter component */}
-        <MobileFooter currentPage={currentPageNav} />
-      </div>
+      </Layout>
     );
   }
 
   // Desktop layout
   return (
-    <div className="h-screen bg-black overflow-hidden">
-      <div className="flex h-full">
-        {/* Sidebar */}
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        
-        {/* Main content area */}
-        <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? "ml-64" : "ml-24"} h-full overflow-hidden`}>
-          <div className="h-full -ml-5 p-6">
-            {/* Content container with #111111 background and border-radius: 10px */}
-            <div className="h-full bg-[#111111] rounded-[10px] overflow-hidden flex flex-col">
-              <div className="scrollable-content p-6">
-                <p className="head mt-14 text-white font-bold">Explore and connect.</p>
+    <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+      <div className="h-full -ml-5 p-6">
+        {/* Content container with #111111 background and border-radius: 10px */}
+        <div className="h-full bg-[#111111] rounded-[10px] overflow-hidden flex flex-col">
+          <div className="scrollable-content p-6">
+            <p className="head mt-14 text-white font-bold">Explore and connect.</p>
 
-                {/* Filters */}
-                {/* <div className="filter"> */}
-                <div className="flex gap-3 overflow-x-auto p-2 w-full">
-  <div className="flex flex-row justify-between items-center min-w-[150px] px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
-    <select
-      className="w-full bg-transparent text-[#adadad] outline-none"
-      onChange={(e) => handleFilterChange("country", e.target.value)}
-    >
-      <option value="" disabled selected>Country</option>
-      {Country.map((country, i) => (
-        <option key={i} value={country} className="text-black">{country}</option>
-      ))}
-    </select>
-  </div>
-
-  <select
-    className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md"
-    onChange={(e) => handleFilterChange("investorType", e.target.value)}
-  >
-    <option value="" disabled selected>Investor Type</option>
-    {investorType.map((investorType, i) => (
-      <option key={i} value={investorType}>{investorType}</option>
-    ))}
-  </select>
-
-  <select
-    className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md"
-    onChange={(e) => handleFilterChange("industry", e.target.value)}
-  >
-    <option value="" disabled selected>Industries</option>
-    {industries.map((industry, i) => (
-      <option key={i} value={industry}>{industry}</option>
-    ))}
-  </select>
-
-  <button className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md">
-    Ticket
-  </button>
-
-  <button
-    className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${bookmarked ? 'bg-[#75757569] text-white' : 'text-[#adadad] bg-[#161616]'}`}
-    onClick={toggleBookmarked}
-  >
-    Bookmarked
-  </button>
-</div>
-
-                {/* </div> */}
-
-                {error && <div className="error-message">{error}</div>}
-
-                {/* Investor Cards */}
-                 <div className="profilecards">
-                                {loading ? (
-                                  <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
-                                    <img src={gify} alt="Loading..." className="w-20 h-20" />
-                                  </div>
-                                ) : (
-                                  <>
-                                  
-                                    {investors.map((item, index) => (
-                                      <div key={item._id || index} >
-                                        <Card data={item} />
-                                      </div>
-                                    ))}
-                                  </>
-                                )}
-                              </div>
-                
-                {/* Pagination Controls */}
-                <div className="pagination mt-8 mb-12">
-                  <button 
-                    className="pagination-button"
-                    disabled={currentPage === 1} 
-                    onClick={() => handlePageChange(currentPage - 1)}
-                  >
-                    Previous
-                  </button>
-                  <span className="page-info">Page {currentPage} </span>
-                  <button 
-                    className="pagination-button"
-                    disabled={currentPage === totalPages} 
-                    onClick={() => handlePageChange(currentPage + 1)}
-                  >
-                    Next
-                  </button>
-                </div>
+            {/* Filters */}
+            <div className="flex gap-3 overflow-x-auto p-2 w-full">
+              <div className="flex flex-row justify-between items-center min-w-[150px] px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
+                <select
+                  className="w-full bg-transparent text-[#adadad] outline-none"
+                  onChange={(e) => handleFilterChange("country", e.target.value)}
+                >
+                  <option value="" disabled selected>Country</option>
+                  {Country.map((country, i) => (
+                    <option key={i} value={country} className="text-black">{country}</option>
+                  ))}
+                </select>
               </div>
+
+              <select
+                className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md"
+                onChange={(e) => handleFilterChange("investorType", e.target.value)}
+              >
+                <option value="" disabled selected>Investor Type</option>
+                {investorType.map((investorType, i) => (
+                  <option key={i} value={investorType}>{investorType}</option>
+                ))}
+              </select>
+
+              <select
+                className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md"
+                onChange={(e) => handleFilterChange("industry", e.target.value)}
+              >
+                <option value="" disabled selected>Industries</option>
+                {industries.map((industry, i) => (
+                  <option key={i} value={industry}>{industry}</option>
+                ))}
+              </select>
+
+              <button className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md">
+                Ticket
+              </button>
+
+              <button
+                className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${bookmarked ? 'bg-[#75757569] text-white' : 'text-[#adadad] bg-[#161616]'}`}
+                onClick={toggleBookmarked}
+              >
+                Bookmarked
+              </button>
+            </div>
+
+            {error && <div className="error-message">{error}</div>}
+
+            {/* Investor Cards */}
+            <div className="profilecards">
+              {loading ? (
+                <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                  <img src={gify} alt="Loading..." className="w-20 h-20" />
+                </div>
+              ) : (
+                <>
+                  {investors.map((item, index) => (
+                    <div key={item._id || index} >
+                      <Card data={item} />
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+            
+            {/* Pagination Controls */}
+            <div className="pagination mt-8 mb-12">
+              <button 
+                className="pagination-button"
+                disabled={currentPage === 1} 
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                Previous
+              </button>
+              <span className="page-info">Page {currentPage} </span>
+              <button 
+                className="pagination-button"
+                disabled={currentPage === totalPages} 
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                Next
+              </button>
             </div>
           </div>
-        </main>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
