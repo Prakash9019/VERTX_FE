@@ -6,6 +6,7 @@ import logo from "../../logo.png"
 import { useNavigate } from "react-router"
 import LandingAuth from "../landing/index" // Update this path to match your project structure
 import API_KEY from "../../../key"
+import axios from "axios"
 
 // Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
