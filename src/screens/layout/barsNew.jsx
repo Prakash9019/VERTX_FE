@@ -5,6 +5,8 @@ import { Search, Target, Users, Grid, ChevronLeft, ChevronRight, Lock } from "lu
 import logo from "../../logo.png"
 import { useNavigate } from "react-router"
 import LandingAuth from "../landing/index" // Update this path to match your project structure
+import TermsAndConditions from "../More/TermsandConditions"
+import PrivacyPolicy from "../More/PrivacyPolicy"
 import API_KEY from "../../../key"
 import axios from "axios"
 
@@ -41,13 +43,60 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
                 <path d="M6.72 0.799999H8.699Z" fill="white"/>
               </svg>
             </div>
-            <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
+            <div 
+              className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
+              onClick={handleProfileClick}
+            >
               P
             </div>
           </div>
           {/* Adding the horizontal line below the header */}
           <div className="fixed top-16 left-1/2 -translate-x-1/2 z-20 h-[0.5px] w-11/12 bg-[#4B4B4B]"></div>
 
+          {/* Profile Popup */}
+          {showProfilePopup && (
+            <>
+{/* Overlay with 757575 color and low opacity */}
+<div 
+  className="fixed inset-0 bg-[#000000]/80 z-30"
+  onClick={() => setShowProfilePopup(false)}
+></div>
+
+
+              {/* Popup menu */}
+              <div className="fixed top-20 right-4 z-40 bg-black rounded-[20px] shadow-lg w-64 border border-[#1E1E1E] py-4">
+                <div className="py-2">
+                  {[
+                    { icon: "👤", label: "Overview" },
+                    { icon: "⚙️", label: "Settings" },
+                    { icon: "❤️", label: "Community" },
+                    { icon: "🛡️", label: "Privacy Policy", action: handlePrivacyClick },
+                    { icon: "📜", label: "Terms of Service", action: handleTermsClick },
+                    { icon: "🚪", label: "Log out", action: handleLogout },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className={`px-4 py-3 cursor-pointer flex items-center text-[#d4d4d4] transition-colors duration-200 hover:text-white`}
+                      onClick={item.action}
+                    >
+                      <span className="mr-2">{item.icon}</span>
+                      <span>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Terms and Conditions Popup */}
+          {showTermsPopup && (
+            <TermsAndConditions onClose={() => setShowTermsPopup(false)} />
+          )}
+
+          {/* Privacy Policy Popup */}
+          {showPrivacyPopup && (
+            <PrivacyPolicy onClose={() => setShowPrivacyPopup(false)} />
+          )}
         </>
       )}
     </>
@@ -90,6 +139,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const handleCloseAuthPopup = () => {
     setShowAuthPopup(false);
   }
+
+
+
   
   useEffect(() => {
     // Check if the path includes "explore" to keep the bar active
@@ -107,17 +159,13 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const handleGoogleLogout = async () => {
     try {
-      // Call the backend to revoke the access token and log out
-      console.log("hello");
-     
-      // Clear user data from localStorage (or sessionStorage)
       localStorage.removeItem('token');
-      // Optionally clear any other user-specific data in localStorage
       window.location.href = '/';  // Redirect to the homepage after logout
     } catch (error) {
       console.error("Error during logout", error);
     }
   };
+
   
 
   return (
