@@ -8,45 +8,6 @@ import { Header, Sidebar, NavIconFooter, Layout, MainContent, FilterButton, Mobi
 import Card from "../../components/investorCard/component";
 import gify from "./gify.gif";
 import "./styleNew.css"
-import Select from "react-select";
-
-const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
-  return (
-    // <div className="MultiSelectDropdown w-full min-w-[150px]">
-      <Select
-        isMulti
-        options={options.map((option) => ({ value: option, label: option }))}
-        onChange={(selected) => onChange(selected.map((s) => s.value))}
-        placeholder={placeholder}
-        className="w-full"
-        classNamePrefix="react-select"
-        menuPortalTarget={document.body}  // Ensures dropdown renders outside parent
-        menuPosition="fixed"  // Prevents clipping issues
-        styles={{
-          control: (base) => ({
-            ...base,
-            backgroundColor: "#161616",
-            border: "1px solid #75757569",
-            color: "#adadad",
-          }),
-          menu: (base) => ({
-            ...base,
-            zIndex: 9999, // Ensures dropdown appears above everything
-            backgroundColor: "#161616",
-            maxHeight: "250px", // Prevents overflow
-            overflowY: "auto", // Enables scrolling inside dropdown
-          }),
-          option: (base, { isFocused }) => ({
-            ...base,
-            backgroundColor: isFocused ? "#75757569" : "#161616",
-            color: "#fff",
-          }),
-        }}
-      />
-    // </div>
-  );
-};
-
 
 export default function Outreach() {
   const navigate = useNavigate();
@@ -252,42 +213,49 @@ export default function Outreach() {
             <p className="head mt-14 text-white font-bold">Explore and connect.</p>
 
             <div className="flex gap-3 overflow-x-auto p-2 w-full">
-      {/* Multi-Select Country */}
-      <MultiSelectDropdown
-        options={Country}
-        onChange={(values) => handleFilterChange("country", values)}
-        placeholder="Select Countries"
-      />
+              <div className="flex flex-row justify-between items-center min-w-[150px] px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md">
+                <select
+                  className="w-full bg-transparent text-[#adadad] outline-none"
+                  onChange={(e) => handleFilterChange("country", e.target.value)}
+                >
+                  <option value="" disabled selected>Country</option>
+                  {Country.map((country, i) => (
+                    <option key={i} value={country} className="text-black">{country}</option>
+                  ))}
+                </select>
+              </div>
 
-      {/* Multi-Select Investor Type */}
-      <MultiSelectDropdown
-        options={investorType}
-        onChange={(values) => handleFilterChange("investorType", values)}
-        placeholder="Investor Type"
-      />
+              <select
+                className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md"
+                onChange={(e) => handleFilterChange("investorType", e.target.value)}
+              >
+                <option value="" disabled selected>Investor Type</option>
+                {investorType.map((investorType, i) => (
+                  <option key={i} value={investorType}>{investorType}</option>
+                ))}
+              </select>
 
-      {/* Multi-Select Industry */}
-      <MultiSelectDropdown
-        options={industries}
-        onChange={(values) => handleFilterChange("industry", values)}
-        placeholder="Industries"
-      />
+              <select
+                className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md"
+                onChange={(e) => handleFilterChange("industry", e.target.value)}
+              >
+                <option value="" disabled selected>Industries</option>
+                {industries.map((industry, i) => (
+                  <option key={i} value={industry}>{industry}</option>
+                ))}
+              </select>
 
-      {/* Other Filters */}
-      <button className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md">
-        Ticket
-      </button>
+              <button className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md">
+                Ticket
+              </button>
 
-      <button
-        className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${
-          bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
-        }`}
-        onClick={toggleBookmarked}
-      >
-        Bookmarked
-      </button>
-    </div>
-
+              <button
+                className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${bookmarked ? 'bg-[#75757569] text-white' : 'text-[#adadad] bg-[#161616]'}`}
+                onClick={toggleBookmarked}
+              >
+                Bookmarked
+              </button>
+            </div>
 
             {error && <div className="error-message">{error}</div>}
 
