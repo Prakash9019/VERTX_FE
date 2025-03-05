@@ -18,6 +18,7 @@ export default function Signup({ onClose }) {
     
     const signupHandler = async () => {
       setLoad(true);
+      console.log(email)
       const response = await axios
         .post(API_KEY + "/auth/signup", {
           email,
