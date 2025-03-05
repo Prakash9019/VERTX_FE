@@ -3,7 +3,7 @@ import "./style.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function Card({ data }) {
+export default function Card({  data,isBookmarked,toggleBookmark }) {
   function capitalizeWords(str) {
     return str
       .split(' ')
@@ -24,7 +24,7 @@ export default function Card({ data }) {
   };
 
   return (
-    <div className="pcard" onClick={openPopup}>
+    <div className="pcard" onClick={openPopup} >
       {show && (
         <div className="backdrop" onClick={hide}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>

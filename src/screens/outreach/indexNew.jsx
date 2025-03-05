@@ -61,7 +61,7 @@ export default function Outreach() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [bookmarked, setBookmarked] = useState(false);
- 
+  const [bookmarks, setBookmarks] = useState([]);
   
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -79,7 +79,7 @@ export default function Outreach() {
     country: "",
     industry: "",
     investorType: "",
-    bookmarked: false,
+    bookmarked: "",
   });
 
   
@@ -147,7 +147,20 @@ export default function Outreach() {
         setLoading(false);
       }
     }
+
+    const fetchBookmarks = async () => {
+      try {
+        const res = await axios.get(`${API_KEY}/bookmarks`, { headers: { token : localStorage.getItem("token") } });
+        console.log(res.data.map(b => b.investor));
+        setBookmarks(res.data.map(b => b.investor)); // Store only investor IDs
+      } catch (error) {
+        console.error("Error fetching bookmarks:", error);
+      }
+    };
+
+
     getInvestors();
+    fetchBookmarks();
   }, [currentPage, pageSize, filters]);
 
   const handlePageChange = (newPage) => {
@@ -171,12 +184,33 @@ export default function Outreach() {
   const toggleBookmarked = () => {
     const newBookmarked = !bookmarked;
     setBookmarked(newBookmarked);
-    handleFilterChange("bookmarked", newBookmarked);
   };
 
   // Calculate total pages
   const totalPages = Math.ceil(totalRecords / pageSize);
   const isUpgradeRequired = currentPage * 20 > totalPageSize;
+  
+  const toggleBookmark = async (investorId) => {
+    try {
+      const isBookmarked = bookmarks.includes(investorId);
+      const url = isBookmarked ? `${API_KEY}/bookmarks/remove/${investorId}` : `${API_KEY}/bookmarks/add`;
+      const method = isBookmarked ? "DELETE" : "POST";
+      const body = isBookmarked ? { id :investorId } : { id :investorId };
+      const res = await axios({
+        method,
+        url,
+        headers: { "Content-Type": "application/json", "token" : localStorage.getItem("token") },
+        data: body,
+      });
+      if (res.status === 200 || res.status === 201) {
+        setBookmarks((prev) => 
+          isBookmarked ? prev.filter((id) => id !== investorId) : [...prev, investorId]
+        );
+      }
+    } catch (error) {
+      console.error("Error updating bookmark:", error);
+    }
+  };
   
   // Mobile layout
 
@@ -238,7 +272,7 @@ export default function Outreach() {
                 </div>
               ) : (
                 <>
-                  {investors.map((item, index) => (
+                  {!bookmarked && investors.map((item, index) => (
                     <div key={item._id || index} >
                        <Card
                     key={item._id || index}
@@ -248,6 +282,18 @@ export default function Outreach() {
                   />
                     </div>
                   ))}
+                  {
+                    bookmarked && bookmarks.map((item, index) => (
+                      <div key={item._id || index} >
+                         <Card
+                      key={item._id || index}
+                      data={item}
+                      toggleBookmark={toggleBookmark}
+                      isBookmarked={bookmarks.includes(item._id)}
+                    />
+                      </div>
+                    ))
+                  }
                 </>
               )}
             </div>
