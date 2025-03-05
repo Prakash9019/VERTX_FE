@@ -8,7 +8,7 @@ import { Header, Sidebar, Layout, NavIconFooter, MobileFooter } from "../layout/
 import "./style.css"
 import { industries, Country, investorType } from "./filters.js"
 import gify from "./gify.gif"
-import Card from "../../components/investorCard/component"
+import Card from "../../components/investorCard/component";
 
 export default function Outreach() {
   const navigate = useNavigate();

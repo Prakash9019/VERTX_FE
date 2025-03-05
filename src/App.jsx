@@ -13,7 +13,7 @@ import Explore from "./screens/explore";
 import LandingAuth from "./screens/landing"
 import Matchflow from "./screens/matchflow";
 //asa
-import Outreach from "./screens/outreach/indexNew.jsx";
+import Outreach from "./screens/outreach/index.jsx";
 import Questions from "./screens/questions";
 import PricingPage from "./screens/Subscription";
 import Cashfree from "./screens/Cashfree/cashfree";
@@ -29,7 +29,7 @@ import Welcome_founder from "./screens/explore/welcome_founder.jsxNew.jsx";
 import Put_a_face from "./screens/explore/Put_a_faceNew.jsx";
 import Skills from "./screens/explore/SkillsNew.jsx";
 import ShowYourProject from "./screens/explore/ShowYourProjectNew.jsx";
-import Bio from "./screens/explore/Bio.jsx";
+import Bio from "./screens/explore/BioNew.jsx";
 import AddaProject from "./screens/explore/AddaProject.jsx";
 import { useCopyProtection } from "./context/CopyProtectionContext.jsx";
 import { useCopyBlocker } from "./hooks/useCopyBlocker.js";

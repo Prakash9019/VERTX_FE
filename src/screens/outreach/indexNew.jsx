@@ -1,14 +1,52 @@
-import React, { useState, useEffect } from "react"
-import { useNavigate } from "react-router"
-import axios from "axios"
-import API_KEY from "../../../key"
-import { Search, Target, Users, Grid } from "lucide-react"
-import { Header, Sidebar, Layout, NavIconFooter, MobileFooter } from "../layout/barsNew"
-
+import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { industries, Country, investorType } from "./filters.js";
+import { Lock, Search, Target, Users, Grid } from 'lucide-react';
+import API_KEY from "../../../key";
+import axios from "axios";
+import { Header, Sidebar, NavIconFooter, Layout, MainContent, FilterButton, MobileFooter } from "../layout/barsNew.jsx";
+import Card from "../../components/investorCard/component";
+import gify from "./gify.gif";
 import "./styleNew.css"
-import { industries, Country, investorType } from "./filters.js"
-import gify from "./gify.gif"
-import Card from "../../components/investorCard/component"
+import Select from "react-select";
+
+
+const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
+  return (
+    <div className="MultiSelectDropdown w-full min-w-[150px]">
+      <Select
+        isMulti
+        options={options.map((option) => ({ value: option, label: option }))}
+        onChange={(selected) => onChange(selected.map((s) => s.value))}
+        placeholder={placeholder}
+        className="w-full"
+        classNamePrefix="react-select"
+        menuPortalTarget={document.body}  // Ensures dropdown renders outside parent
+        menuPosition="fixed"  // Prevents clipping issues
+        styles={{
+          control: (base) => ({
+            ...base,
+            backgroundColor: "#161616",
+            border: "1px solid #75757569",
+            color: "#adadad",
+          }),
+          menu: (base) => ({
+            ...base,
+            zIndex: 9999, // Ensures dropdown appears above everything
+            backgroundColor: "#161616",
+            maxHeight: "250px", // Prevents overflow
+            overflowY: "auto", // Enables scrolling inside dropdown
+          }),
+          option: (base, { isFocused }) => ({
+            ...base,
+            backgroundColor: isFocused ? "#75757569" : "#161616",
+            color: "#fff",
+          }),
+        }}
+      />
+    </div>
+  );
+};
 
 export default function Outreach() {
   const navigate = useNavigate();
@@ -27,7 +65,7 @@ export default function Outreach() {
   const [currentPageNav, setCurrentPageNav] = useState("explore");
 
   // Mobile responsiveness
-  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState("");
 
   // Filters state
   const [filters, setFilters] = useState({
@@ -57,24 +95,24 @@ export default function Outreach() {
     }
   }, [location.pathname]);
 
-  useEffect(() => {
-    async function fetchUserPlan() {
-      try {
-        const userRes = await axios.get(`${API_KEY}/payment/me`, { 
-          headers: { token: localStorage.getItem('token') } 
-        });
-        const plan = userRes.data.plan;
-        setModel(plan);
-        let newTotalPageSize = 20;
-        if (plan === 'EXPLORE' || plan === 'OUTREACH') newTotalPageSize = 40;
-        else if (plan === 'ENTERPRISE') newTotalPageSize = 100;
-        setTotalPageSize(newTotalPageSize);
-      } catch (err) {
-        console.error('Error fetching user plan:', err);
-      }
-    }
-    fetchUserPlan();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchUserPlan() {
+  //     try {
+  //       const userRes = await axios.get(`${API_KEY}/payment/me`, { 
+  //         headers: { token: localStorage.getItem('token') } 
+  //       });
+  //       const plan = userRes.data.plan;
+  //       setModel(plan);
+  //       let newTotalPageSize = 20;
+  //       if (plan === 'EXPLORE' || plan === 'OUTREACH') newTotalPageSize = 40;
+  //       else if (plan === 'ENTERPRISE') newTotalPageSize = 100;
+  //       setTotalPageSize(newTotalPageSize);
+  //     } catch (err) {
+  //       console.error('Error fetching user plan:', err);
+  //     }
+  //   }
+  //   fetchUserPlan();
+  // }, []);
 
   useEffect(() => {
     async function getInvestors() {
@@ -140,59 +178,43 @@ export default function Outreach() {
 
           {/* Filters */}
           <div className="filter mb-4">
-            {model === "EXPLORE" ? (
-              <>
-                {["Country", "Investor Type", "Industries", "Ticket", "Bookmarked"].map((filter, index) => (
-                  <div 
-                    key={index} 
-                    className="blur-4 flex flex-row justify-between gap-3 w-max h-max px-4 py-2 text-[#adadad] font-manrope bg-[#161616] border border-[#75757569] rounded-md"
-                  >
-                    {filter} <i className="material-icons text-white">lock</i>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <>
-                <select 
-                  className="sel" 
-                  onChange={(e) => handleFilterChange("country", e.target.value)}
-                >
-                  <option value="" disabled selected>Country</option>
-                  {Country.map((country, i) => (
-                    <option key={i} value={country}>{country}</option>
-                  ))}
-                </select> 
+          <div className="flex gap-3 overflow-x-auto p-2 w-full">
+      {/* Multi-Select Country */}
+      <MultiSelectDropdown
+        options={Country}
+        onChange={(values) => handleFilterChange("country", values)}
+        placeholder="Select Countries"
+      />
 
-                <select 
-                  className="sel" 
-                  onChange={(e) => handleFilterChange("investorType", e.target.value)}
-                >
-                  <option value="" disabled selected>Investor Type</option>
-                  {investorType.map((type, i) => (
-                    <option key={i} value={type}>{type}</option>
-                  ))}
-                </select>
+      {/* Multi-Select Investor Type */}
+      <MultiSelectDropdown
+        options={investorType}
+        onChange={(values) => handleFilterChange("investorType", values)}
+        placeholder="Investor Type"
+      />
 
-                <select 
-                  className="sel" 
-                  onChange={(e) => handleFilterChange("industry", e.target.value)}
-                >
-                  <option value="" disabled selected>Industries</option>
-                  {industries.map((industry, i) => (
-                    <option key={i} value={industry}>{industry}</option>
-                  ))}
-                </select>
-                
-                <button className="sel">Ticket</button>
-                <button 
-                  className={`sel ${bookmarked ? 'active-filter' : ''}`}
-                  onClick={toggleBookmarked}
-                  style={{ color: "#757575", borderColor: "#757575" }}
-                >
-                  Bookmarked
-                </button>
-              </>
-            )}
+      {/* Multi-Select Industry */}
+      <MultiSelectDropdown
+        options={industries}
+        onChange={(values) => handleFilterChange("industry", values)}
+        placeholder="Industries"
+      />
+
+      {/* Other Filters */}
+      <button className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md">
+        Ticket
+      </button>
+
+      <button
+        className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${
+          bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
+        }`}
+        onClick={toggleBookmarked}
+      >
+        Bookmarked
+      </button>
+    </div>
+
           </div>
 
           {error && <div className="error-message">{error}</div>}
@@ -205,16 +227,6 @@ export default function Outreach() {
               </div>
             ) : (
               <>
-                {isUpgradeRequired && (
-                  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                    <button 
-                      className="bg-white p-4 rounded text-center text-black text-lg" 
-                      onClick={() => navigate("/sub")}
-                    >
-                      🔒 Upgrade to unlock
-                    </button>
-                  </div>
-                )}
                 {investors.map((item, index) => (
                   <div 
                     key={item._id || index} 
@@ -236,7 +248,7 @@ export default function Outreach() {
             >
               Previous
             </button>
-            <span className="page-info">Page {currentPage} of {totalPages}</span>
+            <span className="page-info">Page {currentPage} </span>
             <button 
               className="pagination-button"
               disabled={currentPage === totalPages} 
