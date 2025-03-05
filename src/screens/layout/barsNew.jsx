@@ -235,7 +235,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold" onClick={()=> handleGoogleLogout()}>Vertex Flow</button>
                 </> :
                 <>
-                  <button className="w-40 h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold">Sign Up</button>
+                  <button className="w-40 h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold" onClick={()=> navigate("/signup")}>Sign Up</button>
                   <button 
                     className="w-40 h-10 bg-[##1F1F1F] text-[#FBFAF4] border border-gray-300 rounded-md font-bold" 
                     onClick={handleLogin}

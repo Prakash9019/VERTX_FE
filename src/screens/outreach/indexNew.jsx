@@ -14,36 +14,42 @@ import Select from "react-select";
 const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
   return (
     // <div className="MultiSelectDropdown w-full min-w-[150px]">
-      <Select
-        isMulti
-        options={options.map((option) => ({ value: option, label: option }))}
-        onChange={(selected) => onChange(selected.map((s) => s.value))}
-        placeholder={placeholder}
-        className="w-full"
-        classNamePrefix="react-select"
-        menuPortalTarget={document.body}  // Ensures dropdown renders outside parent
-        menuPosition="fixed"  // Prevents clipping issues
-        styles={{
-          control: (base) => ({
+<Select
+    isMulti
+    options={options.map((option) => ({ value: option, label: option }))}
+    onChange={(selected) => onChange(selected.map((s) => s.value))}
+    placeholder={placeholder}
+    className="w-full"
+    classNamePrefix="react-select"
+    menuPortalTarget={document.body}  // Ensures dropdown renders outside parent
+    menuPosition="fixed"  // Prevents clipping issues
+    styles={{
+        control: (base) => ({
             ...base,
             backgroundColor: "#161616",
             border: "1px solid #75757569",
             color: "#adadad",
-          }),
-          menu: (base) => ({
+        }),
+        menu: (base) => ({
             ...base,
             zIndex: 9999, // Ensures dropdown appears above everything
             backgroundColor: "#161616",
             maxHeight: "250px", // Prevents overflow
             overflowY: "auto", // Enables scrolling inside dropdown
-          }),
-          option: (base, { isFocused }) => ({
+            /* Custom scrollbar styles */
+            scrollbarWidth: "none", /* Firefox */
+            "&::-webkit-scrollbar": {
+                display: "none" /* Chrome, Safari, and Opera */
+            }
+        }),
+        option: (base, { isFocused }) => ({
             ...base,
             backgroundColor: isFocused ? "#75757569" : "#161616",
             color: "#fff",
-          }),
-        }}
-      />
+        }),
+    }}
+/>
+
     // </div>
   );
 };
@@ -77,20 +83,26 @@ export default function Outreach() {
   });
 
   
-    const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
-    useEffect(() => {
-      const checkIsMobile = () => {
-        setIsMobile(window.innerWidth < 768);
-      };
-      
-      // Run check immediately
-      checkIsMobile();
-      
-      // Listen for resize events
-      window.addEventListener("resize", checkIsMobile);
-      
-      return () => window.removeEventListener("resize", checkIsMobile);
-    }, []);
+  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Run check immediately
+    checkIsMobile();
+    
+    // Listen for resize events
+    window.addEventListener("resize", checkIsMobile);
+    
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+  
+  useEffect(() => {
+    console.log("Updated isMobile:", isMobile,window.innerWidth);
+  }, [window.innerWidth]);  // Log when isMobile changes
+  
   
   // Set current page for navigation highlighting
   useEffect(() => {
@@ -204,10 +216,6 @@ export default function Outreach() {
         placeholder="Industries"
       />
 
-      {/* Other Filters */}
-      <button className="min-w-[150px] px-4 py-2 text-[#adadad] bg-[#161616] border border-[#75757569] rounded-md">
-        Ticket
-      </button>
 
       <button
         className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${
@@ -232,7 +240,12 @@ export default function Outreach() {
                 <>
                   {investors.map((item, index) => (
                     <div key={item._id || index} >
-                      <Card data={item} />
+                       <Card
+                    key={item._id || index}
+                    data={item}
+                    toggleBookmark={toggleBookmark}
+                    isBookmarked={bookmarks.includes(item._id)}
+                  />
                     </div>
                   ))}
                 </>

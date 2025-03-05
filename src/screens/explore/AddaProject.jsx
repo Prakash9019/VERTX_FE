@@ -434,20 +434,50 @@ export default function AddaProject() {
             </div>
           )}
 
-          <div className={`flex ${isMobile ? 'justify-center space-x-2' : 'mt-6 space-x-4'} mb-16`}>
-            <button 
-              className={`bg-[#1D1C1C] text-white font-bold py-2 md:py-3 ${isMobile ? 'px-6 text-base' : 'px-12 text-lg'} rounded-[10px] border border-gray-600`} 
-              onClick={() => navigate(-1)}
-            >
-              Back
-            </button>
-            <button
-              className={`bg-white text-black font-bold py-2 md:py-3 ${isMobile ? 'px-6 text-base' : 'px-12 text-lg'} rounded-[10px]`}
-              onClick={() => navigate("/explore/bio")}
-            >
-              Continue
-            </button>
-          </div>
+    {/* <div className="flex justify-between mt-8 max-w-[680px] mx-auto mb-16">
+              <button 
+                className={`bg-[#1D1C1C] text-white font-bold py-3 ${isMobile ? 'px-4' : 'px-8'} rounded-[10px] text-lg ${isMobile ? 'w-[100px]' : 'w-[160px]'}`}
+                onClick={() => navigate(-1)}>
+                Back
+              </button>
+              <button 
+                className="bg-white text-black font-bold py-3 px-8 rounded-[10px] text-lg ml-4 flex-1" 
+                onClick={() => navigate("/explore/bio")}>
+                Continue
+              </button>
+          </div> */}
+
+<div className={`flex ${isMobile ? 'justify-center mt-6 mb-16 max-sm:gap-4' : 'justify-between mt-6'} w-full`}>
+  {isMobile ? (
+    <>
+      <button 
+        className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </button>
+      <button 
+        className="bg-white text-black font-bold py-2.5 px-8 rounded-[10px] text-lg w-[64%]"
+        onClick={() => navigate("/explore/bio")}>
+        Continue
+      </button>
+    </>
+  ) : (
+    <>
+      <button 
+        className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </button>
+      <button 
+        className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]"
+        onClick={() => navigate("/explore/bio")}>
+        Continue
+      </button>
+    </>
+  )}
+</div>
         </div>
       </div>
     </Layout>

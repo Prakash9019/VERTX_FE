@@ -5,6 +5,7 @@ import { Header, Sidebar } from "../layout/bars"
 import axios from "axios"
 import API_KEY from "../../../key";
 import { Layout, MobileFooter } from "../layout/barsNew"
+import {User} from "lucide-react"
 function timeDifference(createdAt) {
   const createdDate = new Date(createdAt);
   const currentDate = new Date();
@@ -38,6 +39,7 @@ export default function Bio() {
     portfolioLink: "",
     linkedinLink: "",
     github:"",
+    avatar:"",
     twitter:""
   });
 
@@ -306,53 +308,56 @@ export default function Bio() {
           <div className="bg-black rounded-3xl shadow-lg overflow-hidden border" 
             style={{ 
               borderColor: "#757575", 
-              borderRadius: "20px",
               width: isMobile ? '100%' : 'auto',
               maxWidth: isMobile ? '100%' : '48rem'
             }}
           >
             {/* Editing Profile Section with Mobile Responsiveness */}
             {!editingProfile ? (
-                <div className="p-4 sm:p-6 border-b border-gray-800">
-                <div className="flex flex-col sm:flex-row justify-between items-center">
-                  <div className="w-full">
-                    <div className="flex items-center mb-2">
-                      <h1 className={`text-2xl sm:text-3xl font-bold ${isMobile ? 'mr-2' : ''}`}>
-                     {formData.firstName + " "+ formData.lastName}</h1>
-                        <button className="ml-4 flex items-center gap-1 text-gray-400" onClick={() => setEditingProfile(true)}>
-                        <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
-</svg>
-                          <span style={{ color: "#CAC5C5" }}>Edit</span>
-                        </button>
-                      </div>
-                      <div className={`${isMobile ? 'flex items-center' : ''}`}>
-                      <div>
-                        <p className="text-base sm:text-xl text-[#D9D9D9] mb-1">San Francisco, CA, USA</p>
-                        <p className="text-sm sm:text-base text-[#757575] mb-3">@markzuckerberg</p>
-                        <p className="text-base sm:text-lg mb-5">CEO, Facebook</p>
+                 <div className="p-6 border-b border-gray-800">
+                 <div className="flex justify-between items-center">
+                   <div>
+                   <div className="flex items-center justify-between mb-5">
+                       <h1 className="text-4xl font-bold">{formData.firstName + " "+ formData.lastName}</h1>
+                     </div>
+                     <p className="text-[25px] text-[#D9D9D9] mb-1">{formData.city}</p>
+                     <p className="text-xl text-gray-400 mb-4">@markzuckerberg</p>
+                     <p className="text-xl mb-6">{formData.headline}</p>
 
-                        <div className="flex space-x-3 mb-4">
-                        <div className="bg-black rounded-full px-3 py-1 border border-[#757575] text-white text-xs">
-                          #New here
-                        </div>
-                        <div className="bg-black rounded-full px-3 py-1 border border-[#757575] flex items-center text-white text-xs">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <div className="flex space-x-3">
+                       <div className="bg-black rounded-full px-3 py-1 border border-[#757575] text-white text-xs">
+                         #New here
+                       </div>
+                       <div className="bg-black rounded-full px-3 py-1 border border-[#757575] flex items-center text-white text-xs">
+                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.92532 9.74166L9.74199 8.92499L7.58366 6.76666V4.08332H6.41699V7.23332L8.92532 9.74166ZM7.00033 12.8333C6.19338 12.8333 5.43505 12.6802 4.72533 12.3739C4.0156 12.0677 3.39824 11.6521 2.87324 11.1271C2.34824 10.6021 1.93262 9.98471 1.62637 9.27499C1.32012 8.56527 1.16699 7.80693 1.16699 6.99999C1.16699 6.19305 1.32012 5.43471 1.62637 4.72499C1.93262 4.01527 2.34824 3.39791 2.87324 2.87291C3.39824 2.34791 4.0156 1.93228 4.72533 1.62603C5.43505 1.31978 6.19338 1.16666 7.00033 1.16666C7.80727 1.16666 8.5656 1.31978 9.27532 1.62603C9.98505 1.93228 10.6024 2.34791 11.1274 2.87291C11.6524 3.39791 12.068 4.01527 12.3743 4.72499C12.6805 5.43471 12.8337 6.19305 12.8337 6.99999C12.8337 7.80693 12.6805 8.56527 12.3743 9.27499C12.068 9.98471 11.6524 10.6021 11.1274 11.1271C10.6024 11.6521 9.98505 12.0677 9.27532 12.3739C8.5656 12.6802 7.80727 12.8333 7.00033 12.8333ZM7.00033 11.6667C8.29338 11.6667 9.39442 11.2121 10.3034 10.3031C11.2125 9.39409 11.667 8.29305 11.667 6.99999C11.667 5.70693 11.2125 4.60589 10.3034 3.69686C9.39442 2.78784 8.29338 2.33332 7.00033 2.33332C5.70727 2.33332 4.60623 2.78784 3.6972 3.69686C2.78817 4.60589 2.33366 5.70693 2.33366 6.99999C2.33366 8.29305 2.78817 9.39409 3.6972 10.3031C4.60623 11.2121 5.70727 11.6667 7.00033 11.6667Z" fill="#757575"/>
 </svg>
 
-                         {time}
-                        </div>
-                      </div>
-                    
+                        {time}
+                       </div>
+                     </div>
+                   </div>
 
-                      <div className="relative ml-10 sm:ml-0">
-                      <div className="rounded-full w-16 h-16 overflow-hidden border border-[#757575] bg-gray-800"></div>
-                   </div>
-                   </div>
-                      </div>
-                      <div className="absolute bottom-0 right-0 bg-white rounded-md p-1">
-                      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <div className="relative">
+                   <button className="ml-[3.5rem] flex items-center gap-1 text-gray-400 mb-[3rem]" onClick={() => setEditingProfile(true)}>
+                       <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
+</svg>
+                         <span style={{ color: "#CAC5C5" }}>Edit</span>
+                       </button>
+                     <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800">
+                     {formData.avatar ? (
+                      <img
+                        alt="User Avatar"
+                        className="w-full h-full object-cover"
+                        src={formData.avatar}
+                      />
+                    ) : (
+                      <User className={`${isMobile ? 'w-10 h-10' : 'w-16 h-16'} text-gray-400`} />
+                    )}
+                     </div>
+                     <div className="absolute bottom-0 right-0 bg-white rounded-md p-1">
+                     <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="25" height="25" rx="4" fill="#CAC5C5"/>
 <g clip-path="url(#clip0_2146_2)">
 <path d="M6.33301 19V16.3333H19.6663V19H6.33301ZM8.99967 13.6667H9.93301L15.133 8.48334L14.6497 8.00001L14.183 7.53334L8.99967 12.7333V13.6667ZM7.66634 15V12.1667L15.133 4.71668C15.2552 4.59445 15.3969 4.50001 15.558 4.43334C15.7191 4.36668 15.8886 4.33334 16.0663 4.33334C16.2441 4.33334 16.4163 4.36668 16.583 4.43334C16.7497 4.50001 16.8997 4.60001 17.033 4.73334L17.9497 5.66668C18.083 5.7889 18.1802 5.93334 18.2413 6.10001C18.3025 6.26668 18.333 6.4389 18.333 6.61668C18.333 6.78334 18.3025 6.94723 18.2413 7.10834C18.1802 7.26945 18.083 7.41668 17.9497 7.55001L10.4997 15H7.66634ZM15.133 8.48334L14.6497 8.00001L14.183 7.53334L15.133 8.48334Z" fill="black"/>
@@ -363,10 +368,10 @@ export default function Bio() {
 </clipPath>
 </defs>
 </svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
               ) : (
                 <div className="p-6 border-b border-gray-800">
                   <div className="flex justify-between items-center mb-5">

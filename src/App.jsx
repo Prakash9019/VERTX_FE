@@ -25,7 +25,7 @@ import DocandSa from "./screens/Resources/DOCandSA/DocandSa";
 import Categories from "./screens/Resources/categories/categories";
 import PrivacyPolicy from "./screens/More/PrivacyPolicy";
 import TermsAndConditions from "./screens/More/TermsandConditions";
-import Welcome_founder from "./screens/explore/welcome_founder.jsxNew.jsx";
+import Welcome_founder from "./screens/explore/welcome_founder.jsx";
 import Put_a_face from "./screens/explore/Put_a_faceNew.jsx";
 import Skills from "./screens/explore/SkillsNew.jsx";
 import ShowYourProject from "./screens/explore/ShowYourProjectNew.jsx";

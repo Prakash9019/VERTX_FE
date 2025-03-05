@@ -59,7 +59,7 @@ export default function ValuationCalculator({ onClose }) {
 
   const grossProfit = revenue - cogs
   const netProfit = grossProfit - expenses - taxes
-
+  const [showCurrencyToggle ,setShowCurrencyToggle] = useState(false)
   const CurrencyToggleInput = ({
     label,
     value,
@@ -187,13 +187,83 @@ export default function ValuationCalculator({ onClose }) {
                 {/* Calculator with original size */}
                 <div className="bg-[#101010] border-2 border-white rounded-2xl p-5 shadow-xl w-full md:w-3/4">
 
-                  <CurrencyToggleInput
+                  {/* <CurrencyToggleInput
                     label="Investment amount"
+                    type="number"
                     value={investment}
                     onChange={(e) => setInvestment(e.target.value)}
                     placeholder="Enter the amount you've raised"
                     showCurrencyToggle={true}
-                  />
+                  /> */}
+
+<div className="mb-6">
+        <label className="block font-semibold mb-2">Investment amount</label>
+        <div className="relative">
+          <input
+            type="number"
+            value={investment}
+            onChange={(e) => setInvestment(e.target.value)}
+           placeholder="Enter the amount you've raised"
+            className={`w-full p-2 bg-black border border-gray-700 max-sm:text-sm rounded-md text-white ${showCurrencyToggle ? "pr-16" : ""} placeholder-[#757575]`}
+            style={{ borderColor: "#757575" }}
+          />
+          {showCurrencyToggle && (
+            <div className="absolute right-0 top-0 h-full">
+              <button
+                className="w-10 h-6 mt-2 mr-2 mt-0 bg-transparent text-gray-400 text-sm flex items-center justify-center border border-white rounded"
+                onClick={() => setShowDropdown(!showDropdown)}
+              >
+                {currency}
+              </button>
+
+              {showDropdown && (
+                <div className="absolute right-0 top-full mt-1 bg-gray-900 border border-gray-700 rounded shadow-lg z-10">
+                  <button
+                    className="w-full px-4 py-2 text-left text-white hover:bg-gray-800"
+                    onClick={() => {
+                      setCurrency("USD")
+                      setShowDropdown(false)
+                    }}
+                  >
+                    USD
+                  </button>
+                  <button
+                    className="w-full px-4 py-2 text-left text-white hover:bg-gray-800"
+                    onClick={() => {
+                      setCurrency("INR")
+                      setShowDropdown(false)
+                    }}
+                  >
+                    INR
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                   <div className="mb-6">
                     <label className="block font-semibold mb-2">Equity (%)</label>

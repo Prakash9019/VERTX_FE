@@ -32,12 +32,10 @@ export default function Card({ data }) {
               <button className="btn" onClick={hide}>
                 <ion-icon name="arrow-back-outline"></ion-icon>
               </button>
-              <div className="wrap">
-                <button className="btn">
-                  <ion-icon name="bookmark-outline"></ion-icon>
-                  Bookmark
-                </button>
-              </div>
+              <button className="btn" onClick={() => toggleBookmark(data._id)}>
+                <ion-icon name={isBookmarked ? "bookmark" : "bookmark-outline"}></ion-icon>
+                {isBookmarked ? "Bookmarked" : "Bookmark"}
+              </button>
             </div>
             <div className="sec">
               <div className="img-cont">
