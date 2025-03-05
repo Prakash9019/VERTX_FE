@@ -33,14 +33,16 @@ import Bio from "./screens/explore/Bio.jsx";
 import AddaProject from "./screens/explore/AddaProject.jsx";
 import { useCopyProtection } from "./context/CopyProtectionContext.jsx";
 import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
+import Verify from "./screens/auth/verify.jsx";
 function App() {
-    const { setIsProtected } = useCopyProtection();
+    // const { setIsProtected } = useCopyProtection();
   
-    useEffect(() => {
-      setIsProtected(true); // 
-    }, []);
+    // useEffect(() => {
+    //   setIsProtected(true); 
+    // }, []);
   
-    useCopyBlocker(true); // ✅ Protection enable
+    // useCopyBlocker(true); 
+
   return (
     <Routes>
       <Route path="/" element={<Callback />} />
@@ -51,6 +53,7 @@ function App() {
       <Route path="/callback" element={<Callback />} />
       <Route path="/callback2" element={<Callback2 />} />
       <Route path="/info" element={<Questions />} />
+      <Route path="/verify" element={<Verify />} />
 
       <Route path="/outreach" element={<Outreach />} />
       <Route path="/sub" element={<PricingPage/> } />

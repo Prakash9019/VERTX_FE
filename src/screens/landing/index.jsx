@@ -4,6 +4,7 @@ import axios from "axios";
 import API_KEY from "../../../key.js";
 import logo from "../../assets/logo.png";
 import Input from "../../components/input/component.jsx";
+import FloatingLabelInput from "../../components/LabelInput.jsx";
 
 export default function LandingAuth({ onClose }) {
   const navigate = useNavigate();
@@ -177,12 +178,11 @@ export default function LandingAuth({ onClose }) {
                     callback={() => fetchGoogleUrl()}
                   />
 
-                  <Button
-                    context={"Sign in with Apple"}
+                   <Button
+                    context={"Sign up with LinkedIn"}
                     theme="dark"
-                    callback={() => fetchGoogleUrl()}
+                    callback={() => handleLinkedInLogin()}
                   />
-
                   <div className="w-full h-auto grid grid-cols-[1fr_max-content_1fr] justify-center items-center gap-2 text-[#9d9d9d] p-2 text-xs font-['Manrope']">
                     <div className="w-full h-px bg-[#9d9d9d]"></div>
                     <p className="text-xs">or</p>
@@ -191,13 +191,20 @@ export default function LandingAuth({ onClose }) {
 
                   {/* Email input and Next button */}
                   <div className="w-full">
-                    <input
+                     <FloatingLabelInput
+                                   id={`email`}  label="username, email address, or vertxuid"  type='text' validateidentifier={ true}
+                                   value={email}
+                                   onChange={setemail}
+                                  //  onValidate={setemail}
+                                    className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
+                           />
+                    {/* <input
                       type="text"
                       placeholder="email or email"
                       className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
                       value={email}
                       onChange={(e) => setemail(e.target.value)}
-                    />
+                    /> */}
                     {errorMessage && (
                       <p className="text-red-500 mt-4">{errorMessage}</p>
                     )}
@@ -228,6 +235,13 @@ export default function LandingAuth({ onClose }) {
                     label={"Enter your email"}
                     theme={"dark"}
                   />
+                     <FloatingLabelInput
+                                   id={`email`}  label="Set a strong password"  type='text' validateidentifier={ true}
+                                   value={password}
+                                   onChange={setPassword}
+                                  //  onValidate={setemail}
+                                    className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
+                           />
                   <Input
                     state={password}
                     setState={setPassword}
