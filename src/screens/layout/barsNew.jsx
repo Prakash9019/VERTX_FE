@@ -1,7 +1,6 @@
-"use client"
 
 import { useState, useEffect } from "react"
-import { Search, Target, Users, Grid, ChevronLeft, ChevronRight, Lock } from "lucide-react"
+import { Search, Target, Users,User, Grid, ChevronLeft, ChevronRight, Lock } from "lucide-react"
 import logo from "../../logo.png"
 import { useNavigate } from "react-router"
 import LandingAuth from "../landing/index" // Update this path to match your project structure
@@ -59,19 +58,22 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
         <>
           <div className="flex justify-between items-center p-4 bg-[#111] fixed top-0 left-0 right-0 z-20">
             <div className="flex items-center">
-              <svg viewBox="0 0 24 24" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 3L22 18H2L12 3Z" stroke="white" strokeWidth="2" />
-              </svg>
-              <svg height="25" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-2">
-                <path d="M6.72 0.799999H8.699Z" fill="white"/>
-              </svg>
+              <img src={logo} alt="logo" className="w-10 h-10"/>
             </div>
-            <div 
+            {window.localStorage.getItem('token') ?
+             <div 
               className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
               onClick={handleProfileClick}
             >
-              P
-            </div>
+               <User  />0
+            </div> :
+                <div 
+                className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
+              >
+                 <User  />
+              </div>            
+            }
+            
           </div>
           {/* Adding the horizontal line below the header */}
           <div className="fixed top-16 left-1/2 -translate-x-1/2 z-20 h-[0.5px] w-11/12 bg-[#4B4B4B]"></div>
