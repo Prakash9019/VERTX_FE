@@ -403,3 +403,34 @@ select, button {
   width: 100% !important;
   margin-bottom: 15px;
 }
+
+
+
+.MultiSelectDropdown .react-select__menu {
+  max-height: 250px !important; /* Prevent dropdown from going off-screen */
+  overflow-y: auto !important;  /* Allow vertical scrolling */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE & Edge */
+  position: absolute !important; /* Ensures dropdown appears on top */
+  z-index: 9999 !important; /* Bring dropdown above other elements */
+}
+
+/* Hide scrollbar in Webkit-based browsers (Chrome, Safari, Edge) */
+.MultiSelectDropdown .react-select__menu::-webkit-scrollbar {
+  display: none; /* Completely hide the scrollbar */
+}
+
+/* Prevent the parent container from scrolling */
+.MultiSelectDropdown {
+  width: 100%;
+  min-width: 150px;
+  max-width: 100%;
+  overflow: hidden !important; /* Prevent parent from scrolling */
+}
+
+/* Ensure responsiveness on smaller screens */
+@media (max-width: 768px) {
+  .MultiSelectDropdown {
+    width: 100%; /* Take full width on small screens */
+  }
+}

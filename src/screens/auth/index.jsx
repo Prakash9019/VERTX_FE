@@ -18,6 +18,7 @@ export default function Signup(){
     const [show, setShow] = useState(false);
     const [load, setLoad] = useState(false);
     
+  const [errorMessage, setErrorMessage] = useState("");
     const [disabled, setDisabled] = useState(true);
     const signupHandler = async () => {
       setLoad(true);
@@ -28,12 +29,13 @@ export default function Signup(){
           // password,
         })
         .catch((e) => {
+          setErrorMessage(e.response)
           return e.response;
         });
 
       if (response) {
         setLoad(false);
-        console.log(response?.data?.msg);
+        setErrorMessage(response?.data?.msg);
         setResp(response?.data?.msg);
         if(response.status == 200){
           window.localStorage.setItem("token", response?.data?.token)
@@ -98,14 +100,14 @@ export default function Signup(){
                                            //  onValidate={setemail}
                                              className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
                                     />
-                             {/* {errorMessage && (
+                             {errorMessage && (
                                <p className="text-red-500 mt-4">{errorMessage}</p>
-                             )} */}
+                             )}
          
                              <Button
                                context={"Next"}
                                theme="light"
-                               callback={handleNextClick}
+                               callback={signupHandler}
                              />
          
                              <Button

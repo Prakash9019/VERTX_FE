@@ -34,13 +34,14 @@ export default function LandingAuth({ onClose }) {
         password,
       })
       .catch((e) => {
+        setErrorMessage(e.response);
         return e.response;
       });
 
     if (response) {
       // setLoad(false);
       console.log(response);
-      console.log(response?.data?.msg);
+      setErrorMessage(response?.data?.msg);
       setResp(response?.data?.msg);
       if (response.status == 200) {
         window.localStorage.setItem("token", response?.data?.token);

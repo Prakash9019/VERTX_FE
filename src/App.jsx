@@ -34,6 +34,7 @@ import AddaProject from "./screens/explore/AddaProject.jsx";
 import { useCopyProtection } from "./context/CopyProtectionContext.jsx";
 import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
 import Verify from "./screens/auth/verify.jsx";
+import SetNewPassword from "./screens/auth/Setpassword.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -52,6 +53,7 @@ function App() {
       <Route path="/signin" element={<Signin />} />
       <Route path="/callback" element={<Callback />} />
       <Route path="/callback2" element={<Callback2 />} />
+      <Route path="/setpassword" element={<SetNewPassword />} />
       <Route path="/info" element={<Questions />} />
       <Route path="/verify" element={<Verify />} />
 

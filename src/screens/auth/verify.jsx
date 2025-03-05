@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-
+import API_KEY from "../../../key";
 export default function Verify() {
     const navigate = useNavigate();
     const [coder, setcoder] = useState(Array(6).fill(""));
@@ -50,14 +50,16 @@ export default function Verify() {
     }
       // alert(`Entered coder: ${verificationcoder}`);
       try {
-
-        const response = await fetch("https://vertx-server-eight.vercel.app/auth/verify", {
+         console.log(localStorage.getItem("token"));
+        const response = await fetch(`${API_KEY}/auth/verify`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "token":localStorage.getItem("token"),
             },
             body: JSON.stringify({ token, code }),
         });
+        console.log(response);
 
         if (!response.ok) {
             throw new Error('Failed to register');
