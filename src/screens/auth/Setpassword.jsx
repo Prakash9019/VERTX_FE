@@ -1,14 +1,17 @@
 import * as React from "react";
-import { useState, useRef } from "react";import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import API_KEY from "../../../key";
+import { Button, BackButton, AuthContainer } from "./common-components.jsx";
+
 export default function SetNewPassword() {
-  const navigate=useNavigate();
-  const [code, setCode] = useState(Array(6).fill(""));
-  const inputRefs = useRef([]);
-  const [isFocused, setIsFocused] = useState(false);
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
@@ -16,119 +19,101 @@ export default function SetNewPassword() {
   const handleSubmit = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-        throw new Error("Session TimeOut..");
+      setErrorMessage("Session Timeout");
+      return;
     }
-      try {
-        const response = await fetch(`${API_KEY}/auth/set-password`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                "token":localStorage.getItem("token")
-            },
-            body: JSON.stringify({  password }),
-        });
 
-        if (!response.ok) {
-            throw new Error('Failed to register');
-        }
+    try {
+      const response = await fetch(`${API_KEY}/auth/set-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "token": localStorage.getItem("token")
+        },
+        body: JSON.stringify({ password }),
+      });
 
-        const data = await response.json();
-        console.log(data);
-        navigate('/outreach');
+      if (!response.ok) {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message || 'Failed to set password');
+        return;
+      }
+
+      const data = await response.json();
+      console.log(data);
+      navigate('/outreach');
     } catch (error) {
-        console.error("Submission failed:", error);
+      console.error("Submission failed:", error);
+      setErrorMessage("An error occurred. Please try again.");
     }
-    };
+  };
 
-  const isCodeComplete = code.every((digit) => digit !== "");
+  // Function to handle back button
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className="flex flex-col justify-center items-center px-20 py-10 w-full bg-white bg-opacity-10 max-md:px-5 max-md:max-w-full">
-      <div className="flex flex-col justify-center items-center px-20 py-9 max-w-full bg-black rounded-3xl w-[875px] max-md:px-5">
-        <div className="flex flex-col max-w-full w-[499px]">
-          <div className="flex flex-col items-center pl-4 w-full max-md:max-w-full">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6be73a9e8e4ac3494f3a29eda1ee0af912ef46612af53b70da8be8601c370c22?placeholderIfAbsent=true&apiKey=42bb954c825745999302100cb42c8fd0"
-              className="object-contain aspect-square w-[60px]"
-            />
-            <div className="mt-7 text-4xl font-extrabold text-white">
-              Set password
-            </div>
-            <div className="mt-1.5 text-base font-medium text-neutral-500">
-            Enter the OTP sent to the mail associated with your account to change your password.
-            </div>
-            {/* <div className="flex flex-wrap gap-5 justify-between self-stretch mt-20 max-md:mt-10 max-sm:mb-0">
-              {code.map((_, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  maxLength="1"
-                  value={code[index]}
-                  onChange={(e) => handleChange(e.target.value, index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  ref={(el) => (inputRefs.current[index] = el)}
-                  className="flex shrink-0 bg-black rounded-md border border-solid border-neutral-500 h-[62px] w-[62px] text-center text-white"
-                />
-              ))}
-            </div> */}
+    <AuthContainer>
+      <div className="absolute top-4 left-4 z-20">
+        <BackButton onClick={handleBack} />
+      </div>
 
-            <div className="relative w-full">
-              {" "}
-              <label
-                htmlFor="Password"
-                onClick={() => {
-                  setIsFocused(true);
-                  document.getElementById("Password").focus();
-                }}
-                className={`absolute text-xl p-3 transition-all duration-200 ${
-                  isFocused || password
-                    ? "top-[-6px] text-xs text-blue-500"
-                    : "top-3 text-gray-500"
-                }`}
-              >
-                {" "}
-                Password{" "}
-              </label>{" "}
-              <div className="flex items-center w-full px-4 py-6 bg-black rounded-md border border-solid border-neutral-500">
-                {" "}
+      <div className="w-full flex flex-col justify-center items-center mt-6 sm:mt-12">
+        <div className="text-center w-full max-w-md mx-auto px-4 sm:px-0">
+          <p className="font-['Manrope'] text-white text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center">
+            Set password
+          </p>
+
+          <div className="text-sm sm:text-base font-medium text-neutral-500 mb-6 sm:mb-8 text-center">
+            Enter a new password for your account
+          </div>
+
+          <div className="w-full max-w-xs mx-auto flex flex-col items-center">
+            <div className="relative w-full mb-4">
+              <div className="relative w-full">
                 <input
                   id="Password"
                   type={isPasswordVisible ? "text" : "password"}
                   value={password}
                   minLength={8}
-                  className="flex-grow bg-transparent text-white text-xl focus:outline-none focus:ring-0"
+                  className={`w-full px-4 py-3 bg-transparent rounded-md border border-gray-700 text-white text-sm sm:text-base focus:outline-none focus:ring-0 
+                    ${!password && !isFocused ? 'pl-[100px]' : 'pl-4'} transition-all duration-200`}
                   onChange={(e) => setPassword(e.target.value)}
                   onFocus={() => setIsFocused(true)}
-                  onBlur={() => {
-                    setIsFocused(false); // validateInput(value);
-                  }}
-                />{" "}
+                  onBlur={() => setIsFocused(false)}
+                />
+                {(!password && !isFocused) && (
+                  <label
+                    htmlFor="Password"
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm sm:text-base transition-all duration-200 pointer-events-none"
+                  >
+                    Password
+                  </label>
+                )}
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="ml-2 text-white"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white"
                 >
-                  {" "}
-                  {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}{" "}
-                </button>{" "}
-              </div>{" "}
+                  {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
+
+            {errorMessage && (
+              <p className="text-red-500 mt-4 text-sm text-center">{errorMessage}</p>
+            )}
+
+            <Button
+              context="Set Password"
+              theme="light"
+              callback={handleSubmit}
+              disabled={password.length < 8}
+            />
           </div>
-        
-          <button
-            onClick={handleSubmit}
-            className={`px-12 py-3 mt-60 text-xl font-extrabold text-black whitespace-nowrap rounded-[100px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-md:max-w-full 
-              
-              ${
-              isCodeComplete ? "bg-white" : "bg-white"
-            }`
-          
-          }
-          >
-            Set Password
-          </button>
         </div>
       </div>
-    </div>
+    </AuthContainer>
   );
 }

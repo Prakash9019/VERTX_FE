@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from "react"
-import { Search, Target, Users,User, Grid, ChevronLeft, ChevronRight, Lock } from "lucide-react"
+import { Search, Target, Users, User, Grid, Settings, LogOut, UserCircle, ShieldQuestion, Shield, Lock } from "lucide-react"
 import logo from "../../logo.png"
 import { useNavigate } from "react-router"
-import LandingAuth from "../landing/index" // Update this path to match your project structure
+import LandingAuth from "../landing/index"
+import Signup from "../auth/index"
 import TermsAndConditions from "../More/TermsandConditions"
 import PrivacyPolicy from "../More/PrivacyPolicy"
 import API_KEY from "../../../key"
@@ -65,7 +65,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
               className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
               onClick={handleProfileClick}
             >
-               <User  />0
+               <User  />
             </div> :
                 <div 
                 className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
@@ -81,12 +81,11 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
           {/* Profile Popup */}
           {showProfilePopup && (
             <>
-{/* Overlay with 757575 color and low opacity */}
-<div 
-  className="fixed inset-0 bg-[#000000]/80 z-30"
-  onClick={() => setShowProfilePopup(false)}
-></div>
-
+              {/* Overlay with 757575 color and low opacity */}
+              <div 
+                className="fixed inset-0 bg-[#000000]/80 z-30"
+                onClick={() => setShowProfilePopup(false)}
+              ></div>
 
               {/* Popup menu */}
               <div className="fixed top-20 right-4 z-40 bg-black rounded-[20px] shadow-lg w-64 border border-[#1E1E1E] py-4">
@@ -132,10 +131,13 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
 export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
-  const [More, setMore] = useState(false);
   const [activeNav, setActiveNav] = useState("Explore");
   const [currentPage, setPage] = useState("explore");
   const [showAuthPopup, setShowAuthPopup] = useState(false);
+  const [showSignupPopup, setShowSignupPopup] = useState(false);
+  const [showDesktopProfilePopup, setShowDesktopProfilePopup] = useState(false);
+  const [showTermsPopup, setShowTermsPopup] = useState(false);
+  const [showPrivacyPopup, setShowPrivacyPopup] = useState(false);
 
   // Check if device is mobile based on screen width
   useEffect(() => {
@@ -161,13 +163,33 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     setShowAuthPopup(true);
   }
 
+  const handleSignup = () => {
+    setShowSignupPopup(true);
+  }
+
   const handleCloseAuthPopup = () => {
     setShowAuthPopup(false);
   }
 
+  const handleCloseSignupPopup = () => {
+    setShowSignupPopup(false);
+  }
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/';
+  }
 
-  
+  const handlePrivacyClick = () => {
+    setShowPrivacyPopup(true);
+    setShowDesktopProfilePopup(false);
+  }
+
+  const handleTermsClick = () => {
+    setShowTermsPopup(true);
+    setShowDesktopProfilePopup(false);
+  }
+
   useEffect(() => {
     // Check if the path includes "explore" to keep the bar active
     if (location.pathname.includes("explore")) {
@@ -175,9 +197,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     } else {
       setPage(location.pathname.split("/").pop()); // Fallback for other pages
     }
-    // console.log(currentPage)
-  }, [location.pathname]); // Dependency ensures it updates when URL changes
-  // {console.log(currentPage)}
+  }, [location.pathname]);
 
   // Only show sidebar on desktop
   if (isMobile) return null;
@@ -190,8 +210,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
       console.error("Error during logout", error);
     }
   };
-
-  
 
   return (
     <>
@@ -224,40 +242,88 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <NavItem icon={<Grid />} active={currentPage} name="resources" label="Resources" expanded={sidebarOpen} />
         </div>
 
-        {/* User profiles */}
-        <div className="flex flex-col items-center mb-6">
+        {/* User Profile Section */}
+        <div className="flex flex-col items-center mb-6 mt-auto relative">
           {sidebarOpen ? (
-            <>
-              <div className="flex flex-col items-center space-y-4 mb-4">
-                {window.localStorage.getItem('token') ?
+            <div className="flex flex-col w-full px-4 space-y-4 mb-4">
+              {window.localStorage.getItem('token') ? (
                 <>
-                  <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold">Profile</button>
-                  <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold" onClick={()=> handleGoogleLogout()}>Vertex Flow</button>
-                </> :
-                <>
-                  <button className="w-40 h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold" onClick={()=> navigate("/signup")}>Sign Up</button>
+                  <div className="flex items-center justify-between w-full bg-[#1a1a1a] rounded-md p-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
+                        <User />
+                      </div>
+                      <div>
+                        <p className="text-white text-sm">Mark Zuckerberg</p>    
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => setShowDesktopProfilePopup(!showDesktopProfilePopup)}
+                      className="text-gray-400 hover:text-white"
+                    >
+                      <Settings size={20} />
+                    </button>
+                  </div>
+                  <div className="flex justify-center items-center ">
+                    <button className="w-40 h-10 bg-white text-gray-700 border border-gray-300 rounded-md font-bold" 
+                      onClick={() => handleGoogleLogout()}>
+                      Vertex Flow
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col space-y-4">
                   <button 
-                    className="w-40 h-10 bg-[##1F1F1F] text-[#FBFAF4] border border-gray-300 rounded-md font-bold" 
+                    className="w-full h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold"
+                    onClick={handleSignup}
+                  >
+                    Sign Up
+                  </button>
+                  <button 
+                    className="w-full h-10 bg-[#1F1F1F] text-[#FBFAF4] border border-gray-300 rounded-md font-bold" 
                     onClick={handleLogin}
                   >
                     Log in
                   </button>
-                </>
-                }
-              </div>
-            </>
+                </div>
+              )}
+            </div>
           ) : (
-            <>
+            <div className="flex flex-col items-center space-y-4 mb-4">
               <button onClick={toggleSidebar} className="mb-4 bg-black p-1 rounded-full">
                 <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.77273 0.613636V19.75H0.704545V0.613636H3.77273ZM14.9373 16.3295L13.3237 14.7273L16.6873 11.3636H9.39188V9H16.6873L13.3237 5.63636L14.9373 4.03409L21.0851 10.1818L14.9373 16.3295Z" fill="white"/>
                 </svg>
               </button>
-              <div className="flex flex-col items-center space-y-4 mb-4">
-                <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">P</div>
-                <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">VF</div>
+              <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
+                <User />
               </div>
-            </>
+            </div>
+          )}
+
+        {/* Desktop Profile Popup (Bottom Right) */}
+        {showDesktopProfilePopup && (
+            <div className="absolute bottom-[120px] right-[-200px] z-50 w-64 bg-[#1E1E1E] rounded-lg shadow-lg border border-[#333] p-4">
+              <div className="space-y-2">
+                {[
+                  { icon: "👤", label: "Overview" },
+                  { icon: "⚙️", label: "Settings" },
+                  { icon: "❤️", label: "Community" },
+                  { icon: "🛡️", label: "Privacy Policy", action: handlePrivacyClick },
+                  { icon: "📜", label: "Terms of Service", action: handleTermsClick },
+                  { icon: "🚪", label: "Log out", action: handleLogout }
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="px-4 py-3 cursor-pointer flex items-center text-[#d4d4d4] transition-colors duration-200 hover:text-white"
+                    onClick={item.action}
+                  >
+                    <span className="mr-2">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -265,6 +331,21 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
       {/* Auth Popup */}
       {showAuthPopup && (
         <LandingAuth onClose={handleCloseAuthPopup} />
+      )}
+
+      {/* Signup Popup */}
+      {showSignupPopup && (
+        <Signup onClose={handleCloseSignupPopup} />
+      )}
+
+      {/* Terms and Conditions Popup */}
+      {showTermsPopup && (
+        <TermsAndConditions onClose={() => setShowTermsPopup(false)} />
+      )}
+
+      {/* Privacy Policy Popup */}
+      {showPrivacyPopup && (
+        <PrivacyPolicy onClose={() => setShowPrivacyPopup(false)} />
       )}
     </>
   );
