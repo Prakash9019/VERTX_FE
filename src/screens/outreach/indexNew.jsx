@@ -1,3 +1,4 @@
+// import "./style.css";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { industries, Country, investorType } from "./filters.js";
@@ -10,10 +11,9 @@ import gify from "./gify.gif";
 import "./styleNew.css"
 import Select from "react-select";
 
-
 const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
   return (
-    <div className="MultiSelectDropdown w-full min-w-[150px]">
+    // <div className="MultiSelectDropdown w-full min-w-[150px]">
       <Select
         isMulti
         options={options.map((option) => ({ value: option, label: option }))}
@@ -44,29 +44,30 @@ const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
           }),
         }}
       />
-    </div>
+    // </div>
   );
 };
 
+
 export default function Outreach() {
   const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [investors, setInvestors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [bookmarked, setBookmarked] = useState(false);
+ 
   
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [totalRecords, setTotalRecords] = useState(0);
   const [totalPageSize, setTotalPageSize] = useState(20);
-  const [model, setModel] = useState("EXPLORE");
-  const [currentPageNav, setCurrentPageNav] = useState("explore");
-
-  // Mobile responsiveness
-  const [isMobile, setIsMobile] = useState("");
-
+  
+  // Sidebar state
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  
+  // Current page for navigation highlighting
+  const [currentPageNav, setCurrentPageNav] = useState("outreach");
   // Filters state
   const [filters, setFilters] = useState({
     country: "",
@@ -75,43 +76,43 @@ export default function Outreach() {
     bookmarked: false,
   });
 
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-    
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
-
+  
+    const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+    useEffect(() => {
+      const checkIsMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Run check immediately
+      checkIsMobile();
+      
+      // Listen for resize events
+      window.addEventListener("resize", checkIsMobile);
+      
+      return () => window.removeEventListener("resize", checkIsMobile);
+    }, []);
+  
+  // Set current page for navigation highlighting
   useEffect(() => {
     // Check if the path includes "explore" to keep the bar active
     if (location.pathname.includes("explore")) {
-      setCurrentPageNav("explore");
+      setCurrentPage("explore");
     } else {
-      setCurrentPageNav(location.pathname.split("/").pop()); // Fallback for other pages
+      setCurrentPage(location.pathname.split("/").pop()); // Fallback for other pages
     }
   }, [location.pathname]);
 
+  // Ensure the body and html have black background
   // useEffect(() => {
-  //   async function fetchUserPlan() {
-  //     try {
-  //       const userRes = await axios.get(`${API_KEY}/payment/me`, { 
-  //         headers: { token: localStorage.getItem('token') } 
-  //       });
-  //       const plan = userRes.data.plan;
-  //       setModel(plan);
-  //       let newTotalPageSize = 20;
-  //       if (plan === 'EXPLORE' || plan === 'OUTREACH') newTotalPageSize = 40;
-  //       else if (plan === 'ENTERPRISE') newTotalPageSize = 100;
-  //       setTotalPageSize(newTotalPageSize);
-  //     } catch (err) {
-  //       console.error('Error fetching user plan:', err);
-  //     }
-  //   }
-  //   fetchUserPlan();
+  //   // Set black background color
+  //   document.body.style.backgroundColor = "black";
+  //   document.documentElement.style.backgroundColor = "black";
+    
+  //   // Cleanup function to reset styles when component unmounts
+  //   return () => {
+  //     document.body.style.backgroundColor = "";
+  //     document.documentElement.style.backgroundColor = "";
+  //   };
   // }, []);
 
   useEffect(() => {
@@ -139,6 +140,8 @@ export default function Outreach() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    
+    // Scroll to top of the scrollable container instead of the window
     const mainContent = document.querySelector('.scrollable-content');
     if (mainContent) {
       mainContent.scrollTop = 0;
@@ -163,22 +166,23 @@ export default function Outreach() {
   const totalPages = Math.ceil(totalRecords / pageSize);
   const isUpgradeRequired = currentPage * 20 > totalPageSize;
   
+  // Mobile layout
+
+  // Desktop layout
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className="flex flex-col min-h-screen">
-        <div className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'max-w-4xl w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
-          <div className={`text-left ${isMobile ? 'ml-0' : 'ml-10'}`}>
-            <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1 mb-1`}>
+      <div className="h-full -ml-5 p-6">
+        {/* Content container with #111111 background and border-radius: 10px */}
+        <div className="h-full bg-[#111111] rounded-[10px] overflow-hidden flex flex-col">
+          <div className="scrollable-content p-6">
+          <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1 mb-1`}>
               Explore Investors
             </h1>
             <p className="text-xl text-[#CAC5C5] mb-4">
               Find and connect with potential investors
             </p>
-          </div>
-
-          {/* Filters */}
-          <div className="filter mb-4">
-          <div className="flex gap-3 overflow-x-auto p-2 w-full">
+            {/* Filters */}
+            <div className="flex gap-3 overflow-x-auto p-2 w-full">
       {/* Multi-Select Country */}
       <MultiSelectDropdown
         options={Country}
@@ -215,51 +219,46 @@ export default function Outreach() {
       </button>
     </div>
 
-          </div>
 
-          {error && <div className="error-message">{error}</div>}
+            {error && <div className="error-message">{error}</div>}
 
-          {/* Investor Cards */}
-          <div className="profilecards">
-            {loading ? (
-              <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
-                <img src={gify} alt="Loading..." className="w-20 h-20" />
-              </div>
-            ) : (
-              <>
-                {investors.map((item, index) => (
-                  <div 
-                    key={item._id || index} 
-                    className={`${isUpgradeRequired ? 'blur-sm' : ''}`}
-                  >
-                    <Card data={item} />
-                  </div>
-                ))}
-              </>
-            )}
-          </div>
-          
-          {/* Pagination Controls */}
-          <div className="pagination mt-8 mb-12">
-            <button 
-              className="pagination-button"
-              disabled={currentPage === 1} 
-              onClick={() => handlePageChange(currentPage - 1)}
-            >
-              Previous
-            </button>
-            <span className="page-info">Page {currentPage} </span>
-            <button 
-              className="pagination-button"
-              disabled={currentPage === totalPages} 
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              Next
-            </button>
+            {/* Investor Cards */}
+            <div className="profilecards">
+              {loading ? (
+                <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                  <img src={gify} alt="Loading..." className="w-20 h-20" />
+                </div>
+              ) : (
+                <>
+                  {investors.map((item, index) => (
+                    <div key={item._id || index} >
+                      <Card data={item} />
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+            
+            {/* Pagination Controls */}
+            <div className="pagination mt-8 mb-12">
+              <button 
+                className="pagination-button"
+                disabled={currentPage === 1} 
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                Previous
+              </button>
+              <span className="page-info">Page {currentPage} </span>
+              <button 
+                className="pagination-button"
+                disabled={currentPage === totalPages} 
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
-
-        {/* Mobile Footer */}
         {isMobile && <MobileFooter currentPage={currentPageNav} />}
       </div>
     </Layout>

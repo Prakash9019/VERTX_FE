@@ -92,6 +92,10 @@ export default function Welcome_founder() {
   };
 
   useEffect(() => {
+    if(!localStorage.getItem('token')){
+      navigate('/authentication');
+      return;
+    }
     // Fetch user data when component mounts
     const fetchUserData = async () => {
       try {
@@ -141,6 +145,11 @@ export default function Welcome_founder() {
     }
   }
   };
+
+  if(!localStorage.getItem('token')){
+    navigate('/authentication');
+    return;
+  }
   
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
