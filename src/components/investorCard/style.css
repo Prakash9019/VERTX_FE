@@ -17,6 +17,12 @@
     -ms-overflow-style: none; /* Internet Explorer 10+ */
   }
   
+
+
+
+
+
+
   .backdrop::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }
@@ -61,15 +67,27 @@
     gap: 5px;
     cursor: pointer;
   }
-  
+
+
+
+
   .backdrop .popup .topsec .wrap {
-    display: flex;
-    gap: 20px;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 10px;
   }
   
-  .backdrop .popup .topsec .wrap .btns {
-    display: flex;
+  .backdrop .popup .topsec .wrap .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    gap: 3px;
   }
+  
+  .backdrop .popup .topsec .wrap .btn ion-icon {
+    font-size: 14px;
+    margin-right: 2px;
+  }
+  
   
   .backdrop .popup .topsec .wrap .btns .btn.rt {
     border-top-right-radius: 0;
@@ -205,15 +223,32 @@
     }
     .backdrop .popup .sec .img-cont {
       width: 100%;
-      height: 150px;
+      height: 200px; /* Increased height to maintain aspect ratio */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .backdrop .popup .sec .img-cont .img {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .backdrop .popup .sec .img-cont .img .ctit {
+      font-size: 24px !important;
+      text-align: center;
     }
     .backdrop .popup .sec .invDetails {
       width: 100%;
       padding: 10px 0;
       position: relative;
     }
-    .backdrop .popup .sec .img-cont .img .ctit {
-      font-size: 24px !important;
+    .backdrop .popup .sec .invDetails .flex.flex-col.absolute.right-6 {
+      position: static !important;
+      margin-top: 10px;
+      width: 100%;
     }
     .sidehead {
       font-size: 18px;
@@ -229,14 +264,31 @@
       font-size: 12px;
       line-height: 1.4;
     }
-    .flex.flex-col.absolute.right-6 {
-      position: static !important;
-      margin-top: 10px;
-    }
     .tag2 {
       font-size: 11px;
       padding: 3px 10px;
     }
+    
+    /* New styles to move bookmark and put it at the bottom */
+
+
+
+    .backdrop .popup .topsec .wrap {
+        width: 100%;
+        display: flex;  /* Ensure flexbox is applied */
+        justify-content: flex-end; /* Moves content to the right */
+        margin-top: 10px;
+      }
+      
+      .backdrop .popup .topsec .wrap .btn {
+        padding: 4px 8px;
+        font-size: 11px;
+        gap: 2px;
+      }
+      
+      .backdrop .popup .topsec .wrap .btn ion-icon {
+        font-size: 12px;
+        margin-right: 2px;
+      }
+      
   }
-  
-  
