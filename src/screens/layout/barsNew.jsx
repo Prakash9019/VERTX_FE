@@ -131,7 +131,6 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
 export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
-  const [activeNav, setActiveNav] = useState("Explore");
   const [currentPage, setPage] = useState("explore");
   const [showAuthPopup, setShowAuthPopup] = useState(false);
   const [showSignupPopup, setShowSignupPopup] = useState(false);
@@ -238,7 +237,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <div className="ml-3 flex flex-col flex-grow mt-10">
           <NavItem icon={<Search />} active={currentPage} name="explore" label="Explore" expanded={sidebarOpen} />
           <NavItem icon={<Target />} active={currentPage} name="outreach" label="Outreach" expanded={sidebarOpen} />
-          <NavItem icon={<Users />} active={currentPage} name="enagage" label="Engage" expanded={sidebarOpen} />
           <NavItem icon={<Grid />} active={currentPage} name="resources" label="Resources" expanded={sidebarOpen} />
         </div>
 
@@ -424,9 +422,9 @@ export function MobileFooter({ currentPage }) {
         )}
         <NavIconFooter icon={<Target />} label="Outreach" active={currentPage === "outreach"} />
       </div>
-      <div className="flex flex-col items-center" onClick={() => handleNavigation('enagage')}>
+      {/* <div className="flex flex-col items-center" onClick={() => handleNavigation('enagage')}>
         <NavIconFooter icon={<Users />} label="Engage" active={currentPage === "enagage"} />
-      </div>
+      </div> */}
       <div className="flex flex-col items-center" onClick={() => handleNavigation('resources')}>
         <NavIconFooter icon={<Grid />} label="Resources" active={currentPage === "resources"} />
       </div>
