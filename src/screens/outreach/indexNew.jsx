@@ -1,4 +1,3 @@
-// import "./style.css";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { industries, Country, investorType } from "./filters.js";
@@ -170,87 +169,77 @@ export default function Outreach() {
   const totalPages = Math.ceil(totalRecords / pageSize);
   const isUpgradeRequired = currentPage * 20 > totalPageSize;
   
-  // Mobile layout
+  // Render different layouts for mobile and desktop
   if (isMobile) {
     return (
-      <Layout sidebarOpen={false} setSidebarOpen={setSidebarOpen}>
-        <div className="h-screen bg-black overflow-hidden flex flex-col">
-          {/* Mobile Header - removed as Layout component handles this */}
-          
-          {/* Filter options - mobile version */}
-          <div className="p-4 pt-4">
-            <div className="flex overflow-x-auto gap-2 pb-3 hide-scrollbar">
-              <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
-                Type <Lock size={14} className="text-white" />
-              </div>
-              <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
-                Industry <Lock size={14} className="text-white" />
-              </div>
-              <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
-                Country <Lock size={14} className="text-white" />
-              </div>
-              <div className="flex-shrink-0 bg-[#161616] border border-[#75757569] rounded-md px-3 py-2 text-[#adadad] flex items-center gap-2">
-                Ticket <Lock size={14} className="text-white" />
-              </div>
-            </div>
+      <div className="h-screen bg-black overflow-hidden flex flex-col">
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        
+        {/* Filter options - mobile version */}
+        <div className="p-4 pt-0">
+          <div className="flex overflow-x-auto gap-2 pb-3 hide-scrollbar">
+            <FilterButton label="Type" mobile={true} />
+            <FilterButton label="Industry" mobile={true} />
+            <FilterButton label="Country" mobile={true} />
+            <FilterButton label="Ticket" mobile={true} />
           </div>
+        </div>
 
-          {/* Mobile main content */}
-          <div className="flex-1 overflow-y-auto bg-black px-4 pb-20">
-            {/* Investor Cards - mobile layout */}
-            {loading ? (
-              <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
-                <img src={gify} alt="Loading..." className="w-20 h-20" />
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-4">
-                {investors.map((item, index) => (
-                  <div key={item._id || index} className="bg-[#111111] p-4 rounded-lg border border-[#222]">
-                    <div className="mb-2 flex justify-between items-center">
-                      <div>
-                        <h3 className="text-white font-bold">{item.name || "First Check VC"}</h3>
-                        <p className="text-gray-400 text-sm">{item.type || "VC Firm"}</p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <button className="bg-transparent border border-[#333] text-white rounded-full px-4 py-1 text-sm">
-                          Mark
-                        </button>
-                        <button className="bg-transparent border border-[#333] text-white rounded-full px-4 py-1 text-sm">
-                          View Profile
-                        </button>
-                      </div>
+        {/* Mobile main content */}
+        <div className="flex-1 overflow-y-auto bg-black px-4 pb-20">
+          {/* Investor Cards - mobile layout */}
+          {loading ? (
+            <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+              <img src={gify} alt="Loading..." className="w-20 h-20" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-4">
+              {investors.map((item, index) => (
+                <div key={item._id || index} className="bg-[#111111] p-4 rounded-lg border border-[#222]">
+                  <div className="mb-2 flex justify-between items-center">
+                    <div>
+                      <h3 className="text-white font-bold">{item.name || "First Check VC"}</h3>
+                      <p className="text-gray-400 text-sm">{item.type || "VC Firm"}</p>
+                    </div>
+                    <div className="flex space-x-2">
+                      <button className="bg-transparent border border-[#333] text-white rounded-full px-4 py-1 text-sm">
+                        Mark
+                      </button>
+                      <button className="bg-transparent border border-[#333] text-white rounded-full px-4 py-1 text-sm">
+                        View Profile
+                      </button>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
-            
-            {/* Pagination for mobile */}
-            <div className="flex justify-center items-center my-6 px-4">
-              <button 
-                className="px-4 py-2 bg-[#222] text-white rounded-md disabled:opacity-50"
-                disabled={currentPage === 1} 
-                onClick={() => handlePageChange(currentPage - 1)}
-              >
-                Previous
-              </button>
-              <span className="mx-4 text-white">
-                {currentPage} / {totalPages}
-              </span>
-              <button 
-                className="px-4 py-2 bg-[#222] text-white rounded-md disabled:opacity-50"
-                disabled={currentPage === totalPages} 
-                onClick={() => handlePageChange(currentPage + 1)}
-              >
-                Next
-              </button>
+                </div>
+              ))}
             </div>
-          </div>
+          )}
           
-          {/* Mobile footer using MobileFooter component */}
-          <MobileFooter currentPage={currentPageNav} />
+          {/* Pagination for mobile */}
+          <div className="flex justify-center items-center my-6 px-4">
+            <button 
+              className="px-4 py-2 bg-[#222] text-white rounded-md disabled:opacity-50"
+              disabled={currentPage === 1} 
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              Previous
+            </button>
+            <span className="mx-4 text-white">
+              {currentPage} / {totalPages}
+            </span>
+            <button 
+              className="px-4 py-2 bg-[#222] text-white rounded-md disabled:opacity-50"
+              disabled={currentPage === totalPages} 
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              Next
+            </button>
+          </div>
         </div>
-      </Layout>
+        
+        {/* Mobile footer using MobileFooter component */}
+        <MobileFooter currentPage={currentPageNav} />
+      </div>
     );
   }
 
@@ -258,12 +247,10 @@ export default function Outreach() {
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
       <div className="h-full -ml-5 p-6">
-        {/* Content container with #111111 background and border-radius: 10px */}
         <div className="h-full bg-[#111111] rounded-[10px] overflow-hidden flex flex-col">
           <div className="scrollable-content p-6">
             <p className="head mt-14 text-white font-bold">Explore and connect.</p>
 
-            {/* Filters */}
             <div className="flex gap-3 overflow-x-auto p-2 w-full">
       {/* Multi-Select Country */}
       <MultiSelectDropdown
@@ -304,7 +291,6 @@ export default function Outreach() {
 
             {error && <div className="error-message">{error}</div>}
 
-            {/* Investor Cards */}
             <div className="profilecards">
               {loading ? (
                 <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
@@ -321,7 +307,6 @@ export default function Outreach() {
               )}
             </div>
             
-            {/* Pagination Controls */}
             <div className="pagination mt-8 mb-12">
               <button 
                 className="pagination-button"
