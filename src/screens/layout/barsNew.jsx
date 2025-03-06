@@ -7,9 +7,7 @@ import { useNavigate } from "react-router"
 import LandingAuth from "../landing/index"
 import Signup from "../auth/signup"
 import TermsAndConditions from "../More/TermsandConditions"
-import axios from "axios"
 import PrivacyPolicy from "../More/PrivacyPolicy"
-import API_KEY from "../../../key"
 
 // Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
@@ -246,6 +244,11 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     }
   }, []); // Ensures it runs only once on mount
 
+
+
+  // Only show sidebar on desktop
+  if (isMobile) return null
+
   const handleGoogleLogout = async () => {
     try {
       localStorage.removeItem("token")
@@ -327,7 +330,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <div className="flex items-center justify-center w-full mb-4">
                     <button
                       className="flex items-center justify-center bg-[#1F1F1F] text-white rounded-md px-6 py-2 w-11/12"
-                      // onClick={() => handleGoogleLogout()}
+                     // onClick={() => handleGoogleLogout()}
                       style={{
                         fontFamily: "Playfair Display",
                         fontSize: "16px",
@@ -359,13 +362,13 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <div className="flex flex-col space-y-4">
                   <button
                     className="w-full h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold"
-                    onClick={handleLogin }
+                    onClick={handleSignup}
                   >
                     Sign Up
                   </button>
                   <button
                     className="w-full h-10 bg-[#1F1F1F] text-[#FBFAF4] border border-gray-300 rounded-md font-bold"
-                    onClick={handleSignup}
+                    onClick={handleLogin}
                   >
                     Log in
                   </button>
@@ -424,7 +427,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     <path d="M5.83333 24.5C5.19167 24.5 4.64236 24.2715 4.18542 23.8146C3.72847 23.3576 3.5 22.8083 3.5 22.1667V5.83333C3.5 5.19167 3.72847 4.64236 4.18542 4.18542C4.64236 3.72847 5.19167 3.5 5.83333 3.5H14V5.83333H5.83333V22.1667H14V24.5H5.83333ZM18.6667 19.8333L17.0625 18.1417L20.0375 15.1667H10.5V12.8333H20.0375L17.0625 9.85833L18.6667 8.16667L24.5 14L18.6667 19.8333Z" fill="#FBFAF4"/>
                     </svg>
                     , label: "Log out", action: handleLogout }
-
                 ].map((item, index) => (
                   <div
                     key={index}
