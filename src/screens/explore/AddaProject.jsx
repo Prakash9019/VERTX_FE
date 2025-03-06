@@ -31,6 +31,21 @@ function ProjectCard({ project }) {
     setProjectData((prevData) => ({ ...prevData, workplace }));
   };
 
+  const deleteProject = async (projectId) => {
+    try {
+      const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
+      const response = await axios.delete(`${API_KEY}/projects/${projectId}`, {
+        headers: { token: localStorage.getItem("token") }
+      });
+  
+      alert("Project deleted successfully");
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting project:", error);
+      alert("Failed to delete project");
+    }
+  };
+
   return (
     <>
       <div className="bg-[black] rounded-3xl p-4 md:p-6 shadow-xl border border-[#1D1C1C] w-full my-3 md:m-4">
@@ -38,10 +53,11 @@ function ProjectCard({ project }) {
           <div className="flex justify-between items-center w-full mb-4">
             <div className="text-[#CAC5C5] text-xl md:text-[25px] font-extrabold">{projectData.name}</div>
             <div className="flex space-x-2 md:space-x-4">
-              <button className="px-2 py-1 md:px-4 md:py-2 rounded-[4px] bg-[#1D1C1C] text-sm md:text-base">Cancel</button>
+              <button className="px-2 py-1 md:px-4 md:py-2 rounded-[4px] bg-[#1D1C1C] text-sm md:text-base" onClick={()=> deleteProject(projectData._id)}>Cancel</button>
               <button className="bg-white text-black px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base" onClick={handleSave}>Save</button>
             </div>
           </div>
+
           
           <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
             <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg"></div>
