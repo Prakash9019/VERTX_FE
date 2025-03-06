@@ -8,7 +8,8 @@ import LandingAuth from "../landing/index"
 import Signup from "../auth/signup"
 import TermsAndConditions from "../More/TermsandConditions"
 import PrivacyPolicy from "../More/PrivacyPolicy"
-
+import axios from "axios";
+import API_KEY from "../../../key"
 // Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
   const [isMobile, setIsMobile] = useState(false)
@@ -246,7 +247,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   // Only show sidebar on desktop
   
 
-  const [username1,setUsernamee1] =useState("Mark Zuckerberg")
+  const [username1,setUsernamee1] =useState("@username")
 
   const handleUsername = async () => {
     try {

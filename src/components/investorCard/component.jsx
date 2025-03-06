@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router";
 import Button from "../button/component";
 import "./style.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Card({  data,isBookmarked,toggleBookmark }) {
+  const navigate = useNavigate();
   function capitalizeWords(str) {
     return str
       .split(' ')
@@ -14,6 +16,10 @@ export default function Card({  data,isBookmarked,toggleBookmark }) {
   const [show, setShow] = useState(false);
   
   const openPopup = () => {
+    if(!localStorage.getItem('token')){
+      navigate('/authentication');
+      // return;
+    }
     setShow(true);
     document.body.style.overflow = "hidden"; // Prevent scrolling of background content
   };
@@ -23,6 +29,14 @@ export default function Card({  data,isBookmarked,toggleBookmark }) {
     document.body.style.overflow = "auto"; // Restore scrolling
   };
 
+  
+
+  // useEffect(()=>{
+  //   if(!localStorage.getItem('token')){
+  //     navigate('/authentication');
+  //     // return;
+  //   }
+  // })
   return (
     <div className="pcard" onClick={openPopup} >
       {show && (

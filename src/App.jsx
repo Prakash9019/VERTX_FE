@@ -50,6 +50,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Callback />} />
+      <Route path="/" element={<Navigate to="/authen" />} />
+
 
       <Route path="/authentication" element={<LandingAuth />} />
       <Route path="/signup" element={<Signup />} />
