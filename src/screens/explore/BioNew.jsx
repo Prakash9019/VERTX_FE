@@ -209,7 +209,7 @@ export default function Bio() {
 
   const stages = ["Idea", "Prototype", "Revenue", "Scale"]
   const workplaces = ["Remote", "Hybrid", "Office"]
-
+  const [Eicon,setIcon] = useState(false);
   
     
 
@@ -298,6 +298,10 @@ export default function Bio() {
     setProjectStage(stage);
   };
 
+  const handleEdit2 = () =>{
+    setIcon(!Eicon);
+  }
+
   const handleWorkplaceSelect = (workplace) => {
     setProjectWorkplace(workplace);
   };
@@ -305,6 +309,18 @@ export default function Bio() {
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
       <div className={`${isMobile ? 'px-4 pb-24 pt-3' : 'w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
         <div className="max-w-3xl w-full mx-auto">
+          
+        <div className="flex justify-end space-x-2 mb-4 pr-12">
+        <button onClick={()=> handleEdit2()}> 
+            <svg width="21" height="21" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                <path d="M3.33333 14C2.96667 14 2.65278 13.8694 2.39167 13.6083C2.13056 13.3472 2 13.0333 2 12.6667V3.33333C2 2.96667 2.13056 2.65278 2.39167 2.39167C2.65278 2.13056 2.96667 2 3.33333 2H9.28333L7.95 3.33333H3.33333V12.6667H12.6667V8.03333L14 6.7V12.6667C14 13.0333 13.8694 13.3472 13.6083 13.6083C13.3472 13.8694 13.0333 14 12.6667 14H3.33333ZM6 10V7.16667L12.1167 1.05C12.25 0.916668 12.4 0.816668 12.5667 0.750002C12.7333 0.683335 12.9 0.650002 13.0667 0.650002C13.2444 0.650002 13.4139 0.683335 13.575 0.750002C13.7361 0.816668 13.8833 0.916668 14.0167 1.05L14.95 2C15.0722 2.13333 15.1667 2.28056 15.2333 2.44167C15.3 2.60278 15.3333 2.76667 15.3333 2.93333C15.3333 3.1 15.3028 3.26389 15.2417 3.425C15.1806 3.58611 15.0833 3.73333 14.95 3.86667L8.83333 10H6ZM7.33333 8.66667H8.26667L12.1333 4.8L11.6667 4.33333L11.1833 3.86667L7.33333 7.71667V8.66667Z" fill="white"/>
+          </svg>
+          </button>
+<svg width="21" height="21" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.5" y="0.5" width="15" height="15" stroke="black"/>
+<path d="M6.16647 14.6667L5.89981 12.5333C5.75536 12.4778 5.61925 12.4111 5.49147 12.3333C5.36369 12.2556 5.23869 12.1722 5.11647 12.0833L3.13314 12.9167L1.2998 9.75L3.01647 8.45C3.00536 8.37222 2.9998 8.29722 2.9998 8.225V7.775C2.9998 7.70278 3.00536 7.62778 3.01647 7.55L1.2998 6.25L3.13314 3.08334L5.11647 3.91667C5.23869 3.82778 5.36647 3.74445 5.4998 3.66667C5.63314 3.58889 5.76647 3.52222 5.89981 3.46667L6.16647 1.33334H9.83314L10.0998 3.46667C10.2442 3.52222 10.3804 3.58889 10.5081 3.66667C10.6359 3.74445 10.7609 3.82778 10.8831 3.91667L12.8665 3.08334L14.6998 6.25L12.9831 7.55C12.9942 7.62778 12.9998 7.70278 12.9998 7.775V8.225C12.9998 8.29722 12.9887 8.37222 12.9665 8.45L14.6831 9.75L12.8498 12.9167L10.8831 12.0833C10.7609 12.1722 10.6331 12.2556 10.4998 12.3333C10.3665 12.4111 10.2331 12.4778 10.0998 12.5333L9.83314 14.6667H6.16647ZM8.03314 10.3333C8.67758 10.3333 9.22758 10.1056 9.68314 9.65C10.1387 9.19445 10.3665 8.64445 10.3665 8C10.3665 7.35556 10.1387 6.80556 9.68314 6.35C9.22758 5.89445 8.67758 5.66667 8.03314 5.66667C7.37758 5.66667 6.8248 5.89445 6.3748 6.35C5.92481 6.80556 5.6998 7.35556 5.6998 8C5.6998 8.64445 5.92481 9.19445 6.3748 9.65C6.8248 10.1056 7.37758 10.3333 8.03314 10.3333Z" fill="#757575"/>
+</svg>
+            </div>
           <div className="bg-black rounded-3xl shadow-lg overflow-hidden border" 
             style={{ 
               borderColor: "#757575", 
@@ -339,12 +355,12 @@ export default function Bio() {
                    </div>
 
                    <div className="relative">
-                   <button className="ml-[3.5rem] flex items-center gap-1 text-gray-400 mb-[3rem]" onClick={() => setEditingProfile(true)}>
+                 { Eicon && <button className="ml-[3.5rem] flex items-center gap-1 text-gray-400 mb-[3rem]" onClick={() => setEditingProfile(true)}>
                        <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
 </svg>
                          <span style={{ color: "#CAC5C5" }}>Edit</span>
-                       </button>
+                       </button>}
                      <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800">
                      {formData.avatar ? (
                       <img
@@ -531,12 +547,12 @@ export default function Bio() {
  >
    <div className="flex items-center justify-between mb-5">
      <h2 className="text-xl sm:text-2xl font-bold">Background</h2>
-    <button className="flex items-center gap-1 text-gray-400" onClick={() => setEditingBackground(true)}>
+                {Eicon &&  <button className="flex items-center gap-1 text-gray-400" onClick={() => setEditingBackground(true)}>
                     <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
 </svg>
                       <span style={{ color: "#CAC5C5" }}>Edit</span>
-                    </button>
+                    </button>}
                   </div>
 
 
@@ -654,12 +670,12 @@ export default function Bio() {
     <div className="flex flex-row w-full justify-between items-center">
       <h3 className="text-lg sm:text-xl font-bold mb-2 text-left flex-grow">{project.name}</h3>
       
-      <button className="flex items-center gap-1 text-gray-400" onClick={() => handleEdit(project)}>
+    { Eicon && <button className="flex items-center gap-1 text-gray-400" onClick={() => handleEdit(project)}>
         <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
         </svg>
         <span style={{ color: "#CAC5C5" }}>Edit</span>
-      </button>
+      </button>}
     </div>
   ))}
 </div>

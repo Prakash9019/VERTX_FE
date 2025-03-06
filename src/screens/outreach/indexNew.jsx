@@ -1,4 +1,5 @@
 // import "./style.css";
+"use client"
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { industries, Country, investorType } from "./filters.js";
@@ -8,7 +9,7 @@ import axios from "axios";
 import { Header, Sidebar, NavIconFooter, Layout, MainContent, FilterButton, MobileFooter } from "../layout/barsNew.jsx";
 import Card from "../../components/investorCard/component";
 import gify from "./gify.gif";
-import "./styleNew.css"
+import "./style.css"
 import Select from "react-select";
 
 const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
@@ -55,7 +56,7 @@ const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
 };
 
 
-export default function Outreach() {
+export default function Outreach2() {
   const navigate = useNavigate();
   const [investors, setInvestors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -83,21 +84,22 @@ export default function Outreach() {
   });
 
   
-  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" && window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
+    console.log(isMobile)
     
     // Run check immediately
     checkIsMobile();
-    
+    console.log(isMobile);
     // Listen for resize events
     window.addEventListener("resize", checkIsMobile);
     
     return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
+  }, [window.innerWidth]);
   
   useEffect(() => {
     console.log("Updated isMobile:", isMobile,window.innerWidth);
@@ -105,14 +107,14 @@ export default function Outreach() {
   
   
   // Set current page for navigation highlighting
-  useEffect(() => {
-    // Check if the path includes "explore" to keep the bar active
-    if (location.pathname.includes("explore")) {
-      setCurrentPage("explore");
-    } else {
-      setCurrentPage(location.pathname.split("/").pop()); // Fallback for other pages
-    }
-  }, [location.pathname]);
+   useEffect(() => {
+     // Check if the path includes "explore" to keep the bar active
+     if (location.pathname.includes("explore")) {
+       setCurrentPageNav("explore");
+     } else {
+       setCurrentPageNav(location.pathname.split("/").pop()); // Fallback for other pages
+     }
+   }, [location.pathname]);
 
   // Ensure the body and html have black background
   // useEffect(() => {
@@ -217,49 +219,53 @@ export default function Outreach() {
   // Desktop layout
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className="h-full -ml-5 p-6">
-        {/* Content container with #111111 background and border-radius: 10px */}
-        <div className="h-full bg-[#111111] rounded-[10px] overflow-hidden flex flex-col">
-          <div className="scrollable-content p-6">
-          <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1 mb-1`}>
+       <div className="flex flex-col min-h-screen">
+        <div className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'max-w-4xl w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
+          <div className={`text-left ${isMobile ? 'ml-0' : 'ml-10'}`}>
+            <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1 mb-1`}>
               Explore Investors
             </h1>
             <p className="text-xl text-[#CAC5C5] mb-4">
               Find and connect with potential investors
             </p>
+          </div>
             {/* Filters */}
-            <div className="flex gap-3 overflow-x-auto p-2 w-full">
-      {/* Multi-Select Country */}
-      <MultiSelectDropdown
-        options={Country}
-        onChange={(values) => handleFilterChange("country", values)}
-        placeholder="Select Countries"
-      />
+            <div className="filter mb-4 grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 gap-3">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+    {/* Multi-Select Country */}
+    <MultiSelectDropdown
+      options={Country}
+      onChange={(values) => handleFilterChange("country", values)}
+      placeholder="Select Countries"
+    />
 
-      {/* Multi-Select Investor Type */}
-      <MultiSelectDropdown
-        options={investorType}
-        onChange={(values) => handleFilterChange("investorType", values)}
-        placeholder="Investor Type"
-      />
+    {/* Multi-Select Investor Type */}
+    <MultiSelectDropdown
+      options={investorType}
+      onChange={(values) => handleFilterChange("investorType", values)}
+      placeholder="Investor Type"
+    />
 
-      {/* Multi-Select Industry */}
-      <MultiSelectDropdown
-        options={industries}
-        onChange={(values) => handleFilterChange("industry", values)}
-        placeholder="Industries"
-      />
+    {/* Multi-Select Industry */}
+    <MultiSelectDropdown
+      options={industries}
+      onChange={(values) => handleFilterChange("industry", values)}
+      placeholder="Industries"
+    />
+
+    {/* Bookmarked Button */}
+    <button
+      className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${
+        bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
+      }`}
+      onClick={toggleBookmarked}
+    >
+      Bookmarked
+    </button>
+  </div>
+</div>
 
 
-      <button
-        className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${
-          bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
-        }`}
-        onClick={toggleBookmarked}
-      >
-        Bookmarked
-      </button>
-    </div>
 
 
             {error && <div className="error-message">{error}</div>}
@@ -316,7 +322,7 @@ export default function Outreach() {
                 Next
               </button>
             </div>
-          </div>
+        
         </div>
         {isMobile && <MobileFooter currentPage={currentPageNav} />}
       </div>

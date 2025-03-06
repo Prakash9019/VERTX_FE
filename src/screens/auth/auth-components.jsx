@@ -4,11 +4,19 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import API_KEY from "../../../key";
 import FloatingLabelInput from "../../components/LabelInput.jsx";
+import { useNavigate } from "react-router";
 
 export const SignupForm = ({ onComplete, email, setEmail }) => {
   const [resp, setResp] = useState("");
   const [show, setShow] = useState(false);
   const [load, setLoad] = useState(false);
+  const [password, setPassword] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const navigate=useNavigate();
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
 
@@ -17,19 +25,26 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
     const response = await axios
       .post(API_KEY + "/auth/signup", {
         email,
+        password
       })
       .catch((e) => {
         setErrorMessage(e.response?.data?.msg || "An error occurred");
         return e.response;
       });
 
-    if (response) {
+    if (response?.data) {
       setLoad(false);
+      console.log(response.data , response.status)
       setErrorMessage(response?.data?.msg);
       setResp(response?.data?.msg);
       if (response.status == 200) {
         window.localStorage.setItem("token", response?.data?.token);
-        onComplete("verify");
+        // onComplete("verify");
+        window.location.reload(); // Refresh the page
+        navigate("/outreach");
+  // setTimeout(() => {
+  //   navigate("/outreach"); // Navigate after refresh
+  // }, 100); // Small delay to ensure reload happens first
       }
       setShow(true);
     }
@@ -75,8 +90,8 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
           <div className="w-full h-px bg-[#9d9d9d]"></div>
         </div>
 
-        <div className="w-full">
-          <FloatingLabelInput
+        <div className="w-full gp-2">
+          {/* <FloatingLabelInput
             id={`email`}
             label="username, email address, or vertxuid"
             type='text'
@@ -84,7 +99,46 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
             value={email}
             onChange={setEmail}
             className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
-          />
+          /> */}
+           <input
+              id="Email"
+              type="text"
+              value={email}
+              placeholder="Email Address..."
+              className={`w-full px-4 py-3 bg-transparent rounded-md mb-2 border border-gray-700 text-white text-sm sm:text-base focus:outline-none focus:ring-0 
+                transition-all duration-200 `}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+          <div className="relative w-full mb-4">
+            <input
+              id="Password"
+              type={isPasswordVisible ? "text" : "password"}
+              value={password}
+              minLength={8}
+              className={`w-full px-4 py-3 bg-transparent rounded-md border border-gray-700 text-white text-sm sm:text-base focus:outline-none focus:ring-0 
+                ${!password && !isFocused ? 'pl-[100px]' : 'pl-4'} transition-all duration-200`}
+              onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+            />
+            {(!password && !isFocused) && (
+              <label
+                htmlFor="Password"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm sm:text-base transition-all duration-200 pointer-events-none"
+              >
+                Password
+              </label>
+            )}
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white"
+            >
+              {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+        
           
           {errorMessage && (
             <p className="text-red-500 mt-4 text-sm text-center">{errorMessage}</p>

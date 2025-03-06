@@ -13,7 +13,7 @@ import Explore from "./screens/explore";
 import LandingAuth from "./screens/landing"
 import Matchflow from "./screens/matchflow";
 //asa
-import Outreach from "./screens/outreach/indexNew.jsx";
+import Outreach from "./screens/outreach/index.jsx";
 import Questions from "./screens/questions";
 import PricingPage from "./screens/Subscription";
 import Cashfree from "./screens/Cashfree/cashfree";
@@ -35,6 +35,7 @@ import { useCopyProtection } from "./context/CopyProtectionContext.jsx";
 import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
 import Verify from "./screens/auth/verify.jsx";
 import SetNewPassword from "./screens/auth/Setpassword.jsx";
+import Outreach2 from "./screens/outreach/indexNew.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -57,7 +58,8 @@ function App() {
       <Route path="/info" element={<Questions />} />
       <Route path="/verify" element={<Verify />} />
 
-      <Route path="/outreach" element={<Outreach />} />
+      <Route path="/outreach" element={<Outreach2 />} />
+      {/* <Route path="/outreach2" element={<Outreach2 />} /> */}
       <Route path="/sub" element={<PricingPage/> } />
       <Route path="/flow/outbound" element={<GenerateEmail />} />
       <Route path="/flow/chat" element={<Chat />} />
@@ -95,3 +97,6 @@ function App() {
 export default App
 
 
+
+{/* <div className="filter mb-4 overflow-x-auto flex flex-row">
+  <div className="space-x-3 min-w-max"> */}
