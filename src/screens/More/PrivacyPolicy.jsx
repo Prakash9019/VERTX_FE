@@ -2,7 +2,9 @@ import React from 'react';
 
 const PrivacyPolicy = ({onClose}) => {
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+
+
+    <div className="fixed inset-0 bg-[#000000]/80 flex justify-center items-center z-50">
       <div className="w-[70%] max-sm:w-[95%] bg-black rounded-2xl border border-[#75757569] p-6 max-sm:p-2 pb-10 h-[95%] max-sm:h-[85%] overflow-hidden relative">
         <main className="overflow-y-scroll pt-12 h-full scrollbar-hide">
           <div className="bg-black text-gray-300 min-h-screen flex flex-col">
