@@ -235,7 +235,10 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     if (route === "explore" && !window.localStorage.getItem("token")) {
       // Show auth popup if user is not logged in and trying to access explore
       setShowAuthPopup(true)
-    } else {
+    } else if(route === "explore" && window.localStorage.getItem("exe")){
+      navigate("/explore/break")
+    }
+    else{
       navigate(`/${route}`)
     }
   }
@@ -266,7 +269,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         },
       });
   
-      console.log(response.data);
+      // console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
     } catch (error) {
       console.error("Error fetching user data:", error);

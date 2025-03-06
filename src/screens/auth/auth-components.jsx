@@ -34,7 +34,7 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
 
     if (response?.data) {
       setLoad(false);
-      console.log(response.data , response.status)
+      //console.log(response.data , response.status)
       setErrorMessage(response?.data?.msg);
       setResp(response?.data?.msg);
       if (response.status == 200) {
@@ -204,7 +204,7 @@ export const VerificationForm = ({ onComplete, email }) => {
       const data = await response.json();
       onComplete("setpassword");
     } catch (error) {
-      console.error("Submission failed:", error);
+      //console.error("Submission failed:", error);
       setErrorMessage(error.message);
     }
   };
@@ -292,7 +292,7 @@ export const SetPasswordForm = ({ onComplete }) => {
       const data = await response.json();
       onComplete("outreach");
     } catch (error) {
-      console.error("Submission failed:", error);
+      //console.error("Submission failed:", error);
       setErrorMessage("An error occurred. Please try again.");
     }
   };

@@ -40,10 +40,10 @@ export default function SetNewPassword() {
       }
 
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       navigate('/outreach');
     } catch (error) {
-      console.error("Submission failed:", error);
+      //console.error("Submission failed:", error);
       setErrorMessage("An error occurred. Please try again.");
     }
   };

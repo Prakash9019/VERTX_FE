@@ -19,7 +19,7 @@ function ProjectCard({ project }) {
       await axios.put(`${API_KEY}/profile/projects/${project.id}`, projectData);
       alert("Project updated successfully!");
     } catch (error) {
-      console.error("Error updating project:", error);
+      //console.error("Error updating project:", error);
     }
   };
 

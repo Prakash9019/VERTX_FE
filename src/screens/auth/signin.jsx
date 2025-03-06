@@ -33,8 +33,8 @@ export default function Signin() {
 
     if(response){
         setLoad(false);
-        console.log(response);
-        console.log(response?.data?.msg);
+        //console.log(response);
+        //console.log(response?.data?.msg);
         setResp(response?.data?.msg);
         if (response.status == 200) {
           window.localStorage.setItem("token", response?.data?.token);

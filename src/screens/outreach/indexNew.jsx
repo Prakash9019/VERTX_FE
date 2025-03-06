@@ -99,9 +99,7 @@ export default function Outreach2() {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
   
-  useEffect(() => {
-    console.log("Updated isMobile:", isMobile, window.innerWidth);
-  }, [isMobile]);  // Log when isMobile changes
+
   
   
   // Set current page for navigation highlighting
@@ -145,7 +143,7 @@ export default function Outreach2() {
     const fetchBookmarks = async () => {
       try {
         const res = await axios.get(`${API_KEY}/bookmarks`, { headers: { token : localStorage.getItem("token") } });
-        console.log(res.data.map(b => b.investor));
+        // console.log(res.data.map(b => b.investor));
         setBookmarks(res.data.map(b => b.investor)); // Store only investor IDs
       } catch (error) {
         console.error("Error fetching bookmarks:", error);

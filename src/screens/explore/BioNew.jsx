@@ -57,7 +57,7 @@ export default function Bio() {
         const response = await axios.get(`${API_KEY}/profile/fetch`,{headers: {'Content-Type': 'application/json',
           token: localStorage.getItem('token')
         }});
-        // console.log(response.data[0]);
+        // //console.log(response.data[0]);
         if (response.data.length > 0) {
           setFormData(response.data[0]);
           setTimeDifference(timeDifference(response.data[0].createdAt));
@@ -67,7 +67,7 @@ export default function Bio() {
           // setIsEditing(true); // Enable edit mode if data exists
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        //console.error("Error fetching user data:", error);
       } 
       // finally {
       //   setLoading(false);
@@ -244,7 +244,7 @@ export default function Bio() {
       },{headers});
       // navigate("/newproject"); // Move to next step
     } catch (error) {
-      console.error("Error saving skills:", error);
+      //console.error("Error saving skills:", error);
     }
   };
 
@@ -666,8 +666,8 @@ export default function Bio() {
                 {!editingProject ? (
                   <div className="mb-6">
                   <div className="flex flex-col items-center justify-between">
-  {projects.map((project) => (
-    <div className="flex flex-row w-full justify-between items-center">
+  {projects.map((project,index) => (
+    <div className="flex flex-row w-full justify-between items-center" key={index}>
       <h3 className="text-lg sm:text-xl font-bold mb-2 text-left flex-grow">{project.name}</h3>
       
     { Eicon && <button className="flex items-center gap-1 text-gray-400" onClick={() => handleEdit(project)}>
@@ -760,7 +760,7 @@ export default function Bio() {
 
                   onClick={() => handleStageSelect(stage)}
                 >
-                  {console.log(projectStage)}
+                  
                   {stage}
                 </div>
               ))}

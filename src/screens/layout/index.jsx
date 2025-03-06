@@ -247,7 +247,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         },
       });
   
-      console.log(response.data);
+      // console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
     } catch (error) {
       console.error("Error fetching user data:", error);

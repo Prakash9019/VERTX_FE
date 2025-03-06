@@ -19,8 +19,8 @@ export function Callback2() {
       .catch((e) => {
         return e.response;
       });
-      console.log(response)
-      console.log(response.data);
+      //console.log(response)
+      //console.log(response.data);
       if(response.status == 200){
         window.localStorage.setItem("token", response?.data?.token);
         navigate("/outreach");
@@ -30,7 +30,7 @@ export function Callback2() {
   };
   
   useEffect(() => {
-    console.log(code);
+    //console.log(code);
     if(code){
         callback();
     }
@@ -73,23 +73,23 @@ export function Callback2() {
  export function Callback() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  console.log(params);
+  //console.log(params);
   const token = params.get("token"); // Extract the code from URL
 
   const callback = async () => {
     try {
       // const response = await axios.get(`${API_KEY}/auth/linkedin/callback?code=${code}`);
-       console.log("hello");
-       console.log(token);
+       //console.log("hello");
+       //console.log(token);
       if (token) {
         // Store the token in local storage
         window.localStorage.setItem("token", token);
         navigate("/outreach");  // Redirect to outreach or desired route
       } else {
-        console.error("Error fetching data from backend:", token);
+        //console.error("Error fetching data from backend:", token);
       }
     } catch (error) {
-      console.error("Error in LinkedIn callback:", error);
+      //console.error("Error in LinkedIn callback:", error);
       // Optionally handle error like showing an alert or navigating to an error page
     }
   };

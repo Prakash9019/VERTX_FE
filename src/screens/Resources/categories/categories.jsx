@@ -32,10 +32,6 @@ useEffect(() => {
   return () => window.removeEventListener("resize", checkIsMobile);
 }, []);
 
-useEffect(() => {
-  console.log("Updated isMobile:", isMobile,window.innerWidth);
-}, [window.innerWidth]);  // Log when isMobile changes
-
 
 
   // Set current page for navigation highlighting

@@ -76,7 +76,7 @@ useEffect(() => {
           // setTimeDifference(timeDifference(response.data[0].createdAt));
           setUserData(response.data[0]);
           setAvatar(response.data[0].avatar);
-          console.log(response.data[0]);
+          // console.log(response.data[0]);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -97,7 +97,7 @@ useEffect(() => {
         },
       });
   
-      console.log(response.data);
+      // console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -116,11 +116,11 @@ useEffect(() => {
     reader.readAsDataURL(file);
     const formData = new FormData();
     formData.append("avatar", file);
-    console.log(userId);
+    // console.log(userId);
     await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })
-    .then(res => console.log("Avatar Updated:", res.data))
+    .then(res => res.data)
     .catch(err => console.error("Error:", err));
   };
 

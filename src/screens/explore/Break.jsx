@@ -9,6 +9,10 @@ export default function BrokenFeature() {
   const [currentPage, setCurrentPage] = useState("explore")
   const [isMobile, setIsMobile] = useState(false)
   const navigate=useNavigate();
+  const handleClick =()=>{
+    window.localStorage.setItem("exe","1");
+    navigate("/outreach")
+  }
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768)
@@ -46,7 +50,7 @@ export default function BrokenFeature() {
   Sorry, founder. We broke, this feature is still under development.
 </p>
 
-            <button className="bg-transparent text-white font-bold py-2 px-4 rounded text-base md:text-lg  transition-colors" onClick={()=> navigate("/outreach")}>
+            <button className="bg-transparent text-white font-bold py-2 px-4 rounded text-base md:text-lg  transition-colors" onClick={()=> handleClick()}>
               Explore investors
             </button>
           </div>
