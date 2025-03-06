@@ -4,58 +4,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Button, BackButton, AuthContainer } from "./common-components.jsx";
 import { SignupForm, VerificationForm, SetPasswordForm } from "./auth-components.jsx";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default function Signup({ onClose }) {
-<<<<<<< HEAD
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("")
-    const [resp, setResp] = useState("");
-    const [show, setShow] = useState(false);
-    const [load, setLoad] = useState(false);
-    
-    const [errorMessage, setErrorMessage] = useState("");
-    const [disabled, setDisabled] = useState(true);
-    
-    const signupHandler = async () => {
-      setLoad(true);
-      console.log(email)
-      const response = await axios
-        .post(API_KEY + "/auth/signup", {
-          email,
-        })
-        .catch((e) => {
-          setErrorMessage(e.response)
-          return e.response;
-        });
-
-      if (response) {
-        setLoad(false);
-        setErrorMessage(response?.data?.msg);
-        setResp(response?.data?.msg);
-        if(response.status == 200){
-          window.localStorage.setItem("token", response?.data?.token)
-          navigate("/verify")
-        }
-        setShow(true);
-      }
-    };
-
-    useEffect(() => {
-      if (email != "") {
-        setDisabled(false);
-      } else {
-        setDisabled(true);
-      }
-    }, [email]);
-
-    
-    const fetchGoogleUrl = async () => {
-      const response = await axios.get(API_KEY + "/auth/oauth").catch((e) => e.response);
-      console.log(response?.data?.msg);
-      if (response.status == 200) {
-        console.log(response?.data?.msg);
-        window.location.href = response.data.msg;
-      }
+export default function Signup({ onClose, isPopup = false }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [currentStep, setCurrentStep] = useState("signup");
@@ -71,7 +23,6 @@ export default function Signup({ onClose }) {
         return "Set password";
       default:
         return "Create your account";
->>>>>>> bbd7652 (auhtenication popup completed)
     }
   };
 
@@ -91,14 +42,17 @@ export default function Signup({ onClose }) {
   // Handle step completion
   const handleStepComplete = (nextStep) => {
     if (nextStep === "outreach") {
+      if (isPopup && onClose) {
+        onClose();
+      }
       navigate('/outreach');
     } else {
       setCurrentStep(nextStep);
     }
   };
 
-  return (
-    <AuthContainer>
+  const content = (
+    <>
       <div className="absolute top-4 left-4 z-20">
         <BackButton onClick={handleBack} />
       </div>
@@ -131,6 +85,21 @@ export default function Signup({ onClose }) {
           )}
         </div>
       </div>
+      <ToastContainer />
+    </>
+  );
+
+  if (isPopup) {
+    return (
+      <AuthContainer isPopup={true}>
+        {content}
+      </AuthContainer>
+    );
+  }
+
+  return (
+    <AuthContainer>
+      {content}
     </AuthContainer>
   );
 }

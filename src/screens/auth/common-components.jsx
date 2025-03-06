@@ -1,7 +1,6 @@
-import * as React from "react";
+import React from "react";
 
-// Reusable Button Component
-export function Button({ context, theme, callback, disabled }) {
+export const Button = ({ context, theme, callback, disabled = false }) => {
   return (
     <button
       onClick={callback}
@@ -17,10 +16,9 @@ export function Button({ context, theme, callback, disabled }) {
       {context}
     </button>
   );
-}
+};
 
-// Reusable Back Button Component
-export function BackButton({ onClick }) {
+export const BackButton = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -31,15 +29,23 @@ export function BackButton({ onClick }) {
       </svg>
     </button>
   );
-}
+};
 
-// Reusable Authentication Container
-export function AuthContainer({ children, title }) {
+export const AuthContainer = ({ children, onClose, isPopup = false }) => {
+  if (isPopup) {
+    return (
+      <div className="w-[60%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-auto max-h-[80%] relative overflow-auto">
+        {children}
+      </div>
+    );
+  }
+  
   return (
-    <div className="fixed inset-0 bg-white bg-opacity-50 backdrop-blur-[2px] flex justify-center items-center z-50">
-      <div className="w-[60%] bg-black rounded-2xl border border-[#75757569] p-6 pb-10 h-[70%] relative">
+    <div className="relative flex flex-col min-h-screen bg-black text-white">
+      <div className="w-full h-full absolute top-0 left-0 bg-black z-0"></div>
+      <div className="relative z-10 flex-1 flex flex-col justify-center items-center py-8 px-4">
         {children}
       </div>
     </div>
   );
-}
+};
