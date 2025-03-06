@@ -7,7 +7,9 @@ import { useNavigate } from "react-router"
 import LandingAuth from "../landing/index"
 import Signup from "../auth/signup"
 import TermsAndConditions from "../More/TermsandConditions"
+import axios from "axios"
 import PrivacyPolicy from "../More/PrivacyPolicy"
+import API_KEY from "../../../key"
 
 // Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
@@ -191,7 +193,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }
 
   const handleLogout = () => {
-    // onClick={() => handleGoogleLogout()}
     localStorage.removeItem("token")
     window.location.href = "/"
   }
@@ -216,7 +217,34 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }, [location.pathname])
 
   // Only show sidebar on desktop
-  if (isMobile) return null
+  // if (isMobile) return null;
+
+  const [username1,setUsernamee1] =useState("Mark Zuckerberg")
+
+  const handleUsername = async () => {
+    try {
+      const token = window.localStorage.getItem("token");
+      if (!token) return; // Prevent request if token is missing
+  
+      const response = await axios.get(`${API_KEY}/auth/getUser`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: token, // Send token in headers
+        },
+      });
+  
+      console.log(response.data);
+      setUsernamee1(response.data.user.username); // Update the username state with the fetched username
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      handleUsername(); // Call the function inside useEffect
+    }
+  }, []); // Ensures it runs only once on mount
 
   const handleGoogleLogout = async () => {
     try {
@@ -283,7 +311,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         <User />
                       </div>
                       <div>
-                        <p className="text-white text-sm">Mark Zuckerberg</p>
+                        {/* {console.log(window.localStorage.getItem("token")) && handleUsername()  } */}
+                        <p className="text-white text-sm">{username1 || "@username"}</p>
                       </div>
                     </div>
                     <button
