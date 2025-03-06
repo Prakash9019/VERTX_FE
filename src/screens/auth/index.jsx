@@ -6,56 +6,6 @@ import { Button, BackButton, AuthContainer } from "./common-components.jsx";
 import { SignupForm, VerificationForm, SetPasswordForm } from "./auth-components.jsx";
 
 export default function Signup({ onClose }) {
-<<<<<<< HEAD
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("")
-    const [resp, setResp] = useState("");
-    const [show, setShow] = useState(false);
-    const [load, setLoad] = useState(false);
-    
-    const [errorMessage, setErrorMessage] = useState("");
-    const [disabled, setDisabled] = useState(true);
-    
-    const signupHandler = async () => {
-      setLoad(true);
-      console.log(email)
-      const response = await axios
-        .post(API_KEY + "/auth/signup", {
-          email,
-        })
-        .catch((e) => {
-          setErrorMessage(e.response)
-          return e.response;
-        });
-
-      if (response) {
-        setLoad(false);
-        setErrorMessage(response?.data?.msg);
-        setResp(response?.data?.msg);
-        if(response.status == 200){
-          window.localStorage.setItem("token", response?.data?.token)
-          navigate("/verify")
-        }
-        setShow(true);
-      }
-    };
-
-    useEffect(() => {
-      if (email != "") {
-        setDisabled(false);
-      } else {
-        setDisabled(true);
-      }
-    }, [email]);
-
-    
-    const fetchGoogleUrl = async () => {
-      const response = await axios.get(API_KEY + "/auth/oauth").catch((e) => e.response);
-      console.log(response?.data?.msg);
-      if (response.status == 200) {
-        console.log(response?.data?.msg);
-        window.location.href = response.data.msg;
-      }
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [currentStep, setCurrentStep] = useState("signup");
@@ -71,7 +21,6 @@ export default function Signup({ onClose }) {
         return "Set password";
       default:
         return "Create your account";
->>>>>>> bbd7652 (auhtenication popup completed)
     }
   };
 
