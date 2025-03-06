@@ -271,6 +271,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   
       // console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
+      window.localStorage.setItem("user",response.data.user.username);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }

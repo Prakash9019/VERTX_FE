@@ -337,7 +337,7 @@ export default function Bio() {
                        <h1 className="text-4xl font-bold">{formData.firstName + " "+ formData.lastName}</h1>
                      </div>
                      <p className="text-[25px] text-[#D9D9D9] mb-1">{formData.city}</p>
-                     <p className="text-xl text-gray-400 mb-4">@markzuckerberg</p>
+                     <p className="text-xl text-gray-400 mb-4">@{window.localStorage.getItem("user") || "username"}</p>
                      <p className="text-xl mb-6">{formData.headline}</p>
 
                     {/* <div className="flex space-x-3">
