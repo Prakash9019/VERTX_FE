@@ -328,13 +328,13 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <div className="flex flex-col space-y-4">
                   <button
                     className="w-full h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold"
-                    onClick={handleSignup}
+                    onClick={handleLogin }
                   >
                     Sign Up
                   </button>
                   <button
                     className="w-full h-10 bg-[#1F1F1F] text-[#FBFAF4] border border-gray-300 rounded-md font-bold"
-                    onClick={handleLogin}
+                    onClick={handleSignup}
                   >
                     Log in
                   </button>

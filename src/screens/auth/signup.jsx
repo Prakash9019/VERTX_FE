@@ -17,7 +17,7 @@ export default function Signup({ onClose, isPopup = false }) {
   const getHeaderText = () => {
     switch (currentStep) {
       case "signup":
-        return "Create your account"
+        return "Login to your Account"
       case "verify":
         return "Verify your email"
       case "setpassword":
