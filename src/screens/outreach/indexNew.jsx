@@ -225,7 +225,8 @@ export default function Outreach2() {
       <div className="flex flex-col min-h-screen">
         <div 
           ref={scrollableContentRef}
-          className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'max-w-4xl w-full px-4 mx-auto '} overflow-y-auto scrollable-content fixed-height-container`}
+          className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'max-w-4xl w-full px-4 mx-auto'} overflow-y-auto scrollable-content fixed-height-container scrollbar-hide`}
+
         >
           <div className={`text-left ${isMobile ? 'ml-0' : ''}`}>
             <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1 mb-1`}>
