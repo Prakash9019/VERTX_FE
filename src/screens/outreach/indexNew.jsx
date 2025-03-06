@@ -186,7 +186,11 @@ export default function Outreach2() {
   const toggleBookmarked = () => {
     const newBookmarked = !bookmarked;
     setBookmarked(newBookmarked);
-  };
+  }; 
+
+
+
+//
 
   // Calculate total pages
   const totalPages = Math.ceil(totalRecords / pageSize);
@@ -221,7 +225,7 @@ export default function Outreach2() {
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
        <div className="flex flex-col min-h-screen">
         <div className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'max-w-4xl w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
-          <div className={`text-left ${isMobile ? 'ml-0' : ''}`}>
+          <div className={`text-left ${isMobile ? 'ml-0' : 'ml-10'}`}>
             <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1 mb-1`}>
               Explore Investors
             </h1>
