@@ -769,7 +769,7 @@ export default function DocandSa({ onClose }) {
     <div className="min-h-screen bg-black text-white p-3">
       {/*  */}
       
-      <div className="pl-12">
+      <div className="pl-6">
         
         <div className="mb-8">
           
@@ -779,7 +779,7 @@ export default function DocandSa({ onClose }) {
             A Convertible Note is a type of loan that turns into company shares in a future funding round. Instead of repaying the investor in cash, the startup gives them shares at a lower price or a set valuation. SAFE (Simple Agreement for Future Equity)
           </p>
 
-          <div className="space-y-6 text-gray-300 mb-12">
+          <div className="space-y-6 text-xl mb-12">
             <div>
               <h5 className="text-xl font mb-4">A SAFE Agreement is an investment contract that allows investors to buy shares in the future. Unlike a Convertible Note, it is not a loan and does not have an interest rate or repayment requirement.</h5>
               <ul className="space-y-2 text-lg">
