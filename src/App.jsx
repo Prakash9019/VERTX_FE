@@ -36,6 +36,8 @@ import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
 import Verify from "./screens/auth/verify.jsx";
 import SetNewPassword from "./screens/auth/Setpassword.jsx";
 import Outreach2 from "./screens/outreach/indexNew.jsx";
+import BrokenFeature from "./screens/explore/Break.jsx";
+import ProfileComplete from "./screens/explore/Complete.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -78,6 +80,7 @@ function App() {
       <Route path="/admin" element={<Admin />} />
 
 
+
       <Route path="/privacy" element={<PrivacyPolicy /> } />
       <Route path="/terms" element={<TermsAndConditions /> } />
 
@@ -87,6 +90,9 @@ function App() {
       <Route path="/explore/skills" element={<Skills /> } />
       <Route path="/explore/newproject" element={<AddaProject /> } />
       <Route path="/explore/project" element={<ShowYourProject /> } />
+
+      <Route path="/explore/break" element={<BrokenFeature /> } />
+      <Route path="/explore/complete" element={<ProfileComplete /> } />
       <Route path="/explore/bio" element={<Bio /> } />
       
       <Route path="*" element={<Nopage />} />
