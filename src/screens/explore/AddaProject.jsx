@@ -445,7 +445,7 @@ export default function AddaProject() {
       </button>
       <button 
         className="bg-white text-black font-bold py-2.5 px-8 rounded-[10px] text-lg w-[64%]"
-        onClick={() => navigate("/explore/bio")}>
+        onClick={() => navigate("/explore/complete")}>
         Continue
       </button>
     </>
@@ -459,7 +459,7 @@ export default function AddaProject() {
       </button>
       <button 
         className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]"
-        onClick={() => navigate("/explore/bio")}>
+        onClick={() => navigate("/explore/complete")}>
         Continue
       </button>
     </>

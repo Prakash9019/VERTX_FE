@@ -30,7 +30,7 @@ export default function Put_a_face() {
   const [loading, setLoading] = useState(true);
   const [avatar, setAvatar] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [time, setTimeDifference] = useState(null);
+  // const [time, setTimeDifference] = useState(null);
   
   const [currentPage, setCurrentPage] = useState("explore");
 
@@ -60,7 +60,7 @@ useEffect(() => {
       setCurrentPage(location.pathname.split("/").pop()); // Fallback for other pages
     }
   }, [location.pathname]);
-
+  const [username1,setUsernamee1] =useState("")
   useEffect(() => {
     // Fetch user data when component mounts
     const fetchUserData = async () => {
@@ -73,7 +73,7 @@ useEffect(() => {
         });
         if (response.data) {
           setUserId(response.data[0]._id);
-          setTimeDifference(timeDifference(response.data[0].createdAt));
+          // setTimeDifference(timeDifference(response.data[0].createdAt));
           setUserData(response.data[0]);
           setAvatar(response.data[0].avatar);
           console.log(response.data[0]);
@@ -85,7 +85,28 @@ useEffect(() => {
       }
     };
 
+  const handleUsername = async () => {
+    try {
+      const token = window.localStorage.getItem("token");
+      if (!token) return; // Prevent request if token is missing
+  
+      const response = await axios.get(`${API_KEY}/auth/getUser`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: token, // Send token in headers
+        },
+      });
+  
+      console.log(response.data);
+      setUsernamee1(response.data.user.username); // Update the username state with the fetched username
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+
     fetchUserData();
+    handleUsername();
   }, []);
 
   const handleAvatarChange = async (event) => {
@@ -125,7 +146,7 @@ useEffect(() => {
                 <div className={`${isMobile ? 'flex-1' : ''}`}>
                   <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold mb-2`}>{userData?.firstName + userData?.lastName}</h2>
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-1`}>{userData?.city || "Location not provided"}</p>
-                  <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#757575] mb-4`}>@{userData?.username || "username"}</p>
+                  <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#757575] mb-4`}>@{username1 || "username"}</p>
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} mt-3 mb-6`}>{userData?.headline || "Role not defined"}</p>
                   
                   <div className="flex flex-wrap gap-2">
