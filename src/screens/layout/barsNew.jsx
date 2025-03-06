@@ -191,6 +191,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }
 
   const handleLogout = () => {
+    // onClick={() => handleGoogleLogout()}
     localStorage.removeItem("token")
     window.location.href = "/"
   }
@@ -295,7 +296,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <div className="flex items-center justify-center w-full mb-4">
                     <button
                       className="flex items-center justify-center bg-[#1F1F1F] text-white rounded-md px-6 py-2 w-11/12"
-                      onClick={() => handleGoogleLogout()}
+                      // onClick={() => handleGoogleLogout()}
                       style={{
                         fontFamily: "Playfair Display",
                         fontSize: "16px",

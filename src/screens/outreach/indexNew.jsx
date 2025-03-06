@@ -167,7 +167,7 @@ export default function Outreach2() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    
+    window.location.reload();
     // Scroll to top of the scrollable container instead of the window
     const mainContent = document.querySelector('.scrollable-content');
     if (mainContent) {
