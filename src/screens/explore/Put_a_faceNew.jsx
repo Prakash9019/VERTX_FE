@@ -8,7 +8,7 @@ import API_KEY from "../../../key";
 import { User, Search, Target, Users, Grid } from "lucide-react";
 import gify from "../outreach/gify.gif";
 
-function timeDifference(createdAt) {
+/*function timeDifference(createdAt) {
   const createdDate = new Date(createdAt);
   const currentDate = new Date();
 
@@ -21,7 +21,7 @@ function timeDifference(createdAt) {
   } else {
     return `${diffHours} hr ago`;
   }
-}
+}*/
 
 export default function Put_a_face() {
   const navigate = useNavigate();
@@ -129,16 +129,17 @@ useEffect(() => {
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} mt-3 mb-6`}>{userData?.headline || "Role not defined"}</p>
                   
                   <div className="flex flex-wrap gap-2">
-                    <div className="bg-black rounded-full px-3 py-1 border-[0.5px] border-[#757575] text-sm">#New here</div>
-                    <div className="bg-black rounded-full px-3 py-1 border-[0.5px] border-[#757575] flex items-center text-sm">
+                  { /* <div className="bg-black rounded-full px-3 py-1 border-[0.5px] border-[#757575] text-sm">#New here</div> */}
+          {/*          <div className="bg-black rounded-full px-3 py-1 border-[0.5px] border-[#757575] flex items-center text-sm">
                       <svg className="mr-1 w-4 h-4" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="2" />
                         <path d="M12 6V12L16 14" stroke="white" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                       {time}
-                    </div>
+                    </div>       */}
                   </div>
                 </div>
+         
                 
                 {/* Profile image now positioned to the right on mobile */}
                 <div className="relative ml-4">

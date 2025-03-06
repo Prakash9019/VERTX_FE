@@ -39,12 +39,8 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
       setResp(response?.data?.msg);
       if (response.status == 200) {
         window.localStorage.setItem("token", response?.data?.token);
-        // onComplete("verify");
-        window.location.reload(); // Refresh the page
+        window.location.reload();
         navigate("/outreach");
-  // setTimeout(() => {
-  //   navigate("/outreach"); // Navigate after refresh
-  // }, 100); // Small delay to ensure reload happens first
       }
       setShow(true);
     }
@@ -71,7 +67,7 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
 
   return (
     <div className="w-full max-w-xs mx-auto flex flex-col items-center">
-      <div className="w-full space-y-3">
+      <div className="w-full space-y-2">
         <Button
           context={"Sign up with Google"}
           theme="dark"
@@ -84,40 +80,29 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
           callback={() => handleLinkedInLogin()}
         />
 
-        <div className="w-full h-auto grid grid-cols-[1fr_max-content_1fr] justify-center items-center gap-2 text-[#9d9d9d] p-2 text-xs font-['Manrope']">
+        <div className="w-full h-auto grid grid-cols-[1fr_max-content_1fr] justify-center items-center gap-1 text-[#9d9d9d] p-1 text-xs font-['Manrope']">
           <div className="w-full h-px bg-[#9d9d9d]"></div>
           <p className="text-xs">or</p>
           <div className="w-full h-px bg-[#9d9d9d]"></div>
         </div>
 
-        <div className="w-full gp-2">
-          {/* <FloatingLabelInput
-            id={`email`}
-            label="username, email address, or vertxuid"
-            type='text'
-            validateidentifier={true}
-            value={email}
-            onChange={setEmail}
-            className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
-          /> */}
+        <div className="w-full">
            <input
               id="Email"
               type="text"
               value={email}
               placeholder="Email Address..."
-              className={`w-full px-4 py-3 bg-transparent rounded-md mb-2 border border-gray-700 text-white text-sm sm:text-base focus:outline-none focus:ring-0 
-                transition-all duration-200 `}
+              className="w-full px-3 py-2 bg-transparent rounded-md mb-2 border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 transition-all duration-200"
               onChange={(e) => setEmail(e.target.value)}
             />
 
-          <div className="relative w-full mb-4">
+          <div className="relative w-full mb-3">
             <input
               id="Password"
               type={isPasswordVisible ? "text" : "password"}
               value={password}
               minLength={8}
-              className={`w-full px-4 py-3 bg-transparent rounded-md border border-gray-700 text-white text-sm sm:text-base focus:outline-none focus:ring-0 
-                ${!password && !isFocused ? 'pl-[100px]' : 'pl-4'} transition-all duration-200`}
+              className={`w-full px-3 py-2 bg-transparent rounded-md border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 ${!password && !isFocused ? 'pl-[90px]' : 'pl-3'} transition-all duration-200`}
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
@@ -125,7 +110,7 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
             {(!password && !isFocused) && (
               <label
                 htmlFor="Password"
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm sm:text-base transition-all duration-200 pointer-events-none"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xs sm:text-sm transition-all duration-200 pointer-events-none"
               >
                 Password
               </label>
@@ -133,15 +118,14 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
             >
-              {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              {isPasswordVisible ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
             </button>
           </div>
-        
           
           {errorMessage && (
-            <p className="text-red-500 mt-4 text-sm text-center">{errorMessage}</p>
+            <p className="text-red-500 mt-2 text-xs text-center">{errorMessage}</p>
           )}
 
           <Button
@@ -229,11 +213,11 @@ export const VerificationForm = ({ onComplete, email }) => {
 
   return (
     <>
-      <div className="text-sm sm:text-base font-medium text-neutral-500 mb-6 sm:mb-8 text-center">
+      <div className="text-xs sm:text-sm font-medium text-neutral-500 mb-4 sm:mb-6 text-center">
         We sent you a code. Enter it below to verify your email.
       </div>
 
-      <div className="w-full max-w-md mx-auto flex justify-center space-x-2 sm:space-x-3 mb-6">
+      <div className="w-full max-w-md mx-auto flex justify-center space-x-1 sm:space-x-2 mb-4">
         {coder.map((_, index) => (
           <input
             key={index}
@@ -243,12 +227,12 @@ export const VerificationForm = ({ onComplete, email }) => {
             onChange={(e) => handleChange(e.target.value, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
             ref={(el) => (inputRefs.current[index] = el)}
-            className="w-10 sm:w-12 h-10 sm:h-12 bg-transparent rounded-md border border-gray-700 text-center text-white focus:outline-none focus:border-white text-sm sm:text-base"
+            className="w-8 sm:w-10 h-8 sm:h-10 bg-transparent rounded-md border border-gray-700 text-center text-white focus:outline-none focus:border-white text-xs sm:text-sm"
           />
         ))}
       </div>
 
-      <div className="text-sm font-semibold text-neutral-500 text-center mb-4">
+      <div className="text-xs font-semibold text-neutral-500 text-center mb-3">
         Didn't receive an email?{" "}
         <span className="font-extrabold text-white cursor-pointer" onClick={notify}>
           Resend
@@ -256,7 +240,7 @@ export const VerificationForm = ({ onComplete, email }) => {
       </div>
 
       {errorMessage && (
-        <p className="text-red-500 mt-4 text-sm text-center">{errorMessage}</p>
+        <p className="text-red-500 mt-2 text-xs text-center">{errorMessage}</p>
       )}
 
       <div className="w-full max-w-xs mx-auto">
@@ -315,20 +299,19 @@ export const SetPasswordForm = ({ onComplete }) => {
 
   return (
     <>
-      <div className="text-sm sm:text-base font-medium text-neutral-500 mb-6 sm:mb-8 text-center">
+      <div className="text-xs sm:text-sm font-medium text-neutral-500 mb-4 sm:mb-6 text-center">
         Enter a new password for your account
       </div>
 
       <div className="w-full max-w-xs mx-auto flex flex-col items-center">
-        <div className="relative w-full mb-4">
+        <div className="relative w-full mb-3">
           <div className="relative w-full">
             <input
               id="Password"
               type={isPasswordVisible ? "text" : "password"}
               value={password}
               minLength={8}
-              className={`w-full px-4 py-3 bg-transparent rounded-md border border-gray-700 text-white text-sm sm:text-base focus:outline-none focus:ring-0 
-                ${!password && !isFocused ? 'pl-[100px]' : 'pl-4'} transition-all duration-200`}
+              className={`w-full px-3 py-2 bg-transparent rounded-md border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 ${!password && !isFocused ? 'pl-[90px]' : 'pl-3'} transition-all duration-200`}
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
@@ -336,7 +319,7 @@ export const SetPasswordForm = ({ onComplete }) => {
             {(!password && !isFocused) && (
               <label
                 htmlFor="Password"
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm sm:text-base transition-all duration-200 pointer-events-none"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xs sm:text-sm transition-all duration-200 pointer-events-none"
               >
                 Password
               </label>
@@ -344,15 +327,15 @@ export const SetPasswordForm = ({ onComplete }) => {
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
             >
-              {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              {isPasswordVisible ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
             </button>
           </div>
         </div>
 
         {errorMessage && (
-          <p className="text-red-500 mt-4 text-sm text-center">{errorMessage}</p>
+          <p className="text-red-500 mt-2 text-xs text-center">{errorMessage}</p>
         )}
 
         <Button
@@ -366,13 +349,13 @@ export const SetPasswordForm = ({ onComplete }) => {
   );
 };
 
-// Import Button at the top to use in the components above
+// Button component
 const Button = ({ context, theme, callback, disabled = false }) => {
   return (
     <button
       onClick={callback}
       disabled={disabled}
-      className={`w-full py-3 px-4 rounded-full font-medium text-sm mb-3 transition-colors ${
+      className={`w-full py-2 px-3 rounded-full font-medium text-xs sm:text-sm mb-2 transition-colors ${
         theme === "light"
           ? disabled 
             ? "bg-gray-400 text-gray-700 cursor-not-allowed" 

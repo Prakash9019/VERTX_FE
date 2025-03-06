@@ -1,7 +1,7 @@
 "use client"
 
 import { useNavigate } from "react-router"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 import API_KEY from "../../../key.js"
 import FloatingLabelInput from "../../components/LabelInput.jsx"
@@ -13,12 +13,30 @@ export default function LandingAuth({ onClose, isPopup = false }) {
   const [showLoginForm, setShowLoginForm] = useState(false)
   const [showPasswordForm, setShowPasswordForm] = useState(false)
   const [showSignupPopup, setShowSignupPopup] = useState(false)
+  const [showMobileSignup, setShowMobileSignup] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [email, setemail] = useState("")
   const [password, setPassword] = useState("")
   const [disabled, setDisabled] = useState(false)
   const [resp, setResp] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
   const [show, setShow] = useState(false)
+
+  // Check if the device is mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    // Initial check
+    checkIfMobile()
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile)
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIfMobile)
+  }, [])
 
   const fetchGoogleUrl = async () => {
     const response = await axios.get(API_KEY + "/auth/oauth").catch((e) => e.response)
@@ -94,6 +112,8 @@ export default function LandingAuth({ onClose, isPopup = false }) {
       setShowPasswordForm(false)
     } else if (showLoginForm) {
       setShowLoginForm(false)
+    } else if (showMobileSignup) {
+      setShowMobileSignup(false)
     } else if (onClose) {
       onClose()
     } else {
@@ -106,11 +126,21 @@ export default function LandingAuth({ onClose, isPopup = false }) {
   }
 
   const handleCreateAccount = () => {
-    setShowSignupPopup(true)
+    if (isMobile) {
+      setShowMobileSignup(true)
+    } else {
+      setShowSignupPopup(true)
+    }
   }
 
   const handleCloseSignupPopup = () => {
     setShowSignupPopup(false)
+    setShowMobileSignup(false)
+  }
+
+  // If showing mobile signup, render the Signup component directly
+  if (showMobileSignup) {
+    return <Signup onClose={handleCloseSignupPopup} isPopup={false} />
   }
 
   const content = (
@@ -233,8 +263,8 @@ export default function LandingAuth({ onClose, isPopup = false }) {
     <AuthContainer isPopup={isPopup}>
       {content}
 
-      {/* Signup Popup */}
-      {showSignupPopup && (
+      {/* Signup Popup - Only shown on desktop */}
+      {showSignupPopup && !isMobile && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="fixed inset-0 bg-black/70 backdrop-blur-sm"></div>
           <div className="z-50">

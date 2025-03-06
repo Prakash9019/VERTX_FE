@@ -1,7 +1,7 @@
 // import "./style.css";
 "use client"
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { industries, Country, investorType } from "./filters.js";
 import { Lock, Search, Target, Users, Grid } from 'lucide-react';
 import API_KEY from "../../../key";
@@ -14,44 +14,41 @@ import Select from "react-select";
 
 const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
   return (
-    // <div className="MultiSelectDropdown w-full min-w-[150px]">
-<Select
-    isMulti
-    options={options.map((option) => ({ value: option, label: option }))}
-    onChange={(selected) => onChange(selected.map((s) => s.value))}
-    placeholder={placeholder}
-    className="w-full"
-    classNamePrefix="react-select"
-    menuPortalTarget={document.body}  // Ensures dropdown renders outside parent
-    menuPosition="fixed"  // Prevents clipping issues
-    styles={{
-        control: (base) => ({
-            ...base,
-            backgroundColor: "#161616",
-            border: "1px solid #75757569",
-            color: "#adadad",
-        }),
-        menu: (base) => ({
-            ...base,
-            zIndex: 9999, // Ensures dropdown appears above everything
-            backgroundColor: "#161616",
-            maxHeight: "250px", // Prevents overflow
-            overflowY: "auto", // Enables scrolling inside dropdown
-            /* Custom scrollbar styles */
-            scrollbarWidth: "none", /* Firefox */
-            "&::-webkit-scrollbar": {
-                display: "none" /* Chrome, Safari, and Opera */
-            }
-        }),
-        option: (base, { isFocused }) => ({
-            ...base,
-            backgroundColor: isFocused ? "#75757569" : "#161616",
-            color: "#fff",
-        }),
-    }}
-/>
-
-    // </div>
+    <Select
+      isMulti
+      options={options.map((option) => ({ value: option, label: option }))}
+      onChange={(selected) => onChange(selected.map((s) => s.value))}
+      placeholder={placeholder}
+      className="w-full"
+      classNamePrefix="react-select"
+      menuPortalTarget={document.body}  // Ensures dropdown renders outside parent
+      menuPosition="fixed"  // Prevents clipping issues
+      styles={{
+          control: (base) => ({
+              ...base,
+              backgroundColor: "#161616",
+              border: "1px solid #75757569",
+              color: "#adadad",
+          }),
+          menu: (base) => ({
+              ...base,
+              zIndex: 9999, // Ensures dropdown appears above everything
+              backgroundColor: "#161616",
+              maxHeight: "250px", // Prevents overflow
+              overflowY: "auto", // Enables scrolling inside dropdown
+              /* Custom scrollbar styles */
+              scrollbarWidth: "none", /* Firefox */
+              "&::-webkit-scrollbar": {
+                  display: "none" /* Chrome, Safari, and Opera */
+              }
+          }),
+          option: (base, { isFocused }) => ({
+              ...base,
+              backgroundColor: isFocused ? "#75757569" : "#161616",
+              color: "#fff",
+          }),
+      }}
+    />
   );
 };
 
@@ -82,7 +79,9 @@ export default function Outreach2() {
     investorType: "",
     bookmarked: "",
   });
-
+  
+  // Create a ref for the scrollable content
+  const scrollableContentRef = useRef(null);
   
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -90,44 +89,30 @@ export default function Outreach2() {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    console.log(isMobile)
     
     // Run check immediately
     checkIsMobile();
-    console.log(isMobile);
+    
     // Listen for resize events
     window.addEventListener("resize", checkIsMobile);
     
     return () => window.removeEventListener("resize", checkIsMobile);
-  }, [window.innerWidth]);
+  }, []);
   
   useEffect(() => {
-    console.log("Updated isMobile:", isMobile,window.innerWidth);
-  }, [window.innerWidth]);  // Log when isMobile changes
+    console.log("Updated isMobile:", isMobile, window.innerWidth);
+  }, [isMobile]);  // Log when isMobile changes
   
   
   // Set current page for navigation highlighting
-   useEffect(() => {
-     // Check if the path includes "explore" to keep the bar active
-     if (location.pathname.includes("explore")) {
-       setCurrentPageNav("explore");
-     } else {
-       setCurrentPageNav(location.pathname.split("/").pop()); // Fallback for other pages
-     }
-   }, [location.pathname]);
-
-  // Ensure the body and html have black background
-  // useEffect(() => {
-  //   // Set black background color
-  //   document.body.style.backgroundColor = "black";
-  //   document.documentElement.style.backgroundColor = "black";
-    
-  //   // Cleanup function to reset styles when component unmounts
-  //   return () => {
-  //     document.body.style.backgroundColor = "";
-  //     document.documentElement.style.backgroundColor = "";
-  //   };
-  // }, []);
+  useEffect(() => {
+    // Check if the path includes "explore" to keep the bar active
+    if (location.pathname.includes("explore")) {
+      setCurrentPageNav("explore");
+    } else {
+      setCurrentPageNav(location.pathname.split("/").pop()); // Fallback for other pages
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     async function getInvestors() {
@@ -143,6 +128,13 @@ export default function Outreach2() {
         });
         setInvestors(response.data.data);
         setTotalRecords(response.data.totalCount);
+        
+        // Scroll to top after data is loaded
+        if (scrollableContentRef.current) {
+          scrollableContentRef.current.scrollTop = 0;
+        } else {
+          window.scrollTo(0, 0);
+        }
       } catch (err) {
         setError('Failed to fetch investors');
       } finally {
@@ -160,18 +152,18 @@ export default function Outreach2() {
       }
     };
 
-
     getInvestors();
     fetchBookmarks();
   }, [currentPage, pageSize, filters]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    window.location.reload();
-    // Scroll to top of the scrollable container instead of the window
-    const mainContent = document.querySelector('.scrollable-content');
-    if (mainContent) {
-      mainContent.scrollTop = 0;
+    
+    // Scroll to top immediately
+    if (scrollableContentRef.current) {
+      scrollableContentRef.current.scrollTop = 0;
+    } else {
+      window.scrollTo(0, 0);
     }
   };
 
@@ -181,11 +173,25 @@ export default function Outreach2() {
       [filterName]: value
     }));
     setCurrentPage(1);
+    
+    // Also scroll to top when filters change
+    if (scrollableContentRef.current) {
+      scrollableContentRef.current.scrollTop = 0;
+    } else {
+      window.scrollTo(0, 0);
+    }
   };
 
   const toggleBookmarked = () => {
     const newBookmarked = !bookmarked;
     setBookmarked(newBookmarked);
+    
+    // Scroll to top when toggling bookmarked
+    if (scrollableContentRef.current) {
+      scrollableContentRef.current.scrollTop = 0;
+    } else {
+      window.scrollTo(0, 0);
+    }
   };
 
   // Calculate total pages
@@ -214,13 +220,13 @@ export default function Outreach2() {
     }
   };
   
-  // Mobile layout
-
-  // Desktop layout
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-       <div className="flex flex-col min-h-screen">
-        <div className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'max-w-4xl w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
+      <div className="flex flex-col min-h-screen">
+        <div 
+          ref={scrollableContentRef}
+          className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'max-w-4xl w-full px-4 mx-auto '} overflow-y-auto scrollable-content fixed-height-container`}
+        >
           <div className={`text-left ${isMobile ? 'ml-0' : ''}`}>
             <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1 mb-1`}>
               Explore Investors
@@ -229,100 +235,98 @@ export default function Outreach2() {
               Find and connect with potential investors
             </p>
           </div>
-            {/* Filters */}
-            <div className="filter mb-4 grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 gap-3">
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-    {/* Multi-Select Country */}
-    <MultiSelectDropdown
-      options={Country}
-      onChange={(values) => handleFilterChange("country", values)}
-      placeholder="Select Countries"
-    />
+          
+          {/* Filters */}
+          <div className="filter mb-4 grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {/* Multi-Select Country */}
+              <MultiSelectDropdown
+                options={Country}
+                onChange={(values) => handleFilterChange("country", values)}
+                placeholder="Select Countries"
+              />
 
-    {/* Multi-Select Investor Type */}
-    <MultiSelectDropdown
-      options={investorType}
-      onChange={(values) => handleFilterChange("investorType", values)}
-      placeholder="Investor Type"
-    />
+              {/* Multi-Select Investor Type */}
+              <MultiSelectDropdown
+                options={investorType}
+                onChange={(values) => handleFilterChange("investorType", values)}
+                placeholder="Investor Type"
+              />
 
-    {/* Multi-Select Industry */}
-    <MultiSelectDropdown
-      options={industries}
-      onChange={(values) => handleFilterChange("industry", values)}
-      placeholder="Industries"
-    />
+              {/* Multi-Select Industry */}
+              <MultiSelectDropdown
+                options={industries}
+                onChange={(values) => handleFilterChange("industry", values)}
+                placeholder="Industries"
+              />
 
-    {/* Bookmarked Button */}
-    <button
-      className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${
-        bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
-      }`}
-      onClick={toggleBookmarked}
-    >
-      Bookmarked
-    </button>
-  </div>
-</div>
+              {/* Bookmarked Button */}
+              <button
+                className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${
+                  bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
+                }`}
+                onClick={toggleBookmarked}
+              >
+                Bookmarked
+              </button>
+            </div>
+          </div>
 
+          {error && <div className="error-message">{error}</div>}
 
-
-
-            {error && <div className="error-message">{error}</div>}
-
-            {/* Investor Cards */}
-            <div className="profilecards">
-              {loading ? (
-                <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
-                  <img src={gify} alt="Loading..." className="w-20 h-20" />
-                </div>
-              ) : (
-                <>
-                  {!bookmarked && investors.map((item, index) => (
-                    <div key={item._id || index} >
-                       <Card
-                    key={item._id || index}
-                    data={item}
-                    toggleBookmark={toggleBookmark}
-                    isBookmarked={bookmarks.includes(item._id)}
-                  />
-                    </div>
-                  ))}
-                  {
-                    bookmarked && bookmarks.map((item, index) => (
-                      <div key={item._id || index} >
-                         <Card
+          {/* Investor Cards */}
+          <div className="profilecards">
+            {loading ? (
+              <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
+                <img src={gify} alt="Loading..." className="w-20 h-20" />
+              </div>
+            ) : (
+              <>
+                {!bookmarked && investors.map((item, index) => (
+                  <div key={item._id || index} >
+                    <Card
                       key={item._id || index}
                       data={item}
                       toggleBookmark={toggleBookmark}
                       isBookmarked={bookmarks.includes(item._id)}
                     />
-                      </div>
-                    ))
-                  }
-                </>
-              )}
-            </div>
-            
-            {/* Pagination Controls */}
-            <div className="pagination mt-8 mb-12">
-              <button 
-                className="pagination-button"
-                disabled={currentPage === 1} 
-                onClick={() => handlePageChange(currentPage - 1)}
-              >
-                Previous
-              </button>
-              <span className="page-info">Page {currentPage} </span>
-              <button 
-                className="pagination-button"
-                disabled={currentPage === totalPages} 
-                onClick={() => handlePageChange(currentPage + 1)}
-              >
-                Next
-              </button>
-            </div>
-        
+                  </div>
+                ))}
+                {
+                  bookmarked && bookmarks.map((item, index) => (
+                    <div key={item._id || index} >
+                      <Card
+                        key={item._id || index}
+                        data={item}
+                        toggleBookmark={toggleBookmark}
+                        isBookmarked={bookmarks.includes(item._id)}
+                      />
+                    </div>
+                  ))
+                }
+              </>
+            )}
+          </div>
+          
+          {/* Pagination Controls */}
+          <div className="pagination mt-8 mb-12">
+            <button 
+              className="pagination-button"
+              disabled={currentPage === 1} 
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              Previous
+            </button>
+            <span className="page-info">Page {currentPage} </span>
+            <button 
+              className="pagination-button"
+              disabled={currentPage === totalPages} 
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              Next
+            </button>
+          </div>
+      
         </div>
         {isMobile && <MobileFooter currentPage={currentPageNav} />}
       </div>

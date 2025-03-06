@@ -53,11 +53,6 @@ export default function Welcome_founder() {
     }
   }, [location.pathname]);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prev) => ({ ...prev, [name]: value }));
-  // };
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -105,10 +100,8 @@ export default function Welcome_founder() {
             token: localStorage.getItem('token')
           }
         });
-        // console.log(response.data[0]);
         if (response.data.length > 0) {
           setFormData(response.data[0]);
-          // setIsEditing(true); // Enable edit mode if data exists
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -120,7 +113,6 @@ export default function Welcome_founder() {
 
   // Handle Form Submission
   const handleSubmit = async () => {
-    // e.preventDefault();
     if (validateForm()) {
     
     try {
@@ -149,7 +141,7 @@ export default function Welcome_founder() {
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
       <div className="flex flex-col min-h-screen">
-        <div className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'max-w-3xl w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
+        <div className={`${isMobile ? 'px-4 mt-10 flex-grow' : 'max-w-3xl w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
           <div className={`text-left ${isMobile ? 'ml-0' : 'ml-10'}`}>
             <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1  mb-1`}>Welcome founder.</h1>
             <p className="text-xl text-[#CAC5C5] mb-4">Introduce yourself</p>
@@ -183,7 +175,7 @@ export default function Welcome_founder() {
               onChange={handleChange}
               value={formData.firstName}
               placeholder="E.g Mark"
-              className="w-full py-1 bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+              className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
             />
           </div>
           {showError.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
@@ -216,7 +208,7 @@ export default function Welcome_founder() {
               onChange={handleChange}
               value={formData.lastName}
               placeholder="E.g Zuckerberg"
-              className="w-full py-1 bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+              className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
             />
           </div>
           {showError.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
@@ -248,7 +240,7 @@ export default function Welcome_founder() {
             onChange={handleChange}
             value={formData.city}
             placeholder="Type and select your residing city."
-            className="w-full py-1 bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+            className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
           />
         </div>
         {showError.city && <p className="text-red-500 text-sm">{errors.city}</p>}
@@ -263,7 +255,7 @@ export default function Welcome_founder() {
                   name="headline"
                   value={formData.headline}
                   placeholder="What everyone will see first.." 
-                  className="w-full py-1 bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+                  className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
                 />
               </div>
             </div>
@@ -283,7 +275,7 @@ export default function Welcome_founder() {
                     value={formData.portfolioLink}
                     type="text" 
                     placeholder="https://portfolio.com/..." 
-                    className="w-full bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+                    className="w-full bg-transparent text-white placeholder-[#424242] focus:outline-none"
                   />
                 </div>
                 
@@ -308,7 +300,7 @@ export default function Welcome_founder() {
                     name="linkedinLink"
                     type="text" 
                     placeholder="https://linkedin.com/..." 
-                    className="w-full bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+                    className="w-full bg-transparent text-white placeholder-[#424242] focus:outline-none"
                   />
                 </div>
                 
@@ -332,7 +324,7 @@ export default function Welcome_founder() {
                     name="github"
                     type="text" 
                     placeholder="https://github.com/..." 
-                    className="w-full bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+                    className="w-full bg-transparent text-white placeholder-[#424242] focus:outline-none"
                   />
                 </div>
                 
@@ -348,7 +340,7 @@ export default function Welcome_founder() {
                     name="twitter"
                     type="text" 
                     placeholder="https://x.com/..." 
-                    className="w-full bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+                    className="w-full bg-transparent text-white placeholder-[#424242] focus:outline-none"
                   />
                 </div>
               </div>

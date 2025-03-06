@@ -177,7 +177,7 @@ export default function Skills() {
                   <input 
                     type="text" 
                     placeholder="Something you are proud of..." 
-                    className="w-full bg-transparent border-none outline-none text-[#424242] pb-2 placeholder-[#424242]"
+                    className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
                     value={achievement}
                     onChange={(e) => setAchievement(e.target.value)}
                   />
@@ -237,40 +237,40 @@ export default function Skills() {
             
             {/* Navigation Buttons */}
             <div className={`flex ${isMobile ? 'justify-center mt-6 mb-16 max-sm:gap-4' : 'justify-between mt-6'} w-full`}>
-  {isMobile ? (
-    <>
-      <button 
-        className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
-        onClick={() => navigate(-1)}
-      >
-        Back
-      </button>
-      <button 
-        className="bg-white text-black font-bold py-2.5 px-8 rounded-[10px] text-lg w-[64%]"
-        onClick={handleSubmit}
-      >
-        Continue
-      </button>
-    </>
-  ) : (
-    <>
-      <button 
-        className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
-        onClick={() => navigate(-1)}
-      >
-        Back
-      </button>
-      <button 
-        className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]"
-        onClick={handleSubmit}
-      >
-        Continue
-      </button>
-    </>
-  )}
-</div>
-</div>
-</div>
+              {isMobile ? (
+                <>
+                  <button 
+                    className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
+                    onClick={() => navigate(-1)}
+                  >
+                    Back
+                  </button>
+                  <button 
+                    className="bg-white text-black font-bold py-2.5 px-8 rounded-[10px] text-lg w-[64%]"
+                    onClick={handleSubmit}
+                  >
+                    Continue
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
+                    onClick={() => navigate(-1)}
+                  >
+                    Back
+                  </button>
+                  <button 
+                    className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]"
+                    onClick={handleSubmit}
+                  >
+                    Continue
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
         
         {/* Using the MobileFooter component for mobile devices */}
         {isMobile && <MobileFooter currentPage={currentPage} />}

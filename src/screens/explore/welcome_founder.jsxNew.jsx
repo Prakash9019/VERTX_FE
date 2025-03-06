@@ -169,7 +169,7 @@ export default function Welcome_founder() {
         <div>
           <label
             className={`block text-lg font-semibold ${
-              errors.firstName ? "text-red-500" : "text-[#CAC5C5]"
+              errors.firstName ? "text-red-500" : "text-[white]"
             }`}
           >
             First Name{" "}
@@ -192,7 +192,7 @@ export default function Welcome_founder() {
               onChange={handleChange}
               value={formData.firstName}
               placeholder="E.g Mark"
-              className="w-full py-1 bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+              className="w-full py-1 bg-transparent text-[white] placeholder-[#424242] focus:outline-none"
             />
           </div>
           {showError.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
@@ -202,7 +202,7 @@ export default function Welcome_founder() {
         <div>
           <label
             className={`block text-lg font-semibold ${
-              errors.lastName ? "text-red-500" : "text-[#CAC5C5]"
+              errors.lastName ? "text-red-500" : "text-[white]"
             }`}
           >
             Last Name{" "}
@@ -225,7 +225,7 @@ export default function Welcome_founder() {
               onChange={handleChange}
               value={formData.lastName}
               placeholder="E.g Zuckerberg"
-              className="w-full py-1 bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+              className="w-full py-1 bg-transparent text-[white] placeholder-[#424242] focus:outline-none"
             />
           </div>
           {showError.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
@@ -257,7 +257,7 @@ export default function Welcome_founder() {
             onChange={handleChange}
             value={formData.city}
             placeholder="Type and select your residing city."
-            className="w-full py-1 bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+            className="w-full py-1 bg-transparent text-[white] placeholder-[#424242] focus:outline-none"
           />
         </div>
         {showError.city && <p className="text-red-500 text-sm">{errors.city}</p>}
@@ -280,7 +280,7 @@ export default function Welcome_founder() {
                 onChange={handleChange}
                 value={formData[link.name]}
                 placeholder={link.placeholder}
-                className="w-full bg-transparent text-[#424242] placeholder-[#424242] focus:outline-none"
+                className="w-full bg-transparent text-[white] placeholder-[#424242] focus:outline-none"
               />
             </div>
           ))}

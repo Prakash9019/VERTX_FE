@@ -55,7 +55,7 @@ function ProjectCard({ project }) {
                 value={projectData.name}
                 onChange={handleChange}
                 placeholder="Stealth project" 
-                className="w-full bg-transparent border-none outline-none text-gray-400 pb-2"
+                className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
               />
               <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
             </div>
@@ -75,7 +75,7 @@ function ProjectCard({ project }) {
                   value={projectData.idea_description}
                   onChange={handleChange}
                   placeholder="Describe your idea in few words..." 
-                  className="w-full bg-transparent border-none outline-none text-gray-400 pb-2"
+                  className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
                 />
                 <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
               </div>
@@ -96,7 +96,7 @@ function ProjectCard({ project }) {
                   value={projectData.link}
                   onChange={handleChange}
                   placeholder="https://yourproject.com/" 
-                  className="w-full bg-transparent border-none outline-none text-gray-400 pb-2"
+                  className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
                 />
                 <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
               </div>
@@ -117,7 +117,7 @@ function ProjectCard({ project }) {
                   value={projectData.pitch}
                   onChange={handleChange}
                   placeholder="Pitch your idea in more detail..." 
-                  className="w-full bg-transparent border-none outline-none text-gray-400 pb-2"
+                  className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
                 />
                 <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
                 <div className="absolute right-0 bottom-2">
@@ -268,7 +268,7 @@ export default function AddaProject() {
       <div className="flex flex-col min-h-screen">
         <div className={`${isMobile ? 'px-4 pt-6 mt-4 pb-20' : 'max-w-4xl w-full px-4 mx-auto pt-4'} overflow-y-auto flex-grow`}>
           <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold mb-2`}>Showcase your project</h1>
-          <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-gray-400 mb-6 md:mb-8`}>What have you built so far?</p>
+          <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-6 md:mb-8`}>What have you built so far?</p>
 
           {loading ? (
             <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
@@ -298,154 +298,141 @@ export default function AddaProject() {
             </div>
           )}
 
-          {showNewInput && (
-            <div className="bg-[#151515] rounded-3xl p-4 md:p-6 shadow-xl border border-[#1D1C1C] w-full my-4">
-              <div className="flex flex-col items-start">
-                <div className="flex justify-between items-center w-full mb-4">
-                  <div className="text-[#CAC5C5] text-xl md:text-[25px] font-extrabold">Stealth Project</div>
-                  <div className="flex space-x-2 md:space-x-4">
-                    <button className="px-2 py-1 md:px-4 md:py-2 rounded-[4px] bg-[#1D1C1C] text-sm md:text-base" onClick={() => setShowNewInput(false)}>Cancel</button>
-                    <button className="bg-white text-black px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base" onClick={SavetheProject}>Save</button>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
-                  <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg"></div>
-                  <div className="flex-1">
-                    <div className="flex items-center">
-                      <h3 className="text-base md:text-lg font-medium">Project name</h3>
-                    </div>
-                    <input 
-                      type="text" 
-                      name="name"
-                      value={newProject.name}
-                      onChange={handleInputChange}
-                      placeholder="Stealth project" 
-                      className="w-full bg-transparent border-none outline-none text-gray-400 pb-2"
-                    />
-                    <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
-                  </div>
-                </div>
-                
-                <div className="w-full mb-4 md:mb-5">
-                  <div className="flex items-center">
-                    <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
-                    <h3 className="text-base md:text-lg font-medium">Idea description</h3>
-                  </div>
-                  <div className="flex">
-                    <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
-                    <div className="flex-1">
-                      <input 
-                        type="text" 
-                        name="idea_description"
-                        value={newProject.idea_description}
-                        onChange={handleInputChange}
-                        placeholder="Describe your idea in few words..." 
-                        className="w-full bg-transparent border-none outline-none text-gray-400 pb-2"
-                      />
-                      <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="w-full mb-4 md:mb-5">
-                  <div className="flex items-center">
-                    <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
-                    <h3 className="text-base md:text-lg font-medium">Link</h3>
-                  </div>
-                  <div className="flex">
-                    <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
-                    <div className="flex-1">
-                      <input 
-                        type="text" 
-                        name="link"
-                        value={newProject.link}
-                        onChange={handleInputChange}
-                        placeholder="https://yourproject.com/" 
-                        className="w-full bg-transparent border-none outline-none text-gray-400 pb-2"
-                      />
-                      <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="w-full mb-4 md:mb-5">
-                  <div className="flex items-center">
-                    <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
-                    <h3 className="text-base md:text-lg font-medium">Pitch</h3>
-                  </div>
-                  <div className="flex">
-                    <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
-                    <div className="flex-1 relative">
-                      <input
-                        type="text"
-                        name="pitch"
-                        value={newProject.pitch}
-                        onChange={handleInputChange}
-                        placeholder="Pitch your idea in more detail..." 
-                        className="w-full bg-transparent border-none outline-none text-gray-400 pb-2"
-                      />
-                      <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
-                      <div className="absolute right-0 bottom-2">
-                        <svg width="16" height="35" viewBox="0 0 16 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.59625 28.4953L4.43115 25.3302H10.7613L7.59625 28.4953Z" fill="#757575"/>
-                          <path d="M7.99984 5.24999L10.9165 8.16666H5.08317L7.99984 5.24999Z" fill="#757575"/>
-                          <rect x="5" y="11" width="6" height="12" fill="#757575"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="w-full mb-3 md:mb-4">
-                  <h3 className="text-base md:text-lg font-medium">Stage</h3>
-                  <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
-                    {["Idea", "Prototype", "Revenue", "Scale"].map((stage) => (
-                      <div
-                        key={stage}
-                        className={`px-3 py-1 md:px-4 md:py-2 rounded-full border-[0.5px] text-[#757575] text-sm md:text-base cursor-pointer ${
-                          selectedStage === stage ? "bg-white text-black" : "border border-gray-600 text-gray-400"
-                        }`}
-                        onClick={() => handleStageSelect(stage)}
-                      >
-                        {stage}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="w-full mb-3 md:mb-4">
-                  <h3 className="text-base md:text-lg font-medium">Workplace</h3>
-                  <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
-                    {["Remote", "Hybrid", "Office"].map((workplace) => (
-                      <div
-                        key={workplace}
-                        className={`px-3 py-1 md:px-4 md:py-2 rounded-full border-[0.5px] text-[#757575] text-sm md:text-base cursor-pointer ${
-                          selectedWorkplace === workplace ? "bg-white text-black" : "bg-transparent border-[#757575]"
-                        }`}
-                        onClick={() => handleWorkplaceSelect(workplace)}
-                      >
-                        {workplace}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+{showNewInput && (
+  <div className="bg-[#151515] rounded-3xl p-4 md:p-6 shadow-xl border border-[#1D1C1C] w-full my-4">
+    <div className="flex flex-col items-start">
+      <div className="flex justify-between items-center w-full mb-4">
+        <div className="text-[#CAC5C5] text-xl md:text-[25px] font-extrabold">Stealth Project</div>
+        <div className="flex space-x-2 md:space-x-4">
+          <button className="px-2 py-1 md:px-4 md:py-2 rounded-[4px] bg-[#1D1C1C] text-sm md:text-base" onClick={() => setShowNewInput(false)}>Cancel</button>
+          <button className="bg-white text-black px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base" onClick={SavetheProject}>Save</button>
+        </div>
+      </div>
+      
+      <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
+        <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg"></div>
+        <div className="flex-1">
+          <div className="flex items-center">
+            <h3 className="text-base md:text-lg font-medium">Project name</h3>
+          </div>
+          <input 
+            type="text" 
+            name="name"
+            value={newProject.name}
+            onChange={handleInputChange}
+            placeholder="Stealth project" 
+            className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
+          />
+          <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
+        </div>
+      </div>
+      
+      <div className="w-full mb-4 md:mb-5">
+        <div className="flex items-center">
+          <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
+          <h3 className="text-base md:text-lg font-medium">Idea description</h3>
+        </div>
+        <div className="flex">
+          <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
+          <div className="flex-1">
+            <input 
+              type="text" 
+              name="idea_description"
+              value={newProject.idea_description}
+              onChange={handleInputChange}
+              placeholder="Describe your idea in few words..." 
+              className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
+            />
+            <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="w-full mb-4 md:mb-5">
+        <div className="flex items-center">
+          <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
+          <h3 className="text-base md:text-lg font-medium">Link</h3>
+        </div>
+        <div className="flex">
+          <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
+          <div className="flex-1">
+            <input 
+              type="text" 
+              name="link"
+              value={newProject.link}
+              onChange={handleInputChange}
+              placeholder="https://yourproject.com/" 
+              className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
+            />
+            <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="w-full mb-4 md:mb-5">
+        <div className="flex items-center">
+          <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
+          <h3 className="text-base md:text-lg font-medium">Pitch</h3>
+        </div>
+        <div className="flex">
+          <div className="invisible w-12 h-4 mr-3 md:w-16 md:mr-4"></div>
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              name="pitch"
+              value={newProject.pitch}
+              onChange={handleInputChange}
+              placeholder="Pitch your idea in more detail..." 
+              className="w-full bg-transparent border-none outline-none text-white placeholder-[#424242] pb-2"
+            />
+            <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
+            <div className="absolute right-0 bottom-2">
+              <svg width="16" height="35" viewBox="0 0 16 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.59625 28.4953L4.43115 25.3302H10.7613L7.59625 28.4953Z" fill="#757575"/>
+                <path d="M7.99984 5.24999L10.9165 8.16666H5.08317L7.99984 5.24999Z" fill="#757575"/>
+                <rect x="5" y="11" width="6" height="12" fill="#757575"/>
+              </svg>
             </div>
-          )}
+          </div>
+        </div>
+      </div>
+      
+      <div className="w-full mb-3 md:mb-4">
+        <h3 className="text-base md:text-lg font-medium">Stage</h3>
+        <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
+          {["Idea", "Prototype", "Revenue", "Scale"].map((stage) => (
+            <div
+              key={stage}
+              className={`px-3 py-1 md:px-4 md:py-2 rounded-full border-[0.5px] text-[#757575] text-sm md:text-base cursor-pointer ${
+                selectedStage === stage ? "bg-white text-black" : "border border-gray-600 text-gray-400"
+              }`}
+              onClick={() => handleStageSelect(stage)}
+            >
+              {stage}
+            </div>
+          ))}
+        </div>
+      </div>
 
-    {/* <div className="flex justify-between mt-8 max-w-[680px] mx-auto mb-16">
-              <button 
-                className={`bg-[#1D1C1C] text-white font-bold py-3 ${isMobile ? 'px-4' : 'px-8'} rounded-[10px] text-lg ${isMobile ? 'w-[100px]' : 'w-[160px]'}`}
-                onClick={() => navigate(-1)}>
-                Back
-              </button>
-              <button 
-                className="bg-white text-black font-bold py-3 px-8 rounded-[10px] text-lg ml-4 flex-1" 
-                onClick={() => navigate("/explore/bio")}>
-                Continue
-              </button>
-          </div> */}
+      <div className="w-full mb-3 md:mb-4">
+        <h3 className="text-base md:text-lg font-medium">Workplace</h3>
+        <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
+          {["Remote", "Hybrid", "Office"].map((workplace) => (
+            <div
+              key={workplace}
+              className={`px-3 py-1 md:px-4 md:py-2 rounded-full border-[0.5px] text-[#757575] text-sm md:text-base cursor-pointer ${
+                selectedWorkplace === workplace ? "bg-white text-black" : "bg-transparent border-[#757575]"
+              }`}
+              onClick={() => handleWorkplaceSelect(workplace)}
+            >
+              {workplace}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
 <div className={`flex ${isMobile ? 'justify-center mt-6 mb-16 max-sm:gap-4' : 'justify-between mt-6'} w-full`}>
   {isMobile ? (
@@ -478,8 +465,8 @@ export default function AddaProject() {
     </>
   )}
 </div>
-        </div>
       </div>
-    </Layout>
-  );
+    </div>
+  </Layout>
+);
 }

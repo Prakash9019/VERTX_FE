@@ -340,7 +340,7 @@ export default function Bio() {
                      <p className="text-xl text-gray-400 mb-4">@markzuckerberg</p>
                      <p className="text-xl mb-6">{formData.headline}</p>
 
-                     <div className="flex space-x-3">
+                    {/* <div className="flex space-x-3">
                        <div className="bg-black rounded-full px-3 py-1 border border-[#757575] text-white text-xs">
                          #New here
                        </div>
@@ -351,7 +351,7 @@ export default function Bio() {
 
                         {time}
                        </div>
-                     </div>
+                     </div> */}
                    </div>
 
                    <div className="relative">
