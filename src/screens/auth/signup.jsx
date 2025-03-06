@@ -1,55 +1,56 @@
-import "./style.css";
-import * as React from "react";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { Button, BackButton, AuthContainer } from "./common-components.jsx";
-import { SignupForm, VerificationForm, SetPasswordForm } from "./auth-components.jsx";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+"use client"
+
+import "./style.css"
+import { useState } from "react"
+import { useNavigate } from "react-router"
+import { BackButton, AuthContainer } from "./common-components.jsx"
+import { SignupForm, VerificationForm, SetPasswordForm } from "./auth-components.jsx"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export default function Signup({ onClose, isPopup = false }) {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [currentStep, setCurrentStep] = useState("signup");
-  
+  const navigate = useNavigate()
+  const [email, setEmail] = useState("")
+  const [currentStep, setCurrentStep] = useState("signup")
+
   // Header text based on current step
   const getHeaderText = () => {
     switch (currentStep) {
       case "signup":
-        return "Create your account";
+        return "Create your account"
       case "verify":
-        return "Verify your email";
+        return "Verify your email"
       case "setpassword":
-        return "Set password";
+        return "Set password"
       default:
-        return "Create your account";
+        return "Create your account"
     }
-  };
+  }
 
   // Function to handle back button
   const handleBack = () => {
     if (currentStep === "verify") {
-      setCurrentStep("signup");
+      setCurrentStep("signup")
     } else if (currentStep === "setpassword") {
-      setCurrentStep("verify");
+      setCurrentStep("verify")
     } else if (onClose) {
-      onClose();
+      onClose()
     } else {
-      navigate(-1);
+      navigate(-1)
     }
-  };
+  }
 
   // Handle step completion
   const handleStepComplete = (nextStep) => {
     if (nextStep === "outreach") {
       if (isPopup && onClose) {
-        onClose();
+        onClose()
       }
-      navigate('/outreach');
+      navigate("/outreach")
     } else {
-      setCurrentStep(nextStep);
+      setCurrentStep(nextStep)
     }
-  };
+  }
 
   const content = (
     <>
@@ -63,43 +64,16 @@ export default function Signup({ onClose, isPopup = false }) {
             {getHeaderText()}
           </p>
 
-          {currentStep === "signup" && (
-            <SignupForm 
-              onComplete={handleStepComplete} 
-              email={email} 
-              setEmail={setEmail} 
-            />
-          )}
+          {currentStep === "signup" && <SignupForm onComplete={handleStepComplete} email={email} setEmail={setEmail} />}
 
-          {currentStep === "verify" && (
-            <VerificationForm 
-              onComplete={handleStepComplete} 
-              email={email} 
-            />
-          )}
+          {currentStep === "verify" && <VerificationForm onComplete={handleStepComplete} email={email} />}
 
-          {currentStep === "setpassword" && (
-            <SetPasswordForm 
-              onComplete={handleStepComplete} 
-            />
-          )}
+          {currentStep === "setpassword" && <SetPasswordForm onComplete={handleStepComplete} />}
         </div>
       </div>
       <ToastContainer />
     </>
-  );
+  )
 
-  if (isPopup) {
-    return (
-      <AuthContainer isPopup={true}>
-        {content}
-      </AuthContainer>
-    );
-  }
-
-  return (
-    <AuthContainer>
-      {content}
-    </AuthContainer>
-  );
+  return <AuthContainer isPopup={isPopup}>{content}</AuthContainer>
 }
