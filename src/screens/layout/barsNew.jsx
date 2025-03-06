@@ -217,7 +217,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }, [location.pathname])
 
   // Only show sidebar on desktop
-  // if (isMobile) return null;
+  
 
   const [username1,setUsernamee1] =useState("Mark Zuckerberg")
 
@@ -254,6 +254,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
       console.error("Error during logout", error)
     }
   }
+
+  if (isMobile) return null;
 
   return (
     <>
