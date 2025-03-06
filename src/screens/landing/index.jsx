@@ -129,9 +129,9 @@ export default function LandingAuth({ onClose, isPopup = false }) {
             {/* Sign up Form */}
             {!showLoginForm && !showPasswordForm && (
               <>
-                <Button context={"Sign up with Google"} theme="dark" callback={() => fetchGoogleUrl()} />
+                <Button context={"Sign in with Google"} theme="dark" callback={() => fetchGoogleUrl()} />
 
-                <Button context={"Sign up with LinkedIn"} theme="dark" callback={() => handleLinkedInLogin()} />
+                <Button context={"Sign in with LinkedIn"} theme="dark" callback={() => handleLinkedInLogin()} />
 
                 <div className="w-full h-auto grid grid-cols-[1fr_max-content_1fr] justify-center items-center gap-2 text-[#9d9d9d] p-2 text-xs font-['Manrope']">
                   <div className="w-full h-px bg-[#9d9d9d]"></div>
@@ -171,7 +171,7 @@ export default function LandingAuth({ onClose, isPopup = false }) {
                 <div className="w-full">
                   <FloatingLabelInput
                     id={`email`}
-                    label="username, email address, or vertxuid"
+                    label="Enter email address"
                     type="text"
                     validateidentifier={true}
                     value={email}

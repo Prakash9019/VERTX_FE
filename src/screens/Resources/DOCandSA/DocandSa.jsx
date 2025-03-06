@@ -781,7 +781,7 @@ export default function DocandSa({ onClose }) {
 
           <div className="space-y-6 text-gray-300 mb-12">
             <div>
-              <h5 className="text-xl font-bold mb-4">A SAFE Agreement is an investment contract that allows investors to buy shares in the future. Unlike a Convertible Note, it is not a loan and does not have an interest rate or repayment requirement.</h5>
+              <h5 className="text-xl font mb-4">A SAFE Agreement is an investment contract that allows investors to buy shares in the future. Unlike a Convertible Note, it is not a loan and does not have an interest rate or repayment requirement.</h5>
               <ul className="space-y-2 text-lg">
                 <li>A Convertible Note is a loan that later converts into shares</li>
                 <li>A SAFE Agreement is an investment promise that converts into shares later without repayment risk</li>
