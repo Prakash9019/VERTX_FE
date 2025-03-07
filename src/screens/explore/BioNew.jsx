@@ -361,17 +361,29 @@ export default function Bio() {
 </svg>
                          <span style={{ color: "#CAC5C5" }}>Edit</span>
                        </button>}
-                     <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800">
-                     {formData.avatar ? (
-                      <img
-                        alt="User Avatar"
-                        className="w-full h-full object-cover"
-                        src={formData.avatar}
-                      />
-                    ) : (
-                      <User className={`${isMobile ? 'w-10 h-10' : 'w-16 h-16'} text-gray-400`} />
-                    )}
-                     </div>
+                       <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center">
+  {formData.avatar ? (
+    <img
+      alt="User Avatar"
+      className="w-full h-full object-cover"
+      src={formData.avatar}
+    />
+  ) : (
+    <svg
+      className="w-full h-full object-cover"
+      viewBox="0 0 469 469"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="234.5" cy="234.5" r="234.5" fill="#111111" />
+      <circle cx="234.5" cy="217.5" r="91" fill="#EEEEEE" fillOpacity="0.93" />
+      <path
+        d="M379.86 417.556C339.877 449.371 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.371 88.5095 417.556C117.79 374.542 172.07 345.654 234.186 345.654C296.302 345.654 350.587 374.535 379.86 417.556Z"
+        fill="#EEEEEE"
+        fillOpacity="0.933333"
+      />
+    </svg>
+  )}
+</div>
                      <div className="absolute bottom-0 right-0 bg-white rounded-md p-1">
                      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="25" height="25" rx="4" fill="#CAC5C5"/>

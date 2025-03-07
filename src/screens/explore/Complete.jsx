@@ -44,7 +44,7 @@ export default function ProfileComplete() {
         <div className={`${isMobile ? 'px-4 pt-6 pb-24' : 'w-full px-4 mx-auto'} overflow-y-auto flex-grow flex items-center justify-center`}>
           <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto text-center">
           <p className="text-base md:text-lg text-[#757575] mb-4 md:whitespace-nowrap">
-  Your profile is now complete. Click profile in the top right corner of Vertx to view or edit it.
+  Your profile is now complete. Click Overview in settings option of Vertx to view or edit it.
 </p>
 
             <button className="bg-transparent text-white font-bold py-2 px-4 rounded text-base md:text-lg transition-colors" onClick={()=> navigate("/explore/break")}>

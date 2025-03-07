@@ -12,6 +12,8 @@ export default function EquityCalculator({ onClose }) {
   const [newFounderName, setNewFounderName] = useState("")
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [checkedStates, setCheckedStates] = useState({});
+
   useEffect(() => {
     const checkIsMobile = () => {
       const mobile = window.innerWidth < 990;
@@ -64,18 +66,67 @@ export default function EquityCalculator({ onClose }) {
   ]
 
   const handleCheckChange = (founderId, questionIndex, checked) => {
-    setFounders(founders.map(founder => {
-      if (founder.id === founderId) {
-        const newChecks = checked ? founder.checks + 1 : founder.checks - 1
-        const totalChecks = founders.reduce((sum, f) => sum + (f.id === founderId ? newChecks : f.checks), 0)
-        return {
-          ...founder,
-          checks: newChecks,
-          percentage: Math.round((newChecks / totalChecks) * 100) || 50
-        }
+    // Create a new copy of the checked states
+    const newCheckedStates = { ...checkedStates };
+    
+    // If this question doesn't have an array initialized, create one
+    if (!newCheckedStates[questionIndex]) {
+      newCheckedStates[questionIndex] = [];
+    }
+    
+    // If checked, add founder to the array, otherwise remove
+    if (checked) {
+      if (!newCheckedStates[questionIndex].includes(founderId)) {
+        newCheckedStates[questionIndex].push(founderId);
       }
-      return founder
-    }))
+    } else {
+      newCheckedStates[questionIndex] = newCheckedStates[questionIndex].filter(id => id !== founderId);
+      if (newCheckedStates[questionIndex].length === 0) {
+        delete newCheckedStates[questionIndex];
+      }
+    }
+    
+    setCheckedStates(newCheckedStates);
+
+    // Recalculate all founder checks and percentages
+    recalculateFounderChecks(newCheckedStates);
+  }
+
+  const recalculateFounderChecks = (newCheckedStates) => {
+    // Reset all founders' checks
+    let updatedFounders = founders.map(founder => ({
+      ...founder,
+      checks: 0
+    }));
+    
+    // Count how many checks each founder has received
+    Object.entries(newCheckedStates).forEach(([questionIndex, founderIds]) => {
+      // For each question, distribute equal value to each checked founder
+      const valuePerFounder = 1 / founderIds.length;
+      
+      founderIds.forEach(founderId => {
+        updatedFounders = updatedFounders.map(founder => {
+          if (founder.id === founderId) {
+            return {
+              ...founder,
+              checks: founder.checks + valuePerFounder
+            };
+          }
+          return founder;
+        });
+      });
+    });
+    
+    // Calculate total checks
+    const totalChecks = updatedFounders.reduce((sum, f) => sum + f.checks, 0);
+    
+    // Update percentages
+    updatedFounders = updatedFounders.map(founder => ({
+      ...founder,
+      percentage: totalChecks > 0 ? Math.round((founder.checks / totalChecks) * 100) : 0
+    }));
+    
+    setFounders(updatedFounders);
   }
 
   const addFounder = () => {
@@ -91,7 +142,26 @@ export default function EquityCalculator({ onClose }) {
   }
 
   const removeFounder = (id) => {
-    setFounders(founders.filter(f => f.id !== id))
+    const founderToRemove = founders.find(f => f.id === id);
+    
+    // Update checked states by removing this founder
+    const newCheckedStates = { ...checkedStates };
+    Object.keys(newCheckedStates).forEach(questionIndex => {
+      if (Array.isArray(newCheckedStates[questionIndex])) {
+        newCheckedStates[questionIndex] = newCheckedStates[questionIndex].filter(founderId => founderId !== id);
+        if (newCheckedStates[questionIndex].length === 0) {
+          delete newCheckedStates[questionIndex];
+        }
+      }
+    });
+    setCheckedStates(newCheckedStates);
+    
+    // Remove the founder and recalculate percentages
+    setFounders(prevFounders => {
+      const updatedFounders = prevFounders.filter(f => f.id !== id);
+      recalculateFounderChecks(newCheckedStates);
+      return updatedFounders;
+    });
   }
 
   const updateFounderName = (id, newName) => {
@@ -196,6 +266,7 @@ export default function EquityCalculator({ onClose }) {
                                 <input
                                   type="checkbox"
                                   className="founder-checkbox"
+                                  checked={checkedStates[idx] && checkedStates[idx].includes(founder.id)}
                                   onChange={(e) => handleCheckChange(founder.id, idx, e.target.checked)}
                                 />
                               </div>
@@ -213,7 +284,7 @@ export default function EquityCalculator({ onClose }) {
                 <div className="pie-chart">
                   <PieChart width={240} height={240}>
                     <Pie
-                      data={founders.map(f => ({ name: f.name, value: f.percentage }))}
+                      data={founders.map(f => ({ name: f.name, value: f.percentage || 0 }))}
                       dataKey="value"
                       nameKey="name"
                       cx="50%"
@@ -249,8 +320,7 @@ export default function EquityCalculator({ onClose }) {
                     </div>
                   </div>
                 ))}
-
-                <button
+                <button 
                   onClick={() => setIsDialogOpen(true)}
                   className="manage-founders-btn"
                 >

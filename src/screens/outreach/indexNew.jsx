@@ -221,7 +221,7 @@ export default function Outreach2() {
 
     getInvestors()
     fetchBookmarks()
-  }, [currentPage, pageSize, filters])
+  }, [currentPage, pageSize, filters, bookmarked])
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage)
@@ -434,4 +434,9 @@ export default function Outreach2() {
       </div>
     </Layout>
   )
-}
+} 
+
+
+
+
+
