@@ -75,7 +75,7 @@ export function Callback2() {
   const [params] = useSearchParams();
   const token = params.get("token"); // Extract the code from URL
   const [username1,setUsernamee1] =useState("@username")
-
+  const [dip,setDip] = useState("");
   const handleUsername = async () => {
     try {
       const token = window.localStorage.getItem("token");
@@ -88,9 +88,10 @@ export function Callback2() {
         },
       });
   
-      // console.log(response.data);
+      console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
       window.localStorage.setItem("user",response.data.user.username);
+      localStorage.setItem("dip",response.data.user.dip);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
