@@ -399,7 +399,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             onClick={() => handleNavigation("resources")}
           />
         </div>
-
+{console.log(localStorage.getItem("dip"))}
         {/* User Profile Section */}
         <div className="flex flex-col items-center mb-6 mt-auto relative">
           {sidebarOpen ? (
@@ -408,13 +408,14 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <>
                   <div className="flex items-center justify-between w-full border border-[#111111] rounded-md p-3 mb-4">
                     <div className="flex items-center space-x-3">
+                    {window.localStorage.getItem("dip") ? <img src={window.localStorage.getItem("dip") } alt="dp" className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" /> :
                       <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
-                      <svg width="469" height="469" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <svg width="469" height="469" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M468.37 234.186C468.37 308.459 433.796 374.655 379.86 417.556C339.877 449.37 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.37 88.5096 417.556C34.5767 374.655 0 308.459 0 234.186C0 104.851 104.853 -3.05176e-05 234.186 -3.05176e-05C363.519 -3.05176e-05 468.37 104.851 468.37 234.186Z" fill="#111111"/>
 <path d="M234.184 308.838C284.45 308.838 325.199 268.089 325.199 217.823C325.199 167.557 284.45 126.808 234.184 126.808C183.918 126.808 143.169 167.557 143.169 217.823C143.169 268.089 183.918 308.838 234.184 308.838Z" fill="#EEEEEE" fill-opacity="0.933333"/>
 <path d="M379.86 417.556C339.877 449.371 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.371 88.5095 417.556C117.79 374.542 172.07 345.654 234.186 345.654C296.302 345.654 350.587 374.535 379.86 417.556Z" fill="#EEEEEE" fill-opacity="0.933333"/>
 </svg>
-                      </div>
+                      </div>}
                       <div>
                         <p className="text-white text-sm">{window.localStorage.getItem("user") || "@username"}</p>
                       </div>
