@@ -366,7 +366,7 @@ export default function Bio() {
     <img
       alt="User Avatar"
       className="w-full h-full object-cover"
-      src={formData.avatar}
+      src={formData.avatar || window.localStorage.getItem("dip")}
     />
   ) : (
     <svg

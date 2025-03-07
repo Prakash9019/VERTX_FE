@@ -149,7 +149,7 @@ useEffect(() => {
                       <img
                         alt="User Avatar"
                         className="w-full h-full object-cover"
-                        src={avatar}
+                        src={window.localStorage.getItem("dip") || avatar}
                       />
                     ) : (
                       <svg width="469" height="469" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
