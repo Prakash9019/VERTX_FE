@@ -64,7 +64,8 @@
 
 .backdrop .popup .topsec .wrap {
   width: 100%;
-  justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end; /* Align content to the right */
   margin-top: 10px;
 }
 
@@ -72,6 +73,8 @@
   padding: 6px 10px;
   font-size: 12px;
   gap: 3px;
+  display: flex;
+  align-items: center; /* Center the icon and text vertically */
 }
 
 .backdrop .popup .topsec .wrap .btn ion-icon {
