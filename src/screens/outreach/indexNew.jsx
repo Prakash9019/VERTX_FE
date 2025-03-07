@@ -8,46 +8,111 @@ import axios from "axios"
 import { Layout, MobileFooter } from "../layout/barsNew.jsx"
 import Card from "../../components/investorCard/component"
 import gify from "./gify.gif"
-// import "./style.css"
+import "./style.css"
 import Select from "react-select"
 
-const MultiSelectDropdown = ({ options, onChange, placeholder }) => {
+const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
+  // Create a ref for manually handling input width
+  const selectedValues = value || [];
+
   return (
-    <Select
-      isMulti
-      options={options.map((option) => ({ value: option, label: option }))}
-      onChange={(selected) => onChange(selected.map((s) => s.value))}
-      placeholder={placeholder}
-      className="w-full"
-      classNamePrefix="react-select"
-      menuPortalTarget={document.body} // Ensures dropdown renders outside parent
-      menuPosition="fixed" // Prevents clipping issues
-      styles={{
-        control: (base) => ({
-          ...base,
-          backgroundColor: "#161616",
-          border: "1px solid #75757569",
-          color: "#adadad",
-        }),
-        menu: (base) => ({
-          ...base,
-          zIndex: 9999, // Ensures dropdown appears above everything
-          backgroundColor: "#161616",
-          maxHeight: "250px", // Prevents overflow
-          overflowY: "auto", // Enables scrolling inside dropdown
-          /* Custom scrollbar styles */
-          scrollbarWidth: "none" /* Firefox */,
-          "&::-webkit-scrollbar": {
-            display: "none" /* Chrome, Safari, and Opera */,
-          },
-        }),
-        option: (base, { isFocused }) => ({
-          ...base,
-          backgroundColor: isFocused ? "#75757569" : "#161616",
-          color: "#fff",
-        }),
-      }}
-    />
+    <div className="filter-dropdown-container">
+      <Select
+        isMulti
+        options={options.map((option) => ({ value: option, label: option }))}
+        onChange={(selected) => onChange(selected ? selected.map((s) => s.value) : [])}
+        placeholder={placeholder}
+        value={selectedValues.map(val => ({ value: val, label: val }))}
+        className="w-full"
+        classNamePrefix="react-select"
+        menuPortalTarget={document.body} // Ensures dropdown renders outside parent
+        menuPosition="fixed" // Prevents clipping issues
+        styles={{
+          control: (base) => ({
+            ...base,
+            backgroundColor: "#161616",
+            border: "1px solid #75757569",
+            color: "#adadad",
+            minHeight: "36px",
+          }),
+          menu: (base) => ({
+            ...base,
+            zIndex: 9999, // Ensures dropdown appears above everything
+            backgroundColor: "#161616",
+            maxHeight: "250px", // Prevents overflow
+            overflowY: "auto", // Enables scrolling inside dropdown
+            /* Custom scrollbar styles */
+            scrollbarWidth: "none" /* Firefox */,
+            "&::-webkit-scrollbar": {
+              display: "none" /* Chrome, Safari, and Opera */,
+            },
+          }),
+          option: (base, { isFocused }) => ({
+            ...base,
+            backgroundColor: isFocused ? "#75757569" : "#161616",
+            color: "#fff",
+          }),
+          valueContainer: (base) => ({
+            ...base,
+            padding: "0 8px",
+            fontSize: window.innerWidth < 768 ? "12px" : "14px",
+          }),
+          placeholder: (base) => ({
+            ...base,
+            fontSize: window.innerWidth < 768 ? "12px" : "14px",
+            display: 'block', // Always display the placeholder
+            position: 'relative',
+            transform: 'none',
+            top: 'auto',
+            left: 'auto',
+            opacity: '1 !important',
+            transition: 'none',
+          }),
+          singleValue: (base) => ({
+            ...base,
+            fontSize: window.innerWidth < 768 ? "12px" : "14px",
+          }),
+          multiValue: (base) => ({
+            ...base,
+            display: 'none', // Hide default multi-value display
+            fontSize: window.innerWidth < 768 ? "11px" : "13px",
+          }),
+          multiValueLabel: (base) => ({
+            ...base,
+            display: 'none', // Hide the multi-value labels
+          }),
+          multiValueRemove: (base) => ({
+            ...base,
+            display: 'none', // Hide the multi-value remove buttons
+          }),
+          indicatorsContainer: (base) => ({
+            ...base,
+            // Keep the indicators container visible
+          }),
+        }}
+        isClearable={false} // Disable the clear button 
+        controlShouldRenderValue={false} // Don't render selected values in the control
+      />
+      
+      {/* Display selected values below the dropdown */}
+      {selectedValues.length > 0 && (
+        <div className="selected-filters">
+          {selectedValues.map((value) => (
+            <div key={value} className="filter-chip">
+              <span>{value}</span>
+              <span 
+                className="remove-chip"
+                onClick={() => {
+                  onChange(selectedValues.filter(v => v !== value));
+                }}
+              >
+                ×
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -57,7 +122,7 @@ export default function Outreach2() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [bookmarked, setBookmarked] = useState(false)
-  const [bookmarks, setBookmarks] = useState([]);
+  const [bookmarks, setBookmarks] = useState([])
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1)
@@ -72,29 +137,33 @@ export default function Outreach2() {
   const [currentPageNav, setCurrentPageNav] = useState("outreach")
   // Filters state
   const [filters, setFilters] = useState({
-    country: "",
-    industry: "",
-    investorType: "",
+    country: [],
+    industry: [],
+    investorType: [],
     bookmarked: "",
   })
 
   // Create a ref for the scrollable content
   const scrollableContentRef = useRef(null)
+  const filtersScrollRef = useRef(null)
+  const layoutContentRef = useRef(null)
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
   useEffect(() => {
-    const checkIsMobile = () => {
+    const handleResize = () => {
       setIsMobile(window.innerWidth < 768)
+      setScreenWidth(window.innerWidth)
     }
 
     // Run check immediately
-    checkIsMobile()
+    handleResize()
 
     // Listen for resize events
-    window.addEventListener("resize", checkIsMobile)
+    window.addEventListener("resize", handleResize)
 
-    return () => window.removeEventListener("resize", checkIsMobile)
+    return () => window.removeEventListener("resize", handleResize)
   }, [])
 
   // Set current page for navigation highlighting
@@ -116,7 +185,10 @@ export default function Outreach2() {
           params: {
             page: currentPage,
             limit: pageSize,
-            ...filters,
+            country: filters.country.length > 0 ? filters.country : undefined,
+            industry: filters.industry.length > 0 ? filters.industry : undefined,
+            investorType: filters.investorType.length > 0 ? filters.investorType : undefined,
+            bookmarked: bookmarked ? true : undefined,
           },
         })
         setInvestors(response.data.data)
@@ -216,74 +288,120 @@ export default function Outreach2() {
     }
   }
 
+  // Determine the number of columns based on screen width
+  const getGridColumns = () => {
+    if (screenWidth < 600) return 1; // Mobile
+    if (screenWidth < 900) return 2; // Tablet
+    return 3; // Desktop
+  };
+
   return (
-    <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className="flex flex-col min-h-screen">
+    <Layout 
+      sidebarOpen={sidebarOpen} 
+      setSidebarOpen={setSidebarOpen}
+      contentRef={layoutContentRef}
+    >
+      <div className="content-wrapper2 relative h-full w-full">
+        {/* Fixed header section */}
         <div
-          ref={scrollableContentRef}
-          className={`${isMobile ? "px-4 mt-10 pb-24 flex-grow" : " w-full px-4 mx-auto"} overflow-y-auto scrollable-content fixed-height-container scrollbar-hide`}
+          className={`fixed-header ${isMobile ? "px-2 sm:px-4 pt-6 sm:pt-10" : "px-4"} z-10 w-full`}
+          style={{ maxWidth: "100%", boxSizing: "border-box" }}
         >
           <div className={`text-left ${isMobile ? "ml-0" : ""}`}>
-            <h1 className={`${isMobile ? "text-3xl" : "text-4xl"} font-bold -mt-1 mb-1`}>Explore Investors</h1>
-            <p className="text-xl text-[#CAC5C5] mb-4">Find and connect with potential investors</p>
+            <h1 className={`${isMobile ? "text-2xl sm:text-3xl" : "text-4xl"} font-bold -mt-1 mb-1`}>
+              <strong>Explore Investors</strong>
+            </h1>
+            <p className={`${isMobile ? "text-base sm:text-lg" : "text-xl"} text-[#CAC5C5] mb-2 sm:mb-4`}>
+              Find and connect with potential investors
+            </p>
           </div>
 
-          {/* Filters */}
-          <div className="filter mb-4 grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 gap-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {/* Filters with horizontal scroll */}
+          <div
+            ref={filtersScrollRef}
+            className="filters-container overflow-x-auto hide-scrollbar"
+            style={{ width: "100%" }}
+          >
+            <div className="filter mb-3 flex flex-nowrap gap-2 sm:gap-3">
               {/* Multi-Select Country */}
-              <MultiSelectDropdown
-                options={Country}
-                onChange={(values) => handleFilterChange("country", values)}
-                placeholder="Select Countries"
-              />
+              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                <MultiSelectDropdown
+                  options={Country}
+                  onChange={(values) => handleFilterChange("country", values)}
+                  placeholder="Select Countries"
+                  value={filters.country}
+                />
+              </div>
 
               {/* Multi-Select Investor Type */}
-              <MultiSelectDropdown
-                options={investorType}
-                onChange={(values) => handleFilterChange("investorType", values)}
-                placeholder="Investor Type"
-              />
+              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                <MultiSelectDropdown
+                  options={investorType}
+                  onChange={(values) => handleFilterChange("investorType", values)}
+                  placeholder="Investor Type"
+                  value={filters.investorType}
+                />
+              </div>
 
               {/* Multi-Select Industry */}
-              <MultiSelectDropdown
-                options={industries}
-                onChange={(values) => handleFilterChange("industry", values)}
-                placeholder="Industries"
-              />
+              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                <MultiSelectDropdown
+                  options={industries}
+                  onChange={(values) => handleFilterChange("industry", values)}
+                  placeholder="Industries"
+                  value={filters.industry}
+                />
+              </div>
 
               {/* Bookmarked Button */}
-              <button
-                className={`min-w-[150px] px-4 py-2 border border-[#75757569] rounded-md ${
-                  bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
-                }`}
-                onClick={toggleBookmarked}
-              >
-                Bookmarked
-              </button>
+              <div className="min-w-[100px] sm:min-w-[120px] lg:min-w-[150px]">
+                <button
+                  className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
+                    bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
+                  }`}
+                  onClick={toggleBookmarked}
+                >
+                  Bookmarked
+                </button>
+              </div>
             </div>
           </div>
+        </div>
 
+        {/* Scrollable content area */}
+        <div
+          ref={scrollableContentRef}
+          className="content-container scrollable-area px-2 sm:px-4 md:px-6"
+          style={{ maxWidth: "100%" }}
+        >
           {error && <div className="error-message">{error}</div>}
 
           {/* Investor Cards */}
-          <div className="profilecards">
+          <div 
+            className="profilecards" 
+            style={{ 
+              gridTemplateColumns: `repeat(${getGridColumns()}, 1fr)`,
+              gap: isMobile ? "10px" : "20px" 
+            }}
+          >
             {loading ? (
               <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
-                <img src={gify || "/placeholder.svg"} alt="Loading..." className="w-20 h-20" />
+                <img src={gify || "/placeholder.svg"} alt="Loading..." className="w-16 h-16 sm:w-20 sm:h-20" />
               </div>
             ) : (
               <>
                 {!bookmarked &&
-                  investors.map((item) => (
-                    <Card
-                      key={item._id}
-                      data={item}
-                      toggleBookmark={toggleBookmark}
-                      isBookmarked={bookmarks.includes(item._id)}
-                    />
+                  investors.map((item, index) => (
+                    <div key={item._id || index} className="w-full">
+                      <Card
+                        key={item._id || index}
+                        data={item}
+                        toggleBookmark={toggleBookmark}
+                        isBookmarked={bookmarks.includes(item._id)}
+                      />
+                    </div>
                   ))}
-                {bookmarked &&
+                 {bookmarked &&
                   investors
                     .filter((item) => bookmarks.includes(item._id))
                     .map((item) => (
@@ -294,17 +412,17 @@ export default function Outreach2() {
           </div>
 
           {/* Pagination Controls */}
-          <div className="pagination mt-8 mb-12">
+          <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 text-center">
             <button
-              className="pagination-button"
+              className="pagination-button text-xs sm:text-sm"
               disabled={currentPage === 1}
               onClick={() => handlePageChange(currentPage - 1)}
             >
               Previous
             </button>
-            <span className="page-info">Page {currentPage} </span>
+            <span className="page-info text-xs sm:text-sm">Page {currentPage} </span>
             <button
-              className="pagination-button"
+              className="pagination-button text-xs sm:text-sm"
               disabled={currentPage === totalPages}
               onClick={() => handlePageChange(currentPage + 1)}
             >
