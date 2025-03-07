@@ -85,28 +85,8 @@ useEffect(() => {
       }
     };
 
-  const handleUsername = async () => {
-    try {
-      const token = window.localStorage.getItem("token");
-      if (!token) return; // Prevent request if token is missing
-  
-      const response = await axios.get(`${API_KEY}/auth/getUser`, {
-        headers: {
-          "Content-Type": "application/json",
-          token: token, // Send token in headers
-        },
-      });
-  
-      // console.log(response.data);
-      setUsernamee1(response.data.user.username); // Update the username state with the fetched username
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
-
     fetchUserData();
-    handleUsername();
+    // handleUsername();
   }, []);
 
   const handleAvatarChange = async (event) => {
@@ -146,7 +126,7 @@ useEffect(() => {
                 <div className={`${isMobile ? 'flex-1' : ''}`}>
                   <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold mb-2`}>{userData?.firstName + userData?.lastName}</h2>
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-1`}>{userData?.city || "Location not provided"}</p>
-                  <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#757575] mb-4`}>@{username1 || "username"}</p>
+                  <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#757575] mb-4`}>@{window.localStorage.getItem("user")  || "username"}</p>
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} mt-3 mb-6`}>{userData?.headline || "Role not defined"}</p>
                   
                   <div className="flex flex-wrap gap-2">

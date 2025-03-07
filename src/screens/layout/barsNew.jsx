@@ -255,33 +255,33 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   // Only show sidebar on desktop
   
 
-  const [username1,setUsernamee1] =useState("@username")
+  // const [username1,setUsernamee1] =useState("@username")
 
-  const handleUsername = async () => {
-    try {
-      const token = window.localStorage.getItem("token");
-      if (!token) return; // Prevent request if token is missing
+  // const handleUsername = async () => {
+  //   try {
+  //     const token = window.localStorage.getItem("token");
+  //     if (!token) return; // Prevent request if token is missing
   
-      const response = await axios.get(`${API_KEY}/auth/getUser`, {
-        headers: {
-          "Content-Type": "application/json",
-          token: token, // Send token in headers
-        },
-      });
+  //     const response = await axios.get(`${API_KEY}/auth/getUser`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         token: token, // Send token in headers
+  //       },
+  //     });
   
-      // console.log(response.data);
-      setUsernamee1(response.data.user.username); // Update the username state with the fetched username
-      window.localStorage.setItem("user",response.data.user.username);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
+  //     // console.log(response.data);
+  //     setUsernamee1(response.data.user.username); // Update the username state with the fetched username
+  //     window.localStorage.setItem("user",response.data.user.username);
+  //   } catch (error) {
+  //     console.error("Error fetching user data:", error);
+  //   }
+  // };
   
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      handleUsername(); // Call the function inside useEffect
-    }
-  }, []); // Ensures it runs only once on mount
+  // useEffect(() => {
+  //   if (localStorage.getItem("token")) {
+  //     handleUsername(); // Call the function inside useEffect
+  //   }
+  // }, []); // Ensures it runs only once on mount
 
   // Listen for the back button press
   useEffect(() => {
@@ -391,7 +391,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         <User />
                       </div>
                       <div>
-                        <p className="text-white text-sm">{username1 || "@username"}</p>
+                        <p className="text-white text-sm">{window.localStorage.getItem("user") || "@username"}</p>
                       </div>
                     </div>
                     <button

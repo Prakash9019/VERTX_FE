@@ -73,8 +73,29 @@ export function Callback2() {
  export function Callback() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  //console.log(params);
   const token = params.get("token"); // Extract the code from URL
+  const [username1,setUsernamee1] =useState("@username")
+
+  const handleUsername = async () => {
+    try {
+      const token = window.localStorage.getItem("token");
+      if (!token) return; // Prevent request if token is missing
+  
+      const response = await axios.get(`${API_KEY}/auth/getUser`, {
+        headers: {
+          "Content-Type": "application/json",
+          token: token, // Send token in headers
+        },
+      });
+  
+      // console.log(response.data);
+      setUsernamee1(response.data.user.username); // Update the username state with the fetched username
+      window.localStorage.setItem("user",response.data.user.username);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  //console.log(params);
 
   const callback = async () => {
     try {
@@ -83,6 +104,7 @@ export function Callback2() {
        //console.log(token);
       if (token) {
         // Store the token in local storage
+        await handleUsername();
         window.localStorage.setItem("token", token);
         navigate("/outreach");  // Redirect to outreach or desired route
       } else {
