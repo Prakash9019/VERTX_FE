@@ -8,7 +8,7 @@ import FloatingLabelInput from "../../components/LabelInput.jsx"
 import Signup from "../auth/signup.jsx"
 import { Button, BackButton, AuthContainer } from "../auth/common-components.jsx"
 
-export default function LandingAuth({ onClose, isPopup = false }) {
+export default function LandingAuth({ onClose, isPopup = false, onCreateAccount }) {
   const navigate = useNavigate()
   const [showLoginForm, setShowLoginForm] = useState(false)
   const [showPasswordForm, setShowPasswordForm] = useState(false)
@@ -27,15 +27,15 @@ export default function LandingAuth({ onClose, isPopup = false }) {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-    
+
     // Initial check
     checkIfMobile()
-    
+
     // Add event listener for window resize
-    window.addEventListener('resize', checkIfMobile)
-    
+    window.addEventListener("resize", checkIfMobile)
+
     // Cleanup
-    return () => window.removeEventListener('resize', checkIfMobile)
+    return () => window.removeEventListener("resize", checkIfMobile)
   }, [])
 
   const fetchGoogleUrl = async () => {
@@ -60,9 +60,9 @@ export default function LandingAuth({ onClose, isPopup = false }) {
       setErrorMessage(response?.data?.msg)
       setResp(response?.data?.msg)
       if (response?.status == 200) {
-        window.localStorage.setItem("token", response?.data?.token);
-        window.localStorage.setItem("user",response?.data?.username);
-        window.location.reload();
+        window.localStorage.setItem("token", response?.data?.token)
+        window.localStorage.setItem("user", response?.data?.username)
+        window.location.reload()
         if (isPopup && onClose) {
           onClose()
         } else {
@@ -131,7 +131,16 @@ export default function LandingAuth({ onClose, isPopup = false }) {
     if (isMobile) {
       setShowMobileSignup(true)
     } else {
-      setShowSignupPopup(true)
+      // If onCreateAccount prop is provided, use it to handle the transition
+      if (onCreateAccount) {
+        onCreateAccount()
+      } else {
+        // Otherwise, show the signup popup and close the current popup if needed
+        setShowSignupPopup(true)
+        if (isPopup && onClose) {
+          onClose()
+        }
+      }
     }
   }
 
@@ -277,3 +286,4 @@ export default function LandingAuth({ onClose, isPopup = false }) {
     </AuthContainer>
   )
 }
+
