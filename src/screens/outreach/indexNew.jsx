@@ -183,7 +183,6 @@ export default function Outreach2() {
   const toggleBookmarked = () => {
     const newBookmarked = !bookmarked;
     setBookmarked(newBookmarked);
-    
     // Scroll to top when toggling bookmarked
     if (scrollableContentRef.current) {
       scrollableContentRef.current.scrollTop = 0;
@@ -294,6 +293,7 @@ export default function Outreach2() {
                 {
                   bookmarked && bookmarks.map((item, index) => (
                     <div key={item._id || index} >
+                      {console.log(item)}
                       <Card
                         key={item._id || index}
                         data={item}

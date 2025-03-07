@@ -39,6 +39,7 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
       setResp(response?.data?.msg);
       if (response.status == 200) {
         window.localStorage.setItem("token", response?.data?.token);
+        window.localStorage.setItem("user",response?.data?.username);
         window.location.reload();
         navigate("/outreach");
       }
