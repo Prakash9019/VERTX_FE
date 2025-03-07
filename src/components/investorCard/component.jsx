@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import Button from "../button/component";
+import BookmarkButton from "./BookmarkButton";
 import "./style.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -28,15 +28,6 @@ export default function Card({  data,isBookmarked,toggleBookmark }) {
     setShow(false);
     document.body.style.overflow = "auto"; // Restore scrolling
   };
-
-  
-
-  // useEffect(()=>{
-  //   if(!localStorage.getItem('token')){
-  //     navigate('/authentication');
-  //     // return;
-  //   }
-  // })
   return (
     <div className="pcard" onClick={openPopup} >
       {show && (
@@ -46,6 +37,7 @@ export default function Card({  data,isBookmarked,toggleBookmark }) {
               <button className="btn" onClick={hide}>
                 <ion-icon name="arrow-back-outline"></ion-icon>
               </button>
+              {/* <BookmarkButton investorId={data._id}  /> */}
               <button className="btn" onClick={() => toggleBookmark(data._id)}>
                 <ion-icon name={isBookmarked ? "bookmark" : "bookmark-outline"}></ion-icon>
                 {isBookmarked ? "Bookmarked" : "Bookmark"}

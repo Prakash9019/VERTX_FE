@@ -62,6 +62,7 @@ export default function LandingAuth({ onClose, isPopup = false }) {
       if (response?.status == 200) {
         window.localStorage.setItem("token", response?.data?.token);
         window.localStorage.setItem("user",response?.data?.username);
+        window.location.reload();
         if (isPopup && onClose) {
           onClose()
         } else {

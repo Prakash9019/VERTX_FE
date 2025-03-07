@@ -38,6 +38,7 @@ export default function Signin() {
         setResp(response?.data?.msg);
         if (response.status == 200) {
           window.localStorage.setItem("token", response?.data?.token);
+          window.location.reload();
           navigate("/callback")
         }
         setShow(true);
