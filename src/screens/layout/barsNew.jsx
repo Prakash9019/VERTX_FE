@@ -636,9 +636,11 @@ export function MobileFooter({ currentPage }) {
   const [showAuthPage, setShowAuthPage] = useState(false)
 
   const handleNavigation = (route) => {
-    // Check if trying to access explore while not logged in
     if (route === "explore" && !window.localStorage.getItem("token")) {
-      setShowAuthPage(true)
+      // Show auth popup if user is not logged in and trying to access explore
+      setShowAuthPopup(true)
+    } else if (route === "explore" && window.localStorage.getItem("exe")) {
+      navigate("/explore/break")
     } else {
       navigate(`/${route}`)
     }

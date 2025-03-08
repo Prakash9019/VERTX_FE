@@ -39,13 +39,13 @@ import Outreach2 from "./screens/outreach/indexNew.jsx";
 import BrokenFeature from "./screens/explore/Break.jsx";
 import ProfileComplete from "./screens/explore/Complete.jsx";
 function App() {
-    // const { setIsProtected } = useCopyProtection();
+    const { setIsProtected } = useCopyProtection();
   
-    // useEffect(() => {
-    //   setIsProtected(true); 
-    // }, []);
+    useEffect(() => {
+      setIsProtected(true); 
+    }, []);
   
-    // useCopyBlocker(true); 
+    useCopyBlocker(true); 
 
   return (
     <Routes>
