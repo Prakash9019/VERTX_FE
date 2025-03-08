@@ -64,7 +64,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
       </div>
      
       <div className="btwrap mb">
-        {!window.localStorage.getItem("token") ? (
+        {!localStorage.getItem("token") ? (
           <Button
             context={"Login"}
             theme={"dark"}
@@ -259,7 +259,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             <button onClick={openSearchModal} className="hover:text-white py-2">Terms Of use</button>
             <a className="hover:text-white py-2">Community</a>
             <hr className="w-1/3 border-t-2 border-gray-400 mx-auto" />
-            <button onClick={() =>  {window.localStorage.removeItem("token"); navigate("/outreach");}} className="hover:text-white py-4">Log Out</button>
+            <button onClick={() =>  {localStorage.removeItem("token"); navigate("/outreach");}} className="hover:text-white py-4">Log Out</button>
            
           </div>
         )}

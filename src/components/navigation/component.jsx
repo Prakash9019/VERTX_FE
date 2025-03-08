@@ -35,12 +35,12 @@ export default function Navigation({cb}) {
           }}
         />
         {
-          window.localStorage.getItem("token") != null ? (
+          localStorage.getItem("token") != null ? (
             <Button
               theme={"dark"}
               context={"GET OUT"}
               callback={() => {
-                window.localStorage.removeItem("token");
+                localStorage.removeItem("token");
                 navigate("/authentication");
               }}
             />

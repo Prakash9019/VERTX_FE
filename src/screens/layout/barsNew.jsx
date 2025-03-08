@@ -35,7 +35,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   }, [])
 
   const handleProfileClick = () => {
-    if (window.localStorage.getItem("token")) {
+    if (localStorage.getItem("token")) {
       setShowProfilePopup(!showProfilePopup)
     } else {
       // Show full screen auth page instead of popup when not logged in
@@ -90,12 +90,12 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
               onClick={handleProfileClick}
             >
 
-{window.localStorage.getItem("dip")   ? (
+{localStorage.getItem("dip")   ? (
                       <img
                         alt="User Avatar"
                         // className="w-full h-full object-cover"
                         className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
-                        src={window.localStorage.getItem("dip")}
+                        src={localStorage.getItem("dip")}
                       />
                     ) : (
                       <svg width="469" height="469" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,7 +111,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
           <div className="fixed top-16 left-1/2 -translate-x-1/2 z-20 h-[0.5px] w-11/12 bg-[#4B4B4B]"></div>
 
           {/* Profile Popup - only shown for logged in users */}
-          {showProfilePopup && window.localStorage.getItem("token") && (
+          {showProfilePopup && localStorage.getItem("token") && (
             <>
               {/* Overlay with 757575 color and low opacity */}
               <div className="fixed inset-0 bg-[#000000]/80 z-30" onClick={() => setShowProfilePopup(false)}></div>
@@ -139,7 +139,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
                     { icon: <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M13.9997 24.5L12.308 22.9833C10.3441 21.2139 8.72051 19.6875 7.43717 18.4042C6.15384 17.1208 5.13301 15.9688 4.37467 14.9479C3.61634 13.9271 3.08648 12.9889 2.78509 12.1333C2.4837 11.2778 2.33301 10.4028 2.33301 9.50834C2.33301 7.68056 2.94551 6.15417 4.17051 4.92917C5.39551 3.70417 6.9219 3.09167 8.74967 3.09167C9.76079 3.09167 10.7233 3.30556 11.6372 3.73334C12.5511 4.16112 13.3386 4.7639 13.9997 5.54167C14.6608 4.7639 15.4483 4.16112 16.3622 3.73334C17.2761 3.30556 18.2386 3.09167 19.2497 3.09167C21.0775 3.09167 22.6038 3.70417 23.8288 4.92917C25.0538 6.15417 25.6663 7.68056 25.6663 9.50834C25.6663 10.4028 25.5156 11.2778 25.2143 12.1333C24.9129 12.9889 24.383 13.9271 23.6247 14.9479C22.8663 15.9688 21.8455 17.1208 20.5622 18.4042C19.2788 19.6875 17.6552 21.2139 15.6913 22.9833L13.9997 24.5Z" fill="#FBFAF4"/>
                       </svg>
-                      , label: "Community" },
+                      , label: "Community" , action: handleCommunity },
                     { icon: <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M14.0003 25.6667C11.2975 24.9862 9.0663 23.4355 7.30658 21.0146C5.54685 18.5938 4.66699 15.9056 4.66699 12.95V5.83337L14.0003 2.33337L23.3337 5.83337V12.95C23.3337 15.9056 22.4538 18.5938 20.6941 21.0146C18.9344 23.4355 16.7031 24.9862 14.0003 25.6667Z" fill="#FBFAF4"/>
                       </svg>
@@ -259,6 +259,14 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     setShowDesktopProfilePopup(false)
   }
 
+  const handleCommunityClick = () => {
+    // Redirect to the WhatsApp group link
+    console.log("helllool");
+    window.location.href = 'https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8';
+    setShowDesktopProfilePopup(false);  // Close the popup if needed
+  };
+
+  
   const handleOverviewClick = () => {
     navigate("/explore/bio")
     setShowDesktopProfilePopup(false)
@@ -266,10 +274,10 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   // Updated navigation handler
   const handleNavigation = (route) => {
-    if (route === "explore" && !window.localStorage.getItem("token")) {
+    if (route === "explore" && !localStorage.getItem("token")) {
       // Show auth popup if user is not logged in and trying to access explore
       setShowAuthPopup(true)
-    } else if (route === "explore" && window.localStorage.getItem("exe")) {
+    } else if (route === "explore" && localStorage.getItem("exe")) {
       navigate("/explore/break")
     } else {
       navigate(`/${route}`)
@@ -285,41 +293,11 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     }
   }, [location.pathname])
 
-  // Only show sidebar on desktop
 
-  // const [username1,setUsernamee1] =useState("@username")
-
-  // const handleUsername = async () => {
-  //   try {
-  //     const token = window.localStorage.getItem("token");
-  //     if (!token) return; // Prevent request if token is missing
-
-  //     const response = await axios.get(`${API_KEY}/auth/getUser`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         token: token, // Send token in headers
-  //       },
-  //     });
-
-  //     // console.log(response.data);
-  //     setUsernamee1(response.data.user.username); // Update the username state with the fetched username
-  //     window.localStorage.setItem("user",response.data.user.username);
-  //   } catch (error) {
-  //     console.error("Error fetching user data:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     handleUsername(); // Call the function inside useEffect
-  //   }
-  // }, []); // Ensures it runs only once on mount
-
-  // Listen for the back button press
   useEffect(() => {
     const handleBackButton = (event) => {
       // Check if user is not logged in
-      if (!window.localStorage.getItem("token")) {
+      if (!localStorage.getItem("token")) {
         // Redirect to outreach page
         navigate("/outreach")
       }
@@ -338,6 +316,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const handleGoogleLogout = async () => {
     try {
       localStorage.removeItem("token")
+      localStorage.removeItem("dip");
+      localStorage.removeItem("user")
       window.location.href = "/" // Redirect to the homepage after logout
     } catch (error) {
       console.error("Error during logout", error)
@@ -415,11 +395,11 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <div className="flex flex-col items-center mb-6 mt-auto relative">
           {sidebarOpen ? (
             <div className="flex flex-col w-full px-4 space-y-4 mb-4">
-              {window.localStorage.getItem("token") ? (
+              {localStorage.getItem("token") ? (
                 <>
                   <div className="flex items-center justify-between w-full border border-[#111111] rounded-md p-3 mb-4">
                     <div className="flex items-center space-x-3">
-                    {window.localStorage.getItem("dip") ? <img src={window.localStorage.getItem("dip") } alt="dp" className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" /> :
+                    {localStorage.getItem("dip") ? <img src={localStorage.getItem("dip") } alt="dp" className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" /> :
                       <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
                      <svg width="469" height="469" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M468.37 234.186C468.37 308.459 433.796 374.655 379.86 417.556C339.877 449.37 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.37 88.5096 417.556C34.5767 374.655 0 308.459 0 234.186C0 104.851 104.853 -3.05176e-05 234.186 -3.05176e-05C363.519 -3.05176e-05 468.37 104.851 468.37 234.186Z" fill="#111111"/>
@@ -428,7 +408,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 </svg>
                       </div>}
                       <div>
-                        <p className="text-white text-sm">{window.localStorage.getItem("user") || "@username"}</p>
+                        <p className="text-white text-sm">{localStorage.getItem("user") || "@username"}</p>
                       </div>
                     </div>
                     <button
@@ -468,6 +448,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <span className="ml-3 font-bold">FlowAI</span> {/* Added font-bold class */}
                     </button>
                   </div>
+                  <span class="material-symbols-outlined">search</span>
                 </>
               ) : (
                 <div className="flex flex-col space-y-4">
@@ -533,7 +514,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     { icon: <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M13.9997 24.5L12.308 22.9833C10.3441 21.2139 8.72051 19.6875 7.43717 18.4042C6.15384 17.1208 5.13301 15.9688 4.37467 14.9479C3.61634 13.9271 3.08648 12.9889 2.78509 12.1333C2.4837 11.2778 2.33301 10.4028 2.33301 9.50834C2.33301 7.68056 2.94551 6.15417 4.17051 4.92917C5.39551 3.70417 6.9219 3.09167 8.74967 3.09167C9.76079 3.09167 10.7233 3.30556 11.6372 3.73334C12.5511 4.16112 13.3386 4.7639 13.9997 5.54167C14.6608 4.7639 15.4483 4.16112 16.3622 3.73334C17.2761 3.30556 18.2386 3.09167 19.2497 3.09167C21.0775 3.09167 22.6038 3.70417 23.8288 4.92917C25.0538 6.15417 25.6663 7.68056 25.6663 9.50834C25.6663 10.4028 25.5156 11.2778 25.2143 12.1333C24.9129 12.9889 24.383 13.9271 23.6247 14.9479C22.8663 15.9688 21.8455 17.1208 20.5622 18.4042C19.2788 19.6875 17.6552 21.2139 15.6913 22.9833L13.9997 24.5Z" fill="#FBFAF4"/>
                       </svg>
-                      , label: "Community" },
+                      , label: "Community", action : handleCommunityClick },
                     { icon: <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M14.0003 25.6667C11.2975 24.9862 9.0663 23.4355 7.30658 21.0146C5.54685 18.5938 4.66699 15.9056 4.66699 12.95V5.83337L14.0003 2.33337L23.3337 5.83337V12.95C23.3337 15.9056 22.4538 18.5938 20.6941 21.0146C18.9344 23.4355 16.7031 24.9862 14.0003 25.6667Z" fill="#FBFAF4"/>
                       </svg>
@@ -647,10 +628,10 @@ export function MobileFooter({ currentPage }) {
   const [showAuthPage, setShowAuthPage] = useState(false)
 
   const handleNavigation = (route) => {
-    if (route === "explore" && !window.localStorage.getItem("token")) {
+    if (route === "explore" && !localStorage.getItem("token")) {
       // Show auth popup if user is not logged in and trying to access explore
       setShowAuthPopup(true)
-    } else if (route === "explore" && window.localStorage.getItem("exe")) {
+    } else if (route === "explore" && localStorage.getItem("exe")) {
       navigate("/explore/break")
     } else {
       navigate(`/${route}`)

@@ -128,7 +128,7 @@ useEffect(() => {
                 <div className={`${isMobile ? 'flex-1' : ''}`}>
                   <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold mb-2`}>{userData?.firstName + userData?.lastName}</h2>
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-1`}>{userData?.city || "Location not provided"}</p>
-                  <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#757575] mb-4`}>@{window.localStorage.getItem("user")  || "username"}</p>
+                  <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#757575] mb-4`}>@{localStorage.getItem("user")  || "username"}</p>
                   <p className={`${isMobile ? 'text-lg' : 'text-xl'} mt-3 mb-6`}>{userData?.headline || "Role not defined"}</p>
                   
                   <div className="flex flex-wrap gap-2">

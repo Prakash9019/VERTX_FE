@@ -19,7 +19,7 @@ export default function Explore(){
 
     const startFlow = async () => {
       const response = await axios.get(API_KEY + "/auth/founder", {
-        headers: {token: window.localStorage.getItem("token")}
+        headers: {token: localStorage.getItem("token")}
       }).catch((e) => e.response);
       const client = response?.data?.msg;
       const data = {

@@ -35,7 +35,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   }, [])
 
   const handleProfileClick = () => {
-    if (window.localStorage.getItem("token")) {
+    if (localStorage.getItem("token")) {
       setShowProfilePopup(!showProfilePopup)
     } else {
       // Show auth popup instead of full login page when not logged in
@@ -87,7 +87,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
           <div className="fixed top-16 left-1/2 -translate-x-1/2 z-20 h-[0.5px] w-11/12 bg-[#4B4B4B]"></div>
 
           {/* Profile Popup - only shown for logged in users */}
-          {showProfilePopup && window.localStorage.getItem("token") && (
+          {showProfilePopup && localStorage.getItem("token") && (
             <>
               {/* Overlay with 757575 color and low opacity */}
               <div className="fixed inset-0 bg-[#000000]/80 z-30" onClick={() => setShowProfilePopup(false)}></div>
@@ -213,7 +213,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   // Updated navigation handler
   const handleNavigation = (route) => {
-    if (route === "explore" && !window.localStorage.getItem("token")) {
+    if (route === "explore" && !localStorage.getItem("token")) {
       // Show auth popup if user is not logged in and trying to access explore
       setShowAuthPopup(true)
     } else {
@@ -237,7 +237,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const handleUsername = async () => {
     try {
-      const token = window.localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       if (!token) return; // Prevent request if token is missing
   
       const response = await axios.get(`${API_KEY}/auth/getUser`, {
@@ -264,7 +264,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   useEffect(() => {
     const handleBackButton = (event) => {
       // Check if user is not logged in
-      if (!window.localStorage.getItem("token")) {
+      if (!localStorage.getItem("token")) {
         // Redirect to outreach page
         navigate("/outreach");
       }
@@ -360,7 +360,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <div className="flex flex-col items-center mb-6 mt-auto relative">
           {sidebarOpen ? (
             <div className="flex flex-col w-full px-4 space-y-4 mb-4">
-              {window.localStorage.getItem("token") ? (
+              {localStorage.getItem("token") ? (
                 <>
                   <div className="flex items-center justify-between w-full border border-[#111111] rounded-md p-3 mb-4">
                     <div className="flex items-center space-x-3">
@@ -564,7 +564,7 @@ export function MobileFooter({ currentPage }) {
 
   const handleNavigation = (route) => {
     // Check if trying to access explore while not logged in
-    if (route === "explore" && !window.localStorage.getItem("token")) {
+    if (route === "explore" && !localStorage.getItem("token")) {
       setShowAuthPopup(true)
     } else {
       navigate(`/${route}`)

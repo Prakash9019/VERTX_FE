@@ -10,7 +10,7 @@ export default function BrokenFeature() {
   const [isMobile, setIsMobile] = useState(false)
   const navigate=useNavigate();
   const handleClick =()=>{
-    window.localStorage.setItem("exe","1");
+    localStorage.setItem("exe","1");
     navigate("/outreach")
   }
   useEffect(() => {

@@ -248,7 +248,7 @@ function Step2({ cb, back }) {
   const [resp, setResp] = useState("");
 
   const preload = async() => {
-    const response = await axios.get(API_KEY + "/auth/founder", {headers: {token: window.localStorage.getItem("token")}}).catch((e) => e.response);
+    const response = await axios.get(API_KEY + "/auth/founder", {headers: {token: localStorage.getItem("token")}}).catch((e) => e.response);
     console.log(Object.keys(response.data?.msg))
     if(response.status == 200){
       setProduct(response?.data?.msg?.product)
@@ -294,7 +294,7 @@ function Step2({ cb, back }) {
     if(response.status == 200){
       const resp = await axios.post(API_KEY + "/match/upload", {matches: response?.data}, {
         headers: {
-          token: window.localStorage.getItem("token")
+          token: localStorage.getItem("token")
         }
       }).catch((e) => e.response).finally(() => {
         setLoad(false);
@@ -515,7 +515,7 @@ function Step3() {
   const navigate = useNavigate();
 
   const getMatches = async() => {
-    const resp = await axios.get(API_KEY + "/match/matches", {headers: {token: window.localStorage.getItem("token")}}).catch(e => e.response);
+    const resp = await axios.get(API_KEY + "/match/matches", {headers: {token: localStorage.getItem("token")}}).catch(e => e.response);
     console.log(resp.data);
     if(resp.status == 200){
       setMatches(resp.data.msg);
@@ -529,7 +529,7 @@ function Step3() {
 
   const startPipe = async() => {
     setLoad(true)
-    const resp = await axios.patch(API_KEY + "/match/update", {names: selected}, {headers: {token: window.localStorage.getItem("token")}}).catch(e => e.response).finally(() => {
+    const resp = await axios.patch(API_KEY + "/match/update", {names: selected}, {headers: {token: localStorage.getItem("token")}}).catch(e => e.response).finally(() => {
       setLoad(false);
       if(response.status === 200){
         navigate("/flow/outbound")
@@ -612,8 +612,8 @@ function Step3() {
 }
 
 export default function Matchflow() {
-  const [step, setStep] = useState(window.localStorage.getItem("step") || 0);
-  const token = window.localStorage.getItem("token");
+  const [step, setStep] = useState(localStorage.getItem("step") || 0);
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   useEffect(() => {
     if(!token) navigate("/signin");

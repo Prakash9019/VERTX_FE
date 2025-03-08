@@ -22,10 +22,10 @@ export function Callback2() {
       //console.log(response)
       //console.log(response.data);
       if(response.status == 200){
-        window.localStorage.setItem("token", response?.data?.token);
+        localStorage.setItem("token", response?.data?.token);
         navigate("/outreach");
       }
-      window.localStorage.setItem("token", response?.data?.token);
+      localStorage.setItem("token", response?.data?.token);
         navigate("/outreach");
   };
   
@@ -92,7 +92,7 @@ export function Callback2() {
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
       localStorage.setItem("user",response.data.user.username);
       localStorage.setItem("dip",response.data.user.dip);
-      console.log(window.localStorage.getItem("dip"))
+      console.log(localStorage.getItem("dip"))
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -107,7 +107,7 @@ export function Callback2() {
       if (token) {
         // Store the token in local storage
         await handleUsername();
-        window.localStorage.setItem("token", token);
+        localStorage.setItem("token", token);
         navigate("/outreach");  // Redirect to outreach or desired route
       } else {
         //console.error("Error fetching data from backend:", token);
