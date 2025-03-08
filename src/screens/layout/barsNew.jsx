@@ -261,7 +261,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const handleCommunityClick = () => {
     // Redirect to the WhatsApp group link
-    console.log("helllool");
     window.location.href = 'https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8';
     setShowDesktopProfilePopup(false);  // Close the popup if needed
   };
@@ -317,7 +316,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     try {
       localStorage.removeItem("token")
       localStorage.removeItem("dip");
-      localStorage.removeItem("user")
+      localStorage.removeItem("user");
       window.location.href = "/" // Redirect to the homepage after logout
     } catch (error) {
       console.error("Error during logout", error)
@@ -448,7 +447,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <span className="ml-3 font-bold">FlowAI</span> {/* Added font-bold class */}
                     </button>
                   </div>
-                  <span class="material-symbols-outlined">search</span>
+                  {/* <span class="material-symbols-outlined">search</span> */}
                 </>
               ) : (
                 <div className="flex flex-col space-y-4">
