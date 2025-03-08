@@ -224,7 +224,30 @@ export default function Outreach2() {
 
     getInvestors()
     fetchBookmarks()
-  }, [currentPage, pageSize, filters, bookmarked, womenLed]) // Added womenLed to dependency array
+  }, [currentPage, pageSize, filters, bookmarked, womenLed]) 
+
+  const [womenInv,setWomenInv] =useState([]);
+  useEffect(() => {
+    // Check if the path includes "explore" to keep the bar active
+    const fetchList = async () => {
+      try {
+        const res = await axios.get(`${API_KEY}/investors/women`, {
+          headers: { token: localStorage.getItem("token") },
+        })
+        console.log("cskhdbdshbch")
+        console.log(res.data.data);
+        setWomenInv(res.data.data) // Assuming the API returns an array of investor IDs
+      } catch (error) {
+        console.error("Error fetching bookmarks:", error)
+      }
+    }
+
+   
+    fetchList();
+
+
+  }, [])
+
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage)
@@ -404,11 +427,11 @@ export default function Outreach2() {
           {error && <div className="error-message">{error}</div>}
           
 {/* Women Led info box */}
-{womenLed && (
+
   <div className="bg-[#1e1e1e] border border-[#75757569] rounded-[30px]">
     <img src={logo || "/placeholder.svg"} alt="image" className="w-full h-auto rounded-[10px]" />
   </div>
-)}
+
 
 
 
@@ -426,7 +449,7 @@ export default function Outreach2() {
               </div>
             ) : (
               <>
-                {!bookmarked &&
+                {!womenLed && !bookmarked &&
                   investors.map((item, index) => (
                     <div key={item._id || index} className="w-full">
                       <Card
@@ -437,12 +460,23 @@ export default function Outreach2() {
                       />
                     </div>
                   ))}
-                 {bookmarked &&
+                 {!womenLed && bookmarked &&
                   investors
                     .filter((item) => bookmarks.includes(item._id))
                     .map((item) => (
                       <Card key={item._id} data={item} toggleBookmark={toggleBookmark} isBookmarked={true} />
                     ))}
+                   {console.log(womenInv)}
+                    {womenLed && womenInv.map((item, index) => (
+                    <div key={item._id || index} className="w-full">
+                      <Card
+                        key={item._id || index}
+                        data={item}
+                        toggleBookmark={toggleBookmark}
+                        isBookmarked={bookmarks.includes(item._id)}
+                      />
+                    </div>
+                  ))}
               </>
             )}
           </div>

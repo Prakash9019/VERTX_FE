@@ -59,12 +59,12 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                                     <div className="tag bk">VERIFIED</div>
                                     <div className="tag">{data?.investorType}</div>
                                 </div>
-                                <div className="flex flex-col absolute right-6">
+                                {/* <div className="flex flex-col absolute right-6">
                                     <p className="sidehead">Cheque Size</p>
                                     <div className="tag2"
                                         style={{ marginTop: 10, color: "grey", borderColor: "grey" }}
                                     >{data?.chequeSize}</div>
-                                </div>
+                                </div> */}
                                 <p className="sidehead">Stage interested in</p>
                                 <div className="tags" style={{ marginTop: 10 }}>
                                     {/* interested tags */}
@@ -102,7 +102,20 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                             <div className="tag2"
                                 style={{ marginTop: 10, color: "grey", borderColor: "grey" }}
                             >
-                                {capitalizeWords(data?.industry)}
+                                {data?.industry.length < 1 ?  capitalizeWords(data?.industry) :
+                                  <>
+                                   {data?.industry.map((ind, index) => (
+                                        <div
+                                            key={index}
+                                            className="tag"
+                                            style={{ color: "grey", borderColor: "grey" }}
+                                        >
+                                            {ind}
+                                        </div>
+                                    ))}
+                                  </>
+                                
+                                }
                             </div>
                         </div>
                         <div className="moreData">
@@ -110,15 +123,32 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                             <div className="tag2"
                                 style={{ marginTop: 10, color: "grey", borderColor: "grey" }}
                             >
-                                {data?.country}
+                                {data?.country ? data.country : data.globalHQ}
                             </div>
                         </div>
                         <div className="moreData" style={{ marginTop: 15 }}>
                             <p className="sidehead" style={{ marginTop: 15 }}>Contact</p>
+                           
+                              
                             <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
                                 <a href={data?.website} target="_blank" rel="noopener noreferrer">
                                     {data?.website}
+                                </a>   
+                            </div>
+                            <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
+                            <a href={data?.linkedin} target="_blank" rel="noopener noreferrer">
+                                    {data?.linkedin}
                                 </a>
+                            </div>
+                            <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
+                            <a href={data?.twitter} target="_blank" rel="noopener noreferrer">
+                                    {data?.twitter}
+                                </a> 
+                            </div>
+                            <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
+                            <a href={data?.crunchbase} target="_blank" rel="noopener noreferrer">
+                                    {data?.crunchbase}
+                                </a> 
                             </div>
                         </div>
                     </div>
