@@ -8,6 +8,7 @@ import LandingAuth from "../landing/index"
 import Signup from "../auth/signup"
 import TermsAndConditions from "../More/TermsandConditions"
 import PrivacyPolicy from "../More/PrivacyPolicy"
+import CommunityPage from "./Community"
 // Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
   const [isMobile, setIsMobile] = useState(false)
@@ -43,6 +44,14 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
       setShowAuthPage(true)
     }
   }
+
+
+  const handleCommunityClick = () => {
+    // Redirect to the WhatsApp group link
+    navigate("/community");
+    // window.location.href = 'https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8';
+    setShowProfilePopup(false);  // Close the popup if needed
+  };
 
   const handleCloseAuthPage = () => {
     setShowAuthPage(false)
@@ -146,7 +155,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
                     { icon: <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M13.9997 24.5L12.308 22.9833C10.3441 21.2139 8.72051 19.6875 7.43717 18.4042C6.15384 17.1208 5.13301 15.9688 4.37467 14.9479C3.61634 13.9271 3.08648 12.9889 2.78509 12.1333C2.4837 11.2778 2.33301 10.4028 2.33301 9.50834C2.33301 7.68056 2.94551 6.15417 4.17051 4.92917C5.39551 3.70417 6.9219 3.09167 8.74967 3.09167C9.76079 3.09167 10.7233 3.30556 11.6372 3.73334C12.5511 4.16112 13.3386 4.7639 13.9997 5.54167C14.6608 4.7639 15.4483 4.16112 16.3622 3.73334C17.2761 3.30556 18.2386 3.09167 19.2497 3.09167C21.0775 3.09167 22.6038 3.70417 23.8288 4.92917C25.0538 6.15417 25.6663 7.68056 25.6663 9.50834C25.6663 10.4028 25.5156 11.2778 25.2143 12.1333C24.9129 12.9889 24.383 13.9271 23.6247 14.9479C22.8663 15.9688 21.8455 17.1208 20.5622 18.4042C19.2788 19.6875 17.6552 21.2139 15.6913 22.9833L13.9997 24.5Z" fill="#FBFAF4"/>
                       </svg>
-                      , label: "Community" , action: handleCommunity },
+                      , label: "Community" , action: handleCommunityClick },
                     { icon: <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M14.0003 25.6667C11.2975 24.9862 9.0663 23.4355 7.30658 21.0146C5.54685 18.5938 4.66699 15.9056 4.66699 12.95V5.83337L14.0003 2.33337L23.3337 5.83337V12.95C23.3337 15.9056 22.4538 18.5938 20.6941 21.0146C18.9344 23.4355 16.7031 24.9862 14.0003 25.6667Z" fill="#FBFAF4"/>
                       </svg>
@@ -299,8 +308,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }
 
   const handleCommunityClick = () => {
+    navigate("/community");
     // Redirect to the WhatsApp group link
-    window.location.href = 'https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8';
+    // window.location.href = 'https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8';
     setShowDesktopProfilePopup(false);  // Close the popup if needed
   };
 

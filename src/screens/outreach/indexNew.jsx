@@ -373,7 +373,9 @@ export default function Outreach2() {
           >
             <div className="filter mb-3 flex flex-nowrap gap-2 sm:gap-3">
               {/* Multi-Select Country */}
-              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+            { !womenLed && 
+                <>
+            <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={Country}
                   onChange={(values) => handleFilterChange("country", values)}
@@ -382,7 +384,6 @@ export default function Outreach2() {
                 />
               </div>
 
-              {/* Multi-Select Investor Type */}
               <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={investorType}
@@ -392,7 +393,6 @@ export default function Outreach2() {
                 />
               </div>
 
-              {/* Multi-Select Industry */}
               <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={industries}
@@ -402,7 +402,6 @@ export default function Outreach2() {
                 />
               </div>
 
-              {/* Bookmarked Button */}
               <div className="min-w-[100px] sm:min-w-[120px]">
                 <button
                   className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
@@ -412,7 +411,10 @@ export default function Outreach2() {
                 >
                   Bookmarked
                 </button>
-              </div>
+              </div> 
+              
+              </>
+              }
 
               {/* Women Led Button */}
               <div className="min-w-[100px] sm:min-w-[120px]">
