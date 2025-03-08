@@ -38,6 +38,7 @@ export default function Signin() {
         setResp(response?.data?.msg);
         if (response.status == 200) {
           localStorage.setItem("token", response?.data?.token);
+          localStorage.setItem("user",response?.data?.username);
           window.location.reload();
           navigate("/callback")
         }

@@ -102,9 +102,11 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                             <div className="tag2"
                                 style={{ marginTop: 10, color: "grey", borderColor: "grey" }}
                             >
-                                {data?.industry.length < 1 ?  capitalizeWords(data?.industry) :
+                                {console.log(data)}
+                                {data.industry}
+                                {/* {data?.industry.length <= 1 ?  data?.industry :
                                   <>
-                                   {data?.industry.map((ind, index) => (
+                                   {data?.industry?.map((ind, index) => (
                                         <div
                                             key={index}
                                             className="tag"
@@ -112,10 +114,10 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                                         >
                                             {ind}
                                         </div>
-                                    ))}
-                                  </>
+                                    ))} */}
+                                  {/* </>
                                 
-                                }
+                                } */}
                             </div>
                         </div>
                         <div className="moreData">
@@ -135,21 +137,21 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                                     {data?.website}
                                 </a>   
                             </div>
-                            <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
+                           { data.linkedin && <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
                             <a href={data?.linkedin} target="_blank" rel="noopener noreferrer">
                                     {data?.linkedin}
                                 </a>
-                            </div>
-                            <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
+                            </div>}
+                            { data.twitter && <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
                             <a href={data?.twitter} target="_blank" rel="noopener noreferrer">
                                     {data?.twitter}
                                 </a> 
-                            </div>
-                            <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
+                            </div> }
+                            {  data.crunchbase && <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
                             <a href={data?.crunchbase} target="_blank" rel="noopener noreferrer">
                                     {data?.crunchbase}
                                 </a> 
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>
