@@ -9,7 +9,8 @@ import { Layout, MobileFooter } from "../layout/barsNew.jsx"
 import Card from "../../components/investorCard/component"
 import gify from "./gify.gif"
 import "./style.css"
-import Select from "react-select"
+import Select from "react-select"      
+import logo from "./womensDay.png"
 
 const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
   // Create a ref for manually handling input width
@@ -122,6 +123,7 @@ export default function Outreach2() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [bookmarked, setBookmarked] = useState(false)
+  const [womenLed, setWomenLed] = useState(false) // New state for women-led filter
   const [bookmarks, setBookmarks] = useState([])
 
   // Pagination states
@@ -189,6 +191,7 @@ export default function Outreach2() {
             industry: filters.industry.length > 0 ? filters.industry : undefined,
             investorType: filters.investorType.length > 0 ? filters.investorType : undefined,
             bookmarked: bookmarked ? true : undefined,
+            womenLed: womenLed ? true : undefined, // Add women-led filter parameter
           },
         })
         setInvestors(response.data.data)
@@ -221,7 +224,7 @@ export default function Outreach2() {
 
     getInvestors()
     fetchBookmarks()
-  }, [currentPage, pageSize, filters, bookmarked])
+  }, [currentPage, pageSize, filters, bookmarked, womenLed]) // Added womenLed to dependency array
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage)
@@ -253,6 +256,18 @@ export default function Outreach2() {
     const newBookmarked = !bookmarked
     setBookmarked(newBookmarked)
     // Scroll to top when toggling bookmarked
+    if (scrollableContentRef.current) {
+      scrollableContentRef.current.scrollTop = 0
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }
+
+  // Toggle women-led filter
+  const toggleWomenLed = () => {
+    const newWomenLed = !womenLed
+    setWomenLed(newWomenLed)
+    // Scroll to top when toggling women-led
     if (scrollableContentRef.current) {
       scrollableContentRef.current.scrollTop = 0
     } else {
@@ -354,7 +369,7 @@ export default function Outreach2() {
               </div>
 
               {/* Bookmarked Button */}
-              <div className="min-w-[100px] sm:min-w-[120px] lg:min-w-[150px]">
+              <div className="min-w-[100px] sm:min-w-[120px]">
                 <button
                   className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
                     bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
@@ -362,6 +377,18 @@ export default function Outreach2() {
                   onClick={toggleBookmarked}
                 >
                   Bookmarked
+                </button>
+              </div>
+
+              {/* Women Led Button */}
+              <div className="min-w-[100px] sm:min-w-[120px]">
+                <button
+                  className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
+                    womenLed ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
+                  }`}
+                  onClick={toggleWomenLed}
+                >
+                  Women Led
                 </button>
               </div>
             </div>
@@ -375,6 +402,15 @@ export default function Outreach2() {
           style={{ maxWidth: "100%" }}
         >
           {error && <div className="error-message">{error}</div>}
+          
+{/* Women Led info box */}
+{womenLed && (
+  <div className="bg-[#1e1e1e] border border-[#75757569] rounded-[30px]">
+    <img src={logo || "/placeholder.svg"} alt="image" className="w-full h-auto rounded-[10px]" />
+  </div>
+)}
+
+
 
           {/* Investor Cards */}
           <div 
@@ -434,9 +470,4 @@ export default function Outreach2() {
       </div>
     </Layout>
   )
-} 
-
-
-
-
-
+}
