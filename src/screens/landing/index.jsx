@@ -8,9 +8,9 @@ import FloatingLabelInput from "../../components/LabelInput.jsx"
 import Signup from "../auth/signup.jsx"
 import { Button, BackButton, AuthContainer } from "../auth/common-components.jsx"
 
-export default function LandingAuth({ onClose, isPopup = false, onCreateAccount }) {
+export default function LandingAuth({ onClose, isPopup = false, onCreateAccount, initialView = "signup" }) {
   const navigate = useNavigate()
-  const [showLoginForm, setShowLoginForm] = useState(false)
+  const [showLoginForm, setShowLoginForm] = useState(initialView === "login")
   const [showPasswordForm, setShowPasswordForm] = useState(false)
   const [showSignupPopup, setShowSignupPopup] = useState(false)
   const [showMobileSignup, setShowMobileSignup] = useState(false)
@@ -110,6 +110,19 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount 
 
   // Function to go back
   const handleBack = () => {
+    // Check if this login was initiated from the bars page
+    if (localStorage.getItem("fromBarsLogin") === "true") {
+      // Clear the flag
+      localStorage.removeItem("fromBarsLogin")
+      // Close the popup and navigate to starting page
+      if (onClose) {
+        onClose()
+      }
+
+      return
+    }
+
+    // Original behavior for other cases
     if (showPasswordForm) {
       setShowPasswordForm(false)
     } else if (showLoginForm) {
@@ -211,7 +224,7 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount 
                 {/* Email input and Next button */}
                 <div className="w-full">
                   <FloatingLabelInput
-                    id={`email`}
+                    id={email}
                     label="Enter email address"
                     type="text"
                     validateidentifier={true}
@@ -244,7 +257,7 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount 
                   className="w-full py-3 px-4 rounded-md bg-gray-800 border border-gray-700 text-white mb-3"
                 />
                 <FloatingLabelInput
-                  id={`password`}
+                  id={password}
                   label="Password"
                   type="password"
                   value={password}
@@ -286,4 +299,3 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount 
     </AuthContainer>
   )
 }
-

@@ -15,6 +15,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   const [showTermsPopup, setShowTermsPopup] = useState(false)
   const [showPrivacyPopup, setShowPrivacyPopup] = useState(false)
   const [showAuthPage, setShowAuthPage] = useState(false)
+  const [showLoginPage, setShowLoginPage] = useState(false)
   const [showSignupPopup, setShowSignupPopup] = useState(false)
   const navigate = useNavigate()
 
@@ -45,10 +46,12 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
 
   const handleCloseAuthPage = () => {
     setShowAuthPage(false)
+    setShowLoginPage(false)
   }
 
   const handleShowSignupFromAuth = () => {
     setShowAuthPage(false)
+    setShowLoginPage(false)
     setShowSignupPopup(true)
   }
 
@@ -74,6 +77,10 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   const handleOverviewClick = () => {
     navigate("/explore/bio")
     setShowProfilePopup(false)
+  }
+
+  const handleLogin = () => {
+    setShowLoginPage(true)
   }
 
   return (
@@ -123,11 +130,11 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
                     {
                       icon: (
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M6.82467 19.95C7.81634 19.1917 8.92467 18.5938 10.1497 18.1563C11.3747 17.7188 12.658 17.5 13.9997 17.5C15.3413 17.5 16.6247 17.7188 17.8497 18.1563C19.0747 18.5938 20.183 19.1917 21.1747 19.95C21.8552 19.1528 22.3851 18.2487 22.7643 17.2375C23.1434 16.2264 23.333 15.1473 23.333 14C23.333 11.4139 22.424 9.21185 20.6059 7.39379C18.7879 5.57574 16.5858 4.66671 13.9997 4.66671C11.4136 4.66671 9.21148 5.57574 7.39342 7.39379C5.57537 9.21185 4.66634 11.4139 4.66634 14C4.66634 15.1473 4.85592 16.2264 5.23509 17.2375C5.61426 18.2487 6.14412 19.1528 6.82467 19.95ZM13.9997 15.1667C12.8525 15.1667 11.8851 14.773 11.0976 13.9855C10.3101 13.198 9.91634 12.2306 9.91634 11.0834C9.91634 9.93615 10.3101 8.96879 11.0976 8.18129C11.8851 7.39379 12.8525 7.00004 13.9997 7.00004C15.1469 7.00004 16.1143 7.39379 16.9018 8.18129C17.6893 8.96879 18.083 9.93615 18.083 11.0834C18.083 12.2306 17.6893 13.198 16.9018 13.9855C16.1143 14.773 15.1469 15.1667 13.9997 15.1667ZM13.9997 25.6667C12.3858 25.6667 10.8691 25.3605 9.44967 24.748C8.03023 24.1355 6.79551 23.3042 5.74551 22.2542C4.69551 21.2042 3.86426 19.9695 3.25176 18.55C2.63926 17.1306 2.33301 15.6139 2.33301 14C2.33301 12.3862 2.63926 10.8695 3.25176 9.45004C3.86426 8.0306 4.69551 6.79587 5.74551 5.74587C6.79551 4.69587 8.03023 3.86462 9.44967 3.25212C10.8691 2.63962 12.3858 2.33337 13.9997 2.33337C15.6136 2.33337 17.1302 2.63962 18.5497 3.25212C19.9691 3.86462 21.2038 4.69587 22.2538 5.74587C23.3038 6.79587 24.1351 8.0306 24.7476 9.45004C25.3601 10.8695 25.6663 12.3862 25.6663 14C25.6663 15.6139 25.3601 17.1306 24.7476 18.55C24.1351 19.9695 23.3038 21.2042 22.2538 22.2542C21.2038 23.3042 19.9691 24.1355 18.5497 24.748C17.1302 25.3605 15.6136 25.6667 13.9997 25.6667Z"
-                          fill="#FBFAF4"
-                        />
-                      </svg>
+                          <path
+                            d="M6.82467 19.95C7.81634 19.1917 8.92467 18.5938 10.1497 18.1563C11.3747 17.7188 12.658 17.5 13.9997 17.5C15.3413 17.5 16.6247 17.7188 17.8497 18.1563C19.0747 18.5938 20.183 19.1917 21.1747 19.95C21.8552 19.1528 22.3851 18.2487 22.7643 17.2375C23.1434 16.2264 23.333 15.1473 23.333 14C23.333 11.4139 22.424 9.21185 20.6059 7.39379C18.7879 5.57574 16.5858 4.66671 13.9997 4.66671C11.4136 4.66671 9.21148 5.57574 7.39342 7.39379C5.57537 9.21185 4.66634 11.4139 4.66634 14C4.66634 15.1473 4.85592 16.2264 5.23509 17.2375C5.61426 18.2487 6.14412 19.1528 6.82467 19.95ZM13.9997 15.1667C12.8525 15.1667 11.8851 14.773 11.0976 13.9855C10.3101 13.198 9.91634 12.2306 9.91634 11.0834C9.91634 9.93615 10.3101 8.96879 11.0976 8.18129C11.8851 7.39379 12.8525 7.00004 13.9997 7.00004C15.1469 7.00004 16.1143 7.39379 16.9018 8.18129C17.6893 8.96879 18.083 9.93615 18.083 11.0834C18.083 12.2306 17.6893 13.198 16.9018 13.9855C16.1143 14.773 15.1469 15.1667 13.9997 15.1667ZM13.9997 25.6667C12.3858 25.6667 10.8691 25.3605 9.44967 24.748C8.03023 24.1355 6.79551 23.3042 5.74551 22.2542C4.69551 21.2042 3.86426 19.9695 3.25176 18.55C2.63926 17.1306 2.33301 15.6139 2.33301 14C2.33301 12.3862 2.63926 10.8695 3.25176 9.45004C3.86426 8.0306 4.69551 6.79587 5.74551 5.74587C6.79551 4.69587 8.03023 3.86462 9.44967 3.25212C10.8691 2.63962 12.3858 2.33337 13.9997 2.33337C15.6136 2.33337 17.1302 2.63962 18.5497 3.25212C19.9691 3.86462 21.2038 4.69587 22.2538 5.74587C23.3038 6.79587 24.1351 8.0306 24.7476 9.45004C25.3601 10.8695 25.6663 12.3862 25.6663 14C25.6663 15.6139 25.3601 17.1306 24.7476 18.55C24.1351 19.9695 23.3038 21.2042 22.2538 22.2542C21.2038 23.3042 19.9691 24.1355 18.5497 24.748C17.1302 25.3605 15.6136 25.6667 13.9997 25.6667Z"
+                            fill="#FBFAF4"
+                          />
+                        </svg>
                       ),
                       label: "Overview",
                       action: handleOverviewClick,
@@ -174,6 +181,18 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
             </div>
           )}
 
+          {/* Full screen Login Page */}
+          {showLoginPage && (
+            <div className="fixed inset-0 z-50 bg-black">
+              <LandingAuth
+                onClose={handleCloseAuthPage}
+                isPopup={false}
+                onCreateAccount={handleShowSignupFromAuth}
+                initialView="login"
+              />
+            </div>
+          )}
+
           {/* Signup Popup */}
           {showSignupPopup && (
             <div className="fixed inset-0 z-50 bg-black">
@@ -198,6 +217,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const navigate = useNavigate()
   const [currentPage, setPage] = useState("explore")
   const [showAuthPopup, setShowAuthPopup] = useState(false)
+  const [showLoginPopup, setShowLoginPopup] = useState(false)
   const [showSignupPopup, setShowSignupPopup] = useState(false)
   const [showDesktopProfilePopup, setShowDesktopProfilePopup] = useState(false)
   const [showTermsPopup, setShowTermsPopup] = useState(false)
@@ -219,24 +239,43 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     return () => window.removeEventListener("resize", checkIsMobile)
   }, [])
 
+  // Load sidebar state from localStorage on component mount
+  useEffect(() => {
+    const savedSidebarState = localStorage.getItem("sidebarOpen")
+    if (savedSidebarState !== null) {
+      setSidebarOpen(savedSidebarState === "true")
+    }
+  }, [setSidebarOpen])
+
   const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
+    const newState = !sidebarOpen
+    setSidebarOpen(newState)
+    // Save sidebar state to localStorage
+    localStorage.setItem("sidebarOpen", newState.toString())
   }
 
   const handleLogin = () => {
-    setShowAuthPopup(true)
+    // Set a flag to identify this is coming from the bars page login button
+    localStorage.setItem("fromBarsLogin", "true")
+    setShowLoginPopup(true)
   }
 
   const handleSignup = () => {
-    setShowSignupPopup(true)
+    setShowAuthPopup(true)
   }
 
   const handleCloseAuthPopup = () => {
     setShowAuthPopup(false)
   }
 
+  const handleCloseLoginPopup = () => {
+    localStorage.removeItem("fromBarsLogin")
+    setShowLoginPopup(false)
+  }
+
   const handleShowSignupFromAuth = () => {
     setShowAuthPopup(false)
+    setShowLoginPopup(false)
     setShowSignupPopup(true)
   }
 
@@ -265,7 +304,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     setShowDesktopProfilePopup(false);  // Close the popup if needed
   };
 
-  
+
   const handleOverviewClick = () => {
     navigate("/explore/bio")
     setShowDesktopProfilePopup(false)
@@ -292,7 +331,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     }
   }, [location.pathname])
 
-
+  // Listen for the back button press
   useEffect(() => {
     const handleBackButton = (event) => {
       // Check if user is not logged in
@@ -306,6 +345,28 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
     return () => {
       window.removeEventListener("popstate", handleBackButton)
+    }
+  }, [navigate])
+
+  // Add this useEffect after the other useEffect hooks in the Sidebar component
+  useEffect(() => {
+    const handlePopState = (event) => {
+      // Check if this was a login initiated from the bars page
+      if (localStorage.getItem("fromBarsLogin") === "true") {
+        // Clear the flag
+        localStorage.removeItem("fromBarsLogin")
+        // Close the login popup
+        setShowLoginPopup(false)
+        // Prevent default navigation
+        event.preventDefault()
+        // Navigate directly to the starting page
+        navigate("/")
+      }
+    }
+
+    window.addEventListener("popstate", handlePopState)
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
     }
   }, [navigate])
 
@@ -323,6 +384,11 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     }
   }
 
+  // Handle profile icon click when sidebar is collapsed
+  const handleProfileIconClick = () => {
+    setShowDesktopProfilePopup(!showDesktopProfilePopup)
+  }
+
   if (isMobile) return null
 
   return (
@@ -333,13 +399,13 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         {/* Logo */}
         <div className="p-5 pb-2 flex items-center">
           <div className={`${sidebarOpen ? "ml-3 " : "-ml-2"} mt-4 pt-3 text-white`}>
-            <img src={logo || "/placeholder.svg"} alt="image" className={`w-12   ${sidebarOpen ? "h-10" : "h-12"}`} />
+            <img src={logo || ""} alt="image" className={`w-12   ${sidebarOpen ? "h-10" : "h-12"}`} />
           </div>
           {sidebarOpen && (
             <div className=" mt-8   flex items-center">
             <svg width="100" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
-                  d="M6.72 0.799999H8.656V8.176L5.008 12H3.584L0.944 8.096V0.799999H2.88V7.728L4.416 10.016L6.72 7.6V0.799999ZM11.8498 0.799999H18.0898V2.608H12.5858L12.2978 2.928V5.44H15.9938V7.248H12.2978V9.488L12.7618 10.192H18.0898V12H11.8018L10.3618 9.856V2.32L11.8498 0.799999ZM20.1155 0.799999H25.9875L27.8595 3.536V5.408L26.3875 6.928L27.8595 9.088V12H25.9235V9.424L24.4675 7.296H22.8995L22.0515 6.768V12H20.1155V0.799999ZM22.0515 2.608V5.488H25.2995L25.9235 4.848V3.92L25.0115 2.608H22.0515ZM29.4053 0.799999H37.7573V2.608H33.5013L34.5573 3.552V12H32.6213V4L32.1573 2.608H29.4053V0.799999ZM44.791 0.799999H46.727V4.208L45.207 5.76L46.727 7.984V12H44.791V8.352L43.975 7.216H43.239L41.559 8.976V12H39.623V8.368L41.143 6.816L39.623 4.592V0.799999H41.559V4.224L42.343 5.408H43.111L44.791 3.648V0.799999Z"
+                
                   fill="white"
                 />
               </svg>
@@ -389,7 +455,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             onClick={() => handleNavigation("resources")}
           />
         </div>
-{console.log(localStorage.getItem("dip"))}
+        {console.log(localStorage.getItem("dip"))}
         {/* User Profile Section */}
         <div className="flex flex-col items-center mb-6 mt-auto relative">
           {sidebarOpen ? (
@@ -406,10 +472,10 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 </svg>
                       </div>}
                       {localStorage.getItem("dip") && <img src={localStorage.getItem("dip") } alt="dp" className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" /> }
+                     
                       <div>
                         <p className="text-white text-sm">{localStorage.getItem("user") || "@username"}</p>
                       </div>
-                      {console.log(localStorage.getItem("dip"))}
                     </div>
                     <button
                       onClick={() => setShowDesktopProfilePopup(!showDesktopProfilePopup)}
@@ -448,16 +514,16 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <span className="ml-3 font-bold">FlowAI</span> {/* Added font-bold class */}
                     </button>
                   </div>
-                  {/* <span class="material-symbols-outlined">search</span> */}
                 </>
               ) : (
                 <div className="flex flex-col space-y-4">
                   <button
                     className="w-full h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold"
-                    onClick={handleLogin}
+                    onClick={handleSignup}
                   >
                     Sign Up
                   </button>
+
                   <button
                     className="w-full h-10 bg-[#1F1F1F] text-[#FBFAF4] border border-gray-300 rounded-md font-bold"
                     onClick={handleLogin}
@@ -477,12 +543,41 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   />
                 </svg>
               </button>
-              <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
-              <svg width="469" height="469" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Make profile image clickable when sidebar is collapsed */}
+              {localStorage.getItem("dip") ? (
+                <img 
+                  src={localStorage.getItem("dip")} 
+                  alt="dp" 
+                  className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer" 
+                  onClick={handleProfileIconClick}
+                />
+              ) : (
+                <div 
+                  className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
+                  onClick={handleProfileIconClick}
+                >
+                   <svg width="60" height="60" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M468.37 234.186C468.37 308.459 433.796 374.655 379.86 417.556C339.877 449.37 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.37 88.5096 417.556C34.5767 374.655 0 308.459 0 234.186C0 104.851 104.853 -3.05176e-05 234.186 -3.05176e-05C363.519 -3.05176e-05 468.37 104.851 468.37 234.186Z" fill="#111111"/>
 <path d="M234.184 308.838C284.45 308.838 325.199 268.089 325.199 217.823C325.199 167.557 284.45 126.808 234.184 126.808C183.918 126.808 143.169 167.557 143.169 217.823C143.169 268.089 183.918 308.838 234.184 308.838Z" fill="#EEEEEE" fill-opacity="0.933333"/>
 <path d="M379.86 417.556C339.877 449.371 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.371 88.5095 417.556C117.79 374.542 172.07 345.654 234.186 345.654C296.302 345.654 350.587 374.535 379.86 417.556Z" fill="#EEEEEE" fill-opacity="0.933333"/>
 </svg>
+                </div>
+              )}
+              
+              {/* Add FlowAI button below the profile pic when sidebar is collapsed */}
+              <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center mt-4">
+                <span
+                  className="text-black"
+                  style={{
+                    fontFamily: "Playfair Display",
+                    fontSize: "14px",
+                    lineHeight: "100%",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Fl
+                </span>
               </div>
             </div>
           )}
@@ -492,7 +587,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
               {/* Add overlay to capture clicks outside the popup */}
               <div className="fixed inset-0 z-40" onClick={() => setShowDesktopProfilePopup(false)}></div>
 
-              <div className="absolute bottom-[130px] right-[-210px] z-50 w-64 bg-[black] rounded-lg shadow-lg border border-[#333] p-4">
+              <div className={`absolute ${sidebarOpen ? 'bottom-[130px] right-[-210px]' : 'bottom-[100px] right-[-220px]'} z-50 w-64 bg-[black] rounded-lg shadow-lg border border-[#333] p-4`}>
                 <div className="space-y-2">
                   {[
                     {
@@ -555,6 +650,21 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         </div>
       )}
 
+      {/* Login Popup with Backdrop */}
+      {showLoginPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={handleCloseLoginPopup}></div>
+          <div className="z-50">
+            <LandingAuth
+              onClose={handleCloseLoginPopup}
+              isPopup={true}
+              onCreateAccount={handleShowSignupFromAuth}
+              initialView="login"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Signup Popup */}
       {showSignupPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -590,7 +700,8 @@ export function MainContent({ sidebarOpen, children }) {
   }, [])
 
   return (
-    <div className={`flex-1 ${isMobile ? "pt-16 pb-16" : `ml-${sidebarOpen ? "64" : "24"} pt-9 pr-6 pb-6`}`}>
+    <div className={`flex-1 ${isMobile ? "pt-16 pb-16" : `ml-${sidebarOpen ? "64" : "24"}
+     pt-9 pr-6 pb-6`}`}>
       <div className={`${!isMobile ? "bg-[#111] rounded-[10px] p-6" : "bg-[#111]"} h-full flex flex-col`}>
         {children}
       </div>
@@ -626,6 +737,8 @@ export function NavIconFooter({ icon, label, active = false }) {
 export function MobileFooter({ currentPage }) {
   const navigate = useNavigate()
   const [showAuthPage, setShowAuthPage] = useState(false)
+  const [showLoginPage, setShowLoginPage] = useState(false)
+  const [showAuthPopup, setShowAuthPopup] = useState(false)
 
   const handleNavigation = (route) => {
     if (route === "explore" && !localStorage.getItem("token")) {
@@ -640,6 +753,7 @@ export function MobileFooter({ currentPage }) {
 
   const handleCloseAuthPage = () => {
     setShowAuthPage(false)
+    setShowLoginPage(false)
   }
 
   return (
@@ -663,6 +777,13 @@ export function MobileFooter({ currentPage }) {
           <LandingAuth onClose={handleCloseAuthPage} isPopup={false} />
         </div>
       )}
+
+      {/* Full-screen Login Page */}
+      {showLoginPage && (
+        <div className="fixed inset-0 z-50 bg-black">
+          <LandingAuth onClose={handleCloseAuthPage} isPopup={false} initialView="login" />
+        </div>
+      )}
     </>
   )
 }
@@ -679,9 +800,14 @@ export function FilterButton({ label, mobile = false }) {
   )
 }
 // Layout Component
-export function Layout({ sidebarOpen, setSidebarOpen, children }) {
+export function Layout({ children }) {
   const [isMobile, setIsMobile] = useState(false)
   const [currentPage, setCurrentPage] = useState("explore")
+  // Initialize sidebar state from localStorage with a default value
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    const savedState = localStorage.getItem("sidebarOpen")
+    return savedState !== null ? savedState === "true" : true // Default to true if no saved state
+  })
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -722,4 +848,3 @@ export function Layout({ sidebarOpen, setSidebarOpen, children }) {
     </div>
   )
 }
-
