@@ -4,7 +4,7 @@ import "./style.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function Card({ data, isBookmarked, toggleBookmark }) {
+export default function Card({ isWomen, data, isBookmarked, toggleBookmark }) {
     const navigate = useNavigate();
 
     function capitalizeWords(str) {
@@ -39,12 +39,12 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                             <button className="btn" onClick={hide}>
                                 <ion-icon name="arrow-back-outline"></ion-icon>
                             </button>
-                            <div className="wrap">
+                           {!isWomen && <div className="wrap">
                                 <button className="btn" onClick={() => toggleBookmark(data._id)}>
                                     <ion-icon name={isBookmarked ? "bookmark" : "bookmark-outline"}></ion-icon>
                                     {isBookmarked ? "Bookmarked" : "Bookmark"}
                                 </button>
-                            </div>
+                            </div>}
                         </div>
                         <div className="sec">
                             <div className="img-cont">

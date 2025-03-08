@@ -485,6 +485,7 @@ export default function Outreach2() {
                         data={item}
                         toggleBookmark={toggleBookmark}
                         isBookmarked={bookmarks.includes(item._id)}
+                        isWomen={womenLed}
                       />
                     </div>
                   ))}
