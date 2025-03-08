@@ -59,12 +59,27 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                                     <div className="tag bk">VERIFIED</div>
                                     <div className="tag">{data?.investorType}</div>
                                 </div>
-                                {/* <div className="flex flex-col absolute right-6">
+                                <div className="flex flex-col absolute right-6">
                                     <p className="sidehead">Cheque Size</p>
-                                    <div className="tag2"
-                                        style={{ marginTop: 10, color: "grey", borderColor: "grey" }}
-                                    >{data?.chequeSize}</div>
-                                </div> */}
+                                 
+                                        
+                                        {typeof data?.chequeSize === 'string' ? (
+    <div className="tag2"
+    style={{ marginTop: 10, color: "grey", borderColor: "grey" }} >
+        {data?.chequeSize}
+    </div>
+) : (
+    <>
+        {data?.chequeSize?.map((ind, index) => (
+            <div className="tag2"
+            style={{ marginTop: 10, color: "grey", borderColor: "grey" }} >
+                {ind}
+            </div>
+        ))}
+    </>
+)}                                                         
+                                       
+                                </div>
                                 <p className="sidehead">Stage interested in</p>
                                 <div className="tags" style={{ marginTop: 10 }}>
                                     {/* interested tags */}
@@ -99,31 +114,22 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                         </div>
                         <div className="moreData">
                             <p className="sidehead" style={{ marginTop: 15 }}>Preferred Industry</p>
-                            <div className="tag2"
-                                style={{ marginTop: 10, color: "grey", borderColor: "grey" }}
-                            >
-                                {console.log(data)}
-                                {console.log(data.industry)}
+                           
                                 {typeof data?.industry === 'string' ? (
-    <div className="tag" style={{ color: "grey", borderColor: "grey" }}>
+     <div className="tag2"
+     style={{ marginTop: 10, color: "grey", borderColor: "grey" }} >
         {data?.industry}
     </div>
 ) : (
-    <>
+    <div className="flex flex-row gap-2">
         {data?.industry?.map((ind, index) => (
-            <div
-                key={index}
-                className="tag"
-                style={{ color: "grey", borderColor: "grey" }}
-            >
+             <div className="tag2"
+             style={{ marginTop: 10, color: "grey", borderColor: "grey" }} >
                 {ind}
             </div>
         ))}
-    </>
-)}
-
-
-                            </div>
+    </div>
+)}                          
                         </div>
                         <div className="moreData">
                             <p className="sidehead" style={{ marginTop: 15 }}>Global HQ</p>
@@ -136,27 +142,28 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                         <div className="moreData" style={{ marginTop: 15 }}>
                             <p className="sidehead" style={{ marginTop: 15 }}>Contact</p>
                            
-                              
+                              <div className="flex flex-row gap-2"> 
                             <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
                                 <a href={data?.website} target="_blank" rel="noopener noreferrer">
-                                    {data?.website}
+                                    Website
                                 </a>   
                             </div>
                            { data.linkedin && <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
                             <a href={data?.linkedin} target="_blank" rel="noopener noreferrer">
-                                    {data?.linkedin}
+                            Linkedin
                                 </a>
                             </div>}
                             { data.twitter && <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
                             <a href={data?.twitter} target="_blank" rel="noopener noreferrer">
-                                    {data?.twitter}
+                            Twitter
                                 </a> 
                             </div> }
                             {  data.crunchbase && <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
                             <a href={data?.crunchbase} target="_blank" rel="noopener noreferrer">
-                                    {data?.crunchbase}
+                            Crunchbase
                                 </a> 
                             </div>}
+                            </div>
                         </div>
                     </div>
                 </div>

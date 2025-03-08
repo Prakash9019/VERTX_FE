@@ -129,6 +129,8 @@ export default function Outreach2() {
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
+  const [currentPage1, setCurrentPage1] = useState(1)
+  const [pageSize1, setPageSize1] = useState(20)
   const [totalRecords, setTotalRecords] = useState(0)
   const [totalPageSize, setTotalPageSize] = useState(20)
 
@@ -214,7 +216,7 @@ export default function Outreach2() {
       try {
         const res = await axios.get(`${API_KEY}/bookmark`, {
           headers: { token: localStorage.getItem("token") },
-        })
+      })
         // console.log(res.data);
         setBookmarks(res.data) // Assuming the API returns an array of investor IDs
       } catch (error) {
@@ -233,6 +235,7 @@ export default function Outreach2() {
       try {
         const res = await axios.get(`${API_KEY}/investors/women`, {
           headers: { token: localStorage.getItem("token") },
+          params: { page: currentPage1,  limit: pageSize1   }
         })
         console.log("cskhdbdshbch")
         console.log(res.data.data);
@@ -241,12 +244,8 @@ export default function Outreach2() {
         console.error("Error fetching bookmarks:", error)
       }
     }
-
-   
     fetchList();
-
-
-  }, [])
+  }, [currentPage1 ,pageSize1 ])
 
 
   const handlePageChange = (newPage) => {
@@ -259,6 +258,18 @@ export default function Outreach2() {
       window.scrollTo(0, 0)
     }
   }
+
+  const handlePageChange1 = (newPage) => {
+    setCurrentPage1(newPage)
+
+    // Scroll to top immediately
+    if (scrollableContentRef.current) {
+      scrollableContentRef.current.scrollTop = 0
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }
+
 
   const handleFilterChange = (filterName, value) => {
     setFilters((prev) => ({
@@ -482,7 +493,7 @@ export default function Outreach2() {
           </div>
 
           {/* Pagination Controls */}
-          <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 text-center">
+        { !womenLed && <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 text-center">
             <button
               className="pagination-button text-xs sm:text-sm"
               disabled={currentPage === 1}
@@ -498,7 +509,26 @@ export default function Outreach2() {
             >
               Next
             </button>
-          </div>
+          </div>}
+
+          { womenLed && <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 text-center">
+            <button
+              className="pagination-button text-xs sm:text-sm"
+              disabled={currentPage1 === 1}
+              onClick={() => handlePageChange1(currentPage1 - 1)}
+            >
+              Previous
+            </button>
+            <span className="page-info text-xs sm:text-sm">Page {currentPage1} </span>
+            <button
+              className="pagination-button text-xs sm:text-sm"
+              disabled={currentPage1 === totalPages}
+              onClick={() => handlePageChange1(currentPage1 + 1)}
+            >
+              Next
+            </button>
+          </div>}
+
         </div>
         {isMobile && <MobileFooter currentPage={currentPageNav} />}
       </div>
