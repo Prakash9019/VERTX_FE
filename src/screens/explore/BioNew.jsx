@@ -60,6 +60,7 @@ export default function Bio() {
         // //console.log(response.data[0]);
         if (response.data.length > 0) {
           setFormData(response.data[0]);
+          localStorage.setItem("dip",response.data[0].avatar);
           setTimeDifference(timeDifference(response.data[0].createdAt));
           setAchievement(response.data[0].achievement);
           setSelectedSkills(response.data[0].skills);
@@ -362,7 +363,7 @@ export default function Bio() {
                          <span style={{ color: "#CAC5C5" }}>Edit</span>
                        </button>}
                        <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center">
-  {formData.avatar ? (
+  {window.localStorage.getItem("dip") || formData.avatar ? (
     <img
       alt="User Avatar"
       className="w-full h-full object-cover"

@@ -78,7 +78,7 @@ export function Callback2() {
   const [dip,setDip] = useState("");
   const handleUsername = async () => {
     try {
-      const token = window.localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       if (!token) return; // Prevent request if token is missing
   
       const response = await axios.get(`${API_KEY}/auth/getUser`, {
@@ -90,8 +90,8 @@ export function Callback2() {
   
       console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
-      window.localStorage.setItem("user",response.data.user.username);
-      window.localStorage.setItem("dip",response.data.user.dip);
+      localStorage.setItem("user",response.data.user.username);
+      localStorage.setItem("dip",response.data.user.dip);
       console.log(window.localStorage.getItem("dip"))
     } catch (error) {
       console.error("Error fetching user data:", error);

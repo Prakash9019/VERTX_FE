@@ -76,7 +76,8 @@ useEffect(() => {
           // setTimeDifference(timeDifference(response.data[0].createdAt));
           setUserData(response.data[0]);
           setAvatar(response.data[0].avatar);
-          // console.log(response.data[0]);
+          localstorage.setItem("dip",response.data[0].avatar);
+          console.log(response.data[0]);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -94,6 +95,7 @@ useEffect(() => {
     const reader = new FileReader();
     reader.onload = () => setAvatar(reader.result);
     reader.readAsDataURL(file);
+    localStorage.setItem("dip",reader.result);
     const formData = new FormData();
     formData.append("avatar", file);
     // console.log(userId);
@@ -145,11 +147,11 @@ useEffect(() => {
                 {/* Profile image now positioned to the right on mobile */}
                 <div className="relative ml-4">
                   <div className={`rounded-full ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} overflow-hidden border border-[#757575] bg-[#111111] flex items-center justify-center`}>
-                    {avatar ? (
+                    {localStorage.getItem("dip") || avatar  ? (
                       <img
                         alt="User Avatar"
                         className="w-full h-full object-cover"
-                        src={window.localStorage.getItem("dip") || avatar}
+                        src={localStorage.getItem("dip") || avatar}
                       />
                     ) : (
                       <svg width="469" height="469" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
