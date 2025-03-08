@@ -428,9 +428,9 @@ export default function Outreach2() {
           
 {/* Women Led info box */}
 
-  <div className="bg-[#1e1e1e] border border-[#75757569] rounded-[30px]">
+{ womenLed &&  <div className="bg-[#1e1e1e] border border-[#75757569] rounded-[30px]">
     <img src={logo || "/placeholder.svg"} alt="image" className="w-full h-auto rounded-[10px]" />
-  </div>
+  </div>}
 
 
 

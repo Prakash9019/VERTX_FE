@@ -103,21 +103,26 @@ export default function Card({ data, isBookmarked, toggleBookmark }) {
                                 style={{ marginTop: 10, color: "grey", borderColor: "grey" }}
                             >
                                 {console.log(data)}
-                                {data.industry}
-                                {/* {data?.industry.length <= 1 ?  data?.industry :
-                                  <>
-                                   {data?.industry?.map((ind, index) => (
-                                        <div
-                                            key={index}
-                                            className="tag"
-                                            style={{ color: "grey", borderColor: "grey" }}
-                                        >
-                                            {ind}
-                                        </div>
-                                    ))} */}
-                                  {/* </>
-                                
-                                } */}
+                                {console.log(data.industry)}
+                                {typeof data?.industry === 'string' ? (
+    <div className="tag" style={{ color: "grey", borderColor: "grey" }}>
+        {data?.industry}
+    </div>
+) : (
+    <>
+        {data?.industry?.map((ind, index) => (
+            <div
+                key={index}
+                className="tag"
+                style={{ color: "grey", borderColor: "grey" }}
+            >
+                {ind}
+            </div>
+        ))}
+    </>
+)}
+
+
                             </div>
                         </div>
                         <div className="moreData">
