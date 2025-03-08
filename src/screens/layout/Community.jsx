@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Header, Sidebar, MainContent, Layout, NavIconFooter, MobileFooter } from "./barsNew";
+import API_KEY from '../../../key';
 
 const CommunityPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -21,6 +22,60 @@ const CommunityPage = () => {
     
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
+   const [email,setEmail] =useState("");
+  const handleSubscribe = async () => {
+    try {
+        const response = await fetch(`${API_KEY}/comm/newsletter`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" ,
+                token: localStorage.getItem("token"),
+             },
+            body: JSON.stringify({ email }),
+        });
+        
+        const data = await response.json();
+        console.log(data);
+        alert(data.message);
+    } catch (error) {
+        console.error("Error subscribing:", error);
+    }
+};
+
+
+const [feedback, setFeedback] = useState("");
+const [btnColor, setBtnColor] = useState("gray"); // Default color
+
+const handleFeedbackChange = (e) => {
+    setFeedback(e.target.value);
+    setBtnColor(e.target.value ? "white" : "gray"); // Change color on typing
+};
+
+const handleSendFeedback = async () => {
+    try {
+        const response = await fetch(`${API_KEY}/comm/feedback`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json",
+                token:localStorage.getItem("token")
+             },
+            body: JSON.stringify({ feedback }),
+        });
+
+        const data = await response.json();
+        console.log(response);
+        alert(data.message);
+    } catch (error) {
+        console.error("Error sending feedback:", error);
+    }
+};
+
+// return (
+//     <div>
+//         <input type="text" value={feedback} onChange={handleFeedbackChange} placeholder="Type your feedback" />
+//         <button onClick={handleSendFeedback} style={{ backgroundColor: btnColor }}>Send</button>
+//     </div>
+// );
+
+
 
   // Set current page for navigation highlighting
   useEffect(() => {
@@ -48,7 +103,7 @@ const CommunityPage = () => {
               </div>
             </header>
                 {/* Newsletter Section */}
-                <div className="border-[2px] bg-[#1F1F1F] border-white rounded-[10px] p-8 mb-12">
+                <div className="border-[2px] bg-[#000000] border-white rounded-[10px] p-8 mb-12">
                   <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
                     Subscribe weekly newsletter
                   </h2>
@@ -57,11 +112,13 @@ const CommunityPage = () => {
                   <div className="relative max-w-lg mx-auto mb-6">
                     <input 
                       type="email" 
+                      value={email}
+                      onChange={(e)=> setEmail(e.target.value)}
                       placeholder="Enter your email" 
                       className="w-full bg-transparent border-[2px] border-white rounded-[100px] py-3 px-5 text-white placeholder:text-[#FBFAF4]"
                     />
 
-                    <button className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                    <button className="absolute right-2 top-1/2 transform -translate-y-1/2" onClick={()=> handleSubscribe()}>
                     <svg 
   xmlns="http://www.w3.org/2000/svg" 
   className="h-8 w-8 mr-2" 
@@ -144,13 +201,14 @@ const CommunityPage = () => {
                 </div>
 
                 {/* Feedback Form */}
-                <div className="border-[2px] bg-[#1F1F1F] border-white rounded-[10px] p-6">
+                <div className="border-[2px] bg-[#000000] border-white rounded-[10px] p-6">
                   <div className="relative">
                     <textarea 
+                    value={feedback} onChange={handleFeedbackChange}
                       placeholder="Enter your feedback here." 
                       className="w-full h-32 bg-transparent text-white resize-none focus:outline-none placeholder:text-[#4B4B4B]"
                     ></textarea>
-                    <button className="absolute bottom-0 right-0 bg-[#4B4B4B] text-[#1F1F1F] font-bold px-4 py-1 rounded">
+                    <button className="absolute bottom-0 right-0 bg-[#4B4B4B] text-[#1F1F1F] font-bold px-4 py-1 rounded" onClick={handleSendFeedback} style={{ backgroundColor: btnColor }}>
                       SEND
                     </button>
                   </div>
