@@ -414,24 +414,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     <Settings size={20} />
   </button>
 </div>
-</svg>
-                      </div>}
-                      {localStorage.getItem("dip") && <img src={localStorage.getItem("dip") } alt="dp" className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" /> }
-                     
-                      <div>
-                        {console.log(localStorage.getItem("user"))}
-                         {localStorage.getItem("user") && <p className="text-white text-sm">{localStorage.getItem("user")}</p>}
-                        {!localStorage.getItem("user") && <p className="text-white text-sm">@username</p>}
-                       
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setShowDesktopProfilePopup(!showDesktopProfilePopup)}
-                      className="text-gray-400 hover:text-white"
-                    >
-                      <Settings size={20} />
-                    </button>
-                  </div>
                   <div className="flex items-center justify-center w-full mb-4">
                     <button
                       className="flex items-center justify-center bg-[#1F1F1F] text-white rounded-md px-6 py-2 w-11/12"
