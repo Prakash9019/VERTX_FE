@@ -51,6 +51,9 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   }
   const handleLogout = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("dip");
+    localStorage.removeItem("user");
+    localStorage.removeItem("exe");
     window.location.href = "/"
   }
   const handleTermsClick = () => {
@@ -220,7 +223,10 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     setShowSignupPopup(false)
   }
   const handleLogout = () => {
-    localStorage.removeItem("token")
+    localStorage.removeItem("token");
+    localStorage.removeItem("dip");
+    localStorage.removeItem("user");
+    localStorage.removeItem("exe");
     window.location.href = "/"
   }
   const handlePrivacyClick = () => {
@@ -403,6 +409,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         </svg>
       </div>
     )}
+
+    
     <div>
       <p className="text-white text-sm">{localStorage.getItem("user") || "@username"}</p>
     </div>
