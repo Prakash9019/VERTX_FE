@@ -484,7 +484,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       {localStorage.getItem("dip") && <img src={localStorage.getItem("dip") } alt="dp" className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" /> }
                      
                       <div>
-                        <p className="text-white text-sm">{localStorage.getItem("user") || "@username"}</p>
+                        <p className="text-white text-sm">{localStorage.getItem("user") ?  localStorage.getItem("user") : "@username"}</p>
                       </div>
                     </div>
                     <button
