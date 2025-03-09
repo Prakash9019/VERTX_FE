@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import { Search, Target, Grid, Settings, Lock } from "lucide-react"
 import logo from "../../logo.png"
@@ -19,23 +18,18 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   const [showLoginPage, setShowLoginPage] = useState(false)
   const [showSignupPopup, setShowSignupPopup] = useState(false)
   const navigate = useNavigate()
-
   // Check if device is mobile based on screen width
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-
     // Initial check
     checkIsMobile()
-
     // Add event listener for window resize
     window.addEventListener("resize", checkIsMobile)
-
     // Cleanup
     return () => window.removeEventListener("resize", checkIsMobile)
   }, [])
-
   const handleProfileClick = () => {
     if (localStorage.getItem("token")) {
       setShowProfilePopup(!showProfilePopup)
@@ -57,41 +51,33 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
     setShowAuthPage(false)
     setShowLoginPage(false)
   }
-
   const handleShowSignupFromAuth = () => {
     setShowAuthPage(false)
     setShowLoginPage(false)
     setShowSignupPopup(true)
   }
-
   const handleCloseSignupPopup = () => {
     setShowSignupPopup(false)
   }
-
   const handleLogout = () => {
     localStorage.removeItem("token")
     window.location.href = "/"
   }
-
   const handleTermsClick = () => {
     setShowTermsPopup(true)
     setShowProfilePopup(false)
   }
-
   const handlePrivacyClick = () => {
     setShowPrivacyPopup(true)
     setShowProfilePopup(false)
   }
-
   const handleOverviewClick = () => {
     navigate("/explore/bio")
     setShowProfilePopup(false)
   }
-
   const handleLogin = () => {
     setShowLoginPage(true)
   }
-
   return (
     <>
       {/* Header for Mobile - fixed at top */}
@@ -102,36 +88,29 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
               <img src={logo || "/placeholder.svg"} alt="logo" className="w-10 h-10" />
             </div>
             <div
-              className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
-              onClick={handleProfileClick}
-            >
-
-{localStorage.getItem("dip")   ? (
-                      <img
-                        alt="User Avatar"
-                        // className="w-full h-full object-cover"
-                        className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
-                        src={localStorage.getItem("dip")}
-                      />
-                    ) : (
-                      <svg width="469" height="469" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M468.37 234.186C468.37 308.459 433.796 374.655 379.86 417.556C339.877 449.37 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.37 88.5096 417.556C34.5767 374.655 0 308.459 0 234.186C0 104.851 104.853 -3.05176e-05 234.186 -3.05176e-05C363.519 -3.05176e-05 468.37 104.851 468.37 234.186Z" fill="#111111"/>
-<path d="M234.184 308.838C284.45 308.838 325.199 268.089 325.199 217.823C325.199 167.557 284.45 126.808 234.184 126.808C183.918 126.808 143.169 167.557 143.169 217.823C143.169 268.089 183.918 308.838 234.184 308.838Z" fill="#EEEEEE" fill-opacity="0.933333"/>
-<path d="M379.86 417.556C339.877 449.371 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.371 88.5095 417.556C117.79 374.542 172.07 345.654 234.186 345.654C296.302 345.654 350.587 374.535 379.86 417.556Z" fill="#EEEEEE" fill-opacity="0.933333"/>
-</svg>   
-                      //<User  />
-                    )}
-            </div>
+  className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
+  onClick={handleProfileClick}
+>
+  {localStorage.getItem("token") && localStorage.getItem("dip") ? (
+    <img
+      alt="User Avatar"
+      className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
+      src={localStorage.getItem("dip")}
+    />
+  ) : (
+<span class="material-symbols-outlined">
+person
+</span>
+  )}
+</div>
           </div>
           {/* Adding the horizontal line below the header */}
           <div className="fixed top-16 left-1/2 -translate-x-1/2 z-20 h-[0.5px] w-11/12 bg-[#4B4B4B]"></div>
-
           {/* Profile Popup - only shown for logged in users */}
           {showProfilePopup && localStorage.getItem("token") && (
             <>
               {/* Overlay with 757575 color and low opacity */}
               <div className="fixed inset-0 bg-[#000000]/80 z-30" onClick={() => setShowProfilePopup(false)}></div>
-
               {/* Popup menu */}
               <div className="fixed top-20 right-4 z-40 bg-black rounded-[20px] shadow-lg w-64 border border-[#1E1E1E] py-4">
                 <div className="py-2">
@@ -182,14 +161,12 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
               </div>
             </>
           )}
-
           {/* Full screen Auth Page - for non-logged in users */}
           {showAuthPage && (
             <div className="fixed inset-0 z-50 bg-black">
               <LandingAuth onClose={handleCloseAuthPage} isPopup={false} onCreateAccount={handleShowSignupFromAuth} />
             </div>
           )}
-
           {/* Full screen Login Page */}
           {showLoginPage && (
             <div className="fixed inset-0 z-50 bg-black">
@@ -201,14 +178,12 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
               />
             </div>
           )}
-
           {/* Signup Popup */}
           {showSignupPopup && (
             <div className="fixed inset-0 z-50 bg-black">
               <Signup onClose={handleCloseSignupPopup} isPopup={false} />
             </div>
           )}
-
           {/* Terms and Conditions Popup */}
           {showTermsPopup && <TermsAndConditions onClose={() => setShowTermsPopup(false)} />}
 
@@ -219,7 +194,6 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
     </>
   )
 }
-
 // Sidebar Component
 export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [isMobile, setIsMobile] = useState(false)
@@ -231,19 +205,15 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [showDesktopProfilePopup, setShowDesktopProfilePopup] = useState(false)
   const [showTermsPopup, setShowTermsPopup] = useState(false)
   const [showPrivacyPopup, setShowPrivacyPopup] = useState(false)
-
   // Check if device is mobile based on screen width
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-
     // Initial check
     checkIsMobile()
-
     // Add event listener for window resize
     window.addEventListener("resize", checkIsMobile)
-
     // Cleanup
     return () => window.removeEventListener("resize", checkIsMobile)
   }, [])
@@ -262,64 +232,51 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     // Save sidebar state to localStorage
     localStorage.setItem("sidebarOpen", newState.toString())
   }
-
   const handleLogin = () => {
     // Set a flag to identify this is coming from the bars page login button
     localStorage.setItem("fromBarsLogin", "true")
     setShowLoginPopup(true)
   }
-
   const handleSignup = () => {
     setShowAuthPopup(true)
   }
-
   const handleCloseAuthPopup = () => {
     setShowAuthPopup(false)
   }
-
   const handleCloseLoginPopup = () => {
     localStorage.removeItem("fromBarsLogin")
     setShowLoginPopup(false)
   }
-
   const handleShowSignupFromAuth = () => {
     setShowAuthPopup(false)
     setShowLoginPopup(false)
     setShowSignupPopup(true)
   }
-
   const handleCloseSignupPopup = () => {
     setShowSignupPopup(false)
   }
-
   const handleLogout = () => {
     localStorage.removeItem("token")
     window.location.href = "/"
   }
-
   const handlePrivacyClick = () => {
     setShowPrivacyPopup(true)
     setShowDesktopProfilePopup(false)
   }
-
   const handleTermsClick = () => {
     setShowTermsPopup(true)
     setShowDesktopProfilePopup(false)
   }
-
   const handleCommunityClick = () => {
     navigate("/community");
     // Redirect to the WhatsApp group link
     // window.location.href = 'https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8';
     setShowDesktopProfilePopup(false);  // Close the popup if needed
   };
-
-
   const handleOverviewClick = () => {
     navigate("/explore/bio")
     setShowDesktopProfilePopup(false)
   }
-
   // Updated navigation handler
   const handleNavigation = (route) => {
     if (route === "explore" && !localStorage.getItem("token")) {
@@ -331,7 +288,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
       navigate(`/${route}`)
     }
   }
-
   useEffect(() => {
     // Check if the path includes "explore" to keep the bar active
     if (location.pathname.includes("explore")) {
@@ -350,14 +306,11 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         navigate("/outreach")
       }
     }
-
     window.addEventListener("popstate", handleBackButton)
-
     return () => {
       window.removeEventListener("popstate", handleBackButton)
     }
   }, [navigate])
-
   // Add this useEffect after the other useEffect hooks in the Sidebar component
   useEffect(() => {
     const handlePopState = (event) => {
@@ -373,16 +326,13 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         navigate("/")
       }
     }
-
     window.addEventListener("popstate", handlePopState)
     return () => {
       window.removeEventListener("popstate", handlePopState)
     }
   }, [navigate])
-
   // Only show sidebar on desktop
   if (isMobile) return null
-
   const handleGoogleLogout = async () => {
     try {
       localStorage.removeItem("token")
@@ -400,7 +350,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }
 
   if (isMobile) return null
-
   return (
     <>
       <div
@@ -420,6 +369,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 />
               </svg>
 
+
+
               <button onClick={toggleSidebar} className="ml-2 mb-4 bg-black p-1 rounded-full">
               <svg
                   height="22"
@@ -437,7 +388,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </div>
           )}
         </div>
-
         {/* Navigation */}
         <div className="ml-3 flex flex-col flex-grow mt-10">
           <NavItem
@@ -594,7 +544,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </div>
           )}
 
-          {showDesktopProfilePopup && (
+          {showDesktopProfilePopup && localStorage.getItem("token") && (
             <>
               {/* Add overlay to capture clicks outside the popup */}
               <div className="fixed inset-0 z-40" onClick={() => setShowDesktopProfilePopup(false)}></div>
@@ -695,7 +645,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     </>
   )
 }
-
 // Main Content Component
 export function MainContent({ sidebarOpen, children }) {
   const [isMobile, setIsMobile] = useState(false)
@@ -720,7 +669,6 @@ export function MainContent({ sidebarOpen, children }) {
     </div>
   )
 }
-
 // Navigation Item Component for sidebar
 function NavItem({ icon, label, expanded, active, name, onClick }) {
   return (
@@ -734,7 +682,6 @@ function NavItem({ icon, label, expanded, active, name, onClick }) {
     </button>
   )
 }
-
 // Navigation Icon for Mobile Footer
 export function NavIconFooter({ icon, label, active = false }) {
   return (
@@ -744,7 +691,6 @@ export function NavIconFooter({ icon, label, active = false }) {
     </div>
   )
 }
-
 // Mobile Footer Component
 export function MobileFooter({ currentPage }) {
   const navigate = useNavigate()
@@ -754,8 +700,8 @@ export function MobileFooter({ currentPage }) {
 
   const handleNavigation = (route) => {
     if (route === "explore" && !localStorage.getItem("token")) {
-      // Show auth popup if user is not logged in and trying to access explore
-      setShowAuthPopup(true)
+      // Show full-screen auth page (LandingAuth) if user is not logged in and trying to access explore
+      setShowAuthPage(true)
     } else if (route === "explore" && localStorage.getItem("exe")) {
       navigate("/explore/break")
     } else {
@@ -764,6 +710,11 @@ export function MobileFooter({ currentPage }) {
   }
 
   const handleCloseAuthPage = () => {
+    setShowAuthPage(false)
+    setShowLoginPage(false)
+  }
+
+  const handleShowSignupFromAuth = () => {
     setShowAuthPage(false)
     setShowLoginPage(false)
   }
@@ -783,23 +734,31 @@ export function MobileFooter({ currentPage }) {
         </div>
       </div>
 
-      {/* Full-screen Auth Page */}
+      {/* Full-screen Auth Page for non-logged-in users clicking home */}
       {showAuthPage && (
         <div className="fixed inset-0 z-50 bg-black">
-          <LandingAuth onClose={handleCloseAuthPage} isPopup={false} />
+          <LandingAuth 
+            onClose={handleCloseAuthPage} 
+            isPopup={false} 
+            onCreateAccount={handleShowSignupFromAuth}
+          />
         </div>
       )}
 
       {/* Full-screen Login Page */}
       {showLoginPage && (
         <div className="fixed inset-0 z-50 bg-black">
-          <LandingAuth onClose={handleCloseAuthPage} isPopup={false} initialView="login" />
+          <LandingAuth 
+            onClose={handleCloseAuthPage} 
+            isPopup={false} 
+            onCreateAccount={handleShowSignupFromAuth}
+            initialView="login" 
+          />
         </div>
       )}
     </>
   )
 }
-
 // Filter Button Component
 export function FilterButton({ label, mobile = false }) {
   return (

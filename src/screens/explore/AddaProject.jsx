@@ -8,10 +8,23 @@ import { Layout } from "../layout/barsNew";
 
 function ProjectCard({ project }) {
   const [projectData, setProjectData] = useState(project);
+  const [imagePreview, setImagePreview] = useState(project.image || null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProjectData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+        setProjectData((prevData) => ({ ...prevData, image: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSave = async () => {
@@ -60,7 +73,33 @@ function ProjectCard({ project }) {
 
           
           <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
-            <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg"></div>
+            <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center relative overflow-hidden">
+              {imagePreview ? (
+                <img src={imagePreview} alt="Project" className="w-full h-full object-cover" />
+              ) : (
+                <label htmlFor={`project-image-${project.id}`} className="cursor-pointer w-full h-full flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 1V15" stroke="#757575" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M1 8H15" stroke="#757575" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                </label>
+              )}
+              <input 
+                type="file" 
+                id={`project-image-${project.id}`} 
+                className="hidden" 
+                accept="image/*" 
+                onChange={handleImageUpload}
+              />
+              {imagePreview && (
+                <label htmlFor={`project-image-${project.id}`} className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 1V15" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M1 8H15" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                </label>
+              )}
+            </div>
             <div className="flex-1">
               <div className="flex items-center">
                 <h3 className="text-base md:text-lg font-medium">Project name</h3>
@@ -200,7 +239,9 @@ export default function AddaProject() {
     pitch: "",
     stage: "",
     workplace: "",
+    image: null
   });
+  const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showNewInput, setShowNewInput] = useState(false); // Show input form
   const [isMobile, setIsMobile] = useState(false);
@@ -233,6 +274,18 @@ export default function AddaProject() {
   const handleWorkplaceSelect = (workplace) => {
     setSelectedWorkplace(workplace);
     setNewProject(prev => ({ ...prev, workplace }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+        setNewProject(prev => ({ ...prev, image: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   useEffect(() => {
@@ -268,6 +321,7 @@ export default function AddaProject() {
       const addedProject = await response.json();
       setProjects([...projects, addedProject]);
       setShowNewInput(false);
+      setImagePreview(null);
       setNewProject({
         name: "",
         idea_description: "",
@@ -275,6 +329,7 @@ export default function AddaProject() {
         pitch: "",
         stage: "",
         workplace: "",
+        image: null
       });
     }
   };
@@ -326,7 +381,33 @@ export default function AddaProject() {
       </div>
       
       <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
-        <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg"></div>
+        <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center relative overflow-hidden">
+          {imagePreview ? (
+            <img src={imagePreview} alt="Project" className="w-full h-full object-cover" />
+          ) : (
+            <label htmlFor="new-project-image" className="cursor-pointer w-full h-full flex items-center justify-center">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 1V15" stroke="#757575" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M1 8H15" stroke="#757575" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </label>
+          )}
+          <input 
+            type="file" 
+            id="new-project-image" 
+            className="hidden" 
+            accept="image/*" 
+            onChange={handleImageUpload}
+          />
+          {imagePreview && (
+            <label htmlFor="new-project-image" className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 1V15" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M1 8H15" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </label>
+          )}
+        </div>
         <div className="flex-1">
           <div className="flex items-center">
             <h3 className="text-base md:text-lg font-medium">Project name</h3>
