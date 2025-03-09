@@ -51,76 +51,8 @@ export default function FinancialModeling({ onClose }) {
     }
   ]
 
-  const CurrencyToggleInput = ({ label, value, onChange, placeholder, readOnly = false, showCurrencyToggle = false }) => {
-    return (
-      <div className="mb-4 md:mb-6">
-        <label className="block font-semibold mb-1 md:mb-2 text-sm md:text-base">{label}</label>
-        <div className="relative">
-          <input
-            type={readOnly ? "text" : "number"}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            className={`w-full p-1 md:p-2 bg-black border border-gray-700 rounded-md text-white ${showCurrencyToggle ? 'pr-12 md:pr-16' : ''} placeholder-[#757575] text-sm md:text-base`}
-            style={{ borderColor: '#757575' }}
-            readOnly={readOnly}
-          />
-          {showCurrencyToggle && (
-            <div className="absolute right-0 top-0 h-full">
-              <button
-                className="w-8 md:w-10 h-5 md:h-6 mr-1 md:mr-2 bg-transparent text-gray-400 text-xs md:text-sm flex items-center justify-center border border-white rounded"
-                onClick={() => setShowDropdown(!showDropdown)}
-              >
-                {currency}
-              </button>
-
-              {showDropdown && (
-                <div className="absolute right-0 top-full mt-1 bg-gray-900 border border-gray-700 rounded shadow-lg z-10">
-                  <button
-                    className="w-full px-3 md:px-4 py-1 md:py-2 text-left text-white hover:bg-gray-800 text-xs md:text-sm"
-                    onClick={() => {setCurrency("USD"); setShowDropdown(false);}}
-                  >
-                    USD
-                  </button>
-                  <button
-                    className="w-full px-3 md:px-4 py-1 md:py-2 text-left text-white hover:bg-gray-800 text-xs md:text-sm"
-                    onClick={() => {setCurrency("INR"); setShowDropdown(false);}}
-                  >
-                    INR
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
-
-  const StandardInput = ({ label, value, onChange, placeholder, readOnly = false }) => {
-    return (
-      <div className="mb-4 md:mb-6">
-        <label className="block font-semibold mb-1 md:mb-2 text-sm md:text-base">{label}</label>
-        <div className="relative">
-          <input
-            type={readOnly ? "text" : "number"}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            className="w-full p-1 md:p-2 bg-black border border-gray-700 rounded-md text-white placeholder-[#757575] text-sm md:text-base"
-            style={{ borderColor: '#757575' }}
-            readOnly={readOnly}
-          />
-          {readOnly && !value.toString().includes(currency) && value && (
-            <span className="absolute right-2 md:right-3 top-1 md:top-2 text-gray-400 text-sm md:text-base">{currency}</span>
-          )}
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <div className="fixed inset-0 bg-white bg-opacity-30 backdrop-blur-[2px] flex justify-center items-center z-250">
+    <div className="fixed inset-0  flex justify-center items-center z-250">
       <div className="w-[95%] md:w-[85%] lg:w-[70%] bg-black rounded-2xl border border-[#75757569] p-3 md:p-6 pb-6 md:pb-10 h-[90%] md:h-[95%] overflow-hidden relative">
         <div className="h-full overflow-y-auto scrollbar-hide">
           <div className="flex flex-col">
@@ -225,46 +157,102 @@ export default function FinancialModeling({ onClose }) {
                   <div className="flex flex-col space-y-4 md:space-y-6">
                     {/* Calculator - full width on mobile */}
                     <div className="bg-[#101010] border-2 border-white rounded-2xl p-4 md:p-6 shadow-xl w-full">
-                      <CurrencyToggleInput
-                        label="Total Revenue"
-                        value={revenue}
-                        onChange={(e) => setRevenue(e.target.value)}
-                        placeholder="Enter value"
-                        showCurrencyToggle={true}
-                      />
+                      <div className="mb-4 md:mb-6">
+                        <label className="block font-semibold mb-1 md:mb-2 text-sm md:text-base">Total Revenue</label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            value={revenue}
+                            onChange={(e) => setRevenue(e.target.value)}
+                            placeholder="Enter value"
+                            className="w-full p-1 md:p-2 bg-black border border-gray-700 rounded-md text-white pr-12 md:pr-16 placeholder-[#757575] text-sm md:text-base"
+                            style={{ borderColor: '#757575' }}
+                          />
+                          <div className="absolute right-0 top-0 h-full">
+                            <button
+                              className="w-8 mt-2 md:w-10 h-5 md:h-6 mr-1 md:mr-2 bg-transparent text-gray-400 text-xs md:text-sm flex items-center justify-center border border-white rounded"
+                              onClick={() => setShowDropdown(!showDropdown)}
+                            >
+                              {currency}
+                            </button>
 
-                      <StandardInput
-                        label="Cost of Goods Sold (COGS)"
-                        value={cogs}
-                        onChange={(e) => setCogs(e.target.value)}
-                        placeholder="Enter value"
-                      />
+                            {showDropdown && (
+                              <div className="absolute right-0 top-full mt-1 bg-gray-900 border border-gray-700 rounded shadow-lg z-10">
+                                <button
+                                  className="w-full px-3 md:px-4 py-1 md:py-2 text-left text-white hover:bg-gray-800 text-xs md:text-sm"
+                                  onClick={() => {setCurrency("USD"); setShowDropdown(false);}}
+                                >
+                                  USD
+                                </button>
+                                <button
+                                  className="w-full px-3 md:px-4 py-1 md:py-2 text-left text-white hover:bg-gray-800 text-xs md:text-sm"
+                                  onClick={() => {setCurrency("INR"); setShowDropdown(false);}}
+                                >
+                                  INR
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
 
-                      <StandardInput
-                        label="Other Expenses (if any)"
-                        value={expenses}
-                        onChange={(e) => setExpenses(e.target.value)}
-                        placeholder="Enter value"
-                      />
+                      <div className="mb-4">
+                        <label className="block font-semibold mb-2">Cost of Goods Sold (COGS)</label>
+                        <input
+                          type="number"
+                          value={cogs}
+                          onChange={(e) => setCogs(e.target.value)}
+                          className="w-full p-1 md:p-2 bg-black border border-gray-700 rounded-md text-white pr-12 md:pr-16 placeholder-[#757575] text-sm md:text-base"
+                          style={{ borderColor: '#757575' }}
+                          placeholder="Enter value"
+                        />
+                      </div>
 
-                      <StandardInput
-                        label="Taxes (if any)"
-                        value={taxes}
-                        onChange={(e) => setTaxes(e.target.value)}
-                        placeholder="Enter value"
-                      />
+                      <div className="mb-4">
+                        <label className="block font-semibold mb-2">Other Expenses (if any)</label>
+                        <input
+                          type="number"
+                          value={expenses}
+                          onChange={(e) => setExpenses(e.target.value)}
+                          className="w-full p-1 md:p-2 bg-black border border-gray-700 rounded-md text-white pr-12 md:pr-16 placeholder-[#757575] text-sm md:text-base"
+                          style={{ borderColor: '#757575' }}
+                          placeholder="Enter value"
+                        />
+                      </div>
 
-                      <StandardInput
-                        label="Gross Profit"
-                        value={!isNaN(grossProfit) ? `${grossProfit.toFixed(2)} ${currency}` : ""}
-                        readOnly={true}
-                      />
+                      <div className="mb-4">
+                        <label className="block font-semibold mb-2">Taxes (if any)</label>
+                        <input
+                          type="number"
+                          value={taxes}
+                          onChange={(e) => setTaxes(e.target.value)}
+                          className="w-full p-1 md:p-2 bg-black border border-gray-700 rounded-md text-white pr-12 md:pr-16 placeholder-[#757575] text-sm md:text-base"
+                          style={{ borderColor: '#757575' }}
+                          placeholder="Enter value"
+                        />
+                      </div>
 
-                      <StandardInput
-                        label="Net Profit"
-                        value={!isNaN(netProfit) ? `${netProfit.toFixed(2)} ${currency}` : ""}
-                        readOnly={true}
-                      />
+                      <div className="mb-4">
+                        <label className="block font-semibold mb-2">Gross Profit</label>
+                        <input
+                          type="text"
+                          value={grossProfit || ""}
+                          className="w-full p-1 md:p-2 bg-black border border-gray-700 rounded-md text-white pr-12 md:pr-16 placeholder-[#757575] text-sm md:text-base"
+                          style={{ borderColor: '#757575' }}
+                          readOnly
+                        />
+                      </div>
+
+                      <div className="mb-4">
+                        <label className="block font-semibold mb-2">Net Profit</label>
+                        <input
+                          type="text"
+                          value={netProfit || ""}
+                          className="w-full p-1 md:p-2 bg-black border border-gray-700 rounded-md text-white pr-12 md:pr-16 placeholder-[#757575] text-sm md:text-base"
+                          style={{ borderColor: '#757575' }}
+                          readOnly
+                        />
+                      </div>
 
                       <div className="flex flex-col justify-center items-center mt-4 md:mt-8">
                         <p className="text-center text-xs md:text-sm text-gray-400">Powered by</p>
