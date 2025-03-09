@@ -1,6 +1,3 @@
-
-Bars
-
 "use client"
 import { useState, useEffect } from "react"
 import { Search, Target, Grid, Settings, Lock } from "lucide-react"
