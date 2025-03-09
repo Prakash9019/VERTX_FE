@@ -485,8 +485,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                      
                       <div>
                         {console.log(localStorage.getItem("user"))}
+                         {localStorage.getItem("user") && <p className="text-white text-sm">{localStorage.getItem("user")}</p>}
                         {!localStorage.getItem("user") && <p className="text-white text-sm">@username</p>}
-                        {localStorage.getItem("user") && <p className="text-white text-sm">{localStorage.getItem("user")}</p>}
+                       
                       </div>
                     </div>
                     <button
