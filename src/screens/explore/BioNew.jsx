@@ -391,11 +391,11 @@ export default function Bio() {
 
 
                        <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center">
-  {localStorage.getItem("dip") || formData.avatar ? (
+  {avatar || localStorage.getItem("dip") || formData.avatar  ? (
     <img
       alt="User Avatar"
       className="w-full h-full object-cover"
-      src={formData.avatar || localStorage.getItem("dip") || avatar}
+      src={avatar || formData.avatar || localStorage.getItem("dip") }
     />
   ) : (
     <svg
