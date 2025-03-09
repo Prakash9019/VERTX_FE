@@ -49,7 +49,7 @@ export default function Bio() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
+  const [userId, setUserId] =useState("");
   useEffect(() => {
     // Fetch user data when component mounts
     const fetchUserData = async () => {
@@ -59,6 +59,7 @@ export default function Bio() {
         }});
         // //console.log(response.data[0]);
         if (response.data.length > 0) {
+          setUserId(response.data[0]._id);
           setFormData(response.data[0]);
           localStorage.setItem("dip",response.data[0].avatar);
           setTimeDifference(timeDifference(response.data[0].createdAt));
@@ -302,6 +303,24 @@ export default function Bio() {
   const handleEdit2 = () =>{
     setIcon(!Eicon);
   }
+   const [avatar, setAvatar] = useState(null);
+
+  const handleAvatarChange = async (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => setAvatar(reader.result);
+    reader.readAsDataURL(file);
+    localStorage.setItem("dip",reader.result);
+    const formData = new FormData();
+    formData.append("avatar", file);
+    // console.log(userId);
+    await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then(res => res.data)
+    .catch(err => console.error("Error:", err));
+  };
+
 
   const handleWorkplaceSelect = (workplace) => {
     setProjectWorkplace(workplace);
@@ -362,12 +381,21 @@ export default function Bio() {
 </svg>
                          <span style={{ color: "#CAC5C5" }}>Edit</span>
                        </button>}
+
+
+
+
+
+
+
+
+
                        <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center">
   {localStorage.getItem("dip") || formData.avatar ? (
     <img
       alt="User Avatar"
       className="w-full h-full object-cover"
-      src={formData.avatar || localStorage.getItem("dip")}
+      src={formData.avatar || localStorage.getItem("dip") || avatar}
     />
   ) : (
     <svg
@@ -385,7 +413,8 @@ export default function Bio() {
     </svg>
   )}
 </div>
-                     <div className="absolute bottom-0 right-0 bg-white rounded-md p-1">
+
+<label htmlFor="avatarUpload" className="absolute bottom-0 right-0 bg-white rounded-md p-1">
                      <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="25" height="25" rx="4" fill="#CAC5C5"/>
 <g clip-path="url(#clip0_2146_2)">
@@ -397,7 +426,8 @@ export default function Bio() {
 </clipPath>
 </defs>
 </svg>
-                     </div>
+                     </label>
+                     <input type="file" id="avatarUpload" accept="image/*" onChange={handleAvatarChange} className="hidden" />
                    </div>
                  </div>
                </div>

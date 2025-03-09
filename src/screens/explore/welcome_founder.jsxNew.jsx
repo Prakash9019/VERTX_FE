@@ -91,6 +91,8 @@ export default function Welcome_founder() {
     return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
+  const [isCompleted, setIsCompleted] = useState(false);
+
   useEffect(() => {
     if(!localStorage.getItem('token')){
       navigate('/authentication');
@@ -107,6 +109,7 @@ export default function Welcome_founder() {
         });
         // console.log(response.data[0]);
         if (response.data.length > 0) {
+          localStorage.setItem("exe",response.data[0].completed);
           setFormData(response.data[0]);
           // setIsEditing(true); // Enable edit mode if data exists
         }
@@ -114,6 +117,7 @@ export default function Welcome_founder() {
         console.error("Error fetching user data:", error);
       } 
     };
+    
 
     fetchUserData();
   }, []);

@@ -3,17 +3,34 @@
 import React, { useState, useEffect } from "react"
 import { Layout, MobileFooter } from "../layout/barsNew"
 import { useNavigate } from "react-router"
-
+import API_KEY from "../../../key"
 export default function BrokenFeature() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [currentPage, setCurrentPage] = useState("explore")
   const [isMobile, setIsMobile] = useState(false)
   const navigate=useNavigate();
-  const handleClick =()=>{
-    
-    localStorage.setItem("exe","1");
-    navigate("/outreach")
+ 
+const handleClick = async () => {
+
+  try {
+      // Update completion status in the database
+      await fetch(`${API_KEY}/profile/complete-profile`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" ,
+             token: localStorage.getItem("token")
+          }
+      });
+
+      // Store completion flag in localStorage
+      localStorage.setItem("exe", "1");
+
+      navigate("/outreach");
+  } catch (error) {
+      console.error("Error updating profile:", error);
   }
+};
+
+
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768)
