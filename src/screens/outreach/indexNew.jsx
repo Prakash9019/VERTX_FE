@@ -11,6 +11,7 @@ import gify from "./gify.gif"
 import "./style.css"
 import Select from "react-select"      
 import logo from "./womensDay.png"
+import SearchBar from "../../components/searchbar/searchbar.jsx"
 
 const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
   // Create a ref for manually handling input width
@@ -364,6 +365,9 @@ export default function Outreach2() {
               Find and connect with potential investors
             </p>
           </div>
+
+          {/* --- ADD SEARCH BAR HERE --- */}
+          <SearchBar />
 
           {/* Filters with horizontal scroll */}
           <div
