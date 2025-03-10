@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import API_KEY from "../../../key";
 import gify from "../outreach/gify.gif";
-import { Layout } from "../layout/barsNew";
+import { Layout } from "../layout/bars";
 
 function ProjectCard({ project }) {
   const [projectData, setProjectData] = useState(project);

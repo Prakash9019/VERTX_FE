@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { Layout, MobileFooter } from "../layout/barsNew"
+import { Layout, MobileFooter } from "../layout/bars"
 import { useNavigate } from "react-router"
 import API_KEY from "../../../key"
 export default function BrokenFeature() {

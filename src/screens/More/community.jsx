@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { Header, Sidebar, MainContent, Layout, NavIconFooter, MobileFooter } from "./bars";
+import { Header, Sidebar, MainContent, Layout, NavIconFooter, MobileFooter } from "./barsNew";
 import API_KEY from '../../../key';
 
 const CommunityPage = () => {
@@ -34,7 +34,7 @@ const CommunityPage = () => {
         });
         
         const data = await response.json();
-        //console.log(data);
+        console.log(data);
         alert(data.message);
     } catch (error) {
         console.error("Error subscribing:", error);
@@ -61,7 +61,7 @@ const handleSendFeedback = async () => {
         });
 
         const data = await response.json();
-        //console.log(response);
+        console.log(response);
         alert(data.message);
     } catch (error) {
         console.error("Error sending feedback:", error);

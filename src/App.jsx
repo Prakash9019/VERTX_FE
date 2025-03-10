@@ -2,8 +2,9 @@ import {Route, Routes} from "react-router"
 import { useEffect } from "react";
 import Nopage from "./screens/404";
 import Admin from "./screens/admin";
-import Signup from "./screens/auth";
-import {Callback, Callback2 } from "./screens/auth/callback";
+import Signup from "./screens/auth/hold/index.jsx";
+import {Callback, Callback2 } from "./screens/auth/callback.jsx";
+
 import Chat from "./screens/chat";
 import Docflow from "./screens/docflow";
 import GenerateEmail from "./screens/emails";
@@ -12,7 +13,7 @@ import Explore from "./screens/explore";
 import LandingAuth from "./screens/landing"
 import Matchflow from "./screens/matchflow";
 //asa
-import Outreach from "./screens/outreach/index.jsx";
+import Outreach2 from "./screens/outreach/index.jsx";
 import Questions from "./screens/questions";
 import PricingPage from "./screens/Subscription";
 import Cashfree from "./screens/Cashfree/cashfree";
@@ -25,16 +26,16 @@ import Categories from "./screens/Resources/categories/categories";
 import PrivacyPolicy from "./screens/More/PrivacyPolicy";
 import TermsAndConditions from "./screens/More/TermsandConditions";
 import Welcome_founder from "./screens/explore/welcome_founder.jsx";
-import Put_a_face from "./screens/explore/Put_a_faceNew.jsx";
-import Skills from "./screens/explore/SkillsNew.jsx";
-import ShowYourProject from "./screens/explore/ShowYourProjectNew.jsx";
-import Bio from "./screens/explore/BioNew.jsx";
+import Put_a_face from "./screens/explore/Put_a_face.jsx";
+import Skills from "./screens/explore/Skills.jsx";
+import ShowYourProject from "./screens/explore/ShowYourProject.jsx";
+import Bio from "./screens/explore/Bio.jsx";
 import AddaProject from "./screens/explore/AddaProject.jsx";
 import { useCopyProtection } from "./context/CopyProtectionContext.jsx";
 import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
-import Verify from "./screens/auth/verify.jsx";
-import SetNewPassword from "./screens/auth/Setpassword.jsx";
-import Outreach2 from "./screens/outreach/indexNew.jsx";
+// import Verify from "./screens/auth/hold/verify.jsx";
+// import SetNewPassword from "./screens/auth/Setpassword.jsx";
+
 import BrokenFeature from "./screens/explore/Break.jsx";
 import ProfileComplete from "./screens/explore/Complete.jsx";
 import CommunityPage from "./screens/layout/Community.jsx";
@@ -55,11 +56,11 @@ function App() {
 
       <Route path="/authentication" element={<LandingAuth />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/callback" element={<Callback />} />
-      <Route path="/callback2" element={<Callback2 />} />
-      <Route path="/setpassword" element={<SetNewPassword />} />
+      <Route path="/callback" element={<Callback />} /> 
+       <Route path="/callback2" element={<Callback2/> } />
+      {/* <Route path="/setpassword" element={<SetNewPassword />} /> */}
       <Route path="/info" element={<Questions />} />
-      <Route path="/verify" element={<Verify />} />
+      {/* <Route path="/verify" element={<Verify />} /> */}
 
       <Route path="/outreach" element={<Outreach2 />} />
       {/* <Route path="/outreach2" element={<Outreach2 />} /> */}
@@ -96,7 +97,6 @@ function App() {
       <Route path="/explore/complete" element={<ProfileComplete /> } />
       <Route path="/explore/bio" element={<Bio /> } />
       
-      <Route path="/community" element={<CommunityPage /> } />
       <Route path="*" element={<Nopage />} />
     </Routes>
   );

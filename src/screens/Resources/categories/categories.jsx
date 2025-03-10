@@ -6,7 +6,7 @@ import FinancialModeling from "../AandF/AandF"
 import EquityManagement from "../Equity_table/Equity_table"
 import ValuationCalculator from "../Startup-valuation/Startup-valuation"
 import DocandSa from "../DOCandSA/DocandSa"
-import { Header, Sidebar, MainContent, Layout, NavIconFooter, MobileFooter } from "../../layout/barsNew" 
+import { Header, Sidebar, MainContent, Layout, NavIconFooter, MobileFooter } from "../../layout/bars" 
 import { Search, Target, Users, Grid } from "lucide-react"
 
 function Categories() {

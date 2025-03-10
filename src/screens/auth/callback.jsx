@@ -1,11 +1,11 @@
-import "./style.css";
+// import "./style.css";
 import logo from "../../assets/logo.png";
 import axios from "axios";
 import API_KEY from "../../../key.js";
 import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router"
 import { useEffect } from "react";
-import Button from "../../components/button/component"
+import Button from "../../components/button/component.jsx"
 
 export function Callback2() {
   const navigate = useNavigate();

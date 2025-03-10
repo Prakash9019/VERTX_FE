@@ -1,331 +1,787 @@
-import { useState, useEffect } from "react";
-import "./style.css";
-import { useNavigate } from 'react-router-dom';
-import Button from "../../components/button/component";
-import PrivacyPolicy from "../More/PrivacyPolicy"; 
-import TermsAndConditions from "../More/TermsandConditions";
-import LandingAuth from "../landing/index"; 
-import logo1 from "../../logo1.png"
+"use client"
+import { useState, useEffect } from "react"
+import { Search, Target, Grid, Settings, Lock } from "lucide-react"
+import logo from "../../logo.png"
+import { useNavigate } from "react-router"
+import LandingAuth from "../landing/index"
+import axios from "axios"
+import API_KEY from "../../../key"
+import Signup from "../auth/signup"
+import TermsAndConditions from "../More/TermsandConditions"
+import PrivacyPolicy from "../More/PrivacyPolicy"
+// Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
-  const navigate = useNavigate();
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showProfileModal, setShowProfileModal] = useState(false);
-
-  // Function to close the login modal
-  const closeLoginModal = () => {
-    setShowLoginModal(false);
-    document.body.style.overflow = "auto"; // Restore scrolling
-  };
-
-  // Function to open the login modal
-  const openLoginModal = () => {
-    setSidebarOpen(false);
-    setShowLoginModal(true);
-    document.body.style.overflow = "hidden"; // Prevent scrolling of background content
-  };
-
-  const closeProfileModal = () => {
-    setShowProfileModal(false);
-    document.body.style.overflow = "auto"; // Restore scrolling
-  };
-
-  // Function to open the profile modal
-  const openProfileModal = () => {
-    setShowProfileModal(true);
-    document.body.style.overflow = "hidden"; // Prevent scrolling of background content
-  };
-
+  const [isMobile, setIsMobile] = useState(false)
+  const [showProfilePopup, setShowProfilePopup] = useState(false)
+  const [showTermsPopup, setShowTermsPopup] = useState(false)
+  const [showPrivacyPopup, setShowPrivacyPopup] = useState(false)
+  const [showAuthPage, setShowAuthPage] = useState(false)
+  const [showLoginPage, setShowLoginPage] = useState(false)
+  const [showSignupPopup, setShowSignupPopup] = useState(false)
+  const navigate = useNavigate()
+  // Check if device is mobile based on screen width
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setSidebarOpen(false);
-      }
-    };
-
-    handleResize(); // Run once on mount
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [setSidebarOpen]);
-
-  return (
-    <header className="top-bar">
-      <button className="menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M3 12h18M3 6h18M3 18h18" />
-        </svg>
-      </button>
-        
-      <div className="logo">
-      <img src={logo1} className="w-22 h-12" />
-
-      </div>
-     
-      <div className="btwrap mb">
-        {!localStorage.getItem("token") ? (
-          <Button
-            context={"Login"}
-            theme={"dark"}
-            callback={openLoginModal}
-          />
-        ) : (
-          <Button
-          theme={"light"}
-          context={"Profile"}
-          callback={() => {
-            navigate("/explore");
-          }}
-        />
-        )}
-      </div>
-
-      {/* Login Modal with backdrop */}
-      {showLoginModal && (
-        <div className="backdrop" onClick={closeLoginModal}>
-          <div className="popup" onClick={(e) => e.stopPropagation()}>
-            {/* <div className="topsec">
-              <button className="btn" onClick={closeLoginModal}>
-                <ion-icon name="arrow-back-outline"></ion-icon>
-              </button>
-            </div> */}
-            <LandingAuth onClose={closeLoginModal} />
-          </div>
-        </div>
-      )}
-
-      {/* Profile Modal with backdrop */}
-      {showProfileModal && (
-        <div className="backdrop" onClick={closeProfileModal}>
-          <div className="popup" onClick={(e) => e.stopPropagation()}>
-            <div className="topsec">
-              <button className="btn" onClick={closeProfileModal}>
-                <ion-icon name="arrow-back-outline"></ion-icon>
-              </button>
-            </div>
-            <LandingAuth onClose={closeProfileModal} />
-          </div>
-        </div>
-      )}
-    </header>
-  );
-}
-
-export function Sidebar({ sidebarOpen, setSidebarOpen }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const navigate = useNavigate();
-  const [More, setMore] = useState(false);
-  const [activeNav, setActiveNav] = useState("Explore");
-  const [currentPage, setPage] = useState("Explore");
-  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
-  const [showSearchModal, setShowSearchModal] = useState(false);
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    // Initial check
+    checkIsMobile()
+    // Add event listener for window resize
+    window.addEventListener("resize", checkIsMobile)
+    // Cleanup
+    return () => window.removeEventListener("resize", checkIsMobile)
+  }, [])
+  const handleProfileClick = () => {
+    if (localStorage.getItem("token")) {
+      setShowProfilePopup(!showProfilePopup)
+    } else {
+      // Show full screen auth page instead of popup when not logged in
+      setShowAuthPage(true)
+    }
+  }
+  const handleCloseAuthPage = () => {
+    setShowAuthPage(false)
+    setShowLoginPage(false)
+  }
+  const handleShowSignupFromAuth = () => {
+    setShowAuthPage(false)
+    setShowLoginPage(false)
+    setShowSignupPopup(true)
+  }
+  const handleCloseSignupPopup = () => {
+    setShowSignupPopup(false)
+  }
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("dip");
+    localStorage.removeItem("user");
+    localStorage.removeItem("exe");
+    window.location.href = "/"
+  }
+  const handleTermsClick = () => {
+    setShowTermsPopup(true)
+    setShowProfilePopup(false)
+  }
+  const handlePrivacyClick = () => {
+    setShowPrivacyPopup(true)
+    setShowProfilePopup(false)
+  }
+  const handleOverviewClick = () => {
+    navigate("/explore/bio")
+    setShowProfilePopup(false)
+  }
   
+  const handleLogin = () => {
+    setShowLoginPage(true)
+  }
+  return (
+    <>
+      {/* Header for Mobile - fixed at top */}
+      {isMobile && (
+        <>
+          <div className="flex justify-between items-center p-4 bg-[#111] fixed top-0 left-0 right-0 z-20">
+            <div className="flex items-center">
+              <img src={logo || "/placeholder.svg"} alt="logo" className="w-10 h-10" />
+            </div>
+            <div
+  className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
+  onClick={handleProfileClick}
+>
+  {localStorage.getItem("token") && localStorage.getItem("dip") ? (
+    <img
+      alt="User Avatar"
+      className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
+      src={localStorage.getItem("dip")}
+    />
+  ) : (
+<span class="material-symbols-outlined">
+person
+</span>
+  )}
+</div>
+          </div>
+          {/* Adding the horizontal line below the header */}
+          <div className="fixed top-16 left-1/2 -translate-x-1/2 z-20 h-[0.5px] w-11/12 bg-[#4B4B4B]"></div>
+          {/* Profile Popup - only shown for logged in users */}
+          {showProfilePopup && localStorage.getItem("token") && (
+            <>
+              {/* Overlay with 757575 color and low opacity */}
+              <div className="fixed inset-0 bg-[#000000]/80 z-30" onClick={() => setShowProfilePopup(false)}></div>
+              {/* Popup menu */}
+              <div className="fixed top-20 right-4 z-40 bg-black rounded-[20px] shadow-lg w-64 border border-[#1E1E1E] py-4">
+  <div className="py-2">
+    {[
+      { icon: "account_circle", label: "Overview", action: handleOverviewClick },
+      { icon: "settings", label: "Settings" },
+      { icon: "favorite", label: "Community" },
+      { icon: "shield", label: "Privacy Policy", action: handlePrivacyClick },
+      { icon: "gavel", label: "Terms of Service", action: handleTermsClick },
+      { icon: "logout", label: "Log out", action: handleLogout }
+    ].map((item, index) => (
+      <div
+        key={index}
+        className="px-4 py-3 cursor-pointer flex items-center text-[#d4d4d4] transition-colors duration-200 hover:text-white"
+        onClick={item.action}
+      >
+        <span className="mr-2 material-symbols-outlined w-[28px] h-[28px] text-[28px] leading-[28px] text-white">
+          {item.icon}
+        </span>
+        <span>{item.label}</span>
+      </div>
+    ))}
+  </div>
+</div>
+            </>
+          )}
+          {/* Full screen Auth Page - for non-logged in users */}
+          {showAuthPage && (
+            <div className="fixed inset-0 z-50 bg-black">
+              <LandingAuth onClose={handleCloseAuthPage} isPopup={false} onCreateAccount={handleShowSignupFromAuth} />
+            </div>
+          )}
+          {/* Full screen Login Page */}
+          {showLoginPage && (
+            <div className="fixed inset-0 z-50 bg-black">
+              <LandingAuth
+                onClose={handleCloseAuthPage}
+                isPopup={false}
+                onCreateAccount={handleShowSignupFromAuth}
+                initialView="login"
+              />
+            </div>
+          )}
+          {/* Signup Popup */}
+          {showSignupPopup && (
+            <div className="fixed inset-0 z-50 bg-black">
+              <Signup onClose={handleCloseSignupPopup} isPopup={false} />
+            </div>
+          )}
+          {/* Terms and Conditions Popup */}
+          {showTermsPopup && <TermsAndConditions onClose={() => setShowTermsPopup(false)} />}
+
+          {/* Privacy Policy Popup */}
+          {showPrivacyPopup && <PrivacyPolicy onClose={() => setShowPrivacyPopup(false)} />}
+        </>
+      )}
+    </>
+  )
+}
+// Sidebar Component
+export function Sidebar({ sidebarOpen, setSidebarOpen }) {
+  const [isMobile, setIsMobile] = useState(false)
+  const navigate = useNavigate()
+  const [currentPage, setPage] = useState("explore")
+  const [showAuthPopup, setShowAuthPopup] = useState(false)
+  const [showLoginPopup, setShowLoginPopup] = useState(false)
+  const [showSignupPopup, setShowSignupPopup] = useState(false)
+  const [showDesktopProfilePopup, setShowDesktopProfilePopup] = useState(false)
+  const [showTermsPopup, setShowTermsPopup] = useState(false)
+  const [showPrivacyPopup, setShowPrivacyPopup] = useState(false)
+  // Check if device is mobile based on screen width
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    // Initial check
+    checkIsMobile()
+    // Add event listener for window resize
+    window.addEventListener("resize", checkIsMobile)
+    // Cleanup
+    return () => window.removeEventListener("resize", checkIsMobile)
+  }, [])
+  // Load sidebar state from localStorage on component mount
+  useEffect(() => {
+    const savedSidebarState = localStorage.getItem("sidebarOpen")
+    if (savedSidebarState !== null) {
+      setSidebarOpen(savedSidebarState === "true")
+    }
+  }, [setSidebarOpen])
+  const toggleSidebar = () => {
+    const newState = !sidebarOpen
+    setSidebarOpen(newState)
+    // Save sidebar state to localStorage
+    localStorage.setItem("sidebarOpen", newState.toString())
+  }
+  const handleLogin = () => {
+    // Set a flag to identify this is coming from the bars page login button
+    localStorage.setItem("fromBarsLogin", "true")
+    setShowLoginPopup(true)
+  }
+  const handleSignup = () => {
+    setShowAuthPopup(true)
+  }
+  const handleCloseAuthPopup = () => {
+    setShowAuthPopup(false)
+  }
+  const handleCloseLoginPopup = () => {
+    localStorage.removeItem("fromBarsLogin")
+    setShowLoginPopup(false)
+  }
+  const handleShowSignupFromAuth = () => {
+    setShowAuthPopup(false)
+    setShowLoginPopup(false)
+    setShowSignupPopup(true)
+  }
+  const handleCloseSignupPopup = () => {
+    setShowSignupPopup(false)
+  }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("dip");
+    localStorage.removeItem("user");
+    localStorage.removeItem("exe");
+    window.location.href = "/"
+  }
+  const handlePrivacyClick = () => {
+    setShowPrivacyPopup(true)
+    setShowDesktopProfilePopup(false)
+  }
+  const handleTermsClick = () => {
+    setShowTermsPopup(true)
+    setShowDesktopProfilePopup(false)
+  }
+  const handleOverviewClick = () => {
+    navigate("/explore/bio")
+    setShowDesktopProfilePopup(false)
+  }
+  // Updated navigation handler
+  const handleNavigation = async (route) => {
+    if(localStorage.getItem("token")){
+    const response = await axios.get(`${API_KEY}/profile/fetch`, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('token')
+      }
+    });
+   // console.log(response.data);
+    if (response.data.length > 0) {
+      localStorage.setItem("exe",response.data[0].completed);
+      // setIsEditing(true); // Enable edit mode if data exists
+    }
+  }
+    if (route === "explore" && !localStorage.getItem("token")) {
+      // Show auth popup if user is not logged in and trying to access explore
+      setShowAuthPopup(true)
+    } else if (route === "explore" && localStorage.getItem("exe")) {
+      navigate("/explore/break")
+    } else {
+      navigate(`/${route}`)
+    }
+  }
   useEffect(() => {
     // Check if the path includes "explore" to keep the bar active
     if (location.pathname.includes("explore")) {
-      setPage("explore");
+      setPage("explore")
     } else {
-      setPage(location.pathname.split("/").pop()); // Fallback for other pages
+      setPage(location.pathname.split("/").pop()) // Fallback for other pages
     }
-  }, [location.pathname]); // Dependency ensures it updates when URL changes
-  
-  const navItems = [
-    { 
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
-      </svg>
-      ), 
-      text: "Explore",
-      link: "/explore",
-      name: "explore"
-    },
-    { 
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 14.6667C7.07778 14.6667 6.21111 14.4917 5.4 14.1417C4.58889 13.7917 3.88333 13.3167 3.28333 12.7167C2.68333 12.1167 2.20833 11.4111 1.85833 10.6C1.50833 9.78889 1.33333 8.92222 1.33333 8C1.33333 7.07778 1.50833 6.21111 1.85833 5.4C2.20833 4.58889 2.68333 3.88334 3.28333 3.28334C3.88333 2.68334 4.58889 2.20834 5.4 1.85834C6.21111 1.50834 7.07778 1.33334 8 1.33334C9.62222 1.33334 11.0417 1.84167 12.2583 2.85834C13.475 3.875 14.2333 5.15 14.5333 6.68334H13.1667C12.9556 5.87222 12.575 5.14722 12.025 4.50834C11.475 3.86945 10.8 3.38889 10 3.06667V3.33334C10 3.7 9.86944 4.01389 9.60833 4.275C9.34722 4.53611 9.03333 4.66667 8.66667 4.66667H7.33333V6C7.33333 6.18889 7.26944 6.34722 7.14167 6.475C7.01389 6.60278 6.85556 6.66667 6.66667 6.66667H5.33333V8H6.66667V10H6L2.8 6.8C2.76667 7 2.73611 7.2 2.70833 7.4C2.68056 7.6 2.66667 7.8 2.66667 8C2.66667 9.45556 3.17778 10.7056 4.2 11.75C5.22222 12.7944 6.48889 13.3222 8 13.3333V14.6667ZM14.0667 14.3333L11.9333 12.2C11.7 12.3333 11.45 12.4444 11.1833 12.5333C10.9167 12.6222 10.6333 12.6667 10.3333 12.6667C9.5 12.6667 8.79167 12.375 8.20833 11.7917C7.625 11.2083 7.33333 10.5 7.33333 9.66667C7.33333 8.83334 7.625 8.125 8.20833 7.54167C8.79167 6.95834 9.5 6.66667 10.3333 6.66667C11.1667 6.66667 11.875 6.95834 12.4583 7.54167C13.0417 8.125 13.3333 8.83334 13.3333 9.66667C13.3333 9.96667 13.2889 10.25 13.2 10.5167C13.1111 10.7833 13 11.0333 12.8667 11.2667L15 13.4L14.0667 14.3333ZM10.3333 11.3333C10.8 11.3333 11.1944 11.1722 11.5167 10.85C11.8389 10.5278 12 10.1333 12 9.66667C12 9.2 11.8389 8.80556 11.5167 8.48334C11.1944 8.16111 10.8 8 10.3333 8C9.86667 8 9.47222 8.16111 9.15 8.48334C8.82778 8.80556 8.66667 9.2 8.66667 9.66667C8.66667 10.1333 8.82778 10.5278 9.15 10.85C9.47222 11.1722 9.86667 11.3333 10.3333 11.3333Z" fill="white"/>
-        </svg>
-      ), 
-      text: "Outreach",
-      link: "/outreach",
-      name: "outreach"
-    },
-    { 
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6 10.6667C6.36667 10.6667 6.68055 10.5361 6.94167 10.275C7.20278 10.0139 7.33333 9.7 7.33333 9.33334C7.33333 8.96667 7.20278 8.65278 6.94167 8.39167C6.68055 8.13056 6.36667 8 6 8C5.63333 8 5.31944 8.13056 5.05833 8.39167C4.79722 8.65278 4.66667 8.96667 4.66667 9.33334C4.66667 9.7 4.79722 10.0139 5.05833 10.275C5.31944 10.5361 5.63333 10.6667 6 10.6667ZM10 10.6667C10.3667 10.6667 10.6806 10.5361 10.9417 10.275C11.2028 10.0139 11.3333 9.7 11.3333 9.33334C11.3333 8.96667 11.2028 8.65278 10.9417 8.39167C10.6806 8.13056 10.3667 8 10 8C9.63333 8 9.31944 8.13056 9.05833 8.39167C8.79722 8.65278 8.66667 8.96667 8.66667 9.33334C8.66667 9.7 8.79722 10.0139 9.05833 10.275C9.31944 10.5361 9.63333 10.6667 10 10.6667ZM8 7.33334C8.36667 7.33334 8.68055 7.20278 8.94167 6.94167C9.20278 6.68056 9.33333 6.36667 9.33333 6C9.33333 5.63334 9.20278 5.31945 8.94167 5.05834C8.68055 4.79722 8.36667 4.66667 8 4.66667C7.63333 4.66667 7.31944 4.79722 7.05833 5.05834C6.79722 5.31945 6.66667 5.63334 6.66667 6C6.66667 6.36667 6.79722 6.68056 7.05833 6.94167C7.31944 7.20278 7.63333 7.33334 8 7.33334ZM8 14.6667C7.07778 14.6667 6.21111 14.4917 5.4 14.1417C4.58889 13.7917 3.88333 13.3167 3.28333 12.7167C2.68333 12.1167 2.20833 11.4111 1.85833 10.6C1.50833 9.78889 1.33333 8.92222 1.33333 8C1.33333 7.07778 1.50833 6.21111 1.85833 5.4C2.20833 4.58889 2.68333 3.88334 3.28333 3.28334C3.88333 2.68334 4.58889 2.20834 5.4 1.85834C6.21111 1.50834 7.07778 1.33334 8 1.33334C8.92222 1.33334 9.78889 1.50834 10.6 1.85834C11.4111 2.20834 12.1167 2.68334 12.7167 3.28334C13.3167 3.88334 13.7917 4.58889 14.1417 5.4C14.4917 6.21111 14.6667 7.07778 14.6667 8C14.6667 8.92222 14.4917 9.78889 14.1417 10.6C13.7917 11.4111 13.3167 12.1167 12.7167 12.7167C12.1167 13.3167 11.4111 13.7917 10.6 14.1417C9.78889 14.4917 8.92222 14.6667 8 14.6667ZM8 13.3333C9.48889 13.3333 10.75 12.8167 11.7833 11.7833C12.8167 10.75 13.3333 9.48889 13.3333 8C13.3333 6.51111 12.8167 5.25 11.7833 4.21667C10.75 3.18334 9.48889 2.66667 8 2.66667C6.51111 2.66667 5.25 3.18334 4.21667 4.21667C3.18333 5.25 2.66667 6.51111 2.66667 8C2.66667 9.48889 3.18333 10.75 4.21667 11.7833C5.25 12.8167 6.51111 13.3333 8 13.3333Z" fill="white"/>
-</svg>
-      ), 
-      text: "Enagage",
-      link: "/enagage",
-      name: "enagage"
-    },
-    // { 
-    //   icon: (
-    //     <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    //     <path d="M5.733330.3667Z" fill="white"/>
-    //     </svg>
-    //   ), 
-    //   text: "Activity",
-    //   link: "/activity",
-    //   name: "activity"
-    // },
-    { 
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 13.3333C3.63333 13.3333 3.31944 13.2028 3.05833 12.9417C2.79722 12.6806 2.66667 12.3667 2.66667 12C2.66667 11.6333 2.79722 11.3195 3.05833 11.0583C3.31944 10.7972 3.63333 10.6667 4 10.6667C4.36667 10.6667 4.68056 10.7972 4.94167 11.0583C5.20278 11.3195 5.33333 11.6333 5.33333 12C5.33333 12.3667 5.20278 12.6806 4.94167 12.9417C4.68056 13.2028 4.36667 13.3333 4 13.3333ZM8 13.3333C7.63333 13.3333 7.31945 13.2028 7.05833 12.9417C6.79722 12.6806 6.66667 12.3667 6.66667 12C6.66667 11.6333 6.79722 11.3195 7.05833 11.0583C7.31945 10.7972 7.63333 10.6667 8 10.6667C8.36667 10.6667 8.68056 10.7972 8.94167 11.0583C9.20278 11.3195 9.33333 11.6333 9.33333 12C9.33333 12.3667 9.20278 12.6806 8.94167 12.9417C8.68056 13.2028 8.36667 13.3333 8 13.3333ZM12 13.3333C11.6333 13.3333 11.3194 13.2028 11.0583 12.9417C10.7972 12.6806 10.6667 12.3667 10.6667 12C10.6667 11.6333 10.7972 11.3195 11.0583 11.0583C11.3194 10.7972 11.6333 10.6667 12 10.6667C12.3667 10.6667 12.6806 10.7972 12.9417 11.0583C13.2028 11.3195 13.3333 11.6333 13.3333 12C13.3333 12.3667 13.2028 12.6806 12.9417 12.9417C12.6806 13.2028 12.3667 13.3333 12 13.3333ZM4 9.33334C3.63333 9.33334 3.31944 9.20278 3.05833 8.94167C2.79722 8.68056 2.66667 8.36667 2.66667 8.00001C2.66667 7.63334 2.79722 7.31945 3.05833 7.05834C3.31944 6.79723 3.63333 6.66667 4 6.66667C4.36667 6.66667 4.68056 6.79723 4.94167 7.05834C5.20278 7.31945 5.33333 7.63334 5.33333 8.00001C5.33333 8.36667 5.20278 8.68056 4.94167 8.94167C4.68056 9.20278 4.36667 9.33334 4 9.33334ZM8 9.33334C7.63333 9.33334 7.31945 9.20278 7.05833 8.94167C6.79722 8.68056 6.66667 8.36667 6.66667 8.00001C6.66667 7.63334 6.79722 7.31945 7.05833 7.05834C7.31945 6.79723 7.63333 6.66667 8 6.66667C8.36667 6.66667 8.68056 6.79723 8.94167 7.05834C9.20278 7.31945 9.33333 7.63334 9.33333 8.00001C9.33333 8.36667 9.20278 8.68056 8.94167 8.94167C8.68056 9.20278 8.36667 9.33334 8 9.33334ZM12 9.33334C11.6333 9.33334 11.3194 9.20278 11.0583 8.94167C10.7972 8.68056 10.6667 8.36667 10.6667 8.00001C10.6667 7.63334 10.7972 7.31945 11.0583 7.05834C11.3194 6.79723 11.6333 6.66667 12 6.66667C12.3667 6.66667 12.6806 6.79723 12.9417 7.05834C13.2028 7.31945 13.3333 7.63334 13.3333 8.00001C13.3333 8.36667 13.2028 8.68056 12.9417 8.94167C12.6806 9.20278 12.3667 9.33334 12 9.33334ZM4 5.33334C3.63333 5.33334 3.31944 5.20278 3.05833 4.94167C2.79722 4.68056 2.66667 4.36667 2.66667 4.00001C2.66667 3.63334 2.79722 3.31945 3.05833 3.05834C3.31944 2.79723 3.63333 2.66667 4 2.66667C4.36667 2.66667 4.68056 2.79723 4.94167 3.05834C5.20278 3.31945 5.33333 3.63334 5.33333 4.00001C5.33333 4.36667 5.20278 4.68056 4.94167 4.94167C4.68056 5.20278 4.36667 5.33334 4 5.33334ZM8 5.33334C7.63333 5.33334 7.31945 5.20278 7.05833 4.94167C6.79722 4.68056 6.66667 4.36667 6.66667 4.00001C6.66667 3.63334 6.79722 3.31945 7.05833 3.05834C7.31945 2.79723 7.63333 2.66667 8 2.66667C8.36667 2.66667 8.68056 2.79723 8.94167 3.05834C9.20278 3.31945 9.33333 3.63334 9.33333 4.00001C9.33333 4.36667 9.20278 4.68056 8.94167 4.94167C8.68056 5.20278 8.36667 5.33334 8 5.33334ZM12 5.33334C11.6333 5.33334 11.3194 5.20278 11.0583 4.94167C10.7972 4.68056 10.6667 4.36667 10.6667 4.00001C10.6667 3.63334 10.7972 3.31945 11.0583 3.05834C11.3194 2.79723 11.6333 2.66667 12 2.66667C12.3667 2.66667 12.6806 2.79723 12.9417 3.05834C13.2028 3.31945 13.3333 3.63334 13.3333 4.00001C13.3333 4.36667 13.2028 4.68056 12.9417 4.94167C12.6806 5.20278 12.3667 5.33334 12 5.33334Z" fill="white"/>
-        </svg>
-      ), 
-      text: "Resouces",
-      link: "/resources",
-      name: "resources",
-    },
-  ];
-
-  // Function to close the privacy policy modal
-  const closePrivacyModal = () => {
-    setShowPrivacyModal(false);
-    document.body.style.overflow = "auto"; // Restore scrolling
-  };
-
-  // Function to open the privacy policy modal
-  const openPrivacyModal = () => {
-    setShowPrivacyModal(true);
-    document.body.style.overflow = "hidden"; // Prevent scrolling
-  };
-
-  // Function to close the search modal
-  const closeSearchModal = () => {
-    setShowSearchModal(false);
-    document.body.style.overflow = "auto"; // Restore scrolling
-  };
-
-  // Function to open the search modal
-  const openSearchModal = () => {
-    setShowSearchModal(true);
-    document.body.style.overflow = "hidden"; // Prevent scrolling
-  };
-  
-  // Function to handle More button click
-  const handleMoreClick = () => {
-    // If sidebar is collapsed, expand it first
-    if (!sidebarOpen) {
-      setSidebarOpen(true);
+  }, [location.pathname])
+  // Listen for the back button press
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      // Check if user is not logged in
+      if (!localStorage.getItem("token")) {
+        // Redirect to outreach page
+        navigate("/outreach")
+      }
     }
-    // Toggle the More state
-    setMore(!More);
-  };
+    window.addEventListener("popstate", handleBackButton)
+    return () => {
+      window.removeEventListener("popstate", handleBackButton)
+    }
+  }, [navigate])
+  // Add this useEffect after the other useEffect hooks in the Sidebar component
+  useEffect(() => {
+    const handlePopState = (event) => {
+      // Check if this was a login initiated from the bars page
+      if (localStorage.getItem("fromBarsLogin") === "true") {
+        // Clear the flag
+        localStorage.removeItem("fromBarsLogin")
+        // Close the login popup
+        setShowLoginPopup(false)
+        // Prevent default navigation
+        event.preventDefault()
+        // Navigate directly to the starting page
+        navigate("/")
+      }
+    }
+    window.addEventListener("popstate", handlePopState)
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [navigate])
+  // Only show sidebar on desktop
+  if (isMobile) return null
+  const handleGoogleLogout = async () => {
+    try {
+      localStorage.removeItem("token")
+      localStorage.removeItem("dip");
+      localStorage.removeItem("user");
+      window.location.href = "/" // Redirect to the homepage after logout
+    } catch (error) {
+      console.error("Error during logout", error)
+    }
+  }
+  // Handle profile icon click when sidebar is collapsed
+  const handleProfileIconClick = () => {
+    // Check if user is logged in
+    if (localStorage.getItem("token")) {
+      // If logged in, show profile popup
+      setShowDesktopProfilePopup(!showDesktopProfilePopup)
+    } else {
+      // If not logged in, show signup popup
+      setShowAuthPopup(true)
+    }
+  }
+  if (isMobile) return null
+  return (
+    <>
+      <div
+        className={`flex flex-col h-full bg-black transition-all duration-300 ${sidebarOpen ? "w-64" : "w-24"} fixed left-0 top-0 bottom-0 z-10`}
+      >
+        {/* Logo */}
+        <div className="p-5 pb-2 flex items-center">
+          <div className={`${sidebarOpen ? "ml-3 " : "-ml-2"} mt-4 pt-3 text-white`}>
+            <img src={logo || "/placeholder.svg"} alt="image" className={`w-12   ${sidebarOpen ? "h-10" : "h-12"}`} />
+          </div>
+          {sidebarOpen && (
+            <div className=" mt-8   flex items-center">
+            <svg width="100" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.72 0.799999H8.656V8.176L5.008 12H3.584L0.944 8.096V0.799999H2.88V7.728L4.416 10.016L6.72 7.6V0.799999ZM11.8498 0.799999H18.0898V2.608H12.5858L12.2978 2.928V5.44H15.9938V7.248H12.2978V9.488L12.7618 10.192H18.0898V12H11.8018L10.3618 9.856V2.32L11.8498 0.799999ZM20.1155 0.799999H25.9875L27.8595 3.536V5.408L26.3875 6.928L27.8595 9.088V12H25.9235V9.424L24.4675 7.296H22.8995L22.0515 6.768V12H20.1155V0.799999ZM22.0515 2.608V5.488H25.2995L25.9235 4.848V3.92L25.0115 2.608H22.0515ZM29.4053 0.799999H37.7573V2.608H33.5013L34.5573 3.552V12H32.6213V4L32.1573 2.608H29.4053V0.799999ZM44.791 0.799999H46.727V4.208L45.207 5.76L46.727 7.984V12H44.791V8.352L43.975 7.216H43.239L41.559 8.976V12H39.623V8.368L41.143 6.816L39.623 4.592V0.799999H41.559V4.224L42.343 5.408H43.111L44.791 3.648V0.799999Z" fill="white"/>
+              </svg>
+
+
+
+              <button onClick={toggleSidebar} className="ml-2 mb-4 bg-black p-1 rounded-full">
+              <svg
+                  height="22"
+                  viewBox="0 0 13 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="ml-5 -mb-4 font-bold text-xl"
+                >
+                  <path
+                    d="M11.017 0.383523V12.3438H12.9347V0.383523H11.017ZM4.03917 10.206L5.04769 9.20455L2.94542 7.10227H7.50508V5.625H2.94542L5.04769 3.52273L4.03917 2.52131L0.19684 6.36364L4.03917 10.206Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
+            </div>
+          )}
+        </div>
+        {/* Navigation */}
+        <div className="ml-3 flex flex-col flex-grow mt-10">
+          <NavItem
+            icon={<Search />}
+            active={currentPage}
+            name="explore"
+            label="Explore"
+            expanded={sidebarOpen}
+            onClick={() => handleNavigation("explore")}
+          />
+          <NavItem
+            icon={<Target />}
+            active={currentPage}
+            name="outreach"
+            label="Outreach"
+            expanded={sidebarOpen}
+            onClick={() => handleNavigation("outreach")}
+          />
+          <NavItem
+            icon={<Grid />}
+            active={currentPage}
+            name="resources"
+            label="Resources"
+            expanded={sidebarOpen}
+            onClick={() => handleNavigation("resources")}
+          />
+        </div>
+        {/*console.log(localStorage.getItem("dip"))*/}
+        {/* User Profile Section */}
+        <div className="flex flex-col items-center mb-6 mt-auto relative">
+          {sidebarOpen ? (
+            <div className="flex flex-col w-full px-4 space-y-4 mb-4">
+              {localStorage.getItem("token") ? (
+                <>
+<div className="flex items-center justify-between w-full border border-[#111111] rounded-md p-3 mb-4">
+  <div className="flex items-center space-x-3">
+    {localStorage.getItem("token") && localStorage.getItem("dip") ? (
+      <img 
+        src={localStorage.getItem("dip")} 
+        alt="dp" 
+        className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" 
+      />
+    ) : (
+      <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
+        <svg width="24" height="24" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M468.37 234.186C468.37 308.459 433.796 374.655 379.86 417.556C339.877 449.37 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.37 88.5096 417.556C34.5767 374.655 0 308.459 0 234.186C0 104.851 104.853 -3.05176e-05 234.186 -3.05176e-05C363.519 -3.05176e-05 468.37 104.851 468.37 234.186Z" fill="#111111"/>
+<path d="M234.184 308.838C284.45 308.838 325.199 268.089 325.199 217.823C325.199 167.557 284.45 126.808 234.184 126.808C183.918 126.808 143.169 167.557 143.169 217.823C143.169 268.089 183.918 308.838 234.184 308.838Z" fill="#EEEEEE" fill-opacity="0.933333"/>
+<path d="M379.86 417.556C339.877 449.371 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.371 88.5095 417.556C117.79 374.542 172.07 345.654 234.186 345.654C296.302 345.654 350.587 374.535 379.86 417.556Z" fill="#EEEEEE" fill-opacity="0.933333"/>
+        </svg>
+      </div>
+    )}
+
+    
+    <div>
+      <p className="text-white text-sm">{localStorage.getItem("user") || "@username"}</p>
+    </div>
+  </div>
+  <button
+    onClick={() => setShowDesktopProfilePopup(!showDesktopProfilePopup)}
+    className="text-gray-400 hover:text-white"
+  >
+    <Settings size={20} />
+  </button>
+</div>
+                  <div className="flex items-center justify-center w-full mb-4">
+                    <button
+                      className="flex items-center justify-center bg-[#1F1F1F] text-white rounded-md px-6 py-2 w-11/12"
+                      // onClick={() => handleGoogleLogout()}
+                      style={{
+                        fontFamily: "Playfair Display",
+                        fontSize: "16px",
+                        lineHeight: "100%",
+                        textAlign: "center",
+                        height: "48px",
+                        fontWeight: "bold", // Added fontWeight: 'bold'
+                      }}
+                    >
+                      <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                        <span
+                          className="text-black"
+                          style={{
+                            fontFamily: "Playfair Display",
+                            fontSize: "12px",
+                            lineHeight: "100%",
+                            textAlign: "center",
+                            fontWeight: "bold", // Added fontWeight: 'bold'
+                          }}
+                        >
+                          Fl
+                        </span>
+                      </div>
+                      <span className="ml-3 font-bold">FlowAI</span> {/* Added font-bold class */}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col space-y-4">
+                  <button
+                    className="w-full h-10 bg-[#FBFAF4] text-black border border-gray-300 rounded-md font-bold"
+                    onClick={handleSignup}
+                  >
+                    Sign Up
+                  </button>
+
+                  <button
+                    className="w-full h-10 bg-[#1F1F1F] text-[#FBFAF4] border border-gray-300 rounded-md font-bold"
+                    onClick={handleLogin}
+                  >
+                    Log in
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center space-y-4 mb-4">
+              <button onClick={toggleSidebar} className="mb-4 bg-black p-1 rounded-full">
+              <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3.77273 0.613636V19.75H0.704545V0.613636H3.77273ZM14.9373 16.3295L13.3237 14.7273L16.6873 11.3636H9.39188V9H16.6873L13.3237 5.63636L14.9373 4.03409L21.0851 10.1818L14.9373 16.3295Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
+              {/* Make profile image clickable when sidebar is collapsed */}
+              {localStorage.getItem("token") && localStorage.getItem("dip") ? (
+  <img 
+    src={localStorage.getItem("dip")} 
+    alt="dp" 
+    className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer" 
+    onClick={handleProfileIconClick}
+  />
+) : (
+  <div 
+    className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
+    onClick={handleProfileIconClick}
+  >
+<span class="material-symbols-outlined">
+person
+</span>
+
+  </div>
+)}
+              
+              {/* Add FlowAI button below the profile pic when sidebar is collapsed */}
+              <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center mt-4">
+                <span
+                  className="text-black"
+                  style={{
+                    fontFamily: "Playfair Display",
+                    fontSize: "14px",
+                    lineHeight: "100%",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Fl
+                </span>
+              </div>
+            </div>
+          )}
+
+          {showDesktopProfilePopup && localStorage.getItem("token") && (
+            <>
+              {/* Add overlay to capture clicks outside the popup */}
+              <div className="fixed inset-0 z-40" onClick={() => setShowDesktopProfilePopup(false)}></div>
+
+              <div className={`absolute ${sidebarOpen ? 'bottom-[130px] right-[-210px]' : 'bottom-[100px] right-[-220px]'} z-50 w-64 bg-[black] rounded-lg shadow-lg border border-[#333] p-4`}>
+                <div className="py-2">
+                {[
+      { icon: "account_circle", label: "Overview", action: handleOverviewClick },
+      { icon: "settings", label: "Settings" },
+      { icon: "favorite", label: "Community" },
+      { icon: "shield", label: "Privacy Policy", action: handlePrivacyClick },
+      { icon: "gavel", label: "Terms of Service", action: handleTermsClick },
+      { icon: "logout", label: "Log out", action: handleLogout }
+    ].map((item, index) => (
+      <div
+        key={index}
+        className="px-4 py-3 cursor-pointer flex items-center text-[#d4d4d4] transition-colors duration-200 hover:text-white"
+        onClick={item.action}
+      >
+        <span className="mr-2 material-symbols-outlined w-[28px] h-[28px] text-[28px] leading-[28px] text-white">
+          {item.icon}
+        </span>
+        <span>{item.label}</span>
+      </div>
+    ))}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Auth Popup with Backdrop */}
+      {showAuthPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={handleCloseAuthPopup}></div>
+          <div className="z-50">
+            <LandingAuth onClose={handleCloseAuthPopup} isPopup={true} onCreateAccount={handleShowSignupFromAuth} />
+          </div>
+        </div>
+      )}
+
+      {/* Login Popup with Backdrop */}
+      {showLoginPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={handleCloseLoginPopup}></div>
+          <div className="z-50">
+            <LandingAuth
+              onClose={handleCloseLoginPopup}
+              isPopup={true}
+              onCreateAccount={handleShowSignupFromAuth}
+              initialView="login"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Signup Popup */}
+      {showSignupPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={handleCloseSignupPopup}></div>
+          <div className="z-50">
+            <Signup onClose={handleCloseSignupPopup} isPopup={true} />
+          </div>
+        </div>
+      )}
+
+      {/* Terms and Conditions Popup */}
+      {showTermsPopup && <TermsAndConditions onClose={() => setShowTermsPopup(false)} />}
+
+      {/* Privacy Policy Popup */}
+      {showPrivacyPopup && <PrivacyPolicy onClose={() => setShowPrivacyPopup(false)} />}
+    </>
+  )
+}
+// Main Content Component
+export function MainContent({ sidebarOpen, children }) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkIsMobile()
+    window.addEventListener("resize", checkIsMobile)
+
+    return () => window.removeEventListener("resize", checkIsMobile)
+  }, [])
+
+  return (
+    <div className={`flex-1 ${isMobile ? "pt-16 pb-16" : `ml-${sidebarOpen ? "64" : "24"} pt-9 pr-6 pb-6`}`}>
+      <div className={`${!isMobile ? "bg-[#111] rounded-[10px] p-6" : "bg-[#111]"} h-full flex flex-col`}>
+        {children}
+      </div>
+    </div>
+  )
+}
+// Navigation Item Component for sidebar
+function NavItem({ icon, label, expanded, active, name, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center py-4 px-4 relative ${active === name ? "text-white" : "text-gray-400"} hover:text-white cursor-pointer`}
+    >
+      <div className="w-6 h-6">{icon}</div>
+      {expanded && <span className="ml-4 text-lg">{label}</span>}
+      {active === name && !expanded && <div className="absolute right-0 w-1 h-8 bg-white rounded-md"></div>}
+    </button>
+  )
+}
+// Navigation Icon for Mobile Footer
+export function NavIconFooter({ icon, label, active = false }) {
+  return (
+    <div className={`flex flex-col items-center ${active ? "text-white" : "text-gray-400"}`}>
+      <div className="w-6 h-6">{icon}</div>
+      <span className="text-xs mt-1">{label}</span>
+    </div>
+  )
+}
+// Mobile Footer Component
+export function MobileFooter({ currentPage }) {
+  const navigate = useNavigate()
+  const [showAuthPage, setShowAuthPage] = useState(false)
+  const [showLoginPage, setShowLoginPage] = useState(false)
+  const [showAuthPopup, setShowAuthPopup] = useState(false)
+
+  const handleNavigation = (route) => {
+    if (route === "explore" && !localStorage.getItem("token")) {
+      // Show full-screen auth page (LandingAuth) if user is not logged in and trying to access explore
+      setShowAuthPage(true)
+    } else if (route === "explore" && localStorage.getItem("exe")) {
+      navigate("/explore/break")
+    } else {
+      navigate(`/${route}`)
+    }
+  }
+
+  const handleCloseAuthPage = () => {
+    setShowAuthPage(false)
+    setShowLoginPage(false)
+  }
+
+  const handleShowSignupFromAuth = () => {
+    setShowAuthPage(false)
+    setShowLoginPage(false)
+  }
 
   return (
     <>
-      <aside className={`sidebar ${sidebarOpen ? "expanded" : "collapsed"}`}>
-        <nav>
-          <ul className="nav-list">
-            {navItems.map((item, index) => (
-              <li key={index} className="w-full">
-                <button
-                  onClick={() => {
-                    console.log(item.text);
-                    setActiveNav(item.text);
-                    navigate(item.link);
-                  }}
-
-                  className={`nav-button w-full ${!More && currentPage === item.name ? "active" : ""}`}
-                >
-                  {item.icon}
-                  <span className="nav-text">{item.text}</span>
-                </button>
-              </li>
-            ))}
-
-            <li key={123} className="w-full">
-              <button
-                onClick={handleMoreClick}
-                className={`nav-button w-full ${More ? "active" : ""}`}
-              >
-                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M3.99984 9.33332C3.63317 9.33332 3.31928 9.20277 3.05817 8.94166C2.79706 8.68055 2.6665 8.36666 2.6665 7.99999C2.6665 7.63332 2.79706 7.31943 3.05817 7.05832C3.31928 6.79721 3.63317 6.66666 3.99984 6.66666C4.3665 6.66666 4.68039 6.79721 4.9415 7.05832C5.20262 7.31943 5.33317 7.63332 5.33317 7.99999C5.33317 8.36666 5.20262 8.68055 4.9415 8.94166C4.68039 9.20277 4.3665 9.33332 3.99984 9.33332ZM7.99984 9.33332C7.63317 9.33332 7.31928 9.20277 7.05817 8.94166C6.79706 8.68055 6.6665 8.36666 6.6665 7.99999C6.6665 7.63332 6.79706 7.31943 7.05817 7.05832C7.31928 6.79721 7.63317 6.66666 7.99984 6.66666C8.3665 6.66666 8.68039 6.79721 8.9415 7.05832C9.20262 7.31943 9.33317 7.63332 9.33317 7.99999C9.33317 8.36666 9.20262 8.68055 8.9415 8.94166C8.68039 9.20277 8.3665 9.33332 7.99984 9.33332ZM11.9998 9.33332C11.6332 9.33332 11.3193 9.20277 11.0582 8.94166C10.7971 8.68055 10.6665 8.36666 10.6665 7.99999C10.6665 7.63332 10.7971 7.31943 11.0582 7.05832C11.3193 6.79721 11.6332 6.66666 11.9998 6.66666C12.3665 6.66666 12.6804 6.79721 12.9415 7.05832C13.2026 7.31943 13.3332 7.63332 13.3332 7.99999C13.3332 8.36666 13.2026 8.68055 12.9415 8.94166C12.6804 9.20277 12.3665 9.33332 11.9998 9.33332Z" fill="white"/>
-</svg>
-                <span className="nav-text">More</span>
-              </button>
-            </li>
-          </ul>
-        </nav>
-
-        {More && (
-          <div className="py-4 bg-[#171717] m-4 rounded-xl flex flex-col justify-center align-center text-center py-2">
-            <button onClick={openPrivacyModal} className="hover:text-white py-2">Privacy Policy</button>
-            <button onClick={openSearchModal} className="hover:text-white py-2">Terms Of use</button>
-            <a className="hover:text-white py-2">Community</a>
-            <hr className="w-1/3 border-t-2 border-gray-400 mx-auto" />
-            <button onClick={() =>  {localStorage.removeItem("token"); navigate("/outreach");}} className="hover:text-white py-4">Log Out</button>
-           
-          </div>
-        )}
-
-          <div className={`w-4/5 flex flex-col gap-[15px] absolute bottom-[15%] left-1/2 transform -translate-x-1/2`}>
- 
-            <Button
-              theme={"light"}
-              context={"VERTX FLOW"}
-              callback={() => {
-                navigate("/sub");
-              }}
-            />
-          </div>
-       
-
-        <div className="sidebar-toggle-wrapper">
-          <button 
-            className="sidebar-toggle" 
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
-          >
-            {sidebarOpen ? (
-           <svg width="20" height="20" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-           <path d="M2.1875 0.8125L0.46875 2.53125C0.21875 2.78125 0.21875 3.21875 0.46875 3.46875L2.1875 5.1875C2.625 5.625 3.34375 5.3125 3.34375 4.71875V1.28125C3.34375 0.6875 2.625 0.375 2.1875 0.8125Z" fill="#7D7373"/>
-           </svg>
-          
-            
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.8125 5.1875L3.53125 3.46875C3.78125 3.21875 3.78125 2.78125 3.53125 2.53125L1.8125 0.8125C1.375 0.375 0.65625 0.6875 0.65625 1.28125V4.71875C0.65625 5.3125 1.375 5.625 1.8125 5.1875Z" fill="#7D7373"/>
-              </svg>
-              
-
-            )}
-          </button>
+      <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-[#111] fixed bottom-0 left-0 right-0 z-20">
+        <div className="flex flex-col items-center" onClick={() => handleNavigation("explore")}>
+          <NavIconFooter icon={<Search />} label="Home" active={currentPage === "explore"} />
         </div>
-      </aside>
+        <div className="flex flex-col items-center relative" onClick={() => handleNavigation("outreach")}>
+          {currentPage === "outreach" && <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>}
+          <NavIconFooter icon={<Target />} label="Outreach" active={currentPage === "outreach"} />
+        </div>
+        <div className="flex flex-col items-center" onClick={() => handleNavigation("resources")}>
+          <NavIconFooter icon={<Grid />} label="Resources" active={currentPage === "resources"} />
+        </div>
+      </div>
 
-      {/* Privacy Policy Modal with backdrop */}
-      {showPrivacyModal && (
-        <div className="backdrop" onClick={closePrivacyModal}>
-          <div className="popup" onClick={(e) => e.stopPropagation()}>
-            <div className="topsec">
-              <button className="btn" onClick={closePrivacyModal}>
-                <ion-icon name="arrow-back-outline"></ion-icon>
-              </button>
-            </div>
-            <PrivacyPolicy onClose={closePrivacyModal} />
-          </div>
+      {/* Full-screen Auth Page for non-logged-in users clicking home */}
+      {showAuthPage && (
+        <div className="fixed inset-0 z-50 bg-black">
+          <LandingAuth 
+            onClose={handleCloseAuthPage} 
+            isPopup={false} 
+            onCreateAccount={handleShowSignupFromAuth}
+          />
         </div>
       )}
 
-      {/* Terms and Conditions Modal with backdrop */}
-      {showSearchModal && (
-        <div className="backdrop" onClick={closeSearchModal}>
-          <div className="popup" onClick={(e) => e.stopPropagation()}>
-            <div className="topsec">
-              <button className="btn" onClick={closeSearchModal}>
-                <ion-icon name="arrow-back-outline"></ion-icon>
-              </button>
-            </div>
-            <TermsAndConditions onClose={closeSearchModal} />
-          </div>
+      {/* Full-screen Login Page */}
+      {showLoginPage && (
+        <div className="fixed inset-0 z-50 bg-black">
+          <LandingAuth 
+            onClose={handleCloseAuthPage} 
+            isPopup={false} 
+            onCreateAccount={handleShowSignupFromAuth}
+            initialView="login" 
+          />
         </div>
       )}
     </>
-  );
+  )
 }
+// Filter Button Component
+export function FilterButton({ label, mobile = false }) {
+  return (
+    <button
+      className={`flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] rounded-md border border-[#333] text-gray-300 ${mobile ? "text-xs" : ""}`}
+    >
+      {label}
+      <Lock size={mobile ? 12 : 16} />
+    </button>
+  )
+}
+// Layout Component
+export function Layout({ children }) {
+  const [isMobile, setIsMobile] = useState(false)
+  const [currentPage, setCurrentPage] = useState("explore")
+  // Initialize sidebar state from localStorage with a default value
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    const savedState = localStorage.getItem("sidebarOpen")
+    return savedState !== null ? savedState === "true" : true // Default to true if no saved state
+  })
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkIsMobile()
+    window.addEventListener("resize", checkIsMobile)
+
+    return () => window.removeEventListener("resize", checkIsMobile)
+  }, [])
+
+  useEffect(() => {
+    // Check if the path includes specific routes to set current page
+    if (location.pathname.includes("explore")) {
+      setCurrentPage("explore")
+    } else if (location.pathname.includes("outreach")) {
+      setCurrentPage("outreach")
+    } else if (location.pathname.includes("enagage")) {
+      setCurrentPage("enagage")
+    } else if (location.pathname.includes("resources")) {
+      setCurrentPage("resources")
+    } else {
+      setCurrentPage(location.pathname.split("/").pop()) // Fallback for other pages
+    }
+  }, [location.pathname])
+
+  return (
+    <div className="flex flex-col h-screen bg-black text-white">
+      {isMobile && <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}
+
+      <div className="flex flex-1 overflow">
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <MainContent sidebarOpen={sidebarOpen}>{children}</MainContent>
+      </div>
+
+      {isMobile && <MobileFooter currentPage={currentPage} />}
+    </div>
+  )
+}      
+
+
+
+
+
+

@@ -2,8 +2,8 @@ import * as React from "react";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-import API_KEY from "../../../key";
-import { Button, BackButton, AuthContainer } from "./common-components.jsx";
+import API_KEY from "../../../../key.js";
+import { Button, BackButton, AuthContainer } from "../common-components.jsx";
 
 export default function Verify() {
     const navigate = useNavigate();

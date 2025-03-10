@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import { Header, Sidebar } from "../../layout/bars"
 import "../categories/style.css"
 
 export default function FinancialModeling({ onClose }) {

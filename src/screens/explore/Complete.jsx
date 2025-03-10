@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { Layout, MobileFooter } from "../layout/barsNew"
+import { Layout, MobileFooter } from "../layout/bars"
 import { useNavigate } from "react-router"
 
 export default function ProfileComplete() {

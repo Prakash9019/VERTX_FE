@@ -1,9 +1,9 @@
-import "./style.css";
+// import "./style.css";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Button, BackButton, AuthContainer } from "./common-components.jsx";
-import { SignupForm, VerificationForm, SetPasswordForm } from "./auth-components.jsx";
+import { Button, BackButton, AuthContainer } from "../common-components.jsx";
+import { SignupForm, VerificationForm, SetPasswordForm } from "../auth-components.jsx";
 
 export default function Signup({ onClose }) {
   const navigate = useNavigate();

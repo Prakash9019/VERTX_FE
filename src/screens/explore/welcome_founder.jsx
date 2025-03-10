@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react"
-import { Header, Sidebar, Layout, NavIconFooter, MobileFooter } from "../layout/barsNew"
+import { Header, Sidebar, Layout, NavIconFooter, MobileFooter } from "../layout/bars"
 import { useNavigate } from "react-router"
 import axios from "axios"
 import API_KEY from "../../../key"
