@@ -96,6 +96,7 @@ function App() {
       <Route path="/explore/break" element={<BrokenFeature /> } />
       <Route path="/explore/complete" element={<ProfileComplete /> } />
       <Route path="/explore/bio" element={<Bio /> } />
+      <Route path="/community" element={<CommunityPage /> } />
       
       <Route path="*" element={<Nopage />} />
     </Routes>

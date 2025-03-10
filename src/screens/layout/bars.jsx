@@ -113,7 +113,7 @@ person
     {[
       { icon: "account_circle", label: "Overview", action: handleOverviewClick },
       { icon: "settings", label: "Settings" },
-      { icon: "favorite", label: "Community" },
+      { icon: "favorite", label: "Community",action : handleCommunityClick },
       { icon: "shield", label: "Privacy Policy", action: handlePrivacyClick },
       { icon: "gavel", label: "Terms of Service", action: handleTermsClick },
       { icon: "logout", label: "Log out", action: handleLogout }
@@ -239,6 +239,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const handleTermsClick = () => {
     setShowTermsPopup(true)
     setShowDesktopProfilePopup(false)
+  }
+  const handleCommunityClick = () =>{
+     navigate("/community")
   }
   const handleOverviewClick = () => {
     navigate("/explore/bio")
@@ -540,7 +543,7 @@ person
                 {[
       { icon: "account_circle", label: "Overview", action: handleOverviewClick },
       { icon: "settings", label: "Settings" },
-      { icon: "favorite", label: "Community" },
+      { icon: "favorite", label: "Community" , action: handleCommunityClick },
       { icon: "shield", label: "Privacy Policy", action: handlePrivacyClick },
       { icon: "gavel", label: "Terms of Service", action: handleTermsClick },
       { icon: "logout", label: "Log out", action: handleLogout }
