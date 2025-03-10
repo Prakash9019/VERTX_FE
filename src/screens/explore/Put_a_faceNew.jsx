@@ -72,7 +72,7 @@ useEffect(() => {
           }
         });
         if (response.data) {
-          setUserId(response.data[0]._id);
+          setUserId(response.data[0].user);
           // setTimeDifference(timeDifference(response.data[0].createdAt));
           setUserData(response.data[0]);
           setAvatar(response.data[0].avatar);
@@ -94,16 +94,17 @@ useEffect(() => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => setAvatar(reader.result);
+    console.log(reader.result);
     reader.readAsDataURL(file);
     localStorage.setItem("dip",reader.result);
     const formData = new FormData();
     formData.append("avatar", file);
     // console.log(userId);
-    await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
+    const response= await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
-    })
-    .then(res => res.data)
-    .catch(err => console.error("Error:", err));
+    });
+    console.log(response.data)
+    
   };
 
   if (loading) return (

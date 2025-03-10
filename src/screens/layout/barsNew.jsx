@@ -4,6 +4,8 @@ import { Search, Target, Grid, Settings, Lock } from "lucide-react"
 import logo from "../../logo.png"
 import { useNavigate } from "react-router"
 import LandingAuth from "../landing/index"
+import axios from "axios"
+import API_KEY from "../../../key"
 import Signup from "../auth/signup"
 import TermsAndConditions from "../More/TermsandConditions"
 import PrivacyPolicy from "../More/PrivacyPolicy"
@@ -247,7 +249,20 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     setShowDesktopProfilePopup(false)
   }
   // Updated navigation handler
-  const handleNavigation = (route) => {
+  const handleNavigation = async (route) => {
+    if(localStorage.getItem("token")){
+    const response = await axios.get(`${API_KEY}/profile/fetch`, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('token')
+      }
+    });
+    console.log(response.data);
+    if (response.data.length > 0) {
+      localStorage.setItem("exe",response.data[0].completed);
+      // setIsEditing(true); // Enable edit mode if data exists
+    }
+  }
     if (route === "explore" && !localStorage.getItem("token")) {
       // Show auth popup if user is not logged in and trying to access explore
       setShowAuthPopup(true)

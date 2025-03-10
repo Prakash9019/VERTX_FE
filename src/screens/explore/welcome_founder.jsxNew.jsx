@@ -99,27 +99,7 @@ export default function Welcome_founder() {
       return;
     }
     // Fetch user data when component mounts
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`${API_KEY}/profile/fetch`, {
-          headers: {
-            'Content-Type': 'application/json',
-            token: localStorage.getItem('token')
-          }
-        });
-        // console.log(response.data[0]);
-        if (response.data.length > 0) {
-          localStorage.setItem("exe",response.data[0].completed);
-          setFormData(response.data[0]);
-          // setIsEditing(true); // Enable edit mode if data exists
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } 
-    };
-    
 
-    fetchUserData();
   }, []);
 
   // Handle Form Submission

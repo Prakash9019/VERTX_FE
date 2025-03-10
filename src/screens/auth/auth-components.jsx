@@ -20,6 +20,7 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
 
+
   const signupHandler = async () => {
     setLoad(true);
     const response = await axios
@@ -40,7 +41,8 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
       if (response.status == 200) {
         localStorage.setItem("token", response?.data?.token);
         localStorage.setItem("user",response?.data?.username);
-        window.location.reload();
+
+        // window.location.reload();
         navigate("/outreach");
       }
       setShow(true);

@@ -504,7 +504,7 @@ export default function Outreach2() {
             >
               Previous
             </button>
-            <span className="page-info text-xs sm:text-sm">Page {currentPage} </span>
+            <span className="page-info text-xs sm:text-sm">Page {currentPage} of {totalPages} </span>
             <button
               className="pagination-button text-xs sm:text-sm"
               disabled={currentPage === totalPages}
@@ -522,7 +522,7 @@ export default function Outreach2() {
             >
               Previous
             </button>
-            <span className="page-info text-xs sm:text-sm">Page {currentPage1} </span>
+            <span className="page-info text-xs sm:text-sm">Page {currentPage1} of {totalPages} </span>
             <button
               className="pagination-button text-xs sm:text-sm"
               disabled={currentPage1 === totalPages}

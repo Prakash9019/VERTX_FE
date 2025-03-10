@@ -55,14 +55,25 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount,
         setErrorMessage(e.response?.data?.msg || "An error occurred")
         return e.response
       })
-
     if (response) {
       setErrorMessage(response?.data?.msg)
       setResp(response?.data?.msg)
       if (response?.status == 200) {
+        console.log("hello");
         localStorage.setItem("token", response?.data?.token)
         localStorage.setItem("user", response?.data?.username)
-        window.location.reload()
+
+         const token=localStorage.getItem("token")
+        if (!token) return; // Prevent request if token is missing
+  
+        const response2 = await axios.get(`${API_KEY}/profile/fetch`,{headers: {'Content-Type': 'application/json',
+          token: localStorage.getItem('token')
+        }});
+        if (response2.data.length > 0) {
+          localStorage.setItem("dip",response2.data[0].avatar);
+        }
+        
+        // window.location.reload()
         if (isPopup && onClose) {
           onClose()
         } else {

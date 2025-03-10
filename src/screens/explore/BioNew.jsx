@@ -59,7 +59,7 @@ export default function Bio() {
         }});
         // //console.log(response.data[0]);
         if (response.data.length > 0) {
-          setUserId(response.data[0]._id);
+          setUserId(response.data[0].user);
           setFormData(response.data[0]);
           localStorage.setItem("dip",response.data[0].avatar);
           setTimeDifference(timeDifference(response.data[0].createdAt));
@@ -310,15 +310,14 @@ export default function Bio() {
     const reader = new FileReader();
     reader.onload = () => setAvatar(reader.result);
     reader.readAsDataURL(file);
-    localStorage.setItem("dip",reader.result);
     const formData = new FormData();
     formData.append("avatar", file);
     // console.log(userId);
-    await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
+    const response= await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
-    })
-    .then(res => res.data)
-    .catch(err => console.error("Error:", err));
+    });
+    localStorage.setItem("dip",response.data.avatar);
+    console.log(response.data)
   };
 
 
