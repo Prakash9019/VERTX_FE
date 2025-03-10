@@ -11,6 +11,7 @@ import gify from "./gify.gif"
 import "./style.css"
 import Select from "react-select"      
 import logo from "./womensDay.png"
+import SearchBar from "./Search.jsx"
 
 const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
   // Create a ref for manually handling input width
@@ -131,6 +132,7 @@ export default function Outreach2() {
   const [pageSize, setPageSize] = useState(20)
   const [currentPage1, setCurrentPage1] = useState(1)
   const [pageSize1, setPageSize1] = useState(20)
+  const [totalRecords1, setTotalRecords1] = useState(0)
   const [totalRecords, setTotalRecords] = useState(0)
   const [totalPageSize, setTotalPageSize] = useState(20)
 
@@ -185,7 +187,6 @@ export default function Outreach2() {
       try {
         setLoading(true)
         const response = await axios.get(`${API_KEY}/investors`, {
-          headers: { token: localStorage.getItem("token") },
           params: {
             page: currentPage,
             limit: pageSize,
@@ -224,19 +225,23 @@ export default function Outreach2() {
       }
     }
 
-    getInvestors()
-    fetchBookmarks()
+    getInvestors();
+    if(localStorage.getItem("token")){
+      fetchBookmarks();
+    }
+    
   }, [currentPage, pageSize, filters, bookmarked, womenLed]) 
 
   const [womenInv,setWomenInv] =useState([]);
   useEffect(() => {
+    
     // Check if the path includes "explore" to keep the bar active
     const fetchList = async () => {
       try {
         const res = await axios.get(`${API_KEY}/investors/women`, {
-          headers: { token: localStorage.getItem("token") },
           params: { page: currentPage1,  limit: pageSize1   }
         })
+        setTotalRecords1(res.data.totalCount)
         // console.log("cskhdbdshbch")
         // console.log(res.data.data);
         setWomenInv(res.data.data) // Assuming the API returns an array of investor IDs
@@ -245,7 +250,7 @@ export default function Outreach2() {
       }
     }
     fetchList();
-  }, [currentPage1 ,pageSize1 ])
+  }, [womenLed , currentPage1 ,pageSize1 ])
 
 
   const handlePageChange = (newPage) => {
@@ -313,6 +318,8 @@ export default function Outreach2() {
   const totalPages = Math.ceil(totalRecords / pageSize)
   const isUpgradeRequired = currentPage * 20 > totalPageSize
 
+  const totalPages1 = Math.ceil(totalRecords1 / pageSize1);
+
   const toggleBookmark = async (investorId) => {
     try {
       const isCurrentlyBookmarked = bookmarks.includes(investorId)
@@ -373,6 +380,7 @@ export default function Outreach2() {
           >
             <div className="filter mb-3 flex flex-nowrap gap-2 sm:gap-3">
               {/* Multi-Select Country */}
+              <SearchBar />
             { !womenLed && 
                 <>
             <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
@@ -522,10 +530,10 @@ export default function Outreach2() {
             >
               Previous
             </button>
-            <span className="page-info text-xs sm:text-sm">Page {currentPage1} of {totalPages} </span>
+            <span className="page-info text-xs sm:text-sm">Page {currentPage1} of {totalPages1} </span>
             <button
               className="pagination-button text-xs sm:text-sm"
-              disabled={currentPage1 === totalPages}
+              disabled={currentPage1 === totalPages1}
               onClick={() => handlePageChange1(currentPage1 + 1)}
             >
               Next
