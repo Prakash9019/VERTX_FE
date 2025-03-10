@@ -257,7 +257,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
         token: localStorage.getItem('token')
       }
     });
-    console.log(response.data);
+   // console.log(response.data);
     if (response.data.length > 0) {
       localStorage.setItem("exe",response.data[0].completed);
       // setIsEditing(true); // Enable edit mode if data exists

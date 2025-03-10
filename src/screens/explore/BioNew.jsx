@@ -317,7 +317,7 @@ export default function Bio() {
       headers: { "Content-Type": "multipart/form-data" },
     });
     localStorage.setItem("dip",response.data.avatar);
-    console.log(response.data)
+   // console.log(response.data)
   };
 
 

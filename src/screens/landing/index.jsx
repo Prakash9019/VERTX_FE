@@ -59,7 +59,7 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount,
       setErrorMessage(response?.data?.msg)
       setResp(response?.data?.msg)
       if (response?.status == 200) {
-        console.log("hello");
+      //  console.log("hello");
         localStorage.setItem("token", response?.data?.token)
         localStorage.setItem("user", response?.data?.username)
 

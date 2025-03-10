@@ -94,7 +94,7 @@ useEffect(() => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => setAvatar(reader.result);
-    console.log(reader.result);
+  //  console.log(reader.result);
     reader.readAsDataURL(file);
     localStorage.setItem("dip",reader.result);
     const formData = new FormData();
@@ -103,7 +103,7 @@ useEffect(() => {
     const response= await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-    console.log(response.data)
+   // console.log(response.data)
     
   };
 
