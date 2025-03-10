@@ -227,7 +227,7 @@ export default function Questions(){
     const [resp, setResp] = useState("")
 
     const saveHandler = async() => {
-        console.log(window.localStorage.getItem("token"));
+       // console.log(window.localStorage.getItem("token"));
         const data = {
           product,
           companyname: company,
@@ -256,7 +256,7 @@ export default function Questions(){
     }
 
     useEffect(() => {
-        console.log(countries)
+       // console.log(countries)
     }, [countries])
 
     return (

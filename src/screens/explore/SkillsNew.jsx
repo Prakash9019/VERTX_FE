@@ -103,7 +103,7 @@ export default function Skills() {
           token: localStorage.getItem('token')
         };
         const response = await axios.get(`${API_KEY}/profile/skills`, {headers}); // API to get saved skills
-        console.log(response);
+      //  console.log(response);
         const { achievement, skills, disciplines } = response.data.data;
         setAchievement(achievement || "");
         setSelectedSkills(skills || []);

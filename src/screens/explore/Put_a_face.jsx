@@ -46,7 +46,7 @@ export default function Put_a_face() {
           setTimeDifference(timeDifference(response.data[0].createdAt)); // Update time difference when data is fetched
           setUserData(response.data[0]);
           setAvatar(response.data[0].avatar);
-          console.log(response.data[0]);
+          //console.log(response.data[0]);
           // setIsEditing(true); // Enable edit mode if data exists
         }
       } catch (error) {
@@ -84,7 +84,7 @@ export default function Put_a_face() {
     reader.readAsDataURL(file);
     const formData = new FormData();
     formData.append("avatar", file);
-    console.log(userId);
+  //  console.log(userId);
     await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     })

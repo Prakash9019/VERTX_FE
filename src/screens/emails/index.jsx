@@ -15,7 +15,7 @@ export default function GenerateEmail() {
   const editRef = useRef();
 
   const styleText = (style) => {
-    console.log(style)
+   // console.log(style)
     if (window.getSelection) {
       const selection = window.getSelection();
       if (selection.rangeCount > 0) {
@@ -35,7 +35,7 @@ export default function GenerateEmail() {
   };
 
   useEffect(() => {
-    console.log(template)
+   // console.log(template)
     editRef.current.innerText = template?.body  || "";
   }, [template])
 

@@ -88,11 +88,11 @@ export function Callback2() {
         },
       });
   
-      console.log(response.data);
+    //  console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
       localStorage.setItem("user",response.data.user.username);
       localStorage.setItem("dip",response.data.user.dip);
-      console.log(localStorage.getItem("dip"))
+    //  console.log(localStorage.getItem("dip"))
     } catch (error) {
       console.error("Error fetching user data:", error);
     }

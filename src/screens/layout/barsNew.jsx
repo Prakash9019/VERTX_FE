@@ -400,7 +400,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             onClick={() => handleNavigation("resources")}
           />
         </div>
-        {console.log(localStorage.getItem("dip"))}
+        {/*console.log(localStorage.getItem("dip"))*/}
         {/* User Profile Section */}
         <div className="flex flex-col items-center mb-6 mt-auto relative">
           {sidebarOpen ? (

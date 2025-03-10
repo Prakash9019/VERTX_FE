@@ -11,7 +11,7 @@ export default function FlowNav() {
   const navigate = useNavigate();
   const url = ((useLocation()).pathname.split("/").pop())?.replace("%20", " ");
   
-  console.log(url)
+ // console.log(url)
 
   useEffect(() => {
     setState(true);

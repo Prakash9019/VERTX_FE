@@ -237,8 +237,8 @@ export default function Outreach2() {
           headers: { token: localStorage.getItem("token") },
           params: { page: currentPage1,  limit: pageSize1   }
         })
-        console.log("cskhdbdshbch")
-        console.log(res.data.data);
+        // console.log("cskhdbdshbch")
+        // console.log(res.data.data);
         setWomenInv(res.data.data) // Assuming the API returns an array of investor IDs
       } catch (error) {
         console.error("Error fetching bookmarks:", error)
@@ -479,7 +479,7 @@ export default function Outreach2() {
                     .map((item) => (
                       <Card key={item._id} data={item} toggleBookmark={toggleBookmark} isBookmarked={true} />
                     ))}
-                   {console.log(womenInv)}
+                   {/*console.log(womenInv)*/}
                     {womenLed && womenInv.map((item, index) => (
                     <div key={item._id || index} className="w-full">
                       <Card

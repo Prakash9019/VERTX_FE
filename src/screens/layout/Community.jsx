@@ -34,7 +34,7 @@ const CommunityPage = () => {
         });
         
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         alert(data.message);
     } catch (error) {
         console.error("Error subscribing:", error);
@@ -61,7 +61,7 @@ const handleSendFeedback = async () => {
         });
 
         const data = await response.json();
-        console.log(response);
+        //console.log(response);
         alert(data.message);
     } catch (error) {
         console.error("Error sending feedback:", error);

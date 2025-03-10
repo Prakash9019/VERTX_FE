@@ -77,7 +77,7 @@ useEffect(() => {
           setUserData(response.data[0]);
           setAvatar(response.data[0].avatar);
           localstorage.setItem("dip",response.data[0].avatar);
-          console.log(response.data[0]);
+        //  console.log(response.data[0]);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);

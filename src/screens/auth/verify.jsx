@@ -53,7 +53,7 @@ export default function Verify() {
         }
         
         try {
-            console.log(localStorage.getItem("token"));
+          //  console.log(localStorage.getItem("token"));
             const response = await fetch(`${API_KEY}/auth/verify`, {
                 method: 'POST',
                 headers: {
@@ -62,14 +62,14 @@ export default function Verify() {
                 },
                 body: JSON.stringify({ token, code }),
             });
-            console.log(response);
+          //  console.log(response);
 
             if (!response.ok) {
                 throw new Error('Failed to register');
             }
 
             const data = await response.json();
-            console.log(data);
+          //  console.log(data);
             navigate('/setpassword');
         } catch (error) {
             console.error("Submission failed:", error);
