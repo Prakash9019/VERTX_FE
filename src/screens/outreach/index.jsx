@@ -281,21 +281,7 @@ export default function Outreach2() {
   }
 
 
-  // const handleFilterChange = (filterName, value) => {
-  //   setFilters((prev) => ({
-  //     ...prev,
-  //     [filterName]: value,
-  //   }))
-  //   setCurrentPage(1)
-
-  //   // Also scroll to top when filters change
-  //   if (scrollableContentRef.current) {
-  //     scrollableContentRef.current.scrollTop = 0
-  //   } else {
-  //     window.scrollTo(0, 0)
-  //   }
-  // }
-
+  
 
   const handleFilterChange = (newFilters) => {
     setFilters((prev) => ({
@@ -312,11 +298,7 @@ export default function Outreach2() {
     }
   };
 
-  // handleFilterChange({
-  //   industry: ["Artificial Intelligence", "Biotechnology"],
-  //   country: ["Global"],
-  //   investorType: ["VC", "Angel"],
-  // });
+  
 
   
   const toggleBookmarked = () => {
@@ -347,7 +329,7 @@ export default function Outreach2() {
     setSearchQuery(query)
     // Reset to first page when searching
     try {
-      const response = await fetch(`http://localhost:5000/investors/search`, {
+      const response = await fetch(`${API_KEY}/investors/search`, {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
