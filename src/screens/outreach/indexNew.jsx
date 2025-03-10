@@ -194,13 +194,14 @@ export default function Outreach2() {
           params: {
             page: currentPage,
             limit: pageSize,
-            country: filters.country.length > 0 ? filters.country : undefined,
-            industry: filters.industry.length > 0 ? filters.industry : undefined,
-            investorType: filters.investorType.length > 0 ? filters.investorType : undefined,
+            country: filters.country.length ? filters.country.join(",") : undefined,
+            industry: filters.industry.length ? filters.industry.join(",") : undefined,
+            investorType: filters.investorType.length ? filters.investorType.join(",") : undefined,
             bookmarked: bookmarked ? true : undefined,
-            womenLed: womenLed ? true : undefined, // Add women-led filter parameter
+            womenLed: womenLed ? true : undefined, 
           },
-        })
+        });
+        
         setInvestors(response.data.data)
         setTotalRecords(response.data.totalCount)
 
@@ -280,21 +281,44 @@ export default function Outreach2() {
   }
 
 
-  const handleFilterChange = (filterName, value) => {
+  // const handleFilterChange = (filterName, value) => {
+  //   setFilters((prev) => ({
+  //     ...prev,
+  //     [filterName]: value,
+  //   }))
+  //   setCurrentPage(1)
+
+  //   // Also scroll to top when filters change
+  //   if (scrollableContentRef.current) {
+  //     scrollableContentRef.current.scrollTop = 0
+  //   } else {
+  //     window.scrollTo(0, 0)
+  //   }
+  // }
+
+
+  const handleFilterChange = (newFilters) => {
     setFilters((prev) => ({
       ...prev,
-      [filterName]: value,
-    }))
-    setCurrentPage(1)
-
-    // Also scroll to top when filters change
+      ...newFilters,  // Merge new filters
+    }));
+    setCurrentPage(1);
+  
+    // Scroll to top when filters change
     if (scrollableContentRef.current) {
-      scrollableContentRef.current.scrollTop = 0
+      scrollableContentRef.current.scrollTop = 0;
     } else {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
-  }
+  };
 
+  // handleFilterChange({
+  //   industry: ["Artificial Intelligence", "Biotechnology"],
+  //   country: ["Global"],
+  //   investorType: ["VC", "Angel"],
+  // });
+
+  
   const toggleBookmarked = () => {
     const newBookmarked = !bookmarked
     setBookmarked(newBookmarked)
@@ -319,9 +343,28 @@ export default function Outreach2() {
   }
 
   // Handle search input
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
     setSearchQuery(query)
     // Reset to first page when searching
+    try {
+      const response = await fetch(`http://localhost:5000/investors/search`, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query: query }),
+      });
+     const data = await response.json();
+     console.log(data.industries);
+      handleFilterChange({
+        industry: data.industries,
+        country: data.countries,
+        investorType: data.industry_types,
+      });
+      
+  } catch (error) {
+      console.error("Error:", error.message);
+  }
     setCurrentPage(1)
     // Note: Add actual search implementation in the API call
   }
@@ -421,7 +464,7 @@ export default function Outreach2() {
             <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={Country}
-                  onChange={(values) => handleFilterChange("country", values)}
+                  onChange={(values) => handleFilterChange({"country": values})}
                   placeholder="Select Countries"
                   value={filters.country}
                 />
@@ -430,7 +473,7 @@ export default function Outreach2() {
               <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={investorType}
-                  onChange={(values) => handleFilterChange("investorType", values)}
+                  onChange={(values) => handleFilterChange({"investorType": values})}
                   placeholder="Investor Type"
                   value={filters.investorType}
                 />
@@ -439,7 +482,7 @@ export default function Outreach2() {
               <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={industries}
-                  onChange={(values) => handleFilterChange("industry", values)}
+                  onChange={(values) => handleFilterChange({"industry": values})}
                   placeholder="Industries"
                   value={filters.industry}
                 />
