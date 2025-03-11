@@ -63,6 +63,11 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
     setShowTermsPopup(true)
     setShowProfilePopup(false)
   }
+
+  const handleCommunityClick = () =>{
+    navigate("/community")
+ }
+ 
   const handlePrivacyClick = () => {
     setShowPrivacyPopup(true)
     setShowProfilePopup(false)
