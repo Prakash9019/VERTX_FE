@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router";
 import "./style.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import LandingAuth from "../../screens/landing/index";
+import Signup from "../../screens/auth/signup";
 
-export default function Card({  data }) {
+export default function Card({ data }) {
   const navigate = useNavigate();
 
   function capitalizeWords(str) {
@@ -14,14 +15,51 @@ export default function Card({  data }) {
   }
 
   const [show, setShow] = useState(false);
+  const [showAuthPopup, setShowAuthPopup] = useState(false);
+  const [showSignupPopup, setShowSignupPopup] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Initial check
+    checkIfMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
 
   const openPopup = () => {
     if (!localStorage.getItem("token")) {
-      navigate("/authentication");
-      // return;
+      setShowAuthPopup(true);
+      document.body.style.overflow = "hidden"; // Prevent scrolling
+      return;
     }
     setShow(true);
     document.body.style.overflow = "hidden"; // Prevent scrolling of background content
+  };
+
+  const handleCloseAuthPopup = () => {
+    setShowAuthPopup(false);
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
+
+  const handleShowSignupFromAuth = () => {
+    setShowAuthPopup(false);
+    setShowSignupPopup(true);
+  };
+
+  const handleCloseSignupPopup = () => {
+    setShowSignupPopup(false);
+    document.body.style.overflow = "auto"; // Restore scrolling
   };
 
   const hide = () => {
@@ -65,7 +103,7 @@ export default function Card({  data }) {
                   <div className="tag bk">VERIFIED</div>
                   <div className="tag">{data?.investorType}</div>
                 </div>
-                { data?.chequeSize != "" && 
+                {data?.chequeSize != "" && 
                 <div className="flex flex-col absolute right-6">
                   <p className="sidehead">Cheque Size</p>
 
@@ -85,6 +123,7 @@ export default function Card({  data }) {
                       {data?.chequeSize?.map((ind, index) => (
                         <div
                           className="tag2"
+                          key={index}
                           style={{
                             marginTop: 10,
                             color: "grey",
@@ -97,39 +136,39 @@ export default function Card({  data }) {
                     </>
                   )}
                 </div>
-}
-            { data?.stageOfInvestment.length >0 && 
-            <>
-            <p className="sidehead">Stage interested in</p>
-                <div className="tags" style={{ marginTop: 10 }}>
-                  {/* interested tags */}
-                  {data?.stageOfInvestment?.map((item, index) => (
-                    <div
-                      key={index}
-                      className="tag"
-                      style={{ color: "grey", borderColor: "grey" }}
-                    >
-                      {item}
+                }
+                {data?.stageOfInvestment?.length > 0 && 
+                <>
+                <p className="sidehead">Stage interested in</p>
+                    <div className="tags" style={{ marginTop: 10 }}>
+                      {/* interested tags */}
+                      {data?.stageOfInvestment?.map((item, index) => (
+                        <div
+                          key={index}
+                          className="tag"
+                          style={{ color: "grey", borderColor: "grey" }}
+                        >
+                          {item}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
                 </>
                 }
-              {data?.investmentCountries.length>0 && 
-              <>
-              <p className="sidehead">Countries interested in</p>
-                <div className="tags" style={{ marginTop: 15 }}>
-                  {/* interested tags */}
-                  {data?.investmentCountries.map((country, index) => (
-                    <div
-                      key={index}
-                      className="tag"
-                      style={{ color: "grey", borderColor: "grey" }}
-                    >
-                      {country}
+                {data?.investmentCountries?.length > 0 && 
+                <>
+                <p className="sidehead">Countries interested in</p>
+                    <div className="tags" style={{ marginTop: 15 }}>
+                      {/* interested tags */}
+                      {data?.investmentCountries.map((country, index) => (
+                        <div
+                          key={index}
+                          className="tag"
+                          style={{ color: "grey", borderColor: "grey" }}
+                        >
+                          {country}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
                 </> 
                 }
               </div>
@@ -154,7 +193,7 @@ export default function Card({  data }) {
                 <div className="flex flex-row gap-2">
                   {data?.industry?.map((ind, index) => (
                     <div
-                    key={index}
+                      key={index}
                       className="tag2"
                       style={{
                         marginTop: 10,
@@ -233,7 +272,7 @@ export default function Card({  data }) {
                     </a>
                   </div>
                 )}
-                  {data.twitter && (
+                {data.twitter && (
                   <div
                     className="tag2"
                     style={{
@@ -251,7 +290,7 @@ export default function Card({  data }) {
                     </a>
                   </div>
                 )}
-                  {data.email && (
+                {data.email && (
                   <div
                     className="tag2"
                     style={{
@@ -261,7 +300,7 @@ export default function Card({  data }) {
                     }}
                   >
                     <a
-                      href={data?.email}
+                      href={`mailto:${data?.email}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -291,6 +330,51 @@ export default function Card({  data }) {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Auth Screen - Responsive handling */}
+      {showAuthPopup && (
+        isMobile ? (
+          // Full screen on mobile
+          <div className="fixed inset-0 z-50 bg-white">
+            <LandingAuth 
+              onClose={handleCloseAuthPopup} 
+              isPopup={false} 
+              onCreateAccount={handleShowSignupFromAuth} 
+              isFullScreen={true}
+            />
+          </div>
+        ) : (
+          // Popup on desktop
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={handleCloseAuthPopup}></div>
+            <div className="z-50" onClick={(e) => e.stopPropagation()}>
+              <LandingAuth onClose={handleCloseAuthPopup} isPopup={true} onCreateAccount={handleShowSignupFromAuth} />
+            </div>
+          </div>
+        )
+      )}
+
+      {/* Signup Screen - Responsive handling */}
+      {showSignupPopup && (
+        isMobile ? (
+          // Full screen on mobile
+          <div className="fixed inset-0 z-50 bg-white">
+            <Signup 
+              onClose={handleCloseSignupPopup} 
+              isPopup={false} 
+              isFullScreen={true}
+            />
+          </div>
+        ) : (
+          // Popup on desktop
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={handleCloseSignupPopup}></div>
+            <div className="z-50" onClick={(e) => e.stopPropagation()}>
+              <Signup onClose={handleCloseSignupPopup} isPopup={true} />
+            </div>
+          </div>
+        )
       )}
 
       <div className="img">
