@@ -5,7 +5,7 @@ import { Header, Sidebar, Layout, NavIconFooter, MobileFooter } from "../layout/
 import { useNavigate } from "react-router"
 import axios from "axios"
 import API_KEY from "../../../key"
-import { Search, Target, Users, Grid,Info } from "lucide-react"
+import { Search, Target, Users, Grid, Info } from "lucide-react"
 
 
 export default function Welcome_founder() {
@@ -42,6 +42,22 @@ export default function Welcome_founder() {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
   
+  // Apply global styles for Manrope font and letter spacing
+  useEffect(() => {
+    // Add global style for Manrope font and letter spacing
+    const style = document.createElement('style');
+    style.innerHTML = `
+      * {
+        font-family: 'Manrope', sans-serif;
+        letter-spacing: -0.04em;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   // Set current page for navigation highlighting
   useEffect(() => {
@@ -141,112 +157,113 @@ export default function Welcome_founder() {
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
       <div className="flex flex-col min-h-screen">
-        <div className={`${isMobile ? 'px-4 mt-10 flex-grow' : 'max-w-3xl w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
+        <div className={`${isMobile ? 'px-4 mt-10 flex-grow' : 'max-w-3xl w-full px-4 mx-auto mt-7'} overflow-y-auto`}>
           <div className={`text-left ${isMobile ? 'ml-0' : 'ml-10'}`}>
-            <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1  mb-1`}>Welcome founder.</h1>
+            <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold -mt-1 mb-1`}>Welcome founder.</h1>
             <p className="text-xl text-[#CAC5C5] mb-4">Introduce yourself</p>
           </div>
 
-          <form className="bg-[black] rounded-[20px] p-8 shadow-xl border border-[#1D1C1C] w-full max-w-2xl mx-auto mb-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-            <div>
-          <label
-            className={`block text-lg font-semibold ${
-              errors.firstName ? "text-red-500" : "text-[#CAC5C5]"
-            }`}
-          >
-            First Name{" "}
-            {errors.firstName && (
-              <Info
-                size={16}
-                className="inline cursor-pointer text-red-500 ml-1"
-                onClick={() => setShowError({ ...showError, firstName: !showError.firstName })}
-              />
-            )}
-          </label>
-          <div
-            className={`border-b-[1px] ${
-              errors.firstName ? "border-red-500" : "border-[#1D1C1C]"
-            }`}
-          >
-            <input
-              name="firstName"
-              type="text"
-              onChange={handleChange}
-              value={formData.firstName}
-              placeholder="E.g Mark"
-              className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
-            />
-          </div>
-          {showError.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
-        </div>
+          <form className="bg-black rounded-[2rem] p-8 shadow-xl border border-[#1D1C1C] w-full max-w-2xl mx-auto mb-4">
 
-        {/* Last Name */}
-        <div>
-          <label
-            className={`block text-lg font-semibold ${
-              errors.lastName ? "text-red-500" : "text-[#CAC5C5]"
-            }`}
-          >
-            Last Name{" "}
-            {errors.lastName && (
-              <Info
-                size={16}
-                className="inline cursor-pointer text-red-500 ml-1"
-                onClick={() => setShowError({ ...showError, lastName: !showError.lastName })}
-              />
-            )}
-          </label>
-          <div
-            className={`border-b-[1px] ${
-              errors.lastName ? "border-red-500" : "border-[#1D1C1C]"
-            }`}
-          >
-            <input
-              name="lastName"
-              type="text"
-              onChange={handleChange}
-              value={formData.lastName}
-              placeholder="E.g Zuckerberg"
-              className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
-            />
-          </div>
-          {showError.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
-        </div>
-      </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+              <div>
+                <label
+                  className={`block text-lg font-semibold ${
+                    errors.firstName ? "text-red-500" : "text-[#CAC5C5]"
+                  }`}
+                >
+                  First Name{" "}
+                  {errors.firstName && (
+                    <Info
+                      size={16}
+                      className="inline cursor-pointer text-red-500 ml-1"
+                      onClick={() => setShowError({ ...showError, firstName: !showError.firstName })}
+                    />
+                  )}
+                </label>
+                <div
+                  className={`border-b-[1px] ${
+                    errors.firstName ? "border-red-500" : "border-[#1D1C1C]"
+                  }`}
+                >
+                  <input
+                    name="firstName"
+                    type="text"
+                    onChange={handleChange}
+                    value={formData.firstName}
+                    placeholder="E.g Mark"
+                    className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
+                  />
+                </div>
+                {showError.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+              </div>
 
-      {/* City */}
-      <div className="mb-3">
-        <label
-          className={`block text-lg font-semibold ${
-            errors.city ? "text-red-500" : "text-[#CAC5C5]"
-          }`}
-        >
-          City{" "}
-          {errors.city && (
-            <Info
-              size={16}
-              className="inline cursor-pointer text-red-500 ml-1"
-              onClick={() => setShowError({ ...showError, city: !showError.city })}
-            />
-          )}
-        </label>
-        <div
-          className={`border-b-[1px] ${errors.city ? "border-red-500" : "border-[#1D1C1C]"}`}
-        >
-          <input
-            name="city"
-            type="text"
-            onChange={handleChange}
-            value={formData.city}
-            placeholder="Type and select your residing city."
-            className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
-          />
-        </div>
-        {showError.city && <p className="text-red-500 text-sm">{errors.city}</p>}
-      </div>
+              {/* Last Name */}
+              <div>
+                <label
+                  className={`block text-lg font-semibold ${
+                    errors.lastName ? "text-red-500" : "text-[#CAC5C5]"
+                  }`}
+                >
+                  Last Name{" "}
+                  {errors.lastName && (
+                    <Info
+                      size={16}
+                      className="inline cursor-pointer text-red-500 ml-1"
+                      onClick={() => setShowError({ ...showError, lastName: !showError.lastName })}
+                    />
+                  )}
+                </label>
+                <div
+                  className={`border-b-[1px] ${
+                    errors.lastName ? "border-red-500" : "border-[#1D1C1C]"
+                  }`}
+                >
+                  <input
+                    name="lastName"
+                    type="text"
+                    onChange={handleChange}
+                    value={formData.lastName}
+                    placeholder="E.g Zuckerberg"
+                    className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
+                  />
+                </div>
+                {showError.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+              </div>
+            </div>
+
+            {/* City */}
+            <div className="mb-4">
+              <label
+                className={`block text-lg font-semibold ${
+                  errors.city ? "text-red-500" : "text-[#CAC5C5]"
+                }`}
+              >
+                City{" "}
+                {errors.city && (
+                  <Info
+                    size={16}
+                    className="inline cursor-pointer text-red-500 ml-1"
+                    onClick={() => setShowError({ ...showError, city: !showError.city })}
+                  />
+                )}
+              </label>
+              <div
+                className={`border-b-[1px] ${errors.city ? "border-red-500" : "border-[#1D1C1C]"}`}
+              >
+                <input
+                  name="city"
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.city}
+                  placeholder="Type and select your residing city."
+                  className="w-full py-1 bg-transparent text-white placeholder-[#424242] focus:outline-none"
+                />
+              </div>
+              {showError.city && <p className="text-red-500 text-sm">{errors.city}</p>}
+            </div>
             
-            <div className="mb-3">
+            <div className="mb-4">
               <label className="block text-lg font-semibold text-[#CAC5C5]">Short headline</label>
               <div className="border-b-[1px] border-[#1D1C1C]">
                 <input 
@@ -261,7 +278,7 @@ export default function Welcome_founder() {
             </div>
             
             <div>
-              <label className="block text-lg font-semibold mb-1 text-[#CAC5C5]">Links</label>
+              <label className="block text-lg font-semibold mb-2 text-[#CAC5C5]">Links</label>
               <div className="space-y-2">
                 <div className="flex items-center border-b-[1px] mb-2 border-[#1D1C1C] pb-1">
                   <span className="mr-2 ">
@@ -348,13 +365,14 @@ export default function Welcome_founder() {
           </form>
           
           <div className={`flex ${isMobile ? 'justify-center' : 'pr-[3rem] justify-end'} mt-8 mb-16`}>
-            <button 
-              className={`bg-white text-black font-bold py-3 ${isMobile ? 'px-8 w-full' : 'px-12'} rounded-[10px] text-lg`} 
-              onClick={() => handleSubmit()}
-            >
-              Continue
-            </button>
-          </div>
+  <button 
+    className={`bg-white text-black font-bold py-3 ${isMobile ? 'px-12 w-full' : 'px-16 w-[200px]'} rounded-[10px] text-lg`} 
+    onClick={() => handleSubmit()}
+  >
+    Continue
+  </button>
+</div>
+
 
           {message && (
             <div className="mt-4 text-center text-green-500">
