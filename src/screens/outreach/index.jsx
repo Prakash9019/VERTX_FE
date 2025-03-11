@@ -2,7 +2,7 @@
 "use client"
 import { useNavigate } from "react-router"
 import { useEffect, useState, useRef } from "react"
-import { industries, Country, investorType ,previousFunding} from "./filters.js"
+import { industries, Country, investorType ,previousFunding , Global_hq} from "./filters.js"
 import API_KEY from "../../../key"
 import axios from "axios"
 import { Layout, MobileFooter } from "../layout/bars.jsx"
@@ -53,7 +53,7 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
           option: (base, { isFocused }) => ({
             ...base,
             backgroundColor: isFocused ? "#75757569" : "#161616",
-            color: "#fff",
+            color: "#ffffff",
           }),
           valueContainer: (base) => ({
             ...base,
@@ -131,12 +131,12 @@ export default function Outreach2() {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(21)
   const [currentPage1, setCurrentPage1] = useState(1)
-  const [pageSize1, setPageSize1] = useState(20)
+  const [pageSize1, setPageSize1] = useState(21)
   const [totalRecords1, setTotalRecords1] = useState(0)
   const [totalRecords, setTotalRecords] = useState(0)
-  const [totalPageSize, setTotalPageSize] = useState(20)
+  const [totalPageSize, setTotalPageSize] = useState(21)
 
   // Sidebar state
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -149,6 +149,7 @@ export default function Outreach2() {
     industry: [],
     investorType: [],
     previousFunding:[],
+    Global_hq:[],
     bookmarked: "",
   })
 
@@ -191,7 +192,7 @@ export default function Outreach2() {
     async function getInvestors() {
       try {
         setLoading(true)
-        const response = await axios.get(`${API_KEY}/investors`, {
+        const response = await axios.get(`http://localhost:5000/investors`, {
           params: {
             page: currentPage,
             limit: pageSize,
@@ -199,6 +200,7 @@ export default function Outreach2() {
             industry: filters.industry.length ? filters.industry.join(",") : undefined,
             investorType: filters.investorType.length ? filters.investorType.join(",") : undefined,
             previousFunding: filters.previousFunding.length ? filters.previousFunding.join(",") : undefined,
+            Global_hq: filters.Global_hq.length ? filters.Global_hq.join(",") : undefined,
             bookmarked: bookmarked ? true : undefined,
             womenLed: womenLed ? true : undefined, 
           },
@@ -359,29 +361,29 @@ export default function Outreach2() {
 
   const totalPages1 = Math.ceil(totalRecords1 / pageSize1);
 
-  const toggleBookmark = async (investorId) => {
-    try {
-      const isCurrentlyBookmarked = bookmarks.includes(investorId)
+  // const toggleBookmark = async (investorId) => {
+  //   try {
+  //     const isCurrentlyBookmarked = bookmarks.includes(investorId)
 
-      if (isCurrentlyBookmarked) {
-        // Remove bookmarkss
-        await axios.delete(`${API_KEY}/bookmark/remove/${investorId}`, {
-          headers: { token: localStorage.getItem("token") },
-        })
-        setBookmarks((prev) => prev.filter((id) => id !== investorId))
-      } else {
-        // Add bookmark
-        await axios.post(
-          `${API_KEY}/bookmark/add`,
-          { id: investorId },
-          { headers: { token: localStorage.getItem("token") } },
-        )
-        setBookmarks((prev) => [...prev, investorId])
-      }
-    } catch (error) {
-      console.error("Error updating bookmark:", error)
-    }
-  }
+  //     if (isCurrentlyBookmarked) {
+  //       // Remove bookmarkss
+  //       await axios.delete(`${API_KEY}/bookmark/remove/${investorId}`, {
+  //         headers: { token: localStorage.getItem("token") },
+  //       })
+  //       setBookmarks((prev) => prev.filter((id) => id !== investorId))
+  //     } else {
+  //       // Add bookmark
+  //       await axios.post(
+  //         `${API_KEY}/bookmark/add`,
+  //         { id: investorId },
+  //         { headers: { token: localStorage.getItem("token") } },
+  //       )
+  //       setBookmarks((prev) => [...prev, investorId])
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating bookmark:", error)
+  //   }
+  // }
 
   // Determine the number of columns based on screen width
   const getGridColumns = () => {
@@ -449,7 +451,7 @@ export default function Outreach2() {
                 <MultiSelectDropdown
                   options={Country}
                   onChange={(values) => handleFilterChange({"country": values})}
-                  placeholder="Select Countries"
+                  placeholder="Select Geography"
                   value={filters.country}
                 />
               </div>
@@ -478,6 +480,14 @@ export default function Outreach2() {
                   onChange={(values) => handleFilterChange({"previousFunding": values})}
                   placeholder="Previous Funding"
                   value={filters.previousFunding}
+                />
+              </div>
+              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                <MultiSelectDropdown
+                  options={Global_hq}
+                  onChange={(values) => handleFilterChange({"Global_hq": values})}
+                  placeholder="Previous Funding"
+                  value={filters.Global_hq}
                 />
               </div>
 
@@ -537,8 +547,8 @@ export default function Outreach2() {
                       <Card
                         key={item._id || index}
                         data={item}
-                        toggleBookmark={toggleBookmark}
-                        isBookmarked={bookmarks.includes(item._id)}
+                        // toggleBookmark={toggleBookmark}
+                        // isBookmarked={bookmarks.includes(item._id)}
                       />
                     </div>
                   ))}
@@ -554,8 +564,8 @@ export default function Outreach2() {
                       <Card
                         key={item._id || index}
                         data={item}
-                        toggleBookmark={toggleBookmark}
-                        isBookmarked={bookmarks.includes(item._id)}
+                        // toggleBookmark={toggleBookmark}
+                        // isBookmarked={bookmarks.includes(item._id)}
                         isWomen={womenLed}
                       />
                     </div>
