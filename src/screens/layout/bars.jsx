@@ -31,6 +31,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
     // Cleanup
     return () => window.removeEventListener("resize", checkIsMobile)
   }, [])
+
   const handleProfileClick = () => {
     if (localStorage.getItem("token")) {
       setShowProfilePopup(!showProfilePopup)
@@ -186,7 +187,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     checkIsMobile()
     // Add event listener for window resize
     window.addEventListener("resize", checkIsMobile)
-    // Cleanup
+      // Cleanup
     return () => window.removeEventListener("resize", checkIsMobile)
   }, [])
   // Load sidebar state from localStorage on component mount
@@ -249,19 +250,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }
   // Updated navigation handler
   const handleNavigation = async (route) => {
-    if(localStorage.getItem("token")){
-    const response = await axios.get(`${API_KEY}/profile/fetch`, {
-      headers: {
-        'Content-Type': 'application/json',
-        token: localStorage.getItem('token')
-      }
-    });
-   // console.log(response.data);
-    if (response.data.length > 0) {
-      localStorage.setItem("exe",response.data[0].completed);
-      // setIsEditing(true); // Enable edit mode if data exists
-    }
-  }
     if (route === "explore" && !localStorage.getItem("token")) {
       // Show auth popup if user is not logged in and trying to access explore
       setShowAuthPopup(true)
@@ -279,6 +267,23 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
       setPage(location.pathname.split("/").pop()) // Fallback for other pages
     }
   }, [location.pathname])
+
+  // useEffect(async() => {
+  //   if(localStorage.getItem("token")){
+  //     const response = await axios.get(`${API_KEY}/profile/fetch`, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         token: localStorage.getItem('token')
+  //       }
+  //     });
+  //    // console.log(response.data);
+  //     if (response.data.length > 0) {
+  //       localStorage.setItem("exe",response.data[0].completed);
+  //       // setIsEditing(true); // Enable edit mode if data exists
+  //     }
+  //   }
+  // },[])
+
   // Listen for the back button press
   useEffect(() => {
     const handleBackButton = (event) => {

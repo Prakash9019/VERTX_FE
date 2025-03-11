@@ -2,7 +2,7 @@
 "use client"
 import { useNavigate } from "react-router"
 import { useEffect, useState, useRef } from "react"
-import { industries, Country, investorType } from "./filters.js"
+import { industries, Country, investorType ,previousFunding} from "./filters.js"
 import API_KEY from "../../../key"
 import axios from "axios"
 import { Layout, MobileFooter } from "../layout/bars.jsx"
@@ -148,6 +148,7 @@ export default function Outreach2() {
     country: [],
     industry: [],
     investorType: [],
+    previousFunding:[],
     bookmarked: "",
   })
 
@@ -190,13 +191,14 @@ export default function Outreach2() {
     async function getInvestors() {
       try {
         setLoading(true)
-        const response = await axios.get(`${API_KEY}/investors`, {
+        const response = await axios.get(`http://localhost:5000/investors`, {
           params: {
             page: currentPage,
             limit: pageSize,
             country: filters.country.length ? filters.country.join(",") : undefined,
             industry: filters.industry.length ? filters.industry.join(",") : undefined,
             investorType: filters.investorType.length ? filters.investorType.join(",") : undefined,
+            previousFunding: filters.previousFunding.length ? filters.previousFunding.join(",") : undefined,
             bookmarked: bookmarked ? true : undefined,
             womenLed: womenLed ? true : undefined, 
           },
@@ -218,22 +220,22 @@ export default function Outreach2() {
       }
     }
 
-    const fetchBookmarks = async () => {
-      try {
-        const res = await axios.get(`${API_KEY}/bookmark`, {
-          headers: { token: localStorage.getItem("token") },
-      })
-        // console.log(res.data);
-        setBookmarks(res.data) // Assuming the API returns an array of investor IDs
-      } catch (error) {
-        console.error("Error fetching bookmarks:", error)
-      }
-    }
+    // const fetchBookmarks = async () => {
+    //   try {
+    //     const res = await axios.get(`${API_KEY}/bookmark`, {
+    //       headers: { token: localStorage.getItem("token") },
+    //   })
+    //     // console.log(res.data);
+    //     setBookmarks(res.data) // Assuming the API returns an array of investor IDs
+    //   } catch (error) {
+    //     console.error("Error fetching bookmarks:", error)
+    //   }
+    // }
 
     getInvestors();
-    if(localStorage.getItem("token")){
-      fetchBookmarks();
-    }
+    // if(localStorage.getItem("token")){
+    //   fetchBookmarks();
+    // }
     
   }, [currentPage, pageSize, filters, bookmarked, womenLed]) 
 
@@ -301,16 +303,16 @@ export default function Outreach2() {
   
 
   
-  const toggleBookmarked = () => {
-    const newBookmarked = !bookmarked
-    setBookmarked(newBookmarked)
-    // Scroll to top when toggling bookmarked
-    if (scrollableContentRef.current) {
-      scrollableContentRef.current.scrollTop = 0
-    } else {
-      window.scrollTo(0, 0)
-    }
-  }
+  // const toggleBookmarked = () => {
+  //   const newBookmarked = !bookmarked
+  //   setBookmarked(newBookmarked)
+  //   // Scroll to top when toggling bookmarked
+  //   if (scrollableContentRef.current) {
+  //     scrollableContentRef.current.scrollTop = 0
+  //   } else {
+  //     window.scrollTo(0, 0)
+  //   }
+  // }
 
   // Toggle women-led filter
   const toggleWomenLed = () => {
@@ -419,7 +421,7 @@ export default function Outreach2() {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search naturally (e.g., 'best investors in India...')" // Shortened placeholder
+                placeholder="Search (e.g., 'Investors in United States who invest in Deep tech ')" // Shortened placeholder
                 className="w-full py-2.5 px-4 pr-12 bg-[#161616] border border-[#75757569] rounded-full text-white focus:outline-none focus:border-[#9e9e9e] transition-colors text-sm sm:text-base placeholder:text-[#CAC5C5] placeholder:text-sm" // Added placeholder styling
                 onChange={(e) => setSearchQuery(e.target.value)}
                 value={searchQuery}
@@ -468,9 +470,18 @@ export default function Outreach2() {
                   placeholder="Industries"
                   value={filters.industry}
                 />
+              </div> 
+
+              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                <MultiSelectDropdown
+                  options={previousFunding}
+                  onChange={(values) => handleFilterChange({"previousFunding": values})}
+                  placeholder="Previous Funding"
+                  value={filters.previousFunding}
+                />
               </div>
 
-              <div className="min-w-[100px] sm:min-w-[120px]">
+              {/* <div className="min-w-[100px] sm:min-w-[120px]"> previousFunding
                 <button
                   className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
                     bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
@@ -479,7 +490,7 @@ export default function Outreach2() {
                 >
                   Bookmarked
                 </button>
-              </div> 
+              </div>  */}
               
               </>
               }
@@ -507,12 +518,6 @@ export default function Outreach2() {
         >
           {error && <div className="error-message">{error}</div>}
           
-          {/* Women Led info box */}
-          { womenLed &&  <div className="bg-[#1e1e1e] border border-[#75757569] rounded-[30px]">
-              <img src={logo || "/placeholder.svg"} alt="image" className="w-full h-auto rounded-[10px]" />
-            </div>}
-
-          {/* Investor Cards */}
           <div 
             className="profilecards" 
             style={{ 
@@ -560,7 +565,7 @@ export default function Outreach2() {
           </div>
 
           {/* Updated Pagination Controls - Made independent with fixed widths */}
-          { !womenLed && (
+          {!bookmarked && !womenLed && (
             <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 flex justify-center items-center">
               {/* Fixed width Previous button */}
               <button
