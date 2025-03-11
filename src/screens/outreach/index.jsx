@@ -465,14 +465,14 @@ export default function Outreach2() {
                 />
               </div>
 
-              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+              {/* <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={industries}
                   onChange={(values) => handleFilterChange({"industry": values})}
                   placeholder="Industries"
                   value={filters.industry}
                 />
-              </div> 
+              </div>  */}
 
               <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
@@ -482,14 +482,14 @@ export default function Outreach2() {
                   value={filters.previousFunding}
                 />
               </div>
-              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+              {/* <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={Global_hq}
                   onChange={(values) => handleFilterChange({"Global_hq": values})}
                   placeholder="Previous Funding"
                   value={filters.Global_hq}
                 />
-              </div>
+              </div> */}
 
               {/* <div className="min-w-[100px] sm:min-w-[120px]"> previousFunding
                 <button
