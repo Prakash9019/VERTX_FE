@@ -192,7 +192,7 @@ export default function Outreach2() {
     async function getInvestors() {
       try {
         setLoading(true)
-        const response = await axios.get(`http://localhost:5000/investors`, {
+        const response = await axios.get(`${API_KEY}/investors`, {
           params: {
             page: currentPage,
             limit: pageSize,
