@@ -20,7 +20,7 @@ export function Callback2() {
         return e.response;
       });
       //console.log(response)
-      //console.log(response.data);
+      console.log(response.data);
       if(response.status == 200){
         localStorage.setItem("token", response?.data?.token);
         navigate("/outreach");
@@ -88,7 +88,7 @@ export function Callback2() {
         },
       });
   
-    //  console.log(response.data);
+     console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
       localStorage.setItem("user",response.data.user.username);
       localStorage.setItem("dip",response.data.user.dip);

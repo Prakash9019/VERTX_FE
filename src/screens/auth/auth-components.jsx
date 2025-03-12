@@ -32,6 +32,7 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
         setErrorMessage(e.response?.data?.msg || "An error occurred");
         return e.response;
       });
+      // console.log(response.data);
 
     if (response?.data) {
       setLoad(false);
@@ -41,7 +42,7 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
       if (response.status == 200) {
         localStorage.setItem("token", response?.data?.token);
         localStorage.setItem("user",response?.data?.username);
-
+      //  console.log()
         // window.location.reload();
         navigate("/outreach");
       }
