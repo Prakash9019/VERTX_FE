@@ -419,7 +419,7 @@ export default function Outreach2() {
           </div>
 
           {/* Custom Search Bar with Reduced Width */}
-          <div className={`search-container ${isMobile ? "mb-3" : "mb-4"}`} style={{maxWidth: isMobile ? "90%" : "70%"}}>
+          {/* <div className={`search-container ${isMobile ? "mb-3" : "mb-4"}`} style={{maxWidth: isMobile ? "90%" : "70%"}}>
             <div className="relative">
               <input
                 type="text"
@@ -435,7 +435,7 @@ export default function Outreach2() {
                 <Search size={isMobile ? 18 : 20} className="text-white" />
               </button>
             </div>
-          </div>
+          </div> */}
           {/* Filters with horizontal scroll */}
           <div
             ref={filtersScrollRef}
