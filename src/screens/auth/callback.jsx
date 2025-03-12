@@ -74,6 +74,7 @@ import Button from "../../components/button/component.jsx"
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const token = params.get("token"); // Extract the code from URL
+
   const [username1,setUsernamee1] =useState("@username")
   const [dip,setDip] = useState("");
   const handleUsername = async () => {
@@ -100,20 +101,26 @@ import Button from "../../components/button/component.jsx"
   //console.log(params);
 
   const callback = async () => {
+    console.log("hello");
     try {
-      // const response = await axios.get(`${API_KEY}/auth/linkedin/callback?code=${code}`);
-       //console.log("hello");
-       //console.log(token);
       if (token) {
         // Store the token in local storage
-        await handleUsername();
+        const response = await axios.get(`${API_KEY}/auth/getUser`, {
+          headers: {
+            "Content-Type": "application/json",
+            token: token, // Send token in headers
+          },
+        });
+       console.log("hiiii");
+       console.log(response.data);
+        setUsernamee1(response.data.user.username); // Update the username state with the fetched username
+        localStorage.setItem("user",response.data.user.username);
+
         localStorage.setItem("token", token);
         navigate("/outreach");  // Redirect to outreach or desired route
-      } else {
-        //console.error("Error fetching data from backend:", token);
-      }
+      } 
     } catch (error) {
-      //console.error("Error in LinkedIn callback:", error);
+      console.error("Error in callback:", error);
       // Optionally handle error like showing an alert or navigating to an error page
     }
   };
