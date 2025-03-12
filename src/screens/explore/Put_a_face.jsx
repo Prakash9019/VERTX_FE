@@ -115,14 +115,14 @@ useEffect(() => {
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col min-h-screen" style={{fontFamily: 'Manrope', letterSpacing: '-0.04em'}}>
         <div className={`${isMobile ? 'px-4 mt-6 pb-24' : 'max-w-3xl w-full px-4 mx-auto mt-16'} overflow-y-auto flex-grow`}>
           <div className={`text-left ${isMobile ? 'ml-0' : 'ml-10'}`}>
             <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold mb-1`}>Put a face to your name.</h1>
             <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-4`}>Add your avatar</p>
           </div>
           
-          <div className="bg-[black] rounded-[20px] p-4 md:p-8 shadow-xl border border-[#757575] w-full max-w-[680px] mx-auto">
+          <div className="bg-[black] rounded-[2rem] p-4 md:p-8 shadow-xl border border-[#757575] w-full max-w-[680px] mx-auto">
             <div className="flex flex-col items-start">
               {/* Modified this section for mobile responsiveness */}
               <div className="flex flex-row items-center justify-between w-full">

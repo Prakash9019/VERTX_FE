@@ -61,7 +61,7 @@ function ProjectCard({ project }) {
 
   return (
     <>
-      <div className="bg-[black] rounded-3xl p-4 md:p-6 shadow-xl border border-[#1D1C1C] w-full my-3 md:m-4">
+      <div className="bg-[black] rounded-[2rem] p-4 md:p-6 shadow-xl border border-[#1D1C1C] w-full my-3 md:m-4" style={{ fontFamily: "Manrope", letterSpacing: "-4%" }}>
         <div className="flex flex-col items-start">
           <div className="flex justify-between items-center w-full mb-4">
             <div className="text-[#CAC5C5] text-xl md:text-[25px] font-extrabold">{projectData.name}</div>
@@ -187,38 +187,38 @@ function ProjectCard({ project }) {
           </div>
           
           <div className="w-full mb-3 md:mb-4">
-            <h3 className="text-base md:text-lg font-medium">Stage</h3>
-            <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
-              {["Idea", "Prototype", "Revenue", "Scale"].map((stage) => (
-                <div
-                  key={stage}
-                  className={`px-3 py-1 md:px-4 md:py-2 rounded-full border-[0.5px] text-[#757575] text-sm md:text-base cursor-pointer ${
-                    projectData.stage === stage ? "bg-white text-black" : "border border-gray-600 text-gray-400"
-                  }`}
-                  onClick={() => handleStageSelect(stage)}
-                >
-                  {stage}
-                </div>
-              ))}
-            </div>
-          </div>
+  <h3 className="text-sm md:text-base font-extrabold text-[#CAC5C5]">Stage</h3>
+  <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
+    {["Idea", "Prototype", "Revenue", "Scale"].map((stage) => (
+      <div
+        key={stage}
+        className={`px-4 py-1.5 rounded-full border border-[#757575] text-[#757575] text-xs md:text-sm cursor-pointer transition ${
+          projectData.stage === stage ? "bg-white text-black" : ""
+        }`}
+        onClick={() => handleStageSelect(stage)}
+      >
+        {stage}
+      </div>
+    ))}
+  </div>
+</div>
 
-          <div className="w-full mb-3 md:mb-4">
-            <h3 className="text-base md:text-lg font-medium">Workplace</h3>
-            <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
-              {["Remote", "Hybrid", "Office"].map((workplace) => (
-                <div
-                  key={workplace}
-                  className={`px-3 py-1 md:px-4 md:py-2 rounded-full border-[0.5px] text-[#757575] text-sm md:text-base cursor-pointer ${
-                    projectData.workplace === workplace ? "bg-white text-black" : "bg-transparent border-[#757575]"
-                  }`}
-                  onClick={() => handleWorkplaceSelect(workplace)}
-                >
-                  {workplace}
-                </div>
-              ))}
-            </div>
-          </div>
+<div className="w-full mb-3 md:mb-4">
+  <h3 className="text-sm md:text-base font-extrabold text-[#CAC5C5]">Workplace</h3>
+  <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
+    {["Remote", "Hybrid", "Office"].map((workplace) => (
+      <div
+        key={workplace}
+        className={`px-4 py-1.5 rounded-full border border-[#757575] text-[#757575] text-xs md:text-sm cursor-pointer transition ${
+          projectData.workplace === workplace ? "bg-white text-black" : ""
+        }`}
+        onClick={() => handleWorkplaceSelect(workplace)}
+      >
+        {workplace}
+      </div>
+    ))}
+  </div>
+</div>
         </div>
       </div>
     </>
@@ -336,8 +336,8 @@ export default function AddaProject() {
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className="flex flex-col min-h-screen">
-        <div className={`${isMobile ? 'px-4 pt-6 mt-4 pb-20' : 'max-w-4xl w-full px-4 mx-auto pt-4'} overflow-y-auto flex-grow`}>
+      <div className="flex flex-col min-h-screen" style={{ fontFamily: "Manrope", letterSpacing: "-4%" }}>
+        <div className={`${isMobile ? 'px-4 pt-6 mt-4 pb-20' : 'max-w-3xl w-full px-4 mx-auto pt-4'} overflow-y-auto flex-grow`}>
           <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold mb-2`}>Showcase your project</h1>
           <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-6 md:mb-8`}>What have you built so far?</p>
 
@@ -346,7 +346,7 @@ export default function AddaProject() {
               <img src={gify} alt="Loading..." className="w-16 h-16 md:w-20 md:h-20" />
             </div>
           ) : projects.length === 0 ? (
-            <div className="bg-[#151515] rounded-3xl p-6 md:p-12 shadow-xl border border-white-600 w-full">
+            <div className="bg-[#151515] rounded-[2rem] p-6 md:p-10 shadow-xl border border-white-600 w-full">
               <div className="flex flex-col items-start">
                 <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Projects</h2>
                 <button
@@ -370,7 +370,7 @@ export default function AddaProject() {
           )}
 
 {showNewInput && (
-  <div className="bg-[#151515] rounded-3xl p-4 md:p-6 shadow-xl border border-[#1D1C1C] w-full my-4">
+  <div className="bg-[#151515] rounded-[2rem] p-4 md:p-6 shadow-xl border border-[#1D1C1C] w-full my-4">
     <div className="flex flex-col items-start">
       <div className="flex justify-between items-center w-full mb-4">
         <div className="text-[#CAC5C5] text-xl md:text-[25px] font-extrabold">Stealth Project</div>
@@ -495,13 +495,13 @@ export default function AddaProject() {
       </div>
       
       <div className="w-full mb-3 md:mb-4">
-        <h3 className="text-base md:text-lg font-medium">Stage</h3>
+        <h3 className="text-base md:text-lg font-extrabold text-[#CAC5C5]">Stage</h3>
         <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
           {["Idea", "Prototype", "Revenue", "Scale"].map((stage) => (
             <div
               key={stage}
-              className={`px-3 py-1 md:px-4 md:py-2 rounded-full border-[0.5px] text-[#757575] text-sm md:text-base cursor-pointer ${
-                selectedStage === stage ? "bg-white text-black" : "border border-gray-600 text-gray-400"
+              className={`px-3 py-1 md:px-4 md:py-2 rounded-full border text-[#757575] text-sm md:text-base cursor-pointer ${
+                selectedStage === stage ? "bg-white text-black" : "border-[#757575] border-[0.5px]"
               }`}
               onClick={() => handleStageSelect(stage)}
             >
@@ -512,13 +512,13 @@ export default function AddaProject() {
       </div>
 
       <div className="w-full mb-3 md:mb-4">
-        <h3 className="text-base md:text-lg font-medium">Workplace</h3>
+        <h3 className="text-base md:text-lg font-extrabold text-[#CAC5C5]">Workplace</h3>
         <div className="flex flex-wrap gap-2 md:gap-3 mt-2">
           {["Remote", "Hybrid", "Office"].map((workplace) => (
             <div
               key={workplace}
-              className={`px-3 py-1 md:px-4 md:py-2 rounded-full border-[0.5px] text-[#757575] text-sm md:text-base cursor-pointer ${
-                selectedWorkplace === workplace ? "bg-white text-black" : "bg-transparent border-[#757575]"
+              className={`px-3 py-1 md:px-4 md:py-2 rounded-full border text-[#757575] text-sm md:text-base cursor-pointer ${
+                selectedWorkplace === workplace ? "bg-white text-black" : "border-[#757575] border-[0.5px]"
               }`}
               onClick={() => handleWorkplaceSelect(workplace)}
             >
@@ -531,37 +531,22 @@ export default function AddaProject() {
   </div>
 )}
 
-<div className={`flex ${isMobile ? 'justify-center mt-6 mb-16 max-sm:gap-4' : 'justify-between mt-6'} w-full`}>
-  {isMobile ? (
-    <>
-      <button 
-        className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
-        onClick={() => navigate(-1)}
-      >
-        Back
-      </button>
-      <button 
-        className="bg-white text-black font-bold py-2.5 px-8 rounded-[10px] text-lg w-[64%]"
-        onClick={() => navigate("/explore/complete")}>
-        Continue
-      </button>
-    </>
-  ) : (
-    <>
-      <button 
-        className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]"
-        onClick={() => navigate(-1)}
-      >
-        Back
-      </button>
-      <button 
-        className="bg-white text-black font-bold py-2 px-8 rounded-[10px] text-lg w-[64%]"
-        onClick={() => navigate("/explore/complete")}>
-        Continue
-      </button>
-    </>
-  )}
+<div className="flex justify-between w-full mt-6 mb-6 gap-6">
+  <button 
+    className="bg-[#1D1C1C] text-white font-bold py-2 px-4 rounded-[10px] text-lg w-[34%] ml-4"
+    onClick={() => navigate(-1)}
+  >
+    Back
+  </button>
+  <button 
+    className="bg-white text-black font-bold py-3 px-4 rounded-[10px] text-lg w-[65%]"
+    onClick={() => navigate("/explore/complete")}
+  >
+    Continue
+  </button>
 </div>
+
+
       </div>
     </div>
   </Layout>
