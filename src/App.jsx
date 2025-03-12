@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Nopage from "./screens/404";
 import Admin from "./screens/admin";
 import Signup from "./screens/auth/hold/index.jsx";
-import {Callback, Callback2 } from "./screens/auth/callback.jsx";
+import {Callback } from "./screens/auth/callback.jsx";
 
 import Chat from "./screens/chat";
 import Docflow from "./screens/docflow";
@@ -57,7 +57,7 @@ function App() {
       <Route path="/authentication" element={<LandingAuth />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/callback" element={<Callback />} /> 
-       <Route path="/callback2" element={<Callback2/> } />
+       {/* <Route path="/callback2" element={<Callback2/> } /> */}
       {/* <Route path="/setpassword" element={<SetNewPassword />} /> */}
       <Route path="/info" element={<Questions />} />
       {/* <Route path="/verify" element={<Verify />} /> */}

@@ -7,57 +7,57 @@ import { useSearchParams, useNavigate } from "react-router"
 import { useEffect } from "react";
 import Button from "../../components/button/component.jsx"
 
-export function Callback2() {
-  const navigate = useNavigate();
-  const [params] = useSearchParams();
-  const code = params.get("code");
+// export function Callback2() {
+//   const navigate = useNavigate();
+//   const [params] = useSearchParams();
+//   const code = params.get("code");
 
-  const callback = async () => {
-    const response = await axios
-      .get(API_KEY + `/auth/callback?code=${code}`, {
-      })
-      .catch((e) => {
-        return e.response;
-      });
-      //console.log(response)
-      console.log(response.data);
-      if(response.status == 200){
-        localStorage.setItem("token", response?.data?.token);
-        navigate("/outreach");
-      }
-      localStorage.setItem("token", response?.data?.token);
-        navigate("/outreach");
-  };
+//   const callback = async () => {
+//     const response = await axios
+//       .get(API_KEY + `/auth/callback?code=${code}`, {
+//       })
+//       .catch((e) => {
+//         return e.response;
+//       });
+//       //console.log(response)
+//       console.log(response.data);
+//       if(response.status == 200){
+//         localStorage.setItem("token", response?.data?.token);
+//         navigate("/outreach");
+//       }
+//       localStorage.setItem("token", response?.data?.token);
+//         navigate("/outreach");
+//   };
   
-  useEffect(() => {
-    //console.log(code);
-    if(code){
-        callback();
-    }
-  }, [])
+//   useEffect(() => {
+//     //console.log(code);
+//     if(code){
+//         callback();
+//     }
+//   }, [])
 
-  return (
-    <div className="auth-container lg">
-      <div className="logowrap">
-        <img src={logo} alt="" className="logo-zn" />
-        <div className="filter"></div>
-      </div>
-      <p className="ltitle">
-        Welcome <span className="ln">⇢</span> <span>[Vertx AI]</span>
-      </p>
-      <p className="lsub">
-        where visionaries connect, investors collaborate, and dreams take
-        flight. Some parts of this page are still under development, but feel
-        free to explore and discover what's in store! 🚀
-      </p>
-      <div style={{marginTop: 35 }} className="btns">
-        <Button context={"Explore"} theme={"light"} callback={() => {
-          navigate("/outreach");
-        }} />
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div className="auth-container lg">
+//       <div className="logowrap">
+//         <img src={logo} alt="" className="logo-zn" />
+//         <div className="filter"></div>
+//       </div>
+//       <p className="ltitle">
+//         Welcome <span className="ln">⇢</span> <span>[Vertx AI]</span>
+//       </p>
+//       <p className="lsub">
+//         where visionaries connect, investors collaborate, and dreams take
+//         flight. Some parts of this page are still under development, but feel
+//         free to explore and discover what's in store! 🚀
+//       </p>
+//       <div style={{marginTop: 35 }} className="btns">
+//         <Button context={"Explore"} theme={"light"} callback={() => {
+//           navigate("/outreach");
+//         }} />
+//       </div>
+//     </div>
+//   );
+// }
 
 
 
@@ -91,7 +91,7 @@ export function Callback2() {
      console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
       localStorage.setItem("user",response.data.user.username);
-      localStorage.setItem("dip",response.data.user.dip);
+      // localStorage.setItem("dip",response.data.user.dip);.
     //  console.log(localStorage.getItem("dip"))
     } catch (error) {
       console.error("Error fetching user data:", error);
