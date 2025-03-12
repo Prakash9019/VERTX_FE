@@ -92,7 +92,10 @@ import Button from "../../components/button/component.jsx"
      console.log(response.data);
       setUsernamee1(response.data.user.username); // Update the username state with the fetched username
       localStorage.setItem("user",response.data.user.username);
-      // localStorage.setItem("dip",response.data.user.dip);.
+      if(response.data.user.dip){
+        console.log(response.data.user.dip);
+         localStorage.setItem("dip",response.data.user.dip);
+      }
     //  console.log(localStorage.getItem("dip"))
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -101,7 +104,6 @@ import Button from "../../components/button/component.jsx"
   //console.log(params);
 
   const callback = async () => {
-    console.log("hello");
     try {
       if (token) {
         // Store the token in local storage
@@ -111,11 +113,13 @@ import Button from "../../components/button/component.jsx"
             token: token, // Send token in headers
           },
         });
-       console.log("hiiii");
        console.log(response.data);
         setUsernamee1(response.data.user.username); // Update the username state with the fetched username
         localStorage.setItem("user",response.data.user.username);
-
+        if(response.data.user.dip){
+          console.log(response.data.user.dip);
+           localStorage.setItem("dip",response.data.user.dip);
+        }
         localStorage.setItem("token", token);
         navigate("/outreach");  // Redirect to outreach or desired route
       } 
