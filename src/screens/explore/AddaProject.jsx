@@ -30,7 +30,7 @@ function ProjectCard({ project }) {
   const handleSave = async () => {
     try {
       await axios.put(`${API_KEY}/profile/projects/${project.id}`, projectData);
-      alert("Project updated successfully!");
+      // alert("Project updated successfully!");
     } catch (error) {
       //console.error("Error updating project:", error);
     }
@@ -52,11 +52,11 @@ function ProjectCard({ project }) {
         headers: { token: localStorage.getItem("token") }
       });
   
-      alert("Project deleted successfully");
+      // alert("Project deleted successfully");
       return response.data;
     } catch (error) {
       console.error("Error deleting project:", error);
-      alert("Failed to delete project");
+      // alert("Failed to delete project");
     }
   };
 
@@ -247,7 +247,7 @@ export default function AddaProject() {
   const [showNewInput, setShowNewInput] = useState(false); // Show input form
   const [isMobile, setIsMobile] = useState(false);
 
-  
+
   const handleAvatarChange = async (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -324,7 +324,7 @@ export default function AddaProject() {
 
   const SavetheProject = async () => {
     if (!newProject.name || !newProject.stage || !newProject.workplace) {
-      alert("Please fill all required fields");
+      // alert("Please fill all required fields");
       return;
     }
 
