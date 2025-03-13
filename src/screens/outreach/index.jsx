@@ -126,6 +126,50 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
   )
 }
 
+// Add city to country mapping
+const cityToCountry = {
+  // Major Indian cities
+  'delhi': 'India',
+  'mumbai': 'India',
+  'bangalore': 'India',
+  'bengaluru': 'India',
+  'hyderabad': 'India',
+  'chennai': 'India',
+  'kolkata': 'India',
+  
+  // US cities
+  'new york': 'United States',
+  'san francisco': 'United States',
+  'los angeles': 'United States',
+  'chicago': 'United States',
+  'boston': 'United States',
+  'seattle': 'United States',
+  'silicon valley': 'United States',
+  
+  // UK cities
+  'london': 'United Kingdom',
+  'manchester': 'United Kingdom',
+  'birmingham': 'United Kingdom',
+  
+  // Singapore
+  'singapore': 'Singapore',
+  
+  // China cities
+  'beijing': 'China',
+  'shanghai': 'China',
+  'shenzhen': 'China',
+  
+  // Japan cities
+  'tokyo': 'Japan',
+  'osaka': 'Japan',
+  
+  // UAE cities
+  'dubai': 'United Arab Emirates',
+  'abu dhabi': 'United Arab Emirates',
+  
+  // Add more cities as needed
+};
+
 export default function Outreach2() {
   const navigate = useNavigate()
   const [investors, setInvestors] = useState([])
@@ -135,6 +179,7 @@ export default function Outreach2() {
   const [womenLed, setWomenLed] = useState(false) // New state for women-led filter
   const [bookmarks, setBookmarks] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
+  const [searchResponse, setSearchResponse] = useState(null) // Add this state for Gemini response
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1)
@@ -337,29 +382,112 @@ export default function Outreach2() {
 
   // Handle search input
   const handleSearch = async (query) => {
-    setSearchQuery(query)
-    // Reset to first page when searching
+    if (!query.trim()) return;
+    
     try {
-      const response = await fetch(`${API_KEY}/investors/search`, {
-          method: "POST",
-          headers: { 
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ query: query }),
+      setLoading(true);
+      const response = await axios.post(`${API_KEY}/investors/search`, {
+        query: query
       });
-     const data = await response.json();
-     console.log(data.industries);
-      // handleFilterChange({
-      //   industry: data.industries,
-      //   country: data.countries,
-      //   investorType: data.industry_types,
-      // });
       
-  } catch (error) {
+      // Format the summary in a user-friendly way
+      let formattedSummary = "";
+      
+      // Get all available filters
+      const availableFilters = {
+        countries: Country.map(c => c.toLowerCase()),
+        industries: industries.map(i => i.toLowerCase()),
+        investorTypes: investorType.map(t => t.toLowerCase())
+      };
+
+      const queryLower = query.toLowerCase();
+      const queryWords = queryLower.split(' ');
+
+      // Initialize matched filters
+      const matchedFilters = {
+        country: [],
+        industry: [],
+        investorType: []
+      };
+
+      // Check for cities and their corresponding countries
+      Object.entries(cityToCountry).forEach(([city, country]) => {
+        if (queryLower.includes(city.toLowerCase())) {
+          if (Country.includes(country) && !matchedFilters.country.includes(country)) {
+            matchedFilters.country.push(country);
+          }
+        }
+      });
+
+      // Check for direct country mentions
+      Country.forEach(country => {
+        if (queryLower.includes(country.toLowerCase()) && !matchedFilters.country.includes(country)) {
+          matchedFilters.country.push(country);
+        }
+      });
+
+      // Check for industry matches
+      industries.forEach(industry => {
+        if (queryLower.includes(industry.toLowerCase())) {
+          matchedFilters.industry.push(industry);
+        }
+      });
+
+      // Check for investor type matches
+      investorType.forEach(type => {
+        if (queryLower.includes(type.toLowerCase())) {
+          matchedFilters.investorType.push(type);
+        }
+      });
+
+      // Remove duplicates
+      matchedFilters.country = [...new Set(matchedFilters.country)];
+      matchedFilters.industry = [...new Set(matchedFilters.industry)];
+      matchedFilters.investorType = [...new Set(matchedFilters.investorType)];
+
+      // Create user-friendly summary
+      if (matchedFilters.country.length || matchedFilters.industry.length || matchedFilters.investorType.length) {
+        formattedSummary = `Based on your search, I found some great matches! `;
+        
+        if (matchedFilters.country.length) {
+          formattedSummary += `There are active investors in ${matchedFilters.country.join(" and ")}. `;
+        }
+
+        if (matchedFilters.industry.length) {
+          formattedSummary += `They have strong focus on ${matchedFilters.industry.join(", ")} sectors. `;
+        }
+
+        if (matchedFilters.investorType.length) {
+          formattedSummary += `You'll find ${matchedFilters.investorType.join(", ")} investors here. `;
+        }
+
+        formattedSummary += `\n\nI've filtered the results based on your preferences. You can further refine using the filters if needed.`;
+      } else {
+        formattedSummary = `I've found some investors that might interest you. While they may not exactly match your search, you can use the filters below to narrow down the results according to your specific needs.`;
+      }
+
+      // Store response with formatted summary
+      setSearchResponse({
+        ...response.data,
+        summary: formattedSummary
+      });
+
+      // Update filters
+      handleFilterChange(matchedFilters);
+      setCurrentPage(1);
+    } catch (error) {
       console.error("Error:", error.message);
+      setError("Failed to process search query");
+    } finally {
+      setLoading(false);
+    }
   }
-    setCurrentPage(1)
-    // Note: Add actual search implementation in the API call
+
+  // Add function to handle Enter key press
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(searchQuery);
+    }
   }
 
   // Calculate total pages
@@ -426,13 +554,14 @@ export default function Outreach2() {
           </div>
 
           {/* Custom Search Bar with Reduced Width */}
-          {/* <div className={`search-container ${isMobile ? "mb-3" : "mb-4"}`} style={{maxWidth: isMobile ? "90%" : "70%"}}>
+          <div className={`search-container ${isMobile ? "mb-3" : "mb-4"}`} style={{maxWidth: isMobile ? "90%" : "70%"}}>
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search (e.g., 'Investors in United States who invest in Deep tech ')" // Shortened placeholder
-                className="w-full py-2.5 px-4 pr-12 bg-[#161616] border border-[#75757569] rounded-full text-white focus:outline-none focus:border-[#9e9e9e] transition-colors text-sm sm:text-base placeholder:text-[#CAC5C5] placeholder:text-sm" // Added placeholder styling
+                placeholder="Search (e.g., 'Investors in United States who invest in Deep tech ')"
+                className="w-full py-2.5 px-4 pr-12 bg-[#161616] border border-[#75757569] rounded-full text-white focus:outline-none focus:border-[#9e9e9e] transition-colors text-sm sm:text-base placeholder:text-[#CAC5C5] placeholder:text-sm"
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={handleKeyPress}
                 value={searchQuery}
               />
               <button
@@ -442,7 +571,50 @@ export default function Outreach2() {
                 <Search size={isMobile ? 18 : 20} className="text-white" />
               </button>
             </div>
-          </div> */}
+          </div>
+
+          {/* Display Gemini Response */}
+          {searchResponse && searchQuery && (
+            <div className="mt-4 mb-6 p-4 bg-[#161616] border border-[#75757569] rounded-lg">
+              <h3 className="text-lg font-semibold mb-2">Search Analysis</h3>
+              <div className="text-sm text-[#CAC5C5]">
+                <p className="mb-2"><strong>Vertx ai result :</strong> {searchResponse.summary}</p>
+                <div className="flex flex-wrap gap-4">
+                  <div>
+                    <strong>Industries:</strong>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {searchResponse.industries?.map((industry, idx) => (
+                        <span key={idx} className="px-2 py-1 bg-[#252525] rounded-full text-xs">
+                          {industry}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <strong>Industry Types:</strong>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {searchResponse.industry_types?.map((type, idx) => (
+                        <span key={idx} className="px-2 py-1 bg-[#252525] rounded-full text-xs">
+                          {type}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <strong>Countries:</strong>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {searchResponse.countries?.map((country, idx) => (
+                        <span key={idx} className="px-2 py-1 bg-[#252525] rounded-full text-xs">
+                          {country}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Filters with horizontal scroll */}
           <div
             ref={filtersScrollRef}
@@ -472,14 +644,14 @@ export default function Outreach2() {
                 />
               </div>
 
-              {/* <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
                   options={industries}
                   onChange={(values) => handleFilterChange({"industry": values})}
                   placeholder="Industries"
                   value={filters.industry}
                 />
-              </div>  */}
+              </div> 
 
               <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
                 <MultiSelectDropdown
@@ -489,25 +661,8 @@ export default function Outreach2() {
                   value={filters.previousFunding}
                 />
               </div>
-              {/* <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
-                <MultiSelectDropdown
-                  options={Global_hq}
-                  onChange={(values) => handleFilterChange({"Global_hq": values})}
-                  placeholder="Previous Funding"
-                  value={filters.Global_hq}
-                />
-              </div> */}
 
-              {/* <div className="min-w-[100px] sm:min-w-[120px]"> previousFunding
-                <button
-                  className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
-                    bookmarked ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
-                  }`}
-                  onClick={toggleBookmarked}
-                >
-                  Bookmarked
-                </button>
-              </div>  */}
+              {/* Removed duplicate Global_hq filter */}
               
               </>
               }
