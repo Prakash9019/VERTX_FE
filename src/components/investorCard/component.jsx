@@ -385,7 +385,6 @@ export default function Card({ data }) {
           <p className="ctit">{data?.investorType}</p>
         </div>
         <div className="btnwrap">
-          <button className="tag">Mark</button>
           <button className="tag">View Profile</button>
         </div>
       </div>
