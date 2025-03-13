@@ -583,7 +583,7 @@ export default function Outreach2() {
             </div>
           </div>
 
-          {/* Display Gemini Response */}
+          {/* Display Gemini Response
           {searchResponse && searchQuery && (
             <div className="mt-4 mb-6 p-4 bg-[#161616] border border-[#75757569] rounded-lg">
               <h3 className="text-lg font-semibold mb-2">Search Analysis</h3>
@@ -623,7 +623,7 @@ export default function Outreach2() {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Filters with horizontal scroll */}
           <div

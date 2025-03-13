@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router"
+import {Route, Routes, Navigate} from "react-router"
 import { useEffect } from "react";
 import Nopage from "./screens/404";
 import Admin from "./screens/admin";
@@ -8,7 +8,7 @@ import {Callback } from "./screens/auth/callback.jsx";
 import Chat from "./screens/chat";
 import Docflow from "./screens/docflow";
 import GenerateEmail from "./screens/emails";
-import Pipeline from "./screens/events";
+import Pipeline from "./screens/events"
 import Explore from "./screens/explore";
 import LandingAuth from "./screens/landing"
 import Matchflow from "./screens/matchflow";
@@ -50,9 +50,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Callback />} />
-      {/* <Route path="/" element={<Navigate to="/authen" />} /> */}
-
+      {/* Changed the root path to display Outreach2 directly */}
+      <Route path="/" element={<Outreach2 />} />
 
       <Route path="/authentication" element={<LandingAuth />} />
       <Route path="/signup" element={<Signup />} />
@@ -83,11 +82,8 @@ function App() {
 
       <Route path="/admin" element={<Admin />} />
 
-
-
       <Route path="/privacy" element={<PrivacyPolicy /> } />
       <Route path="/terms" element={<TermsAndConditions /> } />
-
 
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/explore/putaface" element={<Put_a_face /> } />
@@ -106,12 +102,3 @@ function App() {
 }
 
 export default App
-
-
-
-
-
-//  "INFORMATION TECHNOLOGY & SERVICES", "INTERNET", "COMPUTER SOFTWARE", "ENTERTAINMENT", "STAFFING & RECRUITING", "VENTURE CAPITAL & PRIVATE EQUITY", "MANAGEMENT CONSULTING", "HIGHER EDUCATION", "FINANCIAL SERVICES", "REAL ESTATE", "OUTSOURCING/OFFSHORING", "BANKING", "INVESTMENT MANAGEMENT", "CONSUMER GOODS", "EDUCATION MANAGEMENT", "RETAIL", "MEDIA PRODUCTION", "NONPROFIT ORGANIZATION MANAGEMENT", "MARKETING & ADVERTISING", "LOGISTICS & SUPPLY CHAIN", "ONLINE MEDIA", "AUTOMOTIVE", "HEALTH", "WELLNESS & FITNESS", "LEISURE", "TRAVEL & TOURISM", "DEFENSE & SPACE", "E-LEARNING", "PUBLIC RELATIONS & COMMUNICATIONS", "AEROSPACE & AVIATION", "AGTECH", "AI & MACHINE LEARNING", "BLOCKCHAIN & CRYPTO", "BIOTECH & LIFE SCIENCES", "CLEANTECH & RENEWABLE ENERGY", "CYBERSECURITY", "E-COMMERCE & D2C", "EDTECH", "FOOD & BEVERAGE", "GAMING & ESPORTS", "GOVTECH", "GREENTECH", "HARDWARE & SEMICONDUCTORS", "HOSPITALITY & RESTAURANTS", "HRTECH", "INSURTECH", "LEGALTECH", "MANUFACTURING & AUTOMATION", "METAVERSE & AR/VR", "PHARMA & HEALTHTECH", "PROPTECH", "QUANTUM COMPUTING", "RETAILTECH", "SOCIAL MEDIA & CREATOR ECONOMY", "SPORTS & FITNESS TECH", "TELECOM", "TRANSPORTATION & MOBILITY", "WEB3 & DEFI", "WEARABLES & IOT", "OTHER"
-
-
-
