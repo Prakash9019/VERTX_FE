@@ -349,11 +349,11 @@ export default function Outreach2() {
       });
      const data = await response.json();
      console.log(data.industries);
-      handleFilterChange({
-        industry: data.industries,
-        country: data.countries,
-        investorType: data.industry_types,
-      });
+      // handleFilterChange({
+      //   industry: data.industries,
+      //   country: data.countries,
+      //   investorType: data.industry_types,
+      // });
       
   } catch (error) {
       console.error("Error:", error.message);

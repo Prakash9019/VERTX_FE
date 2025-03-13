@@ -247,6 +247,22 @@ export default function AddaProject() {
   const [showNewInput, setShowNewInput] = useState(false); // Show input form
   const [isMobile, setIsMobile] = useState(false);
 
+  
+  const handleAvatarChange = async (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => setAvatar(reader.result);
+  //  console.log(reader.result);
+    reader.readAsDataURL(file);
+    const formData = new FormData();
+    formData.append("avatar", file);
+    // console.log(userId);
+    const response= await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+   console.log(response.data)
+    
+  };
   // Check if device is mobile based on screen width
   useEffect(() => {
     const checkIsMobile = () => {
