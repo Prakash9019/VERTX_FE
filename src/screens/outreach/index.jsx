@@ -14,7 +14,7 @@ import logo from "./womensDay.png"
 import { Search } from "lucide-react"
 
 
-const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
+const MultiSelectDropdown = ({ options, onChange, placeholder, value, hideSelectedValues }) => {
   // Create a ref for manually handling input width
   const selectedValues = value || [];
 
@@ -104,8 +104,8 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
         controlShouldRenderValue={false} // Don't render selected values in the control
       />
       
-      {/* Display selected values below the dropdown */}
-      {selectedValues.length > 0 && (
+      {/* Display selected values below the dropdown, but only if not from search */}
+      {selectedValues.length > 0 && !hideSelectedValues && (
         <div className="selected-filters">
           {selectedValues.map((value) => (
             <div key={value} className="filter-chip">
@@ -180,6 +180,7 @@ export default function Outreach2() {
   const [bookmarks, setBookmarks] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResponse, setSearchResponse] = useState(null) // Add this state for Gemini response
+  const [isSearchFiltering, setIsSearchFiltering] = useState(false) // New state to track if filters are from search
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1)
@@ -340,6 +341,8 @@ export default function Outreach2() {
   
 
   const handleFilterChange = (newFilters) => {
+    // Set search filtering flag to false when manually changing filters
+    setIsSearchFiltering(false);
     setFilters((prev) => ({
       ...prev,
       ...newFilters,  // Merge new filters
@@ -472,8 +475,15 @@ export default function Outreach2() {
         summary: formattedSummary
       });
 
+      // Set search filtering flag to true when filters are from search
+      setIsSearchFiltering(true);
+      
       // Update filters
-      handleFilterChange(matchedFilters);
+      setFilters({
+        ...filters,
+        ...matchedFilters
+      });
+      
       setCurrentPage(1);
     } catch (error) {
       console.error("Error:", error.message);
@@ -632,6 +642,7 @@ export default function Outreach2() {
                   onChange={(values) => handleFilterChange({"country": values})}
                   placeholder="Select Geography"
                   value={filters.country}
+                  hideSelectedValues={isSearchFiltering}
                 />
               </div>
 
@@ -641,6 +652,7 @@ export default function Outreach2() {
                   onChange={(values) => handleFilterChange({"investorType": values})}
                   placeholder="Investor Type"
                   value={filters.investorType}
+                  hideSelectedValues={isSearchFiltering}
                 />
               </div>
 
@@ -650,6 +662,7 @@ export default function Outreach2() {
                   onChange={(values) => handleFilterChange({"industry": values})}
                   placeholder="Industries"
                   value={filters.industry}
+                  hideSelectedValues={isSearchFiltering}
                 />
               </div> 
 
@@ -659,6 +672,7 @@ export default function Outreach2() {
                   onChange={(values) => handleFilterChange({"previousFunding": values})}
                   placeholder="Previous Funding"
                   value={filters.previousFunding}
+                  hideSelectedValues={isSearchFiltering}
                 />
               </div>
 

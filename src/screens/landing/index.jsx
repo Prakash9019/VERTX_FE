@@ -20,6 +20,7 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount,
   const [disabled, setDisabled] = useState(false)
   const [resp, setResp] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
   const [show, setShow] = useState(false)
 
   // Check if the device is mobile
@@ -53,32 +54,43 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount,
       })
       .catch((e) => {
         setErrorMessage(e.response?.data?.msg || "An error occurred")
+        setSuccessMessage("")
         return e.response
       })
     if (response) {
-      setErrorMessage(response?.data?.msg)
       setResp(response?.data?.msg)
       if (response?.status == 200) {
-      //  console.log("hello");
+        // Set success message
+        setSuccessMessage("Authentication Success")
+        setErrorMessage("")
+        
         localStorage.setItem("token", response?.data?.token)
         localStorage.setItem("user", response?.data?.username)
 
-         const token=localStorage.getItem("token")
+        const token = localStorage.getItem("token")
         if (!token) return; // Prevent request if token is missing
   
-        const response2 = await axios.get(`${API_KEY}/profile/fetch`,{headers: {'Content-Type': 'application/json',
-          token: localStorage.getItem('token')
-        }});
+        const response2 = await axios.get(`${API_KEY}/profile/fetch`, {
+          headers: {
+            'Content-Type': 'application/json',
+            token: localStorage.getItem('token')
+          }
+        });
         if (response2.data.length > 0) {
-          localStorage.setItem("dip",response2.data[0].avatar);
+          localStorage.setItem("dip", response2.data[0].avatar);
         }
         
-        // window.location.reload()
-        if (isPopup && onClose) {
-          onClose()
-        } else {
-          navigate("/callback")
-        }
+        // Add a small delay to show the success message before redirecting
+        setTimeout(() => {
+          if (isPopup && onClose) {
+            onClose()
+          } else {
+            navigate("/callback")
+          }
+        }, 1500);
+      } else {
+        setErrorMessage(response?.data?.msg)
+        setSuccessMessage("")
       }
       setShow(true)
     }
@@ -276,6 +288,7 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount,
                   className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
                 />
                 {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
+                {successMessage && <p className="text-green-500 font-semibold mt-4 text-center">{successMessage}</p>}
                 <div className="btnWrap">
                   <Button
                     theme={disabled ? "light disabled" : "light"}
@@ -285,7 +298,7 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount,
                   />
                   <Button disabled={false} theme={"dark"} context={"Forget password"} callback={() => {}} />
                 </div>
-                {show && <div className="text-white mt-4 text-center">{resp}</div>}
+                {show && !successMessage && !errorMessage && <div className="text-white mt-4 text-center">{resp}</div>}
               </div>
             )}
           </div>
