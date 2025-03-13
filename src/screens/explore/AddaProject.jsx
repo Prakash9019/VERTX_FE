@@ -46,8 +46,9 @@ function ProjectCard({ project }) {
 
   const deleteProject = async (projectId) => {
     try {
+      console.log(projectId);
       const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
-      const response = await axios.delete(`${API_KEY}/projects/${projectId}`, {
+      const response = await axios.delete(`${API_KEY}/profile/projects/${projectId}`, {
         headers: { token: localStorage.getItem("token") }
       });
   

@@ -76,7 +76,7 @@ useEffect(() => {
           // setTimeDifference(timeDifference(response.data[0].createdAt));
           setUserData(response.data[0]);
           setAvatar(response.data[0].avatar);
-          localstorage.setItem("dip",response.data[0].avatar);
+          localStorage.setItem("dip",response.data[0].avatar);
         //  console.log(response.data[0]);
         }
       } catch (error) {

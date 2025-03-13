@@ -148,7 +148,7 @@ export default function Bio() {
       });
     } else {
       // Create New Project
-      fetch("${API_KEY}/profile/projects", {
+      fetch(`${API_KEY}/profile/projects`, {
         method: "POST",
         headers: { "Content-Type": "application/json" , "token": localStorage.getItem("token") },
         body: JSON.stringify(payload),

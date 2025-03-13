@@ -40,13 +40,13 @@ import BrokenFeature from "./screens/explore/Break.jsx";
 import ProfileComplete from "./screens/explore/Complete.jsx";
 import CommunityPage from "./screens/layout/Community.jsx";
 function App() {
-    // const { setIsProtected } = useCopyProtection();
+    const { setIsProtected } = useCopyProtection();
   
-    // useEffect(() => {
-    //   setIsProtected(true); 
-    // }, []);
+    useEffect(() => {
+      setIsProtected(true); 
+    }, []);
   
-    // useCopyBlocker(true); 
+    useCopyBlocker(true); 
 
   return (
     <Routes>
@@ -93,7 +93,7 @@ function App() {
       <Route path="/explore/putaface" element={<Put_a_face /> } />
       <Route path="/explore/skills" element={<Skills /> } />
       <Route path="/explore/newproject" element={<AddaProject /> } />
-      <Route path="/explore/project" element={<ShowYourProject /> } />
+      <Route path="/explore/project" element={<ShowYourProject /> } />     {/* not yet used */}
 
       <Route path="/explore/break" element={<BrokenFeature /> } />
       <Route path="/explore/complete" element={<ProfileComplete /> } />
