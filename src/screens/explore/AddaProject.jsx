@@ -51,7 +51,7 @@ function ProjectCard({ project }) {
       const response = await axios.delete(`${API_KEY}/profile/projects/${projectId}`, {
         headers: { token: localStorage.getItem("token") }
       });
-  
+      window.location.reload();
       // alert("Project deleted successfully");
       return response.data;
     } catch (error) {
@@ -293,12 +293,15 @@ export default function AddaProject() {
     setNewProject(prev => ({ ...prev, workplace }));
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onloadend =async  () => {
         setImagePreview(reader.result);
+    //     const response= await axios.post(`${API_KEY}/project/${userId}/upload-avatar`, formData, {
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // });
         setNewProject(prev => ({ ...prev, image: reader.result }));
       };
       reader.readAsDataURL(file);
@@ -312,6 +315,7 @@ export default function AddaProject() {
       .then((res) => res.json())
       .then((data) => {
         setProjects(data);
+        console.log(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -324,7 +328,7 @@ export default function AddaProject() {
 
   const SavetheProject = async () => {
     if (!newProject.name || !newProject.stage || !newProject.workplace) {
-      // alert("Please fill all required fields");
+      alert("Please fill all required fields");
       return;
     }
 
@@ -399,7 +403,7 @@ export default function AddaProject() {
       
       <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
         <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center relative overflow-hidden">
-          {imagePreview ? (
+          { imagePreview ? (
             <img src={imagePreview} alt="Project" className="w-full h-full object-cover" />
           ) : (
             <label htmlFor="new-project-image" className="cursor-pointer w-full h-full flex items-center justify-center">
