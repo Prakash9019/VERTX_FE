@@ -325,25 +325,27 @@ export default function Bio() {
   };
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className={`${isMobile ? 'px-4 pb-24 pt-3' : 'w-full px-4 mx-auto mt-16'} overflow-y-auto`}>
+      <div className={`${isMobile ? 'px-4 pb-24 pt-3' : 'w-full px-4 mx-auto mt-16'} overflow-y-auto`} style={{ fontFamily: 'Manrope', letterSpacing: '-4%' }}>
         <div className="max-w-3xl w-full mx-auto">
           
         <div className="flex justify-end space-x-2 mb-4 pr-12">
         <button onClick={()=> handleEdit2()}> 
-            <svg width="21" height="21" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" >
+        <svg width="21" height="21" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" >
                 <path d="M3.33333 14C2.96667 14 2.65278 13.8694 2.39167 13.6083C2.13056 13.3472 2 13.0333 2 12.6667V3.33333C2 2.96667 2.13056 2.65278 2.39167 2.39167C2.65278 2.13056 2.96667 2 3.33333 2H9.28333L7.95 3.33333H3.33333V12.6667H12.6667V8.03333L14 6.7V12.6667C14 13.0333 13.8694 13.3472 13.6083 13.6083C13.3472 13.8694 13.0333 14 12.6667 14H3.33333ZM6 10V7.16667L12.1167 1.05C12.25 0.916668 12.4 0.816668 12.5667 0.750002C12.7333 0.683335 12.9 0.650002 13.0667 0.650002C13.2444 0.650002 13.4139 0.683335 13.575 0.750002C13.7361 0.816668 13.8833 0.916668 14.0167 1.05L14.95 2C15.0722 2.13333 15.1667 2.28056 15.2333 2.44167C15.3 2.60278 15.3333 2.76667 15.3333 2.93333C15.3333 3.1 15.3028 3.26389 15.2417 3.425C15.1806 3.58611 15.0833 3.73333 14.95 3.86667L8.83333 10H6ZM7.33333 8.66667H8.26667L12.1333 4.8L11.6667 4.33333L11.1833 3.86667L7.33333 7.71667V8.66667Z" fill="white"/>
           </svg>
           </button>
-<svg width="21" height="21" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="21" height="21" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect x="0.5" y="0.5" width="15" height="15" stroke="black"/>
 <path d="M6.16647 14.6667L5.89981 12.5333C5.75536 12.4778 5.61925 12.4111 5.49147 12.3333C5.36369 12.2556 5.23869 12.1722 5.11647 12.0833L3.13314 12.9167L1.2998 9.75L3.01647 8.45C3.00536 8.37222 2.9998 8.29722 2.9998 8.225V7.775C2.9998 7.70278 3.00536 7.62778 3.01647 7.55L1.2998 6.25L3.13314 3.08334L5.11647 3.91667C5.23869 3.82778 5.36647 3.74445 5.4998 3.66667C5.63314 3.58889 5.76647 3.52222 5.89981 3.46667L6.16647 1.33334H9.83314L10.0998 3.46667C10.2442 3.52222 10.3804 3.58889 10.5081 3.66667C10.6359 3.74445 10.7609 3.82778 10.8831 3.91667L12.8665 3.08334L14.6998 6.25L12.9831 7.55C12.9942 7.62778 12.9998 7.70278 12.9998 7.775V8.225C12.9998 8.29722 12.9887 8.37222 12.9665 8.45L14.6831 9.75L12.8498 12.9167L10.8831 12.0833C10.7609 12.1722 10.6331 12.2556 10.4998 12.3333C10.3665 12.4111 10.2331 12.4778 10.0998 12.5333L9.83314 14.6667H6.16647ZM8.03314 10.3333C8.67758 10.3333 9.22758 10.1056 9.68314 9.65C10.1387 9.19445 10.3665 8.64445 10.3665 8C10.3665 7.35556 10.1387 6.80556 9.68314 6.35C9.22758 5.89445 8.67758 5.66667 8.03314 5.66667C7.37758 5.66667 6.8248 5.89445 6.3748 6.35C5.92481 6.80556 5.6998 7.35556 5.6998 8C5.6998 8.64445 5.92481 9.19445 6.3748 9.65C6.8248 10.1056 7.37758 10.3333 8.03314 10.3333Z" fill="#757575"/>
 </svg>
             </div>
-          <div className="bg-black rounded-3xl shadow-lg overflow-hidden border" 
+          <div className="bg-black rounded-[2rem] shadow-lg overflow-hidden border" 
             style={{ 
               borderColor: "#757575", 
               width: isMobile ? '100%' : 'auto',
-              maxWidth: isMobile ? '100%' : '48rem'
+              maxWidth: isMobile ? '100%' : '48rem',
+              borderRadius: '2rem',
+              borderWidth: '1px'
             }}
           >
             {/* Editing Profile Section with Mobile Responsiveness */}
@@ -358,23 +360,11 @@ export default function Bio() {
                      <p className="text-xl text-gray-400 mb-4">@{localStorage.getItem("user") || "username"}</p>
                      <p className="text-xl mb-6">{formData.headline}</p>
 
-                    {/* <div className="flex space-x-3">
-                       <div className="bg-black rounded-full px-3 py-1 border border-[#757575] text-white text-xs">
-                         #New here
-                       </div>
-                       <div className="bg-black rounded-full px-3 py-1 border border-[#757575] flex items-center text-white text-xs">
-                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.92532 9.74166L9.74199 8.92499L7.58366 6.76666V4.08332H6.41699V7.23332L8.92532 9.74166ZM7.00033 12.8333C6.19338 12.8333 5.43505 12.6802 4.72533 12.3739C4.0156 12.0677 3.39824 11.6521 2.87324 11.1271C2.34824 10.6021 1.93262 9.98471 1.62637 9.27499C1.32012 8.56527 1.16699 7.80693 1.16699 6.99999C1.16699 6.19305 1.32012 5.43471 1.62637 4.72499C1.93262 4.01527 2.34824 3.39791 2.87324 2.87291C3.39824 2.34791 4.0156 1.93228 4.72533 1.62603C5.43505 1.31978 6.19338 1.16666 7.00033 1.16666C7.80727 1.16666 8.5656 1.31978 9.27532 1.62603C9.98505 1.93228 10.6024 2.34791 11.1274 2.87291C11.6524 3.39791 12.068 4.01527 12.3743 4.72499C12.6805 5.43471 12.8337 6.19305 12.8337 6.99999C12.8337 7.80693 12.6805 8.56527 12.3743 9.27499C12.068 9.98471 11.6524 10.6021 11.1274 11.1271C10.6024 11.6521 9.98505 12.0677 9.27532 12.3739C8.5656 12.6802 7.80727 12.8333 7.00033 12.8333ZM7.00033 11.6667C8.29338 11.6667 9.39442 11.2121 10.3034 10.3031C11.2125 9.39409 11.667 8.29305 11.667 6.99999C11.667 5.70693 11.2125 4.60589 10.3034 3.69686C9.39442 2.78784 8.29338 2.33332 7.00033 2.33332C5.70727 2.33332 4.60623 2.78784 3.6972 3.69686C2.78817 4.60589 2.33366 5.70693 2.33366 6.99999C2.33366 8.29305 2.78817 9.39409 3.6972 10.3031C4.60623 11.2121 5.70727 11.6667 7.00033 11.6667Z" fill="#757575"/>
-</svg>
-
-                        {time}
-                       </div>
-                     </div> */}
                    </div>
 
                    <div className="relative">
                  { Eicon && <button className="ml-[3.5rem] flex items-center gap-1 text-gray-400 mb-[3rem]" onClick={() => setEditingProfile(true)}>
-                       <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
 </svg>
                          <span style={{ color: "#CAC5C5" }}>Edit</span>
@@ -413,7 +403,7 @@ export default function Bio() {
 </div>
 
 <label htmlFor="avatarUpload" className="absolute bottom-0 right-0 bg-white rounded-md p-1">
-                     <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="25" height="25" rx="4" fill="#CAC5C5"/>
 <g clip-path="url(#clip0_2146_2)">
 <path d="M6.33301 19V16.3333H19.6663V19H6.33301ZM8.99967 13.6667H9.93301L15.133 8.48334L14.6497 8.00001L14.183 7.53334L8.99967 12.7333V13.6667ZM7.66634 15V12.1667L15.133 4.71668C15.2552 4.59445 15.3969 4.50001 15.558 4.43334C15.7191 4.36668 15.8886 4.33334 16.0663 4.33334C16.2441 4.33334 16.4163 4.36668 16.583 4.43334C16.7497 4.50001 16.8997 4.60001 17.033 4.73334L17.9497 5.66668C18.083 5.7889 18.1802 5.93334 18.2413 6.10001C18.3025 6.26668 18.333 6.4389 18.333 6.61668C18.333 6.78334 18.3025 6.94723 18.2413 7.10834C18.1802 7.26945 18.083 7.41668 17.9497 7.55001L10.4997 15H7.66634ZM15.133 8.48334L14.6497 8.00001L14.183 7.53334L15.133 8.48334Z" fill="black"/>
@@ -460,7 +450,7 @@ export default function Bio() {
                         value={formData.firstName}
                         onChange={handleChange}
                         className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none text-sm sm:text-base"
-                        style={{ color: 'CAC5C5' }}
+                        style={{ color: 'white' }}
                       />
                     </div>
                     <div>
@@ -471,7 +461,7 @@ export default function Bio() {
                         onChange={handleChange}
                       value={formData.lastName}
                         className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none text-sm sm:text-base"
-                        style={{ color: 'CAC5C5' }}
+                        style={{ color: 'white' }}
                       />
                     </div>
                   </div>
@@ -485,7 +475,7 @@ export default function Bio() {
                       onChange={handleChange}
                       value={formData.city}
                       className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none text-sm sm:text-base"
-                      style={{ color: 'CAC5C5' }}
+                      style={{ color: 'white' }}
                     />
                   </div>
 
@@ -497,7 +487,7 @@ export default function Bio() {
                       onChange={handleChange}
                       value={formData.headline}
                       className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none text-sm sm:text-base"
-                      style={{ color: 'CAC5C5' }}
+                      style={{ color: 'white' }}
                     />
                   </div>
 
@@ -516,7 +506,7 @@ export default function Bio() {
                         onChange={handleChange}
                         value={formData.portfolioLink}
                         className="flex-1 bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none text-sm sm:text-base"
-                        style={{ color: '#424242' }}
+                        style={{ color: 'white' }}
                         placeholder="https://portfolio.com/"
                       />
                     </div>
@@ -533,7 +523,7 @@ export default function Bio() {
                         onChange={handleChange}
                         value={formData.linkedinLink}
                         className="flex-1 bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none text-sm sm:text-base"
-                        style={{ color: '#424242' }}
+                        style={{ color: 'white' }}
                         placeholder="https://www.linkedin.com/in/..."
                       />
                     </div>
@@ -550,7 +540,7 @@ export default function Bio() {
                         onChange={handleChange}
                       value={formData.github}
                         className="flex-1 bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none text-sm sm:text-base"
-                        style={{ color: '#424242' }}
+                        style={{ color: 'white' }}
                         placeholder="https://github.com/"
                       />
                     </div>
@@ -567,7 +557,7 @@ export default function Bio() {
                         onChange={handleChange}
                         value={formData.twitter}
                         className="flex-1 bg-transparent border-b border-[#1D1C1C] pb-1 text-white focus:outline-none"
-                        style={{ color: '#424242' }}
+                        style={{ color: 'white' }}
                         placeholder="https://x.com/"
                       />
                     </div>
@@ -584,7 +574,7 @@ export default function Bio() {
    <div className="flex items-center justify-between mb-5">
      <h2 className="text-xl sm:text-2xl font-bold">Background</h2>
                 {Eicon &&  <button className="flex items-center gap-1 text-gray-400" onClick={() => setEditingBackground(true)}>
-                    <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
 </svg>
                       <span style={{ color: "#CAC5C5" }}>Edit</span>
@@ -593,12 +583,12 @@ export default function Bio() {
 
 
                   <div className="mb-4 sm:mb-6">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">Achievement</h3>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2" style={{ color: "#CAC5C5" }}>Achievement</h3>
                   <p className="text-[#757575] text-sm sm:text-base">{formData.achievement}</p>
                   </div>
 
                   <div className="mb-4 sm:mb-6">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">Skills</h3>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2" style={{ color: "#CAC5C5" }}>Skills</h3>
                   <div className="flex flex-wrap gap-2">
                       {formData.skills?.map((skill, index) => (
                         <div
@@ -610,7 +600,7 @@ export default function Bio() {
                     </div>
                   </div>
                   <div className="mb-4 sm:mb-6">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">Discipline</h3>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2" style={{ color: "#CAC5C5" }}>Discipline</h3>
                   <div className="flex flex-wrap gap-2">
                       {formData.disciplines?.map((discipline, index) => (
                         <div
@@ -644,24 +634,24 @@ export default function Bio() {
                 </div>
 
                   <div className="mb-5">
-                    <h3 className="text-base sm:text-xl font-bold mb-2">Achievement</h3>
+                    <h3 className="text-base sm:text-xl font-bold mb-2" style={{ color: "#CAC5C5" }}>Achievement</h3>
                     <textarea
                       value={achievement}
                       onChange={(e) => setAchievement(e.target.value)}
                       className="w-full bg-black border border-gray-700 rounded-md p-2 text-white text-sm sm:text-base"
                       rows="3"
-                      style={{ color: '#424242' }}
+                      style={{ color: 'white' }}
                     />
                   </div>
 
                
                   <div className="mb-5">
-                  <h3 className="text-base sm:text-xl font-bold mb-2">Skills</h3>
+                  <h3 className="text-base sm:text-xl font-bold mb-2" style={{ color: "#CAC5C5" }}>Skills</h3>
                   <div className="flex flex-wrap gap-2">
                     {Object.keys(skillsData).map((skill) => (
                   <div
                   className={`rounded-full px-3 py-1 border-[1px] border-[#757575] cursor-pointer text-xs sm:text-sm ${selectedSkills.includes(skill) ? "bg-white" : "bg-black"}`}
-                  style={{ color: selectedSkills.includes(skill) ? "#000000" : "#757575" }}
+                  style={{ color: selectedSkills.includes(skill) ? "#000000" : "#CAC5C5" }}
 
                     onClick={() => handleSkillClick(skill)}
                   >
@@ -672,14 +662,14 @@ export default function Bio() {
                   </div>
 
                   <div className="mb-5">
-                  <h3 className="text-base sm:text-xl font-bold mb-2">Discipline</h3>
+                  <h3 className="text-base sm:text-xl font-bold mb-2" style={{ color: "#CAC5C5" }}>Discipline</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedSkills.flatMap((skill) =>
                       skillsData[skill].map((discipline) => (
                         <div
                           key={discipline}
                           className={`rounded-full px-3 py-1 border-[1px] border-[#757575] cursor-pointer text-xs sm:text-sm ${selectedDisciplines.includes(discipline) ? "bg-white" : "bg-black"}`}
-                        style={{ color: selectedDisciplines.includes(discipline) ? "#000000" : "#757575" }}
+                        style={{ color: selectedDisciplines.includes(discipline) ? "#000000" : "#CAC5C5" }}
 
                           onClick={() => handleDisciplineClick(discipline)}
                         >
@@ -692,154 +682,151 @@ export default function Bio() {
                 </div>
               )}
 
-            {/* Projects Section */}
-            <div className="p-4 sm:p-6 border-b" style={{ background: "#111111", borderColor: "#757575" }}>
-              <div className="flex items-center justify-between mb-5">
-                <h2 className="text-xl sm:text-2xl font-bold">Projects</h2>
-                  <button className="text-white bg-transparent border-none text-sm sm:text-base" onClick={handleAddProject}>+ Add Project</button>
-                </div>
+{/* Projects Section */}
+<div className="p-4 sm:p-6 " style={{ background: "#111111", borderColor: "#757575", borderBottomLeftRadius: '2rem', borderBottomRightRadius: '2rem' }}>
+  <div className="flex items-center justify-between mb-5">
+    <h2 className="text-xl sm:text-2xl font-bold">Projects</h2>
+    <button className="text-white bg-transparent border-none text-sm sm:text-base" onClick={handleAddProject}>+ Add Project</button>
+  </div>
 
-                {!editingProject ? (
-                  <div className="mb-6">
-                  <div className="flex flex-col items-center justify-between">
-  {projects.map((project,index) => (
-    <div className="flex flex-row w-full justify-between items-center" key={index}>
-      <h3 className="text-lg sm:text-xl font-bold mb-2 text-left flex-grow">{project.name}</h3>
-      
-    { Eicon && <button className="flex items-center gap-1 text-gray-400" onClick={() => handleEdit(project)}>
-        <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+  {!editingProject ? (
+    <div className="mb-6">
+      <div className="flex flex-col items-center justify-between">
+        {projects.map((project, index) => (
+          <div className="flex flex-row w-full justify-between items-center" key={index}>
+            <h3 className="text-lg sm:text-xl font-bold mb-2 text-left flex-grow">{project.name}</h3>
+            
+            {Eicon && <button className="flex items-center gap-1 text-gray-400" onClick={() => handleEdit(project)}>
+            <svg width="17" height="17" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 12V10H11V12H1ZM3 8H3.7L7.6 4.1125L7.2375 3.75L6.8875 3.4L3 7.3V8ZM2 9V6.875L7.6 1.2875C7.69167 1.19583 7.79792 1.125 7.91875 1.075C8.03958 1.025 8.16667 1 8.3 1C8.43333 1 8.5625 1.025 8.6875 1.075C8.8125 1.125 8.925 1.2 9.025 1.3L9.7125 2C9.8125 2.09167 9.88542 2.2 9.93125 2.325C9.97708 2.45 10 2.57917 10 2.7125C10 2.8375 9.97708 2.96042 9.93125 3.08125C9.88542 3.20208 9.8125 3.3125 9.7125 3.4125L4.125 9H2ZM7.6 4.1125L7.2375 3.75L6.8875 3.4L7.6 4.1125Z" fill="#CAC5C5"/>
         </svg>
-        <span style={{ color: "#CAC5C5" }}>Edit</span>
-      </button>}
+              <span style={{ color: "#CAC5C5" }}>Edit</span>
+            </button>}
+          </div>
+        ))}
+      </div>
     </div>
-  ))}
-</div>
+  ) : (
+    <div className="mb-6">
+      <div className="flex justify-between items-center mb-5">
+        <h3 className="text-lg sm:text-xl font-bold">{projectName}</h3>
+        <div className="flex space-x-2">
+          <button
+            onClick={() => handleCancel("project")}
+            className="bg-[#333333] text-white px-3 py-1 rounded-md text-sm"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => handleSave("project")}
+            className="bg-white text-black px-3 py-1 rounded-md text-sm"
+          >
+            Save
+          </button>
+        </div>
+      </div>
 
+      <div className="flex flex-col sm:flex-row mb-5">
+        <div className="bg-[#1D1C1C] w-16 h-16 rounded-lg mx-auto sm:mx-0 sm:mr-5 sm:mb-0 mb-4"></div>
 
-                  </div>
-                ) : (
-                  <div className="mb-6">
-                  <div className="flex justify-between items-center mb-5">
-                  <h3 className="text-lg sm:text-xl font-bold">{projectName}</h3>
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => handleCancel("project")}
-                          className="bg-[#333333] text-white px-3 py-1 rounded-md text-sm"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          onClick={() => handleSave("project")}
-                          className="bg-white text-black px-3 py-1 rounded-md text-sm"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </div>
+        <div className="flex-1 space-y-3">
+          <div> 
+            <h4 className="text-sm sm:text-base font-bold mb-1">Project name</h4>
+            <input
+              type="text"
+              placeholder="Pitch your idea in more detail.."
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+              className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white text-xs sm:text-sm placeholder:text-[#424242]"
+            />
+          </div>
+          <div> 
+            <h4 className="text-sm sm:text-base font-bold mb-1">Idea description</h4>
+            <input
+              type="text"
+              value={projectDescription}
+              onChange={(e) => setProjectDescription(e.target.value)}
+              placeholder="Describe your idea in few words..."
+              className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white text-xs sm:text-sm placeholder:text-[#424242]"
+            />
+          </div>
+          <div>
+            <h4 className="text-sm sm:text-base font-bold mb-1">Link</h4>
+            <input
+              type="text"
+              value={projectLink}
+              onChange={(e) => setProjectLink(e.target.value)}
+              placeholder="https://yourproject.com/"
+              className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white text-xs sm:text-sm placeholder:text-[#424242]"
+            />
+          </div>
+          <div>
+            <h4 className="text-sm sm:text-base font-bold mb-1">Pitch</h4>
+            <input
+              type="text"
+              value={projectPitch}
+              onChange={(e) => setProjectPitch(e.target.value)}
+              placeholder="Pitch your idea in more detail..."
+              className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-white text-xs sm:text-sm placeholder:text-[#424242]"
+            />
+          </div>
+        </div>
+      </div>
 
-                    <div className="flex flex-col sm:flex-row mb-5">
-                  <div className="bg-[#1D1C1C] w-16 h-16 rounded-lg mx-auto sm:mx-0 sm:mr-5 sm:mb-0 mb-4"></div>
-
-
-                    <div className="flex-1 space-y-3">
-<div> 
-                          <h4 className="ext-sm sm:text-base font-bold mb-1">Project name</h4>
-                        <input
-                          type="text"
-                          placeholder="Pitch your idea in more detail.."
-                          value={projectName}
-                          onChange={(e) => setProjectName(e.target.value)}
-                          className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-[#424242] text-xs sm:text-sm placeholder:text-[#424242]"
-                          />
-                        </div>
-                        <div> 
-                        <h4 className="text-sm sm:text-base font-bold mb-1">Idea description</h4>
-                        <input
-                        type="text"
-                        value={projectDescription}
-                        placeholder="Describe your idea in few words..."
-                        className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-[#424242] text-xs sm:text-sm placeholder:text-[#424242]"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="text-sm sm:text-base font-bold mb-1">Link</h4>
-                      <input
-                        type="text"
-                        value={projectLink}
-                        placeholder="https://yourproject.com/"
-                        className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-[#424242] text-xs sm:text-sm placeholder:text-[#424242]"
-                      />
-                    </div>
-                    <div>
-                      <h4 className="text-sm sm:text-base font-bold mb-1">Pitch</h4>
-                      <input
-                        type="text"
-                        value={projectPitch}
-                        placeholder="Pitch your idea in more detail..."
-                        className="w-full bg-transparent border-b border-[#1D1C1C] pb-1 text-[#424242] text-xs sm:text-sm placeholder:text-[#424242]"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mb-5">
-                  <h3 className="text-sm sm:text-xl font-bold mb-2">Stage</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {editingProject ? (
-                     <>
-                      {["Idea", "Prototype", "Revenue", "Scale"].map((stage) => (
+      <div className="mb-5">
+        <h3 className="text-sm sm:text-xl font-bold mb-2">Stage</h3>
+        <div className="flex flex-wrap gap-2">
+          {editingProject ? (
+            <>
+              {["Idea", "Prototype", "Revenue", "Scale"].map((stage) => (
                 <div
                   key={stage}
                   className={`rounded-full px-3 py-1 border-[1px] border-[#757575] cursor-pointer text-xs sm:text-sm ${projectStage === stage ? "bg-white" : "bg-black"}`}
-                  style={{ color: projectStage === stage ? "#000000" : "#757575" }}
-
+                  style={{ color: projectStage === stage ? "#000000" : "#CAC5C5" }}
                   onClick={() => handleStageSelect(stage)}
                 >
-                  
                   {stage}
                 </div>
               ))}
-                     </>
-                    ) : (
-                      <div
-                      className={`rounded-full px-3 py-1 border-[1px] border-[#757575] cursor-pointer text-xs sm:text-sm bg-black`}
-                      // style={{ color: projectStage === stage ? "#000000" : "#757575" }}
-    
-                    >
-                      {projectStage}
-                    </div>
-                    )}
-                  </div>
-                </div>
+            </>
+          ) : (
+            <div
+              className={`rounded-full px-3 py-1 border-[1px] border-[#757575] cursor-pointer text-xs sm:text-sm bg-black`}
+            >
+              {projectStage}
+            </div>
+          )}
+        </div>
+      </div>
 
-                <div className="mb-6">
-                  <h3 className="text-xl font-bold mb-2">Workplace</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {editingProject ? (
-                      <>
-                       {["Remote", "Hybrid", "Office"].map((workplace) => (
+      <div className="mb-6">
+        <h3 className="text-sm sm:text-xl font-bold mb-2">Workplace</h3>
+        <div className="flex flex-wrap gap-2">
+          {editingProject ? (
+            <>
+              {["Remote", "Hybrid", "Office"].map((workplace) => (
                 <div
                   key={workplace}
-                  className={`px-4 py-2 rounded-full border-[0.5px] text-[#757575] cursor-pointer ${
-                    projectWorkplace === workplace ? "bg-white text-black" : "bg-transparent border-[#757575]"
+                  className={`rounded-full px-3 py-1 border-[1px] border-[#757575] cursor-pointer text-xs sm:text-sm ${
+                    projectWorkplace === workplace ? "bg-white" : "bg-black"
                   }`}
+                  style={{ color: projectWorkplace === workplace ? "#000000" : "#CAC5C5" }}
                   onClick={() => handleWorkplaceSelect(workplace)}
                 >
                   {workplace}
                 </div>
               ))}
-                      </>
-                    ) : (
-                      <div className="bg-black rounded-full px-4 py-2 border-[0.5px] border-[#757575] text-white">
-                        {projectWorkplace}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                </div>
-                )}
-              </div>
+            </>
+          ) : (
+            <div className="rounded-full px-3 py-1 border-[1px] border-[#757575] text-xs sm:text-sm">
+              {projectWorkplace}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )}
+</div>
             </div>
           </div>
         </div>

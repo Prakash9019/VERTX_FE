@@ -161,15 +161,15 @@ export default function Skills() {
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
-      <div className="flex flex-col min-h-screen">
-        <div className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'flex-1 flex items-center justify-center'} overflow-y-auto`}>
+      <div className="flex flex-col min-h-screen" style={{letterSpacing: '-0.04em'}}>
+        <div className={`${isMobile ? 'px-4 mt-10 pb-24 flex-grow' : 'flex-1 flex -mt-12 items-center justify-center'} overflow-y-auto`}>
           <div className={`${isMobile ? 'w-full' : 'max-w-3xl w-full px-4'}`}>
             <div className={`text-left ${isMobile ? 'ml-0' : 'ml-0'}`}>
               <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl'} font-bold mb-1`}>Skills to survive</h1>
               <p className={`${isMobile ? 'text-lg' : 'text-xl'} text-[#CAC5C5] mb-4`}>Tell me about your background</p>
             </div>
             
-            <div className="bg-[black] rounded-[20px] p-4 md:p-8 shadow-xl border border-[#1D1C1C] w-full">
+            <div className="bg-[black] rounded-[2rem] p-4 md:p-8 shadow-xl border border-[#1D1C1C] w-full">
               <div className="flex flex-col items-start">
                 {/* Achievement Input */}
                 <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold mb-3`}>Achievement</h2>
@@ -191,7 +191,7 @@ export default function Skills() {
                   <div className="w-full h-[1px] bg-[#1D1C1C]"></div>
                 </div>
 
-                {/* Skills Selection */}
+                {/* Skills Selection - REDUCED FONT WEIGHT ONLY */}
                 <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold mb-3`}>Skills</h2>
                 <div className="flex flex-wrap gap-1.5 md:gap-2 w-full">
                   {Object.keys(skillsData).map((skill) => (
@@ -199,9 +199,9 @@ export default function Skills() {
                       key={skill}
                       className={`${
                         selectedSkills.includes(skill) 
-                          ? "bg-white text-black" 
-                          : "bg-transparent border border-[#757575] text-[#757575]"
-                      } rounded-full px-2 py-0.5 md:px-3 md:py-1 text-xs md:text-sm font-bold cursor-pointer mb-1`}
+                          ? "bg-white text-black font-normal" 
+                          : "bg-transparent border border-[#757575] text-[#757575] font-normal"
+                      } rounded-full px-2 py-0.5 md:px-4 md:py-1 text-xs md:text-sm cursor-pointer mb-1`}
                       onClick={() => handleSkillClick(skill)}
                     >
                       {skill}
@@ -209,7 +209,7 @@ export default function Skills() {
                   ))}
                 </div>
 
-                {/* Display Disciplines of Selected Skills */}
+                {/* Display Disciplines of Selected Skills - REDUCED FONT WEIGHT ONLY */}
                 {selectedSkills.length > 0 && (
                   <div className="mt-5 w-full">
                     <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold mb-3`}>Disciplines</h2>
@@ -220,9 +220,9 @@ export default function Skills() {
                             key={discipline}
                             className={`${
                               selectedDisciplines.includes(discipline)
-                                ? "bg-white text-black"
-                                : "bg-transparent border border-[#757575] text-[#757575]"
-                            } rounded-full px-2 py-0.5 md:px-3 md:py-1 text-xs md:text-sm font-bold cursor-pointer mb-1`}
+                                ? "bg-white text-black font-normal"
+                                : "bg-transparent border border-[#757575] text-[#757575] font-normal"
+                            } rounded-full px-2 py-0.5 md:px-3 md:py-1 text-xs md:text-sm cursor-pointer mb-1`}
                             onClick={() => handleDisciplineClick(discipline)}
                           >
                             {discipline}

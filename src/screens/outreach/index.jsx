@@ -35,7 +35,7 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
             ...base,
             backgroundColor: "#161616",
             border: "1px solid #75757569",
-            color: "#adadad",
+            color: "#ffffff", // Changed text color to white
             minHeight: "36px",
           }),
           menu: (base) => ({
@@ -59,6 +59,7 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
             ...base,
             padding: "0 8px",
             fontSize: window.innerWidth < 768 ? "12px" : "14px",
+            color: "#ffffff", // Changed text color to white
           }),
           placeholder: (base) => ({
             ...base,
@@ -70,10 +71,16 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value }) => {
             left: 'auto',
             opacity: '1 !important',
             transition: 'none',
+            color: "#CAC5C5", // Keep placeholder gray
+          }),
+          input: (base) => ({
+            ...base,
+            color: "#ffffff", // Changed input text color to white
           }),
           singleValue: (base) => ({
             ...base,
             fontSize: window.innerWidth < 768 ? "12px" : "14px",
+            color: "#ffffff", // Changed text color to white
           }),
           multiValue: (base) => ({
             ...base,
