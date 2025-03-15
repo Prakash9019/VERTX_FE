@@ -403,11 +403,15 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <div className="flex items-center justify-between w-full border border-[#111111] rounded-md p-3 mb-4">
                     <div className="flex items-center space-x-3">
                       {localStorage.getItem("token") && localStorage.getItem("dip") ? (
+                        <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" 
+                        > 
                         <img 
                           src={localStorage.getItem("dip")} 
                           alt="dp" 
                           className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold" 
-                        />
+                   
+                               />
+                               </div>
                       ) : (
                         <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
                               <svg width="24" height="24" viewBox="0 0 469 469" fill="none" xmlns="http://www.w3.org/2000/svg">

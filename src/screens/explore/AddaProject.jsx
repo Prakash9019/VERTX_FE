@@ -29,7 +29,11 @@ function ProjectCard({ project }) {
 
   const handleSave = async () => {
     try {
-      await axios.put(`${API_KEY}/profile/projects/${project.id}`, projectData);
+      await axios.put(`${API_KEY}/profile/projects/${project._id}`, 
+        projectData, // projectData should be the second argument
+        { headers: { token: localStorage.getItem("token") } } // Headers should be in the third argument
+    );
+    
       // alert("Project updated successfully!");
     } catch (error) {
       //console.error("Error updating project:", error);
@@ -240,7 +244,7 @@ export default function AddaProject() {
     pitch: "",
     stage: "",
     workplace: "",
-    image: null
+    img: ""
   });
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -293,20 +297,34 @@ export default function AddaProject() {
     setNewProject(prev => ({ ...prev, workplace }));
   };
 
-  const handleImageUpload = async (e) => {
+  // const handleImageUpload = async (e) => {
+  //   const file = e.target.files[0];
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.onloadend =async  () => {
+    //     setImagePreview(reader.result);
+    //     setNewProject(prev => ({ ...prev, img: reader.result }));
+    //     console.log(reader.result);
+    //     console.log(projects);
+    //   };
+    //   reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend =async  () => {
         setImagePreview(reader.result);
-    //     const response= await axios.post(`${API_KEY}/project/${userId}/upload-avatar`, formData, {
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // });
-        setNewProject(prev => ({ ...prev, image: reader.result }));
+        setNewProject(prev => ({ ...prev, img: reader.result }));
+        console.log(reader.result);
+        console.log(projects);
       };
       reader.readAsDataURL(file);
     }
   };
+  
 
   useEffect(() => {
     fetch(`${API_KEY}/profile/projects/fetch` , {headers: {'Content-Type': 'application/json',
@@ -326,34 +344,85 @@ export default function AddaProject() {
     setNewProject({ ...newProject, [name]: value });
   };
 
+
+
+  const handleProjectUpload = async (event) => {
+    event.preventDefault();
+  
+    const formData = new FormData();
+    formData.append("title", newProject.title);
+    formData.append("description", newProject.description);
+    if (newProject.img) {
+      formData.append("image", newProject.img); // Append image file
+    }
+  
+    try {
+      const response = await fetch("https://yourapi.com/projects", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${userToken}`, // Include token
+        },
+        body: formData, // Send all data at once
+      });
+  
+      const data = await response.json();
+      console.log("Project created:", data);
+    } catch (error) {
+      console.error("Error uploading project:", error);
+    }
+  };
+
+  
   const SavetheProject = async () => {
     if (!newProject.name || !newProject.stage || !newProject.workplace) {
       alert("Please fill all required fields");
       return;
     }
-
-    const response = await fetch(`${API_KEY}/profile/projects`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" , token: localStorage.getItem('token') },
-      body: JSON.stringify(newProject),
-    });
-
-    if (response.ok) {
-      const addedProject = await response.json();
-      setProjects([...projects, addedProject]);
-      setShowNewInput(false);
-      setImagePreview(null);
-      setNewProject({
-        name: "",
-        idea_description: "",
-        link: "",
-        pitch: "",
-        stage: "",
-        workplace: "",
-        image: null
+  
+    const formData = new FormData();
+    formData.append("name", newProject.name);
+    formData.append("idea_description", newProject.idea_description);
+    formData.append("link", newProject.link);
+    formData.append("pitch", newProject.pitch);
+    formData.append("stage", newProject.stage);
+    formData.append("workplace", newProject.workplace);
+    
+    if (newProject.img) {
+      formData.append("image", newProject.img); // Append the image file
+    }
+  
+    try {
+      const response = await fetch(`${API_KEY}/profile/projects`, {
+        method: "POST",
+        headers: {
+          token: localStorage.getItem("token"), // No need for Content-Type with FormData
+        },
+        body: formData, // Send the formData including the image
       });
+      console.log(response);
+      if (response.ok) {
+        const addedProject = await response.json();
+        console.log("Project saved:", addedProject);
+        setProjects([...projects, addedProject]);
+        setShowNewInput(false);
+        setImagePreview(null);
+        setNewProject({
+          name: "",
+          idea_description: "",
+          link: "",
+          pitch: "",
+          stage: "",
+          workplace: "",
+          img: null, // Reset image
+        });
+      } else {
+        console.error("Failed to save project:", await response.text());
+      }
+    } catch (error) {
+      console.error("Error saving project:", error);
     }
   };
+  
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
