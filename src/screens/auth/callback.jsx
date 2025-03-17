@@ -116,7 +116,7 @@ import Button from "../../components/button/component.jsx"
         });
         const username = response.data.user.username;
         console.log(username);
-        const trimmedUsername = username.length > 10 ? username.substring(0, 10) + "..." : username;
+        const trimmedUsername = username.length > 13 ? username.substring(0, 13) + "..." : username;
         console.log(trimmedUsername);
         localStorage.setItem("user", trimmedUsername);
         if(response.data.user.dip){
