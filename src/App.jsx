@@ -31,6 +31,7 @@ import Skills from "./screens/explore/Skills.jsx";
 import ShowYourProject from "./screens/explore/ShowYourProject.jsx";
 import Bio from "./screens/explore/Bio.jsx";
 import AddaProject from "./screens/explore/AddaProject.jsx";
+import PreferenceSet from "./screens/explore/preference-page.jsx";
 import { useCopyProtection } from "./context/CopyProtectionContext.jsx";
 import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
 // import Verify from "./screens/auth/hold/verify.jsx";
@@ -88,6 +89,7 @@ function App() {
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/explore/putaface" element={<Put_a_face /> } />
       <Route path="/explore/skills" element={<Skills /> } />
+      <Route path="/explore/prefernce" element={<PreferenceSet /> } />
       <Route path="/explore/newproject" element={<AddaProject /> } />
       <Route path="/explore/project" element={<ShowYourProject /> } />     {/* not yet used */}
 

@@ -79,8 +79,8 @@ function ProjectCard({ project }) {
           
           <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
             <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center relative overflow-hidden">
-              {imagePreview ? (
-                <img src={imagePreview} alt="Project" className="w-full h-full object-cover" />
+              {imagePreview || project.img? (
+                <img src={imagePreview || project.img} alt="Project" className="w-full h-full object-cover" />
               ) : (
                 <label htmlFor={`project-image-${project.id}`} className="cursor-pointer w-full h-full flex items-center justify-center">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -297,37 +297,8 @@ export default function AddaProject() {
     setNewProject(prev => ({ ...prev, workplace }));
   };
 
-  // const handleImageUpload = async (e) => {
-  //   const file = e.target.files[0];
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onloadend =async  () => {
-    //     setImagePreview(reader.result);
-    //     setNewProject(prev => ({ ...prev, img: reader.result }));
-    //     console.log(reader.result);
-    //     console.log(projects);
-    //   };
-    //   reader.readAsDataURL(file);
-  //   }
-  // };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend =async  () => {
-        setImagePreview(reader.result);
-        setNewProject(prev => ({ ...prev, img: reader.result }));
-        console.log(reader.result);
-        console.log(projects);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  
-
   useEffect(() => {
-    fetch(`${API_KEY}/profile/projects/fetch` , {headers: {'Content-Type': 'application/json',
+    fetch(`${API_KEY}/profile/projects/fetch` , {headers: {
         token: localStorage.getItem('token')
       }})
       .then((res) => res.json())
@@ -345,34 +316,21 @@ export default function AddaProject() {
   };
 
 
-
-  const handleProjectUpload = async (event) => {
-    event.preventDefault();
-  
-    const formData = new FormData();
-    formData.append("title", newProject.title);
-    formData.append("description", newProject.description);
-    if (newProject.img) {
-      formData.append("image", newProject.img); // Append image file
-    }
-  
-    try {
-      const response = await fetch("https://yourapi.com/projects", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${userToken}`, // Include token
-        },
-        body: formData, // Send all data at once
-      });
-  
-      const data = await response.json();
-      console.log("Project created:", data);
-    } catch (error) {
-      console.error("Error uploading project:", error);
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result); // Base64 preview for UI
+        setNewProject(prev => ({
+          ...prev,
+          img: file, // Store actual File object, not Base64
+        }));
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  
   const SavetheProject = async () => {
     if (!newProject.name || !newProject.stage || !newProject.workplace) {
       alert("Please fill all required fields");
@@ -386,20 +344,22 @@ export default function AddaProject() {
     formData.append("pitch", newProject.pitch);
     formData.append("stage", newProject.stage);
     formData.append("workplace", newProject.workplace);
-    
-    if (newProject.img) {
-      formData.append("image", newProject.img); // Append the image file
-    }
   
+    if (newProject.img instanceof File) { 
+      formData.append("image", newProject.img); // ✅ Ensure it's a File
+    } else {
+      console.error("Image is not a valid file");
+    }
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
     try {
       const response = await fetch(`${API_KEY}/profile/projects`, {
         method: "POST",
-        headers: {
-          token: localStorage.getItem("token"), // No need for Content-Type with FormData
-        },
-        body: formData, // Send the formData including the image
+        headers: { token: localStorage.getItem("token") }, // No Content-Type needed for FormData
+        body: formData,
       });
-      console.log(response);
+  
       if (response.ok) {
         const addedProject = await response.json();
         console.log("Project saved:", addedProject);
@@ -423,6 +383,7 @@ export default function AddaProject() {
     }
   };
   
+  
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
@@ -436,17 +397,19 @@ export default function AddaProject() {
               <img src={gify} alt="Loading..." className="w-16 h-16 md:w-20 md:h-20" />
             </div>
           ) : projects.length === 0 ? (
-            <div className="bg-[#151515] rounded-[2rem] p-6 md:p-10 shadow-xl border border-white-600 w-full">
-              <div className="flex flex-col items-start">
-                <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Projects</h2>
-                <button
-                  className="bg-black rounded-full px-4 py-2 md:px-6 md:py-3 border border-gray-600 text-white hover:bg-gray-800 transition-colors text-sm md:text-base"
-                  onClick={() => setShowNewInput(true)}
-                >
-                  Add Project
-                </button>
-              </div>
-            </div>
+<div className="bg-[#151515] rounded-[2rem] p-6 md:p-10 shadow-xl border border-white-600 w-full">
+<h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Projects</h2>
+  <div className="flex flex-col items-center">
+  
+    <button
+      className="bg-black rounded-full px-4 py-2 md:px-6 md:py-3 border border-gray-600 text-white hover:bg-gray-800 transition-colors text-sm md:text-base"
+      onClick={() => setShowNewInput(true)}
+    >
+      Add Project
+    </button>
+  </div>
+</div>
+
           ) : (
             <div className="flex flex-col items-start" key={123}>
               <div className="flex justify-between items-center w-full mb-3 md:mb-4">
@@ -463,7 +426,7 @@ export default function AddaProject() {
   <div className="bg-[#151515] rounded-[2rem] p-4 md:p-6 shadow-xl border border-[#1D1C1C] w-full my-4">
     <div className="flex flex-col items-start">
       <div className="flex justify-between items-center w-full mb-4">
-        <div className="text-[#CAC5C5] text-xl md:text-[25px] font-extrabold">Stealth Project</div>
+        <div className="text-[#CAC5C5] text-xl md:text-[25px] font-extrabold">{newProject.name || "Stealth Project"}</div>
         <div className="flex space-x-2 md:space-x-4">
           <button className="px-2 py-1 md:px-4 md:py-2 rounded-[4px] bg-[#1D1C1C] text-sm md:text-base" onClick={() => setShowNewInput(false)}>Cancel</button>
           <button className="bg-white text-black px-2 py-1 md:px-4 md:py-2 rounded-lg text-sm md:text-base" onClick={SavetheProject}>Save</button>
@@ -473,7 +436,7 @@ export default function AddaProject() {
       <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
         <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center relative overflow-hidden">
           { imagePreview ? (
-            <img src={imagePreview} alt="Project" className="w-full h-full object-cover" />
+            <img src={imagePreview } alt="Project" className="w-full h-full object-cover" />
           ) : (
             <label htmlFor="new-project-image" className="cursor-pointer w-full h-full flex items-center justify-center">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -630,7 +593,7 @@ export default function AddaProject() {
   </button>
   <button 
     className="bg-white text-black font-bold py-3 px-4 rounded-[10px] text-lg w-[65%]"
-    onClick={() => navigate("/explore/complete")}
+    onClick={() => navigate("/explore/prefernce")}
   >
     Continue
   </button>
