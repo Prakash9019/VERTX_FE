@@ -41,13 +41,13 @@ import BrokenFeature from "./screens/explore/Break.jsx";
 import ProfileComplete from "./screens/explore/Complete.jsx";
 import CommunityPage from "./screens/layout/Community.jsx";
 function App() {
-    const { setIsProtected } = useCopyProtection();
+    // const { setIsProtected } = useCopyProtection();
   
-    useEffect(() => {
-      setIsProtected(true); 
-    }, []);
+    // useEffect(() => {
+    //   setIsProtected(true); 
+    // }, []);
   
-    useCopyBlocker(true); 
+    // useCopyBlocker(true); 
 
   return (
     <Routes>
