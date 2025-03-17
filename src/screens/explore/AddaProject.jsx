@@ -78,24 +78,52 @@ function ProjectCard({ project }) {
 
           
           <div className="flex items-start space-x-3 md:space-x-4 w-full mb-4 md:mb-5">
-            <div className="bg-[#1D1C1C] w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center relative overflow-hidden">
-              {imagePreview ? (
-                <img src={imagePreview} alt="Project" className="w-full h-full object-cover" />
-              ) : (
-                <label htmlFor={`project-image-${project.id}`} className="cursor-pointer w-full h-full flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 1V15" stroke="#757575" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M1 8H15" stroke="#757575" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </label>
-              )}
-              <input 
-                type="file" 
-                id={`project-image-${project.id}`} 
-                className="hidden" 
-                accept="image/*" 
-                onChange={handleImageUpload}
-              />
+          <div
+  className="bg-black w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center relative overflow-hidden"
+  style={{
+    position: 'relative', // Needed for the SVG overlay
+  }}
+>
+  <svg
+    width="100%"
+    height="100%"
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      pointerEvents: 'none', // Allow clicks to pass through
+    }}
+  >
+    <rect
+      x="2"
+      y="2"
+      width="calc(100% - 4px)"
+      height="calc(100% - 4px)"
+      rx="6" // Adjust to match rounded-lg
+      stroke="#757575"
+      strokeWidth="2"
+      strokeDasharray="6 5" // 4px dash, 4px gap
+      fill="none"
+    />
+  </svg>
+  {imagePreview ? (
+    <img src={imagePreview} alt="Project" className="w-full h-full object-cover" />
+  ) : (
+    <label htmlFor={`project-image-${project.id}`} className="cursor-pointer w-full h-full flex items-center justify-center">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 1V15" stroke="#757575" strokeWidth="2" strokeLinecap="round" />
+        <path d="M1 8H15" stroke="#757575" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    </label>
+  )}
+  <input
+    type="file"
+    id={`project-image-${project.id}`}
+    className="hidden"
+    accept="image/*"
+    onChange={handleImageUpload}
+  />
+
               {imagePreview && (
                 <label htmlFor={`project-image-${project.id}`} className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
