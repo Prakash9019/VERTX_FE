@@ -73,8 +73,6 @@ import Button from "../../components/button/component.jsx"
  export function Callback() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  console.log("params");
-  console.log(params);
   const token = params.get("token"); // Extract the code from URL
 
   const [username1,setUsernamee1] =useState("@username")
@@ -108,7 +106,7 @@ import Button from "../../components/button/component.jsx"
   const callback = async () => {
     try {
       if (token) {
-        console.log(token);
+        localStorage.setItem("token", token);
         // Store the token in local storage
         const response = await axios.get(`${API_KEY}/auth/getUser`, {
           headers: {
@@ -116,14 +114,15 @@ import Button from "../../components/button/component.jsx"
             token: token, // Send token in headers
           },
         });
-       console.log(response.data);
-        setUsernamee1(response.data.user.username); // Update the username state with the fetched username
-        localStorage.setItem("user",response.data.user.username);
+        const username = response.data.user.username;
+        console.log(username);
+        const trimmedUsername = username.length > 10 ? username.substring(0, 10) + "..." : username;
+        console.log(trimmedUsername);
+        localStorage.setItem("user", trimmedUsername);
         if(response.data.user.dip){
           console.log(response.data.user.dip);
            localStorage.setItem("dip",response.data.user.dip);
         }
-        localStorage.setItem("token", token);
         navigate("/outreach");  // Redirect to outreach or desired route
       } 
     } catch (error) {
