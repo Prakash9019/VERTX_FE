@@ -73,6 +73,8 @@ import Button from "../../components/button/component.jsx"
  export function Callback() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
+  console.log("params");
+  console.log(params);
   const token = params.get("token"); // Extract the code from URL
 
   const [username1,setUsernamee1] =useState("@username")
@@ -106,6 +108,7 @@ import Button from "../../components/button/component.jsx"
   const callback = async () => {
     try {
       if (token) {
+        console.log(token);
         // Store the token in local storage
         const response = await axios.get(`${API_KEY}/auth/getUser`, {
           headers: {
