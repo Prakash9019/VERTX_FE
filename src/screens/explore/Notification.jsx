@@ -1,80 +1,82 @@
-import { useState } from "react";
+"use client"
+
+import { useState } from "react"
 
 const NotificationSettings = () => {
   const [emailNotifications, setEmailNotifications] = useState({
     introRequests: false,
     directMessages: false,
-  });
+  })
 
   const [whatsappNotifications, setWhatsappNotifications] = useState({
     introRequests: false,
     directMessages: false,
-  });
+  })
 
-  const [showEmailPopup, setShowEmailPopup] = useState(false);
-  const [showWhatsappPopup, setShowWhatsappPopup] = useState(false);
+  const [showEmailPopup, setShowEmailPopup] = useState(false)
+  const [showWhatsappPopup, setShowWhatsappPopup] = useState(false)
 
   const toggleEmail = (type) => {
     if (type === "directMessages") {
       if (!emailNotifications.directMessages) {
-        setShowEmailPopup(true);
+        setShowEmailPopup(true)
       } else {
         setEmailNotifications((prev) => ({
           ...prev,
           [type]: false,
-        }));
+        }))
       }
     } else {
       setEmailNotifications((prev) => ({
         ...prev,
         [type]: !prev[type],
-      }));
+      }))
     }
-  };
+  }
 
   const toggleWhatsapp = (type) => {
     if (type === "directMessages") {
       if (!whatsappNotifications.directMessages) {
-        setShowWhatsappPopup(true);
+        setShowWhatsappPopup(true)
       } else {
         setWhatsappNotifications((prev) => ({
           ...prev,
           [type]: false,
-        }));
+        }))
       }
     } else {
       setWhatsappNotifications((prev) => ({
         ...prev,
         [type]: !prev[type],
-      }));
+      }))
     }
-  };
+  }
 
   const handleEmailSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setEmailNotifications((prev) => ({
       ...prev,
       directMessages: true,
-    }));
-    setShowEmailPopup(false);
-  };
+    }))
+    setShowEmailPopup(false)
+  }
 
   const handleWhatsappSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setWhatsappNotifications((prev) => ({
       ...prev,
       directMessages: true,
-    }));
-    setShowWhatsappPopup(false);
-  };
+    }))
+    setShowWhatsappPopup(false)
+  }
 
   return (
     <div className="relative">
-      <div 
-        className="bg-black text-white p-8 shadow-lg max-w-2xl w-full rounded-[10px] overflow-hidden border border-[#757575] mx-auto"
-        style={{ 
-          fontFamily: 'Manrope, sans-serif',
-          letterSpacing: '-0.04em'
+      <div
+        className="bg-black text-white p-8 shadow-lg max-w-2xl w-full rounded-[10px] overflow-hidden mx-auto"
+        style={{
+          fontFamily: "Manrope, sans-serif",
+          letterSpacing: "-0.04em",
         }}
       >
         {/* Email Notifications */}
@@ -150,25 +152,34 @@ const NotificationSettings = () => {
 
       {/* Email Popup */}
       {showEmailPopup && (
-   <div className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center backdrop-blur-[2px] z-50">
-
+        <div
+          className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center backdrop-blur-[2px] z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowEmailPopup(false)
+            }
+          }}
+        >
           <div className="bg-black border border-[#757575] rounded-[10px] w-full max-w-lg mx-4">
-            <form onSubmit={handleEmailSubmit} className="flex w-full">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-transparent text-white placeholder-[#757575] text-sm outline-none flex-grow px-6 py-4"
-                style={{
-                  fontFamily: 'Manrope, sans-serif',
-                  letterSpacing: '-0.04em',
-                  fontSize: '14px',
-
-                }}
-                required
-              />
+            <form onSubmit={handleEmailSubmit} className="flex w-full items-center relative">
+              <div className="flex-grow relative">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="bg-transparent text-white placeholder-[#757575] text-sm outline-none w-full px-6 py-4"
+                  style={{
+                    fontFamily: "Manrope, sans-serif",
+                    letterSpacing: "-0.04em",
+                    fontSize: "14px",
+                  }}
+                  required
+                />
+                <div className="absolute bottom-0 left-6 right-0 bottom-3 h-[1px] bg-[#1d1c1c]"></div>
+              </div>
               <button
                 type="submit"
-                className="text-white font-bold px-6 py-4"
+                className="text-white mr-3 px-2 py-1"
+                style={{ fontSize: "15px" }}
               >
                 Send
               </button>
@@ -179,27 +190,34 @@ const NotificationSettings = () => {
 
       {/* WhatsApp Popup */}
       {showWhatsappPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center backdrop-blur-sm z-50">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center backdrop-blur-sm z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowWhatsappPopup(false)
+            }
+          }}
+        >
           <div className="bg-black border border-[#757575] rounded-[10px] w-full max-w-lg mx-4">
-            <form onSubmit={handleWhatsappSubmit} className="flex w-full">
-              <input
-                type="text"
-                placeholder="Enter your whatsapp no. with country code"
-                className="bg-transparent text-white placeholder-[#757575] outline-none flex-grow px-6 py-4"
-                style={{
-                  fontFamily: 'Manrope, sans-serif',
-                  letterSpacing: '-0.04em',
-                  fontSize: '14px',
-
-                }}
-                required
-              />
+            <form onSubmit={handleWhatsappSubmit} className="flex w-full items-center relative">
+              <div className="flex-grow relative">
+                <input
+                  type="text"
+                  placeholder="Enter your whatsapp no. with country code"
+                  className="bg-transparent text-white placeholder-[#757575] outline-none w-full px-6 py-4"
+                  style={{
+                    fontFamily: "Manrope, sans-serif",
+                    letterSpacing: "-0.04em",
+                    fontSize: "14px",
+                  }}
+                  required
+                />
+                <div className="absolute bottom-0 left-6 right-0 bottom-3 h-[1px] bg-[#1d1c1c]"></div>
+              </div>
               <button
                 type="submit"
-                className="text-white px-6 py-4"
-                style={{
-                  fontSize: '10px'
-                }}
+                className="text-white mr-3 px-2 py-1"
+                style={{ fontSize: "15px" }}
               >
                 Send
               </button>
@@ -208,7 +226,7 @@ const NotificationSettings = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default NotificationSettings;
+export default NotificationSettings
