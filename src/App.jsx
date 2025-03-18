@@ -40,6 +40,7 @@ import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
 import BrokenFeature from "./screens/explore/Break.jsx";
 import ProfileComplete from "./screens/explore/Complete.jsx";
 import CommunityPage from "./screens/layout/Community.jsx";
+import Inbox from "./screens/explore/Chat.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -92,7 +93,8 @@ function App() {
       <Route path="/explore/prefernce" element={<PreferenceSet /> } />
       <Route path="/explore/newproject" element={<AddaProject /> } />
       <Route path="/explore/project" element={<ShowYourProject /> } />     {/* not yet used */}
-
+      
+      <Route path="/chat" element={<Inbox /> } />
       <Route path="/explore/break" element={<BrokenFeature /> } />
       <Route path="/explore/complete" element={<ProfileComplete /> } />
       <Route path="/explore/bio" element={<Bio /> } />
