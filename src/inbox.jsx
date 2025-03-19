@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { ArrowLeft, Heart } from "lucide-react"
-import { Layout, MobileFooter } from "../layout/bars"
+import { Layout, MobileFooter } from "./screens/layout/bars"
 
 export default function InboxPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
