@@ -90,7 +90,7 @@ useEffect(() => {
       headers: { "Content-Type": "multipart/form-data" },
     });
     
-    navigate(0);
+    window.location.reload();
     
   };
 
