@@ -41,7 +41,9 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
       setResp(response?.data?.msg);
       if (response.status == 200) {
         localStorage.setItem("token", response?.data?.token);
-        localStorage.setItem("user",response?.data?.username);
+        const username= response?.data?.username;
+        const trimmedUsername = username.length > 13 ? username.substring(0, 13) + "..." : username;
+        localStorage.setItem("user", trimmedUsername);
       //  console.log()
         window.location.reload();
         navigate("/outreach");

@@ -28,9 +28,10 @@ export default function PreferenceSet() {
         const response = await axios.get(`${API_KEY}/request/preference`, {
           headers: { token: localStorage.getItem("token") },
         });
+        console.log(response.data);
 
         if (response.status === 200 && response.data) {
-          const { preference, availability, compensation, stage, workplace } = response.data;
+          const { preference, availability, compensation, stage, workplace } = response.data?.[0];
           setOption(preference || "");
           setAvailability(availability || "");
           setCompensation(compensation || "");

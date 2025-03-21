@@ -65,7 +65,9 @@ export default function LandingAuth({ onClose, isPopup = false, onCreateAccount,
         setErrorMessage("")
         
         localStorage.setItem("token", response?.data?.token)
-        localStorage.setItem("user", response?.data?.username)
+        const username= response?.data?.username;
+        const trimmedUsername = username.length > 13 ? username.substring(0, 13) + "..." : username;
+        localStorage.setItem("user", trimmedUsername);
 
         const token = localStorage.getItem("token")
         if (!token) return; // Prevent request if token is missing

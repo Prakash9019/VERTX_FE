@@ -38,11 +38,11 @@ export default function FinancialModeling({ onClose }) {
   const faqs = [
     {
       question: "What are the three main financial statements?",
-      answer: "1. Income Statement – Shows revenue, expenses, and net profit.\n2. Balance Sheet – Shows assets, liabilities, and equity.\n3. Cash Flow Statement – Tracks cash movements."
+      answer: "1. Income Statement - Shows revenue, expenses, and net profit.\n2. Balance Sheet - Shows assets, liabilities, and equity.\n3. Cash Flow Statement – Tracks cash movements."
     },
     {
       question: "How is Net Profit Calculated?",
-      answer: "Net Profit = Revenue − COGS − Operating Expenses − Taxes"
+      answer: "Net Profit = Revenue - COGS - Operating Expenses - Taxes"
     },
     {
       question: "What is Burn Rate, and why is it important?",

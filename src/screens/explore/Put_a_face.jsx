@@ -89,7 +89,8 @@ useEffect(() => {
     const response= await axios.post(`${API_KEY}/profile/${userId}/upload-avatar`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-   console.log(response.data)
+    
+    navigate(0);
     
   };
 
