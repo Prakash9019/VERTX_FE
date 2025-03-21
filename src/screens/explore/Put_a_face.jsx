@@ -5,23 +5,7 @@ import { Header, Sidebar, Layout, NavIconFooter, MobileFooter } from "../layout/
 import { useNavigate } from "react-router";
 import axios from "axios";
 import API_KEY from "../../../key";
-import { User, Search, Target, Users, Grid } from "lucide-react";
 import gify from "../outreach/gify.gif";
-
-/*function timeDifference(createdAt) {
-  const createdDate = new Date(createdAt);
-  const currentDate = new Date();
-
-  const diffMs = currentDate - createdDate; // Difference in milliseconds
-  const diffMins = Math.round(diffMs / (1000 * 60)); // Convert to minutes
-  const diffHours = Math.round(diffMs / (1000 * 60 * 60)); // Convert to hours
-
-  if (diffMins < 60) {
-    return `${diffMins} min ago`;
-  } else {
-    return `${diffHours} hr ago`;
-  }
-}*/
 
 export default function Put_a_face() {
   const navigate = useNavigate();

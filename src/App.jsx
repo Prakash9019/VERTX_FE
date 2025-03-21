@@ -40,6 +40,8 @@ import { useCopyBlocker } from "./hooks/useCopyBlocker.js";
 import BrokenFeature from "./screens/explore/Break.jsx";
 import ProfileComplete from "./screens/explore/Complete.jsx";
 import CommunityPage from "./screens/layout/Community.jsx";
+import List from "./screens/explore/List.jsx";
+import Inbox from "./screens/inbox/inbox.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -98,6 +100,8 @@ function App() {
       <Route path="/explore/bio" element={<Bio /> } />
       <Route path="/community" element={<CommunityPage /> } />
       
+      <Route path="/inbox" element={<Inbox /> } />
+      <Route path="/list" element={<List /> } />
       <Route path="*" element={<Nopage />} />
     </Routes>
   );
