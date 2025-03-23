@@ -62,42 +62,42 @@ useEffect(() => {
   const current = users[currentIndex];
   console.log(current);
    const [empty,setEmpty] =useState(false);
-  // Fetch user profile and projects dynamically when the current user changes
-  useEffect(() => {
-    if (!users.length || currentIndex >= users.length) return;
+
+//   useEffect(() => {
+//     if (!users.length || currentIndex >= users.length) return;
     
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`${API_KEY}/profile/fetch`, {
-            headers: { token: localStorage.getItem("token") },
-            params: { uid: users[currentIndex]._id },
-        });
-        console.log(response.data);
-        if (response.data.length > 0) {
-          setEmpty(false);
-          setUserId(response.data[0].user);
-          setFormData(response.data[0]);
-          setAchievement(response.data[0].achievement);
-          setSelectedSkills(response.data[0].skills);
-          setSelectedDisciplines(response.data[0].disciplines);
-        }
-        else{
-          setEmpty(true);
-          setCurrentIndex(prev => prev + 1);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    console.log("helllooo")
-    fetchUserData();
-}, [currentIndex, users]);  // ✅ Listen for changes in `currentIndex` and `users`
+//     const fetchUserData = async () => {
+//       try {
+//         const response = await axios.get(`${API_KEY}/profile/fetch`, {
+//             headers: { token: localStorage.getItem("token") },
+//             params: { uid: users[currentIndex]._id },
+//         });
+//         console.log(response.data);
+//         if (response.data.length > 0) {
+//           setEmpty(false);
+//           setUserId(response.data[0].user);
+//           setFormData(response.data[0]);
+//           setAchievement(response.data[0].achievement);
+//           setSelectedSkills(response.data[0].skills);
+//           setSelectedDisciplines(response.data[0].disciplines);
+//         }
+//         else{
+//           setEmpty(true);
+//           setCurrentIndex(prev => prev + 1);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching user data:", error);
+//       }
+//     };
+//     console.log("helllooo")
+//     fetchUserData();
+// }, [currentIndex, users]);  
 
 const handleProject = async () => {
   try {
     const response = await axios.get(`${API_KEY}/profile/projects/fetch`, {
         headers: { token: localStorage.getItem("token") },
-        params: { uid: users[currentIndex]._id },
+        params: { uid: current.user },
     });
     console.log(response.data)
     setProjects(response.data);
@@ -120,6 +120,23 @@ const handleProject = async () => {
       console.error("Error skipping user:", error);
     }
 };
+
+
+const handleMark = async () => {
+  if (currentIndex >= users.length) return;
+
+  try {
+    await axios.post(`${API_KEY}/list/users/mark`, 
+      { markedUserId: users[currentIndex]._id }, 
+      { headers: { "Content-Type": "application/json", token: localStorage.getItem("token") } }
+    );
+
+    setCurrentIndex(prev => prev + 1);  // ✅ Triggers useEffect to load next user
+  } catch (error) {
+    console.error("Error skipping user:", error);
+  }
+};
+
 
 const handleConnect = async () => {
     const selectedUserId = users[currentIndex]?._id;
@@ -144,7 +161,7 @@ const handleConnect = async () => {
 };
 
 
-  if (empty || !users.length || currentIndex >= users.length || users.length<=0) {
+  if ( !users.length || currentIndex >= users.length || users.length<=0) {
     return <p className="text-center text-gray-500">No more users to show.</p>;
   }
 
@@ -160,30 +177,30 @@ const handleConnect = async () => {
       <div className="max-w-3xl w-full mx-auto">
         <div className="bg-black rounded-[2rem] shadow-lg overflow-hidden border border-[#757575] w-full max-w-[48rem] md:w-auto">
          {/* Card  */}
-          {!empty && <div className="pt-6 px-6 border-b border-gray-800">
+           <div className="pt-6 px-6 border-b border-gray-800">
             <div className="flex justify-between items-center">
               <div>
                 <div className="flex items-center justify-between mb-5">
                   <h1 className="text-4xl font-bold">
-                    {formData.firstName + " " + formData.lastName}
+                    {current.firstName + " " + current.lastName}
                   </h1>
                 </div>
                 <p className="text-[25px] text-[#D9D9D9] mb-1">
-                  {formData.city}
+                  {current.city}
                 </p>
                 <p className="text-xl text-gray-400 mb-4">
-                  @{formData.username}
+                  @{current.username}
                 </p>         
-                <p className="text-xl mb-6">{formData.headline}</p>
+                <p className="text-xl mb-6">{current.headline}</p>
               </div>
 
               <div className="relative">
                 <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center">
-                  { formData.avatar ? (
+                  { current.avatar ? (
                     <img
                       alt="User Avatar"
                       className="w-full h-full object-cover"
-                      src={formData.avatar}
+                      src={current.avatar}
                     />
                   ) : (
                     <svg
@@ -220,7 +237,7 @@ const handleConnect = async () => {
         >
           More <ChevronDown className={`ml-1 h-4 w-4 transition ${more ? "rotate-180" : ""}`} />
         </button>
-          </div>}
+          </div>
 
           {/* Background Section */}
 { more && <>
@@ -240,7 +257,7 @@ const handleConnect = async () => {
                 Achievement
               </h3>
               <p className="text-[#757575] text-sm sm:text-base">
-                {formData.achievement}
+                {current.achievement}
               </p>
             </div>
 
@@ -252,7 +269,7 @@ const handleConnect = async () => {
                 Skills
               </h3>
               <div className="flex flex-wrap gap-2">
-                {formData.skills?.map((skill, index) => (
+                {current.skills?.map((skill, index) => (
                   <div
                     key={index}
                     className="bg-black rounded-full px-3 py-1 border-[1px] border-[#757575] text-white text-xs sm:text-sm"
@@ -270,7 +287,7 @@ const handleConnect = async () => {
                 Discipline
               </h3>
               <div className="flex flex-wrap gap-2">
-                {formData.disciplines?.map((discipline, index) => (
+                {current.disciplines?.map((discipline, index) => (
                   <div
                     key={index}
                     className="bg-black rounded-full px-3 py-1 border-[1px] border-[#757575] text-white text-xs sm:text-sm"
@@ -342,7 +359,7 @@ const handleConnect = async () => {
           <div className={`flex ${isMobile ? 'w-full' : 'w-full'}`}>
             <button 
               className={`bg-[#1D1C1C] text-white font-bold py-3 ${isMobile ? 'px-4' : 'px-8'} rounded-[10px] text-lg ${isMobile ? 'w-[100px]' : 'w-[160px]'}`}
-              onClick={() => navigate(-1)}>
+              onClick={() => handleMark()}>
               Mark
             </button>
             <button 
