@@ -6,22 +6,9 @@ import API_KEY from "../../../key";
 import { Layout, MobileFooter } from "../layout/bars";
 
 import { ChevronDown, Send } from "lucide-react"
-function timeDifference(createdAt) {
-  const createdDate = new Date(createdAt);
-  const currentDate = new Date();
 
-  const diffMs = currentDate - createdDate; // Difference in milliseconds
-  const diffMins = Math.round(diffMs / (1000 * 60)); // Convert to minutes
-  const diffHours = Math.round(diffMs / (1000 * 60 * 60)); // Convert to hours
-
-  if (diffMins < 60) {
-    return `${diffMins} min ago`;
-  } else {
-    return `${diffHours} hr ago`;
-  }
-}
-
-export default function List() {
+export default function List({userId}) {
+  console.log(userId);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [more , setMore ] =useState(false);
@@ -40,7 +27,6 @@ export default function List() {
     twitter: "",
   });
 
-  const [userId, setUserId] = useState("");
   useEffect(() => {
     // Fetch user data when component mounts
     const fetchUserData = async () => {
@@ -50,16 +36,14 @@ export default function List() {
             "Content-Type": "application/json",
             token: localStorage.getItem("token"),
           },
+          params: { uid : userId },
         });
-        // //console.log(response.data[0]);
-        if (response.data.length > 0) {
-          setUserId(response.data[0].user);
-          setFormData(response.data[0]);
-          localStorage.setItem("dip", response.data[0].avatar);
-          setTimeDifference(timeDifference(response.data[0].createdAt));
-          setAchievement(response.data[0].achievement);
-          setSelectedSkills(response.data[0].skills);
-          setSelectedDisciplines(response.data[0].disciplines);
+        console.log(response.data);
+        if (response.data) {
+          setFormData(response.data);
+          setAchievement(response.data.achievement);
+          setSelectedSkills(response.data.skills);
+          setSelectedDisciplines(response.data.disciplines);
           // setIsEditing(true); // Enable edit mode if data exists
         }
       } catch (error) {
@@ -81,13 +65,14 @@ export default function List() {
         "Content-Type": "application/json",
         token: localStorage.getItem("token"),
       },
+      params: { uid : userId },
     })
       .then((res) => res.json())
       .then((data) => setProjects(data));
   }, []);
 
   return (
-    <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+   
       <div
         className={`${
           isMobile ? "px-4 pb-24 pt-3" : "w-full px-4 mx-auto mt-16"
@@ -109,18 +94,18 @@ export default function List() {
                     {formData.city}
                   </p>
                   <p className="text-xl text-gray-400 mb-4">
-                    @{localStorage.getItem("user") || "username"}
+                    @{formData.username}
                   </p>
                   <p className="text-xl mb-6">{formData.headline}</p>
                 </div>
 
                 <div className="relative">
                   <div className="rounded-full w-28 h-28 overflow-hidden border border-[#757575] bg-gray-800 flex items-center justify-center">
-                    {localStorage.getItem("dip") || formData.avatar ? (
+                    { formData.avatar ? (
                       <img
                         alt="User Avatar"
                         className="w-full h-full object-cover"
-                        src={formData.avatar || localStorage.getItem("dip")}
+                        src={formData.avatar }
                       />
                     ) : (
                       <svg
@@ -169,7 +154,7 @@ export default function List() {
                 <h2 className="text-xl sm:text-2xl font-bold">Background</h2>
               </div>
 
-              <div className="mb-4 sm:mb-6">
+            {formData.achievement &&  <div className="mb-4 sm:mb-6">
                 <h3
                   className="text-lg sm:text-xl font-bold mb-2"
                   style={{ color: "#CAC5C5" }}
@@ -179,9 +164,9 @@ export default function List() {
                 <p className="text-[#757575] text-sm sm:text-base">
                   {formData.achievement}
                 </p>
-              </div>
+              </div>}
 
-              <div className="mb-4 sm:mb-6">
+             {formData.skills && <div className="mb-4 sm:mb-6">
                 <h3
                   className="text-lg sm:text-xl font-bold mb-2"
                   style={{ color: "#CAC5C5" }}
@@ -198,8 +183,9 @@ export default function List() {
                     </div>
                   ))}
                 </div>
-              </div>
-              <div className="mb-4 sm:mb-6">
+              </div>}
+
+             {formData.disciplines && <div className="mb-4 sm:mb-6">
                 <h3
                   className="text-lg sm:text-xl font-bold mb-2"
                   style={{ color: "#CAC5C5" }}
@@ -216,11 +202,11 @@ export default function List() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div>}
             </div>
         
       {/* Projects Section */}
-      <div
+{  projects.length > 0 &&    <div
         className="p-4 sm:p-6 "
         style={{
           background: "#111111",
@@ -271,32 +257,13 @@ export default function List() {
             ))}
           </div>
         </div>
-      </div>
+      </div>}
         </>}
 </div>
        </div>
-       <div className="flex justify-between mt-8 max-w-[680px] mx-auto mb-16">
-            <div className={`flex ${isMobile ? 'w-full' : 'w-full'}`}>
-              <button 
-                className={`bg-[#1D1C1C] text-white font-bold py-3 ${isMobile ? 'px-4' : 'px-8'} rounded-[10px] text-lg ${isMobile ? 'w-[100px]' : 'w-[160px]'}`}
-                onClick={() => navigate(-1)}>
-                Mark
-              </button>
-              <button 
-                className="bg-white text-black font-bold py-3 px-8 rounded-[10px] text-lg ml-4 flex-1" 
-                onClick={() => navigate("/explore/skills")}>
-                Connect
-              </button>
-              <button 
-                className="bg-white text-black font-bold py-3 px-8 rounded-[10px] text-lg ml-4 flex-1" 
-                onClick={() => navigate("/explore/skills")}>
-                Skip
-              </button>
-            </div>
-          </div>
+      
        </div>
        
-      {isMobile && <MobileFooter currentPage={currentPage} />}
-    </Layout>
+      
   );
 }

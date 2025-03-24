@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import API_KEY from "../../../key";
 import { Layout, MobileFooter } from "../layout/bars";
-
+import mongoose from "mongoose";
 import { ChevronDown, Send } from "lucide-react"
 export default function Listall() {
 
@@ -138,10 +138,25 @@ const handleMark = async () => {
 };
 
 
-const handleConnect = async () => {
-    const selectedUserId = users[currentIndex]?._id;
-    if (!selectedUserId) return;
 
+const sendFriendRequest = async (userId,selectedUserId) => {
+  try {
+    await axios.post("http://localhost:5001/api/connections/request", {
+      senderId: userId,
+      receiverId: selectedUserId,
+    });
+    // setRequestSent(true);
+    alert("Friend request sent!");
+  } catch (err) {
+    console.error("Error sending request:", err);
+  }
+};
+
+const handleConnect = async () => {
+  const selectedUserId = users[currentIndex]?.user;
+  console.log(users[currentIndex]?.user);
+    if (!selectedUserId) return;
+    sendFriendRequest(userId,selectedUserId);
     try {
       await axios.post(`${API_KEY}/list/users/connect`, {
         userId,
@@ -249,7 +264,7 @@ const handleConnect = async () => {
               <h2 className="text-xl sm:text-2xl font-bold">Background</h2>
             </div>
 
-            <div className="mb-4 sm:mb-6">
+           {current.achievement && <div className="mb-4 sm:mb-6">
               <h3
                 className="text-lg sm:text-xl font-bold mb-2"
                 style={{ color: "#CAC5C5" }}
@@ -259,27 +274,28 @@ const handleConnect = async () => {
               <p className="text-[#757575] text-sm sm:text-base">
                 {current.achievement}
               </p>
-            </div>
+            </div>}
 
-            <div className="mb-4 sm:mb-6">
-              <h3
-                className="text-lg sm:text-xl font-bold mb-2"
-                style={{ color: "#CAC5C5" }}
-              >
-                Skills
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {current.skills?.map((skill, index) => (
-                  <div
-                    key={index}
-                    className="bg-black rounded-full px-3 py-1 border-[1px] border-[#757575] text-white text-xs sm:text-sm"
-                  >
-                    {skill}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mb-4 sm:mb-6">
+    {current.skills && <div className="mb-4 sm:mb-6">
+      <h3
+        className="text-lg sm:text-xl font-bold mb-2"
+        style={{ color: "#CAC5C5" }}
+      >
+        Skills
+      </h3>
+      <div className="flex flex-wrap gap-2">
+        {current.skills?.map((skill, index) => (
+          <div
+            key={index}
+            className="bg-black rounded-full px-3 py-1 border-[1px] border-[#757575] text-white text-xs sm:text-sm"
+          >
+            {skill}
+          </div>
+        ))}
+      </div>
+    </div>}
+
+            { current.disciplines && <div className="mb-4 sm:mb-6">
               <h3
                 className="text-lg sm:text-xl font-bold mb-2"
                 style={{ color: "#CAC5C5" }}
@@ -296,11 +312,11 @@ const handleConnect = async () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </div>}
           </div>
       
     {/* Projects Section */}
-    <div
+    {projects.length > 0 && <div
       className="p-4 sm:p-6 "
       style={{
         background: "#111111",
@@ -351,7 +367,7 @@ const handleConnect = async () => {
           ))}
         </div>
       </div>
-    </div>
+    </div>}
       </>}
 </div>
      </div>

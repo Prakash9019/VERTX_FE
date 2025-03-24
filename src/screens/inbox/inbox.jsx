@@ -4,6 +4,9 @@ import { useState, useEffect } from "react"
 import { ArrowLeft, Heart } from "lucide-react"
 import { Layout, MobileFooter } from "../layout/bars"
 import GeneralInbox from "./GeneralInbox" // Import the new component
+import MarkInbox from "./MarkInbox"
+import RequestInbox from "./RequestInbox"
+import API_KEY from "../../../key"
 
 export default function Inbox() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -12,6 +15,8 @@ export default function Inbox() {
   const [activeTab, setActiveTab] = useState("general")
   const [isMobile, setIsMobile] = useState(false)
   const [detailSidebarOpen, setDetailSidebarOpen] = useState(false)
+  const [connections,setConnections] = useState([]);
+  const [marked,setMarked] = useState([]);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -26,30 +31,27 @@ export default function Inbox() {
 
     return () => window.removeEventListener("resize", checkIsMobile)
   }, [])
-
-  const messages = [
-    {
-      id: 1,
-      sender: "Praneeth Regulavalasa",
-      avatar: "/placeholder.svg?height=40&width=40",
-      status: "Requested",
-      date: "March 17",
-      message: "Hey, this is praneeth, let's connect",
-      time: "18:06",
-      type: "request",
-    },
-    {
-      id: 2,
-      sender: "Praneeth Regulavalasa",
-      avatar: "/placeholder.svg?height=40&width=40",
-      status: "Requested",
-      date: "March 17",
-      message: "Hey, this is praneeth, let's connect",
-      time: "18:06",
-      type: "request",
-    },
-  ]
-
+const user={
+  "_id": "67d28a7701f1ec778ca4e7ac",
+   "firstName":"Surya"
+}
+useEffect(()=>{
+  const fetchInboxData = async () => {
+    try {
+        const response = await fetch(`${API_KEY}/list/users/inbox`, {
+            method: "GET",
+            headers: { token: localStorage.getItem("token") },
+        });
+        const data = await response.json();
+        console.log(data);
+        setConnections(data.connections);
+        setMarked(data.markedUsers);
+    } catch (error) {
+        console.error("Error fetching inbox:", error);
+    }
+};
+fetchInboxData();
+},[])
   const handleMessageClick = (message) => {
     setSelectedMessage(message)
     setDetailSidebarOpen(true)
@@ -98,49 +100,16 @@ export default function Inbox() {
                 setDetailSidebarOpen={setDetailSidebarOpen}
               />
             ) : activeTab === "requests" ? (
-              <div className="flex-grow -mt-7 bg-black rounded-lg p-2" style={{ height: '500px', borderRadius: '10px' }}>
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className="flex items-center p-4 rounded-lg mb-4 cursor-pointer hover:bg-gray-800 transition-colors"
-                    onClick={() => handleMessageClick(message)}
-                  >
-                    <div className="flex items-center flex-1">
-                      <div className="w-10 h-10 rounded-full overflow-hidden mr-4">
-                        <img
-                          src={message.avatar || "/placeholder.svg"}
-                          alt={message.sender}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-sm">{message.sender}</h3>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center flex-1">
-                      <span className="bg-black text-xs px-3 py-1 rounded-full border border-[#757575] border-opacity-25">
-                        {message.status}
-                      </span>
-                    </div>
-                    <div className="flex-1 text-right">
-                      <span className="text-xs text-white">{message.date}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <RequestInbox connections ={connections} user={user}/>
             ) : (
               // Marked tab content (placeholder)
-              <div className="flex-grow -mt-7 bg-black rounded-lg p-2" style={{ height: '500px', borderRadius: '10px' }}>
-                <div className="flex items-center justify-center h-full">
-                  <p className="text-gray-400">No marked messages</p>
-                </div>
-              </div>
+              <MarkInbox marked={marked}/>
             )}
           </div>
         </div>
 
         {/* Detail Sidebar for Requests */}
-        {activeTab === "requests" && (
+        {/* {activeTab === "requests" && (
           <div
             className={`fixed top-0 right-0 h-full w-full md:w-1/3 bg-black border-l border-[#1E1E1E] z-50 transform transition-transform duration-300 ease-in-out ${
               detailSidebarOpen ? "translate-x-0" : "translate-x-full"
@@ -148,7 +117,7 @@ export default function Inbox() {
           >
             {selectedMessage && (
               <div className="flex flex-col h-full">
-                {/* Header */}
+                
                 <div className="p-4 border-b border-[#1E1E1E] flex items-center">
                   <button onClick={handleBackClick} className="p-2 rounded-full hover:bg-gray-800 mr-2">
                     <ArrowLeft size={20} />
@@ -156,7 +125,7 @@ export default function Inbox() {
                   <h2 className="text-xl font-medium">Request recieved</h2>
                 </div>
 
-                {/* Message Content */}
+               
                 <div className="flex-grow overflow-y-auto p-4">
                   <div className="flex justify-center mb-4">
                     <div className="bg-[#1E1E1E] rounded-lg px-3 py-1 inline-block">
@@ -188,7 +157,6 @@ export default function Inbox() {
                   </div>
                 </div>
 
-                {/* Connection Request */}
                 <div className="p-4 border-t border-[#1E1E1E]">
                   <p className="mb-4 text-sm">
                     Praneeth sent you a connection request. Do you want to accept his request?
@@ -203,11 +171,13 @@ export default function Inbox() {
               </div>
             )}
           </div>
-        )}
+        )} */}
 
         {/* Mobile Footer */}
         {isMobile && <MobileFooter currentPage={currentPage} />}
       </div>
+
+
     </Layout>
   )
 }

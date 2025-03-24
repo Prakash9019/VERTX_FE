@@ -1,4 +1,3 @@
-"use client"
 
 import { useState } from "react"
 import { ArrowLeft, Heart, Send } from "lucide-react"
@@ -102,11 +101,11 @@ export default function GeneralInbox({ onMessageClick, detailSidebarOpen, setDet
     const key = `${selectedMessage?.id}-${messageIndex}`
     return likedMessages[key] || false
   }
-
+// No messages found. All messages that you sent or received after connecting will appear here.
   return (
     <>
       <div className="flex-grow -mt-7 bg-black rounded-lg p-2" style={{ height: '500px', borderRadius: '10px' }}>
-        {connectedMessages.map((message) => (
+        {connectedMessages.length>0 ? connectedMessages.map((message) => (
           <div
             key={message.id}
             className="flex items-center p-4 rounded-lg mb-4 cursor-pointer hover:bg-gray-800 transition-colors"
@@ -114,11 +113,33 @@ export default function GeneralInbox({ onMessageClick, detailSidebarOpen, setDet
           >
             <div className="flex items-center flex-1">
               <div className="w-10 h-10 rounded-full overflow-hidden mr-4">
-                <img
-                  src={message.avatar || "/placeholder.svg"}
-                  alt={message.sender}
-                  className="w-full h-full object-cover"
-                />
+              {message.avatar?  <img src={message.avatar || "/placeholder.svg"} alt={message.firstName} className="w-full h-full object-cover" /> :
+                    <svg
+                    className="w-full h-full object-cover"
+                    viewBox="0 0 469 469"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="234.5"
+                      cy="234.5"
+                      r="234.5"
+                      fill="#111111"
+                    />
+                    <circle
+                      cx="234.5"
+                      cy="217.5"
+                      r="91"
+                      fill="#EEEEEE"
+                      fillOpacity="0.93"
+                    />
+                    <path
+                      d="M379.86 417.556C339.877 449.371 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.371 88.5095 417.556C117.79 374.542 172.07 345.654 234.186 345.654C296.302 345.654 350.587 374.535 379.86 417.556Z"
+                      fill="#EEEEEE"
+                      fillOpacity="0.933333"
+                    />
+                  </svg>
+                   
+                }
               </div>
               <div>
                 <h3 className="font-medium text-sm">{message.sender}</h3>
@@ -133,7 +154,14 @@ export default function GeneralInbox({ onMessageClick, detailSidebarOpen, setDet
               <span className="text-xs text-white">{message.date}</span>
             </div>
           </div>
-        ))}
+        )) :  
+        
+        <div className="flex-grow -mt-7 bg-black rounded-lg p-2" style={{ height: '500px', borderRadius: '10px' }}>
+        <div className="flex flex-col items-center justify-center h-full">
+        <p className="text-gray-400">No messages found. All messages that you sent or received after connecting will appear here.</p>
+        <p className='text-white font-bold'> Connect Now</p>
+      </div> 
+      </div> }
       </div>
 
       {/* Detail Sidebar */}
