@@ -5,6 +5,7 @@ import API_KEY from "../../../key";
 import { Layout, MobileFooter } from "../layout/bars";
 import mongoose from "mongoose";
 import { ChevronDown, Send } from "lucide-react"
+import { data } from "react-router";
 export default function Listall() {
 
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -34,7 +35,7 @@ useEffect(() => {
   const fetchUsers = async () => {
     if (loading) return; // Prevent multiple requests
     setLoading(true);
-
+    handleUser();
     try {
       const response = await axios.get(`${API_KEY}/list/users/list`, {
         headers: { "Content-Type": "application/json", token: localStorage.getItem("token") },
@@ -42,6 +43,7 @@ useEffect(() => {
       });
 
       let newUsers = response.data;
+      console.log(response.data);
       const skippedUserIds = new Set(JSON.parse(localStorage.getItem("skippedUsers")) || []);
       setSkippedUsers(skippedUserIds);
 
@@ -93,6 +95,20 @@ useEffect(() => {
 //     fetchUserData();
 // }, [currentIndex, users]);  
 
+const handleUser = async ()=>{
+  try{
+    console.log("sury ajsjbjsb jsb bajsb")
+    const response = await axios.get(`${API_KEY}/list/userid`, {
+      headers: { token: localStorage.getItem("token") },
+     });
+    console.log(response.data);
+    setUserId(response.data);
+  }catch (error) {
+    console.error("Error connecting users:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+}
+}
+
 const handleProject = async () => {
   try {
     const response = await axios.get(`${API_KEY}/profile/projects/fetch`, {
@@ -141,6 +157,7 @@ const handleMark = async () => {
 
 const sendFriendRequest = async (userId,selectedUserId) => {
   try {
+    console.log(userId,selectedUserId);
     await axios.post("http://localhost:5001/api/connections/request", {
       senderId: userId,
       receiverId: selectedUserId,
@@ -158,15 +175,15 @@ const handleConnect = async () => {
     if (!selectedUserId) return;
     sendFriendRequest(userId,selectedUserId);
     try {
-      await axios.post(`${API_KEY}/list/users/connect`, {
-        userId,
-        selectedUserId,
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          token: localStorage.getItem("token"),
-        },
-      });
+      // await axios.post(`${API_KEY}/list/users/connect`, {
+      //   userId,
+      //   selectedUserId,
+      // }, {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     token: localStorage.getItem("token"),
+      //   },
+      // });
 
       console.log("Connected successfully!");
       setCurrentIndex(prevIndex => prevIndex + 1);  // ✅ Triggers useEffect to load next user

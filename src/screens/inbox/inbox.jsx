@@ -31,10 +31,7 @@ export default function Inbox() {
 
     return () => window.removeEventListener("resize", checkIsMobile)
   }, [])
-const user={
-  "_id": "67d28a7701f1ec778ca4e7ac",
-   "firstName":"Surya"
-}
+const [userId,setUserId] = useState("");
 useEffect(()=>{
   const fetchInboxData = async () => {
     try {
@@ -44,6 +41,7 @@ useEffect(()=>{
         });
         const data = await response.json();
         console.log(data);
+        setUserId(data.userId);
         setConnections(data.connections);
         setMarked(data.markedUsers);
     } catch (error) {
@@ -100,7 +98,7 @@ fetchInboxData();
                 setDetailSidebarOpen={setDetailSidebarOpen}
               />
             ) : activeTab === "requests" ? (
-              <RequestInbox connections ={connections} user={user}/>
+              <RequestInbox connections ={connections} userId={userId}/>
             ) : (
               // Marked tab content (placeholder)
               <MarkInbox marked={marked}/>
