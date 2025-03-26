@@ -60,7 +60,7 @@ export default function PreferenceSet() {
 
       if (response.status === 201 || response.status === 200) {
         console.log("Preferences saved successfully:", response.data);
-        navigate("/explore/break"); // Navigate after successful submission
+        navigate("/listall"); // Navigate after successful submission
       }
     } catch (error) {
       console.error("Error saving preferences:", error);

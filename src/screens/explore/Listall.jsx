@@ -5,10 +5,11 @@ import API_KEY from "../../../key";
 import {Chat_key} from "../../../key";
 import { Layout, MobileFooter } from "../layout/bars";
 import mongoose from "mongoose";
+import { useNavigate } from "react-router";
 import { ChevronDown, Send } from "lucide-react"
 import { data } from "react-router";
 export default function Listall() {
-
+    const navigate=useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
     const [more , setMore ] =useState(false);
@@ -65,36 +66,6 @@ useEffect(() => {
   const current = users[currentIndex];
   console.log(current);
    const [empty,setEmpty] =useState(false);
-
-//   useEffect(() => {
-//     if (!users.length || currentIndex >= users.length) return;
-    
-//     const fetchUserData = async () => {
-//       try {
-//         const response = await axios.get(`${API_KEY}/profile/fetch`, {
-//             headers: { token: localStorage.getItem("token") },
-//             params: { uid: users[currentIndex]._id },
-//         });
-//         console.log(response.data);
-//         if (response.data.length > 0) {
-//           setEmpty(false);
-//           setUserId(response.data[0].user);
-//           setFormData(response.data[0]);
-//           setAchievement(response.data[0].achievement);
-//           setSelectedSkills(response.data[0].skills);
-//           setSelectedDisciplines(response.data[0].disciplines);
-//         }
-//         else{
-//           setEmpty(true);
-//           setCurrentIndex(prev => prev + 1);
-//         }
-//       } catch (error) {
-//         console.error("Error fetching user data:", error);
-//       }
-//     };
-//     console.log("helllooo")
-//     fetchUserData();
-// }, [currentIndex, users]);  
 
 const handleUser = async ()=>{
   try{
@@ -196,9 +167,18 @@ const handleConnect = async () => {
 };
 
 
-  if ( !users.length || currentIndex >= users.length || users.length<=0) {
-    return <p className="text-center text-gray-500">No more users to show.</p>;
-  }
+  // if ( !users.length || currentIndex >= users.length || users.length<=0) {
+  //   return (
+  //     <div className="flex flex-col items-center justify-center h-screen">
+  //       <p className="text-gray-500 font-semibold text-xl p-3 rounded-lg">
+  //         No more users to show.
+  //       </p>
+  //       <button className="text-white font-bold" onClick={navigate("/inbox")}>
+  //             check inbox for new connections
+  //       </button>
+  //     </div>
+  //   );
+  // }
 
   const handleSendMessage = async () => {
     if (inputText.trim() === "" ) return
@@ -250,6 +230,18 @@ const handleConnect = async () => {
       } overflow-y-auto`}
       style={{ fontFamily: "Manrope", letterSpacing: "-4%" }}
     >
+      
+    { !users.length || currentIndex >= users.length || users.length<=0 ?  <div className="flex flex-col items-center justify-center h-screen">
+        <p className="text-gray-500 font-semibold text-xl p-3 rounded-lg">
+          No more users to show.
+        </p>
+        <button className="text-white font-bold" onClick={()=> navigate("/inbox")}>
+              check inbox for new connections
+        </button>
+      </div>
+
+       :
+     <>
       <div className="max-w-3xl w-full mx-auto">
         <div className="bg-black rounded-[2rem] shadow-lg overflow-hidden border border-[#757575] w-full max-w-[48rem] md:w-auto">
          {/* Card  */}
@@ -477,8 +469,8 @@ const handleConnect = async () => {
               Skip
             </button>
           </div>
-        </div>
-     </div>
+        </div> </> }
+     </div>  
      
     {isMobile && <MobileFooter currentPage={currentPage} />}
   </Layout>

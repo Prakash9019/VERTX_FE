@@ -2,7 +2,7 @@
 
 "use client"
 import { useState, useEffect } from "react"
-import { Search, Target, Grid, Settings, Lock } from "lucide-react"
+import { Search, Target, Grid, Settings, Lock,Inbox } from "lucide-react"
 import logo from "../../logo.png"
 import { useNavigate } from "react-router"
 import LandingAuth from "../landing/index"
@@ -366,7 +366,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </div>
           )}
         </div>
-        {/* Navigation */}
+        {/* Navigation    <Inbox />  */}
         <div className="ml-3 flex flex-col flex-grow mt-10">
           <NavItem
             icon={<Search />}
@@ -383,6 +383,14 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             label="Outreach"
             expanded={sidebarOpen}
             onClick={() => handleNavigation("outreach")}
+          />
+            <NavItem
+            icon={<Inbox />}
+            active={currentPage}
+            name="inbox"
+            label="Inbox"
+            expanded={sidebarOpen}
+            onClick={() => handleNavigation("inbox")}
           />
           <NavItem
             icon={<Grid />}
