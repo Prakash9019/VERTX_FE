@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import API_KEY from "../../../key";
+import {Chat_key} from "../../../key";
 import { Layout, MobileFooter } from "../layout/bars";
 import mongoose from "mongoose";
 import { ChevronDown, Send } from "lucide-react"
@@ -27,7 +28,7 @@ export default function Listall() {
   const [selectedDisciplines, setSelectedDisciplines] = useState([]);
   const [timeDiff, setTimeDifference] = useState("");
 
-
+  const [inputText,setInputText] =useState("");
 const [page, setPage] = useState(1);
 const [loading, setLoading] = useState(false);
 
@@ -97,7 +98,6 @@ useEffect(() => {
 
 const handleUser = async ()=>{
   try{
-    console.log("sury ajsjbjsb jsb bajsb")
     const response = await axios.get(`${API_KEY}/list/userid`, {
       headers: { token: localStorage.getItem("token") },
      });
@@ -155,12 +155,14 @@ const handleMark = async () => {
 
 
 
-const sendFriendRequest = async (userId,selectedUserId) => {
+const sendFriendRequest = async (userId,selectedUserId,newMessage) => {
   try {
     console.log(userId,selectedUserId);
-    await axios.post("http://localhost:5001/api/connections/request", {
+    console.log(newMessage);
+    await axios.post(`${Chat_key}/api/connections/request`, {
       senderId: userId,
       receiverId: selectedUserId,
+      newMessage : newMessage
     });
     // setRequestSent(true);
     alert("Friend request sent!");
@@ -173,17 +175,18 @@ const handleConnect = async () => {
   const selectedUserId = users[currentIndex]?.user;
   console.log(users[currentIndex]?.user);
     if (!selectedUserId) return;
-    sendFriendRequest(userId,selectedUserId);
+    const newMessage ={};
+    sendFriendRequest(userId,selectedUserId,newMessage);
     try {
-      // await axios.post(`${API_KEY}/list/users/connect`, {
-      //   userId,
-      //   selectedUserId,
-      // }, {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     token: localStorage.getItem("token"),
-      //   },
-      // });
+      await axios.post(`${API_KEY}/list/users/connect`, {
+        userId,
+        selectedUserId,
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+      });
 
       console.log("Connected successfully!");
       setCurrentIndex(prevIndex => prevIndex + 1);  // ✅ Triggers useEffect to load next user
@@ -197,7 +200,48 @@ const handleConnect = async () => {
     return <p className="text-center text-gray-500">No more users to show.</p>;
   }
 
- 
+  const handleSendMessage = async () => {
+    if (inputText.trim() === "" ) return
+    const selectedUserId = users[currentIndex]?.user;
+    console.log(users[currentIndex]?.user);
+      if (!selectedUserId) return;
+    // Get current time in HH:MM format
+    const now = new Date()
+    const hours = now.getHours().toString().padStart(2, '0')
+    const minutes = now.getMinutes().toString().padStart(2, '0')
+    const time = `${hours}:${minutes}`
+
+    // Create new message
+    const newMessage = {
+      text: inputText,
+      time: time,
+    }
+    sendFriendRequest(userId,selectedUserId,newMessage);
+    // Update selected message with new message
+    // setSelectedMessage(prevMessage => ({
+    //   ...prevMessage,
+    //   messages: [...prevMessage.messages, newMessage]
+    // }))
+    try {
+      await axios.post(`${API_KEY}/list/users/connect`, {
+        userId,
+        selectedUserId,
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+      });
+
+      console.log("Connected successfully!");
+      setCurrentIndex(prevIndex => prevIndex + 1);  // ✅ Triggers useEffect to load next user
+    } catch (error) {
+      console.error("Error connecting:", error);
+    }
+    // Clear input field
+    setInputText("")
+  }
+
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
     <div
@@ -387,8 +431,35 @@ const handleConnect = async () => {
     </div>}
       </>}
 </div>
+<div className="p-4 border-t border-[#1E1E1E]">
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  placeholder="Write a message request to Mark..."
+                  className="flex-grow bg-black text-white py-3 px-4 rounded-full pr-12 border border-[#757575] border-opacity-50 placeholder-[#757575] text-xs"
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSendMessage()
+                    }
+                  }}
+                />
+                <button 
+                  className="absolute right-3 bg-black p-2 rounded-full" 
+                  onClick={handleSendMessage}
+                >
+                  <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.969284 11.5861V7.39652L6.55535 6.00001L0.969284 4.60349V0.41394L14.2362 6.00001L0.969284 11.5861Z" fill="white"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
      </div>
+    
+
      <div className="flex justify-between mt-8 max-w-[680px] mx-auto mb-16">
+      
           <div className={`flex ${isMobile ? 'w-full' : 'w-full'}`}>
             <button 
               className={`bg-[#1D1C1C] text-white font-bold py-3 ${isMobile ? 'px-4' : 'px-8'} rounded-[10px] text-lg ${isMobile ? 'w-[100px]' : 'w-[160px]'}`}

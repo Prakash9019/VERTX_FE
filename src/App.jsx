@@ -43,6 +43,7 @@ import CommunityPage from "./screens/layout/Community.jsx";
 import List from "./screens/explore/List.jsx";
 import Inbox from "./screens/inbox/inbox.jsx";
 import Listall from "./screens/explore/Listall.jsx";
+import GeneralInbox from "./screens/inbox/GeneralInbox.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -104,6 +105,7 @@ function App() {
       <Route path="/inbox" element={<Inbox /> } />
       <Route path="/list" element={<List /> } />
       <Route path="/listall" element={<Listall /> } />
+      <Route path="/general" element={<GeneralInbox /> } />
       <Route path="*" element={<Nopage />} />
     </Routes>
   );

@@ -7,6 +7,7 @@ import GeneralInbox from "./GeneralInbox" // Import the new component
 import MarkInbox from "./MarkInbox"
 import RequestInbox from "./RequestInbox"
 import API_KEY from "../../../key"
+import axios from "axios"
 
 export default function Inbox() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -31,17 +32,19 @@ export default function Inbox() {
 
     return () => window.removeEventListener("resize", checkIsMobile)
   }, [])
+  
 const [userId,setUserId] = useState("");
 useEffect(()=>{
   const fetchInboxData = async () => {
     try {
+      // handleUser();
         const response = await fetch(`${API_KEY}/list/users/inbox`, {
             method: "GET",
             headers: { token: localStorage.getItem("token") },
         });
         const data = await response.json();
         console.log(data);
-        setUserId(data.userId);
+        setUserId(data.userId)
         setConnections(data.connections);
         setMarked(data.markedUsers);
     } catch (error) {
@@ -93,6 +96,8 @@ fetchInboxData();
             {/* Show the appropriate component based on the active tab */}
             {activeTab === "general" ? (
               <GeneralInbox
+              connections ={connections}
+               userId={userId}
                 onMessageClick={handleMessageClick}
                 detailSidebarOpen={detailSidebarOpen}
                 setDetailSidebarOpen={setDetailSidebarOpen}
