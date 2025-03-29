@@ -1,13 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ArrowLeft, Heart } from "lucide-react"
+import { ArrowLeft, Heart,CheckCheck } from "lucide-react"
 import { Layout, MobileFooter } from "../layout/bars"
 import GeneralInbox from "./GeneralInbox" // Import the new component
 import MarkInbox from "./MarkInbox"
 import RequestInbox from "./RequestInbox"
 import API_KEY from "../../../key"
 import axios from "axios"
+import { color } from "framer-motion"
 
 export default function Inbox() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -71,6 +72,7 @@ fetchInboxData();
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
+   
       <div className="flex flex-col min-h-screen text-white font-['Manrope'] tracking-[-0.04em]">
         <div
           className={`${isMobile ? "px-4 -mt-5 pb-24 flex-grow" : "w-full px-4 mx-auto mt-2"} overflow-y-auto relative`}

@@ -241,10 +241,12 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     window.location.href = "/"
   }
   const handlePrivacyClick = () => {
+    navigate("/privacy");
     setShowPrivacyPopup(true)
     setShowDesktopProfilePopup(false)
   }
   const handleTermsClick = () => {
+    navigate("/terms");
     setShowTermsPopup(true)
     setShowDesktopProfilePopup(false)
   }

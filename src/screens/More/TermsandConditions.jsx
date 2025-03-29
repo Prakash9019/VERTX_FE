@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const TermsAndConditions = ({onClose}) => {
+  const navigate = useNavigate();
   return (
     <div className="fixed inset-0 bg-[#000000]/80 flex justify-center items-center z-50">
       <div className="w-[70%] max-sm:w-[95%] bg-black rounded-2xl border border-[#75757569] p-6 max-sm:p-2 pb-10 h-[95%] max-sm:h-[85%] overflow-hidden relative">
@@ -9,7 +10,7 @@ const TermsAndConditions = ({onClose}) => {
             {/* Close button moved to top right */}
             <div className="flex justify-end ">
                 <button 
-                  onClick={onClose}
+                  onClick={()=> navigate(-1)}
                   className="mr-2"
                   // className="p-2  text-white bg-gray-800 rounded-full  hover:bg-gray-700 transition-colors"
                 >

@@ -224,7 +224,7 @@ socket.emit("updateMessageStatus", {
                 <div className="bg-gray-800 text-white p-2 rounded-lg max-w-xs flex items-center">
                   {msg.message}
                   <span className="ml-2 text-xs">
-                    {msg.status === "read" ? "✔✔" : msg.status === "delivered" ? "✔" : "✔✔"}
+                    {msg.status === "read" ? <CheckCheck style={{color : "blue"}}/> : msg.status === "delivered" ? "✔" :  <CheckCheck /> }
                   </span>
                 </div>
               </div>

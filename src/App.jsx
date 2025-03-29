@@ -45,13 +45,13 @@ import Inbox from "./screens/inbox/inbox.jsx";
 import Listall from "./screens/explore/Listall.jsx";
 import GeneralInbox from "./screens/inbox/GeneralInbox.jsx";
 function App() {
-    // const { setIsProtected } = useCopyProtection();
+    const { setIsProtected } = useCopyProtection();
   
-    // useEffect(() => {
-    //   setIsProtected(true); 
-    // }, []);
+    useEffect(() => {
+      setIsProtected(true); 
+    }, []);
   
-    // useCopyBlocker(true); 
+    useCopyBlocker(true); 
 
   return (
     <Routes>
