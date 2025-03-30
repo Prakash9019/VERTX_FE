@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft,CheckCheck } from "lucide-react";
 import axios from "axios";
 import { io } from "socket.io-client";
 import {Chat_key} from "../../../key";
@@ -23,22 +23,25 @@ export default function GeneralInbox({ userId, onMessageClick, detailSidebarOpen
         updateMessageStatus(message._id, "delivered");
       }
     });
-
+     
     return () => {
       socket.off("receiveMessage");
     };
   }, [userId]);
 
   useEffect(() => {
-    const fetchConnections = async () => {
-      try {
-        const res = await axios.get(`${Chat_key}/api/connections/status/${userId}`);
-        setConnections(res.data);
-      } catch (error) {
-        console.error("Error fetching connections:", error);
-      }
-    };
-    fetchConnections();
+    if (userId) {  // Ensures useEffect runs only when userId is valid (not empty or null)
+      const fetchConnections = async () => {
+        try {
+          const res = await axios.get(`${Chat_key}/api/connections/status/${userId}`);
+          setConnections(res.data);
+        } catch (error) {
+          console.error("Error fetching connections:", error);
+        }
+      };
+  
+      fetchConnections();
+    }
   }, [userId]);
 
   useEffect(() => {
