@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
-import {useLocation} from "react-router"
+import { useLocation } from "react-router";
 import "./style.css";
-import Button from "../button/component"
+import Button from "../button/component";
 import { useNavigate } from "react-router";
 
 export default function FlowNav() {
   const flowmenu = ["Match Flow", "Outbound", "Pipeline"];
   const [state, setState] = useState(false);
-
   const navigate = useNavigate();
-  const url = ((useLocation()).pathname.split("/").pop())?.replace("%20", " ");
-  
- // console.log(url)
+  const url = useLocation().pathname.split("/").pop()?.replace("%20", " ");
 
   useEffect(() => {
     setState(true);
     setTimeout(() => {
-      setState(false)
-    }, 2000)
-  }, [])
+      setState(false);
+    }, 2000);
+  }, []);
 
   return (
     <div className={state ? "flownav open" : "flownav close"}>
@@ -32,24 +29,25 @@ export default function FlowNav() {
             height: 30,
             display: "flex",
             gap: 10,
-            // color: "white",
             fontFamily: "Manrope",
             fontSize: 13,
             fontWeight: 700,
             color: "#b2b2b2",
             border: "none",
-            background: "transparent"
+            background: "transparent",
           }}
           onClick={() => navigate("/explore")}
         >
-          <ion-icon name="chevron-back-outline" style={{fontSize: 18}}></ion-icon>
+          <ion-icon name="chevron-back-outline" style={{ fontSize: 18 }}></ion-icon>
           Vertx Main
         </button>
-        <p className="link" style={{ marginTop: 20 }}>
-          Main Flow
-        </p>
+        <p className="link" style={{ marginTop: 20 }}>Main Flow</p>
+
         {flowmenu?.map((item, i) => (
-          <div className={item.toLowerCase() == url ? "item sel" : "item"}>
+          <div
+            key={item} // ✅ key added
+            className={item.toLowerCase() == url ? "item sel" : "item"}
+          >
             <a href={`/flow/${item.toLowerCase()}`}>
               <div className="f1">
                 <div className="circle">
@@ -67,6 +65,7 @@ export default function FlowNav() {
             )}
           </div>
         ))}
+
         <p className="link">Others</p>
         <a href="/flow/docflow">
           <div className="nitem">
@@ -102,3 +101,4 @@ export default function FlowNav() {
     </div>
   );
 }
+
