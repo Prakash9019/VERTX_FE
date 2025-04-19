@@ -1,20 +1,31 @@
 // import "./style.css";
-"use client"
-import { useNavigate } from "react-router"
-import { useEffect, useState, useRef } from "react"
-import { industries, Country, investorType ,previousFunding , Global_hq} from "./filters.js"
-import API_KEY from "../../../key"
-import axios from "axios"
-import { Layout, MobileFooter } from "../layout/bars.jsx"
-import Card from "../../components/investorCard/component"
-import gify from "./gify.gif"
-import "./style.css"
-import Select from "react-select"      
-import logo from "./womensDay.png"
-import { Search } from "lucide-react"
+"use client";
+import { useNavigate } from "react-router";
+import { useEffect, useState, useRef } from "react";
+import {
+  industries,
+  Country,
+  investorType,
+  previousFunding,
+  Global_hq,
+} from "./filters.js";
+import API_KEY from "../../../key";
+import axios from "axios";
+import { Layout, MobileFooter } from "../layout/bars.jsx";
+import Card from "../../components/investorCard/component";
+import gify from "./gify.gif";
+import "./style.css";
+import Select from "react-select";
+import logo from "./womensDay.png";
+import { Search } from "lucide-react";
 
-
-const MultiSelectDropdown = ({ options, onChange, placeholder, value, hideSelectedValues }) => {
+const MultiSelectDropdown = ({
+  options,
+  onChange,
+  placeholder,
+  value,
+  hideSelectedValues,
+}) => {
   // Create a ref for manually handling input width
   const selectedValues = value || [];
 
@@ -23,9 +34,11 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value, hideSelect
       <Select
         isMulti
         options={options.map((option) => ({ value: option, label: option }))}
-        onChange={(selected) => onChange(selected ? selected.map((s) => s.value) : [])}
+        onChange={(selected) =>
+          onChange(selected ? selected.map((s) => s.value) : [])
+        }
         placeholder={placeholder}
-        value={selectedValues.map(val => ({ value: val, label: val }))}
+        value={selectedValues.map((val) => ({ value: val, label: val }))}
         className="w-full"
         classNamePrefix="react-select"
         menuPortalTarget={document.body} // Ensures dropdown renders outside parent
@@ -64,13 +77,13 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value, hideSelect
           placeholder: (base) => ({
             ...base,
             fontSize: window.innerWidth < 768 ? "12px" : "14px",
-            display: 'block', // Always display the placeholder
-            position: 'relative',
-            transform: 'none',
-            top: 'auto',
-            left: 'auto',
-            opacity: '1 !important',
-            transition: 'none',
+            display: "block", // Always display the placeholder
+            position: "relative",
+            transform: "none",
+            top: "auto",
+            left: "auto",
+            opacity: "1 !important",
+            transition: "none",
             color: "#CAC5C5", // Keep placeholder gray
           }),
           input: (base) => ({
@@ -84,36 +97,36 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value, hideSelect
           }),
           multiValue: (base) => ({
             ...base,
-            display: 'none', // Hide default multi-value display
+            display: "none", // Hide default multi-value display
             fontSize: window.innerWidth < 768 ? "11px" : "13px",
           }),
           multiValueLabel: (base) => ({
             ...base,
-            display: 'none', // Hide the multi-value labels
+            display: "none", // Hide the multi-value labels
           }),
           multiValueRemove: (base) => ({
             ...base,
-            display: 'none', // Hide the multi-value remove buttons
+            display: "none", // Hide the multi-value remove buttons
           }),
           indicatorsContainer: (base) => ({
             ...base,
             // Keep the indicators container visible
           }),
         }}
-        isClearable={false} // Disable the clear button 
+        isClearable={false} // Disable the clear button
         controlShouldRenderValue={false} // Don't render selected values in the control
       />
-      
+
       {/* Display selected values below the dropdown, but only if not from search */}
       {selectedValues.length > 0 && !hideSelectedValues && (
         <div className="selected-filters">
           {selectedValues.map((value) => (
             <div key={value} className="filter-chip">
               <span>{value}</span>
-              <span 
+              <span
                 className="remove-chip"
                 onClick={() => {
-                  onChange(selectedValues.filter(v => v !== value));
+                  onChange(selectedValues.filter((v) => v !== value));
                 }}
               >
                 ×
@@ -123,155 +136,165 @@ const MultiSelectDropdown = ({ options, onChange, placeholder, value, hideSelect
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 // Add city to country mapping
 const cityToCountry = {
   // Major Indian cities
-  'delhi': 'India',
-  'mumbai': 'India',
-  'bangalore': 'India',
-  'bengaluru': 'India',
-  'hyderabad': 'India',
-  'chennai': 'India',
-  'kolkata': 'India',
-  
+  delhi: "India",
+  mumbai: "India",
+  bangalore: "India",
+  bengaluru: "India",
+  hyderabad: "India",
+  chennai: "India",
+  kolkata: "India",
+
   // US cities
-  'new york': 'United States',
-  'san francisco': 'United States',
-  'los angeles': 'United States',
-  'chicago': 'United States',
-  'boston': 'United States',
-  'seattle': 'United States',
-  'silicon valley': 'United States',
-  
+  "new york": "United States",
+  "san francisco": "United States",
+  "los angeles": "United States",
+  chicago: "United States",
+  boston: "United States",
+  seattle: "United States",
+  "silicon valley": "United States",
+
   // UK cities
-  'london': 'United Kingdom',
-  'manchester': 'United Kingdom',
-  'birmingham': 'United Kingdom',
-  
+  london: "United Kingdom",
+  manchester: "United Kingdom",
+  birmingham: "United Kingdom",
+
   // Singapore
-  'singapore': 'Singapore',
-  
+  singapore: "Singapore",
+
   // China cities
-  'beijing': 'China',
-  'shanghai': 'China',
-  'shenzhen': 'China',
-  
+  beijing: "China",
+  shanghai: "China",
+  shenzhen: "China",
+
   // Japan cities
-  'tokyo': 'Japan',
-  'osaka': 'Japan',
-  
+  tokyo: "Japan",
+  osaka: "Japan",
+
   // UAE cities
-  'dubai': 'United Arab Emirates',
-  'abu dhabi': 'United Arab Emirates',
-  
+  dubai: "United Arab Emirates",
+  "abu dhabi": "United Arab Emirates",
+
   // Add more cities as needed
 };
 
 export default function Outreach2() {
-  const navigate = useNavigate()
-  const [investors, setInvestors] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [bookmarked, setBookmarked] = useState(false)
-  const [womenLed, setWomenLed] = useState(false) // New state for women-led filter
-  const [bookmarks, setBookmarks] = useState([])
-  const [searchQuery, setSearchQuery] = useState("")
-  const [searchResponse, setSearchResponse] = useState(null) // Add this state for Gemini response
-  const [isSearchFiltering, setIsSearchFiltering] = useState(false) // New state to track if filters are from search
+  const navigate = useNavigate();
+  const [investors, setInvestors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [womenLed, setWomenLed] = useState(false); // New state for women-led filter
+  const [bookmarks, setBookmarks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResponse, setSearchResponse] = useState(null); // Add this state for Gemini response
+  const [isSearchFiltering, setIsSearchFiltering] = useState(false); // New state to track if filters are from search
 
   // Pagination states
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(21)
-  const [currentPage1, setCurrentPage1] = useState(1)
-  const [pageSize1, setPageSize1] = useState(21)
-  const [totalRecords1, setTotalRecords1] = useState(0)
-  const [totalRecords, setTotalRecords] = useState(0)
-  const [totalPageSize, setTotalPageSize] = useState(21)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(21);
+  const [currentPage1, setCurrentPage1] = useState(1);
+  const [pageSize1, setPageSize1] = useState(21);
+  const [totalRecords1, setTotalRecords1] = useState(0);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [totalPageSize, setTotalPageSize] = useState(21);
 
   // Sidebar state
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Current page for navigation highlighting
-  const [currentPageNav, setCurrentPageNav] = useState("outreach")
+  const [currentPageNav, setCurrentPageNav] = useState("outreach");
   // Filters state
   const [filters, setFilters] = useState({
     country: [],
     industry: [],
     investorType: [],
-    previousFunding:[],
-    Global_hq:[],
+    previousFunding: [],
+    Global_hq: [],
     bookmarked: "",
-  })
+  });
 
   // Create a ref for the scrollable content
-  const scrollableContentRef = useRef(null)
-  const filtersScrollRef = useRef(null)
-  const layoutContentRef = useRef(null)
-  const paginationScrollRef = useRef(null)
-  const paginationScrollRef1 = useRef(null)
+  const scrollableContentRef = useRef(null);
+  const filtersScrollRef = useRef(null);
+  const layoutContentRef = useRef(null);
+  const paginationScrollRef = useRef(null);
+  const paginationScrollRef1 = useRef(null);
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-      setScreenWidth(window.innerWidth)
-    }
+      setIsMobile(window.innerWidth < 768);
+      setScreenWidth(window.innerWidth);
+    };
 
     // Run check immediately
-    handleResize()
+    handleResize();
 
     // Listen for resize events
-    window.addEventListener("resize", handleResize)
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Set current page for navigation highlighting
   useEffect(() => {
     // Check if the path includes "explore" to keep the bar active
     if (location.pathname.includes("explore")) {
-      setCurrentPageNav("explore")
+      setCurrentPageNav("explore");
     } else {
-      setCurrentPageNav(location.pathname.split("/").pop()) // Fallback for other pages
+      setCurrentPageNav(location.pathname.split("/").pop()); // Fallback for other pages
     }
-  }, [location.pathname])
+  }, [location.pathname]);
 
   useEffect(() => {
     async function getInvestors() {
       try {
-        setLoading(true)
+        setLoading(true);
         const response = await axios.get(`${API_KEY}/investors`, {
           params: {
             page: currentPage,
             limit: pageSize,
-            country: filters.country.length ? filters.country.join(",") : undefined,
-            industry: filters.industry.length ? filters.industry.join(",") : undefined,
-            investorType: filters.investorType.length ? filters.investorType.join(",") : undefined,
-            previousFunding: filters.previousFunding.length ? filters.previousFunding.join(",") : undefined,
-            Global_hq: filters.Global_hq.length ? filters.Global_hq.join(",") : undefined,
+            country: filters.country.length
+              ? filters.country.join(",")
+              : undefined,
+            industry: filters.industry.length
+              ? filters.industry.join(",")
+              : undefined,
+            investorType: filters.investorType.length
+              ? filters.investorType.join(",")
+              : undefined,
+            previousFunding: filters.previousFunding.length
+              ? filters.previousFunding.join(",")
+              : undefined,
+            Global_hq: filters.Global_hq.length
+              ? filters.Global_hq.join(",")
+              : undefined,
             bookmarked: bookmarked ? true : undefined,
-            womenLed: womenLed ? true : undefined, 
+            womenLed: womenLed ? true : undefined,
           },
         });
-        
-        setInvestors(response.data.data)
-        setTotalRecords(response.data.totalCount)
+
+        setInvestors(response.data.data);
+        setTotalRecords(response.data.totalCount);
 
         // Scroll to top after data is loaded
         if (scrollableContentRef.current) {
-          scrollableContentRef.current.scrollTop = 0
+          scrollableContentRef.current.scrollTop = 0;
         } else {
-          window.scrollTo(0, 0)
+          window.scrollTo(0, 0);
         }
       } catch (err) {
-        setError("Failed to fetch investors")
+        setError("Failed to fetch investors");
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
 
@@ -291,64 +314,56 @@ export default function Outreach2() {
     // if(localStorage.getItem("token")){
     //   fetchBookmarks();
     // }
-    
-  }, [currentPage, pageSize, filters, bookmarked, womenLed]) 
+  }, [currentPage, pageSize, filters, bookmarked, womenLed]);
 
-  const [womenInv,setWomenInv] =useState([]);
+  const [womenInv, setWomenInv] = useState([]);
   useEffect(() => {
-    
     // Check if the path includes "explore" to keep the bar active
     const fetchList = async () => {
       try {
         const res = await axios.get(`${API_KEY}/investors/women`, {
-          params: { page: currentPage1,  limit: pageSize1   }
-        })
-        setTotalRecords1(res.data.totalCount)
-        // console.log("cskhdbdshbch")
-        // console.log(res.data.data);
-        setWomenInv(res.data.data) // Assuming the API returns an array of investor IDs
+          params: { page: currentPage1, limit: pageSize1 },
+        });
+        setTotalRecords1(res.data.totalCount);
+        setWomenInv(res.data.data);
       } catch (error) {
-        console.error("Error fetching bookmarks:", error)
+        console.error("Error fetching bookmarks:", error);
       }
-    }
+    };
     fetchList();
-  }, [womenLed , currentPage1 ,pageSize1 ])
-
+  }, [womenLed, currentPage1, pageSize1]);
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage)
+    setCurrentPage(newPage);
 
     // Scroll to top immediately
     if (scrollableContentRef.current) {
-      scrollableContentRef.current.scrollTop = 0
+      scrollableContentRef.current.scrollTop = 0;
     } else {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
-  }
+  };
 
   const handlePageChange1 = (newPage) => {
-    setCurrentPage1(newPage)
+    setCurrentPage1(newPage);
 
     // Scroll to top immediately
     if (scrollableContentRef.current) {
-      scrollableContentRef.current.scrollTop = 0
+      scrollableContentRef.current.scrollTop = 0;
     } else {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
-  }
-
-
-  
+  };
 
   const handleFilterChange = (newFilters) => {
     // Set search filtering flag to false when manually changing filters
     setIsSearchFiltering(false);
     setFilters((prev) => ({
       ...prev,
-      ...newFilters,  // Merge new filters
+      ...newFilters, // Merge new filters
     }));
     setCurrentPage(1);
-  
+
     // Scroll to top when filters change
     if (scrollableContentRef.current) {
       scrollableContentRef.current.scrollTop = 0;
@@ -357,9 +372,6 @@ export default function Outreach2() {
     }
   };
 
-  
-
-  
   // const toggleBookmarked = () => {
   //   const newBookmarked = !bookmarked
   //   setBookmarked(newBookmarked)
@@ -373,28 +385,28 @@ export default function Outreach2() {
 
   // Toggle women-led filter
   const toggleWomenLed = () => {
-    const newWomenLed = !womenLed
-    setWomenLed(newWomenLed)
+    const newWomenLed = !womenLed;
+    setWomenLed(newWomenLed);
     // Scroll to top when toggling women-led
     if (scrollableContentRef.current) {
-      scrollableContentRef.current.scrollTop = 0
+      scrollableContentRef.current.scrollTop = 0;
     } else {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
-  }
+  };
 
   // Handle search input
   const handleSearch = async (query) => {
     if (!query.trim()) return;
-    
+
     try {
       setLoading(true);
       const response = await axios.post(`${API_KEY}/investors/search`, {
-        query: query
+        query: query,
       });
-      
-      setInvestors(response.data.investors)
-      setTotalRecords(response.data.totalCount)
+
+      setInvestors(response.data.investors);
+      setTotalRecords(response.data.totalCount);
       setCurrentPage(1);
     } catch (error) {
       console.error("Error:", error.message);
@@ -402,18 +414,18 @@ export default function Outreach2() {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   // Add function to handle Enter key press
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch(searchQuery);
     }
-  }
+  };
 
   // Calculate total pages
-  const totalPages = Math.ceil(totalRecords / pageSize)
-  const isUpgradeRequired = currentPage * 20 > totalPageSize
+  const totalPages = Math.ceil(totalRecords / pageSize);
+  const isUpgradeRequired = currentPage * 20 > totalPageSize;
 
   const totalPages1 = Math.ceil(totalRecords1 / pageSize1);
 
@@ -454,28 +466,41 @@ export default function Outreach2() {
   };
 
   return (
-    <Layout 
-      sidebarOpen={sidebarOpen} 
+    <Layout
+      sidebarOpen={sidebarOpen}
       setSidebarOpen={setSidebarOpen}
       contentRef={layoutContentRef}
     >
       <div className="content-wrapper2 relative h-full w-full">
         {/* Fixed header section */}
         <div
-          className={`fixed-header ${isMobile ? "px-2 sm:px-4 pt-6 sm:pt-10" : "px-4"} z-10 w-full`}
+          className={`fixed-header ${
+            isMobile ? "px-2 sm:px-4 pt-6 sm:pt-10" : "px-4"
+          } z-10 w-full`}
           style={{ maxWidth: "100%", boxSizing: "border-box" }}
         >
           <div className={`text-left ${isMobile ? "ml-0" : ""}`}>
-            <h1 className={`${isMobile ? "text-2xl sm:text-3xl" : "text-4xl"} font-bold -mt-1 mb-1`}>
+            <h1
+              className={`${
+                isMobile ? "text-2xl sm:text-3xl" : "text-4xl"
+              } font-bold -mt-1 mb-1`}
+            >
               <strong>Explore Investors</strong>
             </h1>
-            <p className={`${isMobile ? "text-base sm:text-lg" : "text-xl"} text-[#CAC5C5] mb-2 sm:mb-4`}>
+            <p
+              className={`${
+                isMobile ? "text-base sm:text-lg" : "text-xl"
+              } text-[#CAC5C5] mb-2 sm:mb-4`}
+            >
               Find and connect with potential investors
             </p>
           </div>
 
           {/* Custom Search Bar with Reduced Width */}
-          <div className={`search-container ${isMobile ? "mb-3" : "mb-4"}`} style={{maxWidth: isMobile ? "90%" : "70%"}}>
+          <div
+            className={`search-container ${isMobile ? "mb-3" : "mb-4"}`}
+            style={{ maxWidth: isMobile ? "90%" : "70%" }}
+          >
             <div className="relative">
               <input
                 type="text"
@@ -544,59 +569,68 @@ export default function Outreach2() {
           >
             <div className="filter mb-3 flex flex-nowrap gap-2 sm:gap-3">
               {/* Multi-Select Country */}
-             
-            { !womenLed && 
+
+              {!womenLed && (
                 <>
-            <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
-                <MultiSelectDropdown
-                  options={Country}
-                  onChange={(values) => handleFilterChange({"country": values})}
-                  placeholder="Select Geography"
-                  value={filters.country}
-                  hideSelectedValues={isSearchFiltering}
-                />
-              </div>
+                  <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                    <MultiSelectDropdown
+                      options={Country}
+                      onChange={(values) =>
+                        handleFilterChange({ country: values })
+                      }
+                      placeholder="Select Geography"
+                      value={filters.country}
+                      hideSelectedValues={isSearchFiltering}
+                    />
+                  </div>
 
-              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
-                <MultiSelectDropdown
-                  options={investorType}
-                  onChange={(values) => handleFilterChange({"investorType": values})}
-                  placeholder="Investor Type"
-                  value={filters.investorType}
-                  hideSelectedValues={isSearchFiltering}
-                />
-              </div>
+                  <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                    <MultiSelectDropdown
+                      options={investorType}
+                      onChange={(values) =>
+                        handleFilterChange({ investorType: values })
+                      }
+                      placeholder="Investor Type"
+                      value={filters.investorType}
+                      hideSelectedValues={isSearchFiltering}
+                    />
+                  </div>
 
-              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
-                <MultiSelectDropdown
-                  options={industries}
-                  onChange={(values) => handleFilterChange({"industry": values})}
-                  placeholder="Industries"
-                  value={filters.industry}
-                  hideSelectedValues={isSearchFiltering}
-                />
-              </div> 
+                  <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                    <MultiSelectDropdown
+                      options={industries}
+                      onChange={(values) =>
+                        handleFilterChange({ industry: values })
+                      }
+                      placeholder="Industries"
+                      value={filters.industry}
+                      hideSelectedValues={isSearchFiltering}
+                    />
+                  </div>
 
-              <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
-                <MultiSelectDropdown
-                  options={previousFunding}
-                  onChange={(values) => handleFilterChange({"previousFunding": values})}
-                  placeholder="Previous Funding"
-                  value={filters.previousFunding}
-                  hideSelectedValues={isSearchFiltering}
-                />
-              </div>
+                  <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                    <MultiSelectDropdown
+                      options={previousFunding}
+                      onChange={(values) =>
+                        handleFilterChange({ previousFunding: values })
+                      }
+                      placeholder="Previous Funding"
+                      value={filters.previousFunding}
+                      hideSelectedValues={isSearchFiltering}
+                    />
+                  </div>
 
-              {/* Removed duplicate Global_hq filter */}
-              
-              </>
-              }
+                  {/* Removed duplicate Global_hq filter */}
+                </>
+              )}
 
               {/* Women Led Button */}
               <div className="min-w-[100px] sm:min-w-[120px]">
                 <button
                   className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
-                    womenLed ? "bg-[#75757569] text-white" : "text-[#adadad] bg-[#161616]"
+                    womenLed
+                      ? "bg-[#75757569] text-white"
+                      : "text-[#adadad] bg-[#161616]"
                   }`}
                   onClick={toggleWomenLed}
                 >
@@ -614,57 +648,86 @@ export default function Outreach2() {
           style={{ maxWidth: "100%" }}
         >
           {error && <div className="error-message">{error}</div>}
-          
-          <div 
-            className="profilecards" 
-            style={{ 
+
+          <div
+            className="profilecards"
+            style={{
               gridTemplateColumns: `repeat(${getGridColumns()}, 1fr)`,
-              gap: isMobile ? "10px" : "20px" 
+              gap: isMobile ? "10px" : "20px",
             }}
           >
             {loading ? (
               <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-md z-50">
-                <img src={gify || "/placeholder.svg"} alt="Loading..." className="w-16 h-16 sm:w-20 sm:h-20" />
+                <img
+                  src={gify || "/placeholder.svg"}
+                  alt="Loading..."
+                  className="w-16 h-16 sm:w-20 sm:h-20"
+                />
               </div>
             ) : (
               <>
-                {!womenLed && !bookmarked &&
-                  investors.map((item, index) => (
-                    <div key={item._id || index} className="w-full">
-                      <Card
-                        key={item._id || index}
-                        data={item}
-                        // toggleBookmark={toggleBookmark}
-                        // isBookmarked={bookmarks.includes(item._id)}
-                      />
+                {!womenLed &&
+                  !bookmarked &&
+                  (investors.length > 0 ? (
+                    investors.map((item, index) => (
+                      <div key={item._id || index} className="w-full">
+                        <Card
+                          key={item._id || index}
+                          data={item}
+                          // toggleBookmark={toggleBookmark}
+                          // isBookmarked={bookmarks.includes(item._id)}
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-8 text-gray-500">
+                      No Results Found
                     </div>
                   ))}
-                 {!womenLed && bookmarked &&
-                  investors
-                    .filter((item) => bookmarks.includes(item._id))
-                    .map((item) => (
-                      <Card key={item._id} data={item} toggleBookmark={toggleBookmark} isBookmarked={true} />
-                    ))}
-                   {/*console.log(womenInv)*/}
-                    {womenLed && womenInv.map((item, index) => (
-                    <div key={item._id || index} className="w-full">
-                      <Card
-                        key={item._id || index}
-                        data={item}
-                        // toggleBookmark={toggleBookmark}
-                        // isBookmarked={bookmarks.includes(item._id)}
-                        isWomen={womenLed}
-                      />
+                {!womenLed &&
+                  bookmarked &&
+                  (investors.filter((item) => bookmarks.includes(item._id))
+                    .length > 0 ? (
+                    investors
+                      .filter((item) => bookmarks.includes(item._id))
+                      .map((item) => (
+                        <Card
+                          key={item._id}
+                          data={item}
+                          toggleBookmark={toggleBookmark}
+                          isBookmarked={true}
+                        />
+                      ))
+                  ) : (
+                    <div className="text-center py-8 text-gray-500">
+                      No Results Found
+                    </div>
+                  ))}
+                {/*console.log(womenInv)*/}
+                {womenLed &&
+                  (womenInv.length > 0 ? (
+                    womenInv.map((item, index) => (
+                      <div key={item._id || index} className="w-full">
+                        <Card
+                          key={item._id || index}
+                          data={item}
+                          // toggleBookmark={toggleBookmark}
+                          // isBookmarked={bookmarks.includes(item._id)}
+                          isWomen={womenLed}
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-8 text-gray-500">
+                      No Results Found
                     </div>
                   ))}
               </>
             )}
           </div>
 
-          {/* Updated Pagination Controls - Made independent with fixed widths */}
-          {!bookmarked && !womenLed && (
+          {!bookmarked && !womenLed && investors.length > 0 && (
             <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 flex justify-center items-center">
-              {/* Fixed width Previous button */}
               <button
                 className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md mr-2"
                 disabled={currentPage === 1}
@@ -672,15 +735,13 @@ export default function Outreach2() {
               >
                 Previous
               </button>
-              
-              {/* Horizontal Scrollable Page Numbers in separate container */}
-              <div 
+              <div
                 ref={paginationScrollRef}
                 className="inline-flex overflow-x-auto hide-scrollbar max-w-[180px] sm:max-w-[250px] md:max-w-[300px] bg-[#161616] border border-[#75757569] rounded-md p-1"
-                style={{ 
+                style={{
                   WebkitOverflowScrolling: "touch",
                   msOverflowStyle: "none",
-                  scrollbarWidth: "none"
+                  scrollbarWidth: "none",
                 }}
               >
                 {generateAllPaginationNumbers(totalPages).map((page) => (
@@ -697,8 +758,6 @@ export default function Outreach2() {
                   </button>
                 ))}
               </div>
-              
-              {/* Fixed width Next button */}
               <button
                 className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md ml-2"
                 disabled={currentPage === totalPages}
@@ -709,9 +768,8 @@ export default function Outreach2() {
             </div>
           )}
 
-          { womenLed && (
+          {womenLed && womenInv.length > 0 && (
             <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 flex justify-center items-center">
-              {/* Fixed width Previous button */}
               <button
                 className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md mr-2"
                 disabled={currentPage1 === 1}
@@ -719,15 +777,13 @@ export default function Outreach2() {
               >
                 Previous
               </button>
-              
-              {/* Horizontal Scrollable Page Numbers in separate container */}
-              <div 
+              <div
                 ref={paginationScrollRef1}
                 className="inline-flex overflow-x-auto hide-scrollbar max-w-[180px] sm:max-w-[250px] md:max-w-[300px] bg-[#161616] border border-[#75757569] rounded-md p-1"
-                style={{ 
+                style={{
                   WebkitOverflowScrolling: "touch",
                   msOverflowStyle: "none",
-                  scrollbarWidth: "none"
+                  scrollbarWidth: "none",
                 }}
               >
                 {generateAllPaginationNumbers(totalPages1).map((page) => (
@@ -744,8 +800,6 @@ export default function Outreach2() {
                   </button>
                 ))}
               </div>
-              
-              {/* Fixed width Next button */}
               <button
                 className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md ml-2"
                 disabled={currentPage1 === totalPages1}
@@ -759,5 +813,5 @@ export default function Outreach2() {
         {isMobile && <MobileFooter currentPage={currentPageNav} />}
       </div>
     </Layout>
-  )
+  );
 }
