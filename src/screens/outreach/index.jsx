@@ -680,9 +680,12 @@ export default function Outreach2() {
                       </div>
                     ))
                   ) : (
-                    <div className="text-center py-8 text-gray-500">
-                      No Results Found
-                    </div>
+                   <div className="flex items-center justify-center h-full w-full">
+  <div className="text-center py-8 text-gray-500">
+    No Results Found
+  </div>
+</div>
+
                   ))}
                 {!womenLed &&
                   bookmarked &&
@@ -699,9 +702,11 @@ export default function Outreach2() {
                         />
                       ))
                   ) : (
-                    <div className="text-center py-8 text-gray-500">
-                      No Results Found
-                    </div>
+                   <div className="flex items-center justify-center h-full w-full">
+  <div className="text-center py-8 text-gray-500">
+    No Results Found
+  </div>
+</div>
                   ))}
                 {/*console.log(womenInv)*/}
                 {womenLed &&
@@ -718,9 +723,12 @@ export default function Outreach2() {
                       </div>
                     ))
                   ) : (
-                    <div className="text-center py-8 text-gray-500">
-                      No Results Found
-                    </div>
+                   <div className="flex items-center justify-center h-full w-full">
+  <div className="text-center py-8 text-gray-500">
+    No Results Found
+  </div>
+</div>
+
                   ))}
               </>
             )}
