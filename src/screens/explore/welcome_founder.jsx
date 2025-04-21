@@ -123,7 +123,7 @@ export default function Welcome_founder() {
         });
         if (response.data.length > 0) {
           setFormData(response.data[0]);
-          navigate("/explore/bio");
+          navigate("/listall");
         }
         setLoading(false);
       } catch (error) {
