@@ -292,7 +292,8 @@ export default function Outreach2() {
           window.scrollTo(0, 0);
         }
       } catch (err) {
-        setError("Failed to fetch investors");
+        setError("Check Your internet Connection")
+        console.error("Error fetching investors:", err)
       } finally {
         setLoading(false);
       }
