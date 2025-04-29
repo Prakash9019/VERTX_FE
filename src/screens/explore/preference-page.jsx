@@ -28,7 +28,6 @@ export default function PreferenceSet() {
         const response = await axios.get(`${API_KEY}/request/preference`, {
           headers: { token: localStorage.getItem("token") },
         });
-        console.log(response.data);
 
         if (response.status === 200 && response.data) {
           const { preference, availability, compensation, stage, workplace } = response.data?.[0];
@@ -59,7 +58,7 @@ export default function PreferenceSet() {
       );
 
       if (response.status === 201 || response.status === 200) {
-        console.log("Preferences saved successfully:", response.data);
+        // console.log("Preferences saved successfully:", response.data);
         navigate("/listall"); // Navigate after successful submission
       }
     } catch (error) {

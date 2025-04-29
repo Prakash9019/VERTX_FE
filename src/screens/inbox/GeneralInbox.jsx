@@ -36,7 +36,7 @@ export default function GeneralInbox({
     socket.on("receiveMessage", (message) => {
       if (message.receiverId === userId) {
         setMessages((prev) => [...prev, message]);
-        console.log("Received message:", message);
+        // console.log("Received message:", message);
         updateMessageStatus(message._id, "delivered");
       }
     });
@@ -129,22 +129,18 @@ export default function GeneralInbox({
 
   useEffect(() => {
     const handleStatusUpdate = ({ messageId, status }) => {
-      console.log("Received status update:", messageId, status);
       setMessages((prevMessages) => {
         const updated = prevMessages.map((msg) =>
           msg._id === messageId ? { ...msg, status } : msg
         );
-        console.log("Updated messages state:", updated);
         return updated;
       });
     };
 
     socket.on("messageStatusUpdated", handleStatusUpdate);
-    console.log("Registered messageStatusUpdated listener");
 
     return () => {
       socket.off("messageStatusUpdated", handleStatusUpdate);
-      console.log("Removed messageStatusUpdated listener");
     };
   }, []);
 
@@ -172,7 +168,6 @@ export default function GeneralInbox({
 
   useEffect(() => {
     const handleMessageViewedUpdated = ({ messageId, status }) => {
-      console.log("Message viewed updated:", messageId, status);
       setMessages((prevMessages) =>
         prevMessages.map((msg) =>
           msg._id === messageId ? { ...msg, status } : msg
@@ -186,7 +181,6 @@ export default function GeneralInbox({
   }, []);
 
   const updateMessageStatus = async (messageId, status) => {
-    console.log("Client calling updateMessageStatus:", messageId, status);
     try {
       await axios.put(`${Chat_key}/api/messages/status/${messageId}`, {
         status,
@@ -216,7 +210,7 @@ export default function GeneralInbox({
 
       const res = await axios.post(`${Chat_key}/api/messages`, newMessage);
       const savedMessage = res.data;
-      console.log("Message saved:", savedMessage);
+      // console.log("Message saved:", savedMessage);
 
       setMessages((prevMessages) => [...prevMessages, savedMessage]);
       socket.emit("sendMessage", {

@@ -8,7 +8,6 @@ import { Layout, MobileFooter } from "../layout/bars";
 import { ChevronDown, Send } from "lucide-react"
 
 export default function List({userId}) {
-  console.log(userId);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [more , setMore ] =useState(false);
@@ -25,6 +24,7 @@ export default function List({userId}) {
     github: "",
     avatar: "",
     twitter: "",
+    achievement:""
   });
 
   useEffect(() => {
@@ -38,10 +38,8 @@ export default function List({userId}) {
           },
           params: { uid : userId },
         });
-        console.log(response.data);
         if (response.data) {
           setFormData(response.data);
-          setAchievement(response.data.achievement);
           setSelectedSkills(response.data.skills);
           setSelectedDisciplines(response.data.disciplines);
           // setIsEditing(true); // Enable edit mode if data exists

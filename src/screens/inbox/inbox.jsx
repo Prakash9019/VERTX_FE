@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { ArrowLeft, Heart,CheckCheck } from "lucide-react"
 import { Layout, MobileFooter } from "../layout/bars"
@@ -7,8 +5,6 @@ import GeneralInbox from "./GeneralInbox" // Import the new component
 import MarkInbox from "./MarkInbox"
 import RequestInbox from "./RequestInbox"
 import API_KEY from "../../../key"
-import axios from "axios"
-import { color } from "framer-motion"
 
 export default function Inbox() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -44,7 +40,7 @@ useEffect(()=>{
             headers: { token: localStorage.getItem("token") },
         });
         const data = await response.json();
-        console.log(data);
+   
         setUserId(data.userId)
         setConnections(data.connections);
         setMarked(data.markedUsers);

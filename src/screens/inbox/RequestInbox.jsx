@@ -24,13 +24,10 @@ const RequestInbox = ({ userId }) => {
   
      useEffect(() => {
         const fetchMessages = async () => {
-            console.log("messa........")
           try {
             const res = await axios.get(
               `${Chat_key}/api/messages/${userId}/${activeChat}`
             );
-            console.log("fetchmessage ");
-            console.log(res.data);
             setMessages(res.data);
           } catch (err) {
             console.error("Error fetching messages:", err);
@@ -61,12 +58,10 @@ const RequestInbox = ({ userId }) => {
 
   const fetchRequests = async () => {
     const res = await axios.get(`${Chat_key}/api/connections/requests/${userId}`);
-    console.log(res.data)
     setRequests(res.data);
   };
 
   const acceptRequest = async (senderId) => {
-    console.log(senderId,userId)
     await axios.post(`${Chat_key}/api/connections/accept`, { senderId, receiverId: userId });
     setDetailSidebarOpen(false);
     fetchRequests();
@@ -100,8 +95,8 @@ const RequestInbox = ({ userId }) => {
       setMessages((prev) => [...prev, newMessage]);
       socket.emit("sendMessage", newMessage);
       await axios.post(`${Chat_key}/api/messages`, newMessage);
-      console.log("Send Message");
-      console.log(newMessage);
+      // console.log("Send Message");
+      // console.log(newMessage);
       setNewMessage("");
     }
   };
@@ -109,13 +104,11 @@ const RequestInbox = ({ userId }) => {
   useEffect(() => {
     //activate the chat
     if (activeChat) {
-      console.log("messsaggesss");
-      console.log(messages);
       const unreadMessages = messages.filter(
         (msg) => msg.senderId === activeChat && !msg.isRead
       );
-      console.log("isChatActive");
-      console.log(unreadMessages);
+      // console.log("isChatActive");
+      // console.log(unreadMessages);
       if (unreadMessages.length > 0) {
         axios
           .put(`${Chat_key}/api/messages/read`, {
@@ -137,8 +130,6 @@ const RequestInbox = ({ userId }) => {
   }, [messages,  activeChat, userId]);
 
   useEffect(() => {
-    console.log("handleReadUP");
-    console.log(activeChat);
     const handleReadUpdate = (data) => {
       if (userId === data.senderId) {
         setMessages((prev) =>
@@ -157,7 +148,7 @@ const RequestInbox = ({ userId }) => {
   }, [messages,userId,activeChat]);
 
             useEffect(() => {
-                console.log("handleReceived")
+                // console.log("handleReceived")
                 const handleReceiveMessage = (message) => {
                 if (message.receiverId === userId) {
                     setMessages((prev) => {
@@ -187,7 +178,6 @@ const RequestInbox = ({ userId }) => {
               setSelectedMessage(message)
               setDetailSidebarOpen(true)
               setIsConnected(true);
-              console.log("hiii")
             }
           
             const handleBackClick = () => {
@@ -302,7 +292,6 @@ const RequestInbox = ({ userId }) => {
     {detailSidebarOpen && selectedMessage && (
       <div className="fixed top-0 right-0 h-full w-full md:w-1/3 bg-black border-l border-[#1E1E1E] z-50 transform transition-transform duration-300 ease-in-out">
         <div className="flex flex-col h-full">
-          {console.log(selectedMessage)}
           <div className="p-4 border-b border-[#1E1E1E] flex items-center">
             <button onClick={handleBackClick} className="p-2 rounded-full hover:bg-gray-800 mr-2">
               <ArrowLeft size={20} />

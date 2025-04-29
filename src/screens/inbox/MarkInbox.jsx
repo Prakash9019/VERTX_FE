@@ -9,7 +9,6 @@ const MarkInbox = ({marked}) => {
   const [detailSidebarOpen, setDetailSidebarOpen] = useState(false)
    
   const handleMessageClick = (message) => {
-    console.log(message);
     setSelectedMessage(message)
     setDetailSidebarOpen(true)
    
