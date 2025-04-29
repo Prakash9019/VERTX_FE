@@ -45,16 +45,12 @@ useEffect(() => {
       });
 
       let newUsers = response.data;
-      console.log(response.data);
       const skippedUserIds = new Set(JSON.parse(localStorage.getItem("skippedUsers")) || []);
       setSkippedUsers(skippedUserIds);
 
       const filteredUsers = newUsers.filter(user => !skippedUserIds.has(user._id));
       setUsers(prevUsers => [...prevUsers, ...filteredUsers]); // ✅ Append new users instead of replacing
-      console.log(page);
-      console.log(users);
       setPage(prev => prev + 1); // Move to next page
-      console.log(page);
     } catch (error) {
       console.error("Error fetching users:", error);
     } 
@@ -64,7 +60,6 @@ useEffect(() => {
 }, []);
 
   const current = users[currentIndex];
-  console.log(current);
    const [empty,setEmpty] =useState(false);
 
 const handleUser = async ()=>{
@@ -72,7 +67,6 @@ const handleUser = async ()=>{
     const response = await axios.get(`${API_KEY}/list/userid`, {
       headers: { token: localStorage.getItem("token") },
      });
-    console.log(response.data);
     setUserId(response.data);
   }catch (error) {
     console.error("Error connecting users:", error);
@@ -86,7 +80,6 @@ const handleProject = async () => {
         headers: { token: localStorage.getItem("token") },
         params: { uid: current.user },
     });
-    console.log(response.data)
     setProjects(response.data);
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -128,8 +121,6 @@ const handleMark = async () => {
 
 const sendFriendRequest = async (userId,selectedUserId,newMessage) => {
   try {
-    console.log(userId,selectedUserId);
-    console.log(newMessage);
     await axios.post(`${Chat_key}/api/connections/request`, {
       senderId: userId,
       receiverId: selectedUserId,
@@ -144,7 +135,6 @@ const sendFriendRequest = async (userId,selectedUserId,newMessage) => {
 
 const handleConnect = async () => {
   const selectedUserId = users[currentIndex]?.user;
-  console.log(users[currentIndex]?.user);
     if (!selectedUserId) return;
     const newMessage ={};
     sendFriendRequest(userId,selectedUserId,newMessage);
@@ -158,8 +148,6 @@ const handleConnect = async () => {
           token: localStorage.getItem("token"),
         },
       });
-
-      console.log("Connected successfully!");
       setCurrentIndex(prevIndex => prevIndex + 1);  // ✅ Triggers useEffect to load next user
     } catch (error) {
       console.error("Error connecting:", error);
@@ -183,7 +171,6 @@ const handleConnect = async () => {
   const handleSendMessage = async () => {
     if (inputText.trim() === "" ) return
     const selectedUserId = users[currentIndex]?.user;
-    console.log(users[currentIndex]?.user);
       if (!selectedUserId) return;
     // Get current time in HH:MM format
     const now = new Date()
@@ -213,7 +200,6 @@ const handleConnect = async () => {
         },
       });
 
-      console.log("Connected successfully!");
       setCurrentIndex(prevIndex => prevIndex + 1);  // ✅ Triggers useEffect to load next user
     } catch (error) {
       console.error("Error connecting:", error);
