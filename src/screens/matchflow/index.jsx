@@ -288,7 +288,7 @@ function Step2({ cb, back }) {
       industry,
     };
     const response = await axios.post(
-      "https://clumsy-zebra-vertx-c9a7a812.koyeb.app/match/founder-to-investor", data
+      " https://founder-to-investor-model-427457295403.us-central1.run.app ", data
     ).catch((e) => e.response);
     console.log(response.data)
     if(response.status == 200){
