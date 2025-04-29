@@ -694,17 +694,21 @@ export function MobileFooter({ currentPage }) {
     <>
       <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-[#111] fixed bottom-0 left-0 right-0 z-20">
         <div className="flex flex-col items-center" onClick={() => handleNavigation("explore")}>
-          <NavIconFooter icon={<Search />} label="Home" active={currentPage === "explore"} />
+          <NavIconFooter icon={<Search />} label="Explore" active={currentPage === "explore"} />
         </div>
         <div className="flex flex-col items-center relative" onClick={() => handleNavigation("outreach")}>
           {currentPage === "outreach" && <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>}
           <NavIconFooter icon={<Target />} label="Outreach" active={currentPage === "outreach"} />
         </div>
+        <div className="flex flex-col items-center relative" onClick={() => handleNavigation("inbox")}>
+          {currentPage === "inbox" && <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>}
+          <NavIconFooter icon={<Inbox />} label="Inbox" active={currentPage === "inbox"} />
+        </div>
         <div className="flex flex-col items-center" onClick={() => handleNavigation("resources")}>
           <NavIconFooter icon={<Grid />} label="Resources" active={currentPage === "resources"} />
         </div>
       </div>
-
+      
       {/* Full-screen Auth Page for non-logged-in users clicking home */}
       {showAuthPage && (
         <div className="fixed inset-0 z-50 bg-black">
