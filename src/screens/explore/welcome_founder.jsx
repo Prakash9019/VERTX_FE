@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  Layout,
-  MobileFooter,
-} from "../layout/bars";
+import { Layout, MobileFooter } from "../layout/bars";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import API_KEY from "../../../key";
@@ -74,13 +71,48 @@ export default function Welcome_founder() {
     }
   }, [location.pathname]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    // Remove error when the user types
-    if (errors[e.target.name]) {
-      setErrors({ ...errors, [e.target.name]: "" });
+  //   // Remove error when the user types
+  //   if (errors[e.target.name]) {
+  //     setErrors({ ...errors, [e.target.name]: "" });
+  //   }
+  // };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const updatedFormData = {
+      ...formData,
+      [name]: value,
+    };
+  
+    setFormData(updatedFormData);
+  
+    // Create a copy of errors
+    const updatedErrors = { ...errors };
+  
+    // Remove error for the individual field
+    if (updatedErrors[name]) {
+      delete updatedErrors[name];
     }
+  
+    // Remove 'links' error if any one link is filled
+    if (
+      ["portfolioLink", "linkedinLink", "github", "twitter"].includes(name)
+    ) {
+      const atLeastOneLink =
+        updatedFormData.portfolioLink.trim() ||
+        updatedFormData.linkedinLink.trim() ||
+        updatedFormData.github.trim() ||
+        updatedFormData.twitter.trim();
+  
+      if (atLeastOneLink) {
+        delete updatedErrors.links;
+      }
+    }
+  
+    setErrors(updatedErrors);
   };
 
   const validateForm = () => {
@@ -319,9 +351,29 @@ export default function Welcome_founder() {
             </div>
 
             <div>
-              <label className="block text-lg font-semibold mb-2 text-[#CAC5C5]">
+              {/* <label className="block text-lg font-semibold mb-2 text-[#CAC5C5]">
                 Links
+              </label> */}
+              <label
+                className={`block text-lg font-semibold mb-2 ${
+                  errors.links ? "text-red-500" : "text-[#CAC5C5]"
+                }`}
+              >
+                Links{" "}
+                {errors.links && (
+                  <Info
+                    size={16}
+                    className="inline cursor-pointer text-red-500 ml-1"
+                    onClick={() =>
+                      setShowError({
+                        ...showError,
+                        links: !showError.links,
+                      })
+                    }
+                  />
+                )}
               </label>
+
               <div className="space-y-2">
                 <div className="flex items-center border-b-[1px] mb-2 border-[#1D1C1C] pb-1">
                   <span className="mr-2 ">
@@ -357,7 +409,7 @@ export default function Welcome_founder() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g clip-path="url(#clip0_2206_55)">
+                      <g clipPath="url(#clip0_2206_55)">
                         <path
                           d="M2.79329 3.86053H0.384268C0.277352 3.86053 0.19072 3.94721 0.19072 4.05408V11.7932C0.19072 11.9001 0.277352 11.9868 0.384268 11.9868H2.79329C2.9002 11.9868 2.98684 11.9001 2.98684 11.7932V4.05408C2.98684 3.94721 2.9002 3.86053 2.79329 3.86053Z"
                           fill="#757575"
@@ -397,7 +449,7 @@ export default function Welcome_founder() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g clip-path="url(#clip0_2206_60)">
+                      <g clipPath="url(#clip0_2206_60)">
                         <path
                           d="M5.9768 0.164062C2.67633 0.164062 0 2.83992 0 6.14086C0 8.78161 1.71253 11.022 4.08731 11.8123C4.386 11.8676 4.49569 11.6826 4.49569 11.5247C4.49569 11.3822 4.49011 10.9114 4.48758 10.412C2.82478 10.7735 2.47392 9.70678 2.47392 9.70678C2.20205 9.01594 1.81031 8.83228 1.81031 8.83228C1.26806 8.46131 1.85119 8.46891 1.85119 8.46891C2.45138 8.51109 2.76741 9.08484 2.76741 9.08484C3.30047 9.99858 4.16559 9.73439 4.50666 9.58172C4.56028 9.19538 4.7152 8.93175 4.88611 8.7825C3.55861 8.63133 2.16305 8.11884 2.16305 5.82872C2.16305 5.17622 2.39653 4.64302 2.77889 4.22447C2.71683 4.07391 2.51227 3.46603 2.83678 2.64277C2.83678 2.64277 3.33867 2.48212 4.48083 3.25542C4.95755 3.12295 5.46886 3.05658 5.9768 3.05433C6.48474 3.05658 6.99642 3.12295 7.47408 3.25542C8.61488 2.48212 9.11606 2.64277 9.11606 2.64277C9.44138 3.46603 9.23672 4.07391 9.17466 4.22447C9.55786 4.64302 9.78975 5.17617 9.78975 5.82872C9.78975 8.12428 8.39156 8.62978 7.06069 8.77772C7.27505 8.9632 7.46606 9.32695 7.46606 9.88453C7.46606 10.6842 7.45913 11.3279 7.45913 11.5247C7.45913 11.6838 7.5667 11.8702 7.8697 11.8115C10.2432 11.0203 11.9535 8.78072 11.9535 6.14086C11.9535 2.83992 9.27759 0.164062 5.9768 0.164062Z"
                           fill="#757575"
