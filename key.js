@@ -1,5 +1,5 @@
-const API_KEY = "https://vertx-server-817384216349.us-central1.run.app";
-export const Chat_key = "https://backend-chat-817384216349.us-central1.run.app"
+const API_KEY = "https://auth.govertx.com";
+export const Chat_key = "https://chat.govertx.com"
 // https://vertx-server-eight.vercel.app/
 // export const API_KEY = "http://localhost:5000";
 // export const Chat_key = "http://localhost:5001"
