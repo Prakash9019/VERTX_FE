@@ -72,7 +72,7 @@ export default function LandingAuth({
       setResp(response?.data?.msg);
       if (response?.status == 200) {
         // Set success message
-        setSuccessMessage("Authentication Success");
+        setSuccessMessage("Login Successfully!");
         setErrorMessage("");
 
         localStorage.setItem("token", response?.data?.token);
