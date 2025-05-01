@@ -234,9 +234,12 @@ export default function Listall() {
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
       <div
         className={`${
-          isMobile ? "px-4 pb-24 pt-3" : "w-full px-4 mx-auto mt-16"
+          isMobile ? "px-4 pb-24 pt-3" : "w-full mx-auto mt-16 px-2 "
         } overflow-y-auto`}
-        style={{ fontFamily: "Manrope", letterSpacing: "-4%" }}
+        style={{
+          fontFamily: "Manrope",
+          letterSpacing: "-4%",
+        }}
       >
         {!users.length || currentIndex >= users.length || users.length <= 0 ? (
           <div className="flex flex-col items-center justify-center h-screen">
