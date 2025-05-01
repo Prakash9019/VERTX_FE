@@ -1,74 +1,74 @@
-"use client"
+"use client";
 
-import { useNavigate } from "react-router"
-import "./style.css"
-import { useState, useEffect } from "react"
-import { createPortal } from "react-dom"
-import LandingAuth from "../../screens/landing/index"
-import Signup from "../../screens/auth/signup"
+import { useNavigate } from "react-router";
+import "./style.css";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import LandingAuth from "../../screens/landing/index";
+import Signup from "../../screens/auth/signup";
 
 export default function Card({ data }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function capitalizeWords(str) {
     return str
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" ")
+      .join(" ");
   }
 
-  const [show, setShow] = useState(false)
-  const [showAuthPopup, setShowAuthPopup] = useState(false)
-  const [showSignupPopup, setShowSignupPopup] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [show, setShow] = useState(false);
+  const [showAuthPopup, setShowAuthPopup] = useState(false);
+  const [showSignupPopup, setShowSignupPopup] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Check if device is mobile
   useEffect(() => {
     const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
+      setIsMobile(window.innerWidth <= 768);
+    };
 
     // Initial check
-    checkIfMobile()
+    checkIfMobile();
 
     // Add event listener for window resize
-    window.addEventListener("resize", checkIfMobile)
+    window.addEventListener("resize", checkIfMobile);
 
     // Cleanup
     return () => {
-      window.removeEventListener("resize", checkIfMobile)
-    }
-  }, [])
+      window.removeEventListener("resize", checkIfMobile);
+    };
+  }, []);
 
   const openPopup = () => {
     if (!localStorage.getItem("token")) {
-      setShowAuthPopup(true)
-      document.body.style.overflow = "hidden" // Prevent scrolling
-      return
+      setShowAuthPopup(true);
+      document.body.style.overflow = "hidden"; // Prevent scrolling
+      return;
     }
-    setShow(true)
-    document.body.style.overflow = "hidden" // Prevent scrolling of background content
-  }
+    setShow(true);
+    document.body.style.overflow = "hidden"; // Prevent scrolling of background content
+  };
 
   const handleCloseAuthPopup = () => {
-    setShowAuthPopup(false)
-    document.body.style.overflow = "auto" // Restore scrolling
-  }
+    setShowAuthPopup(false);
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
 
   const handleShowSignupFromAuth = () => {
-    setShowAuthPopup(false)
-    setShowSignupPopup(true)
-  }
+    setShowAuthPopup(false);
+    setShowSignupPopup(true);
+  };
 
   const handleCloseSignupPopup = () => {
-    setShowSignupPopup(false)
-    document.body.style.overflow = "auto" // Restore scrolling
-  }
+    setShowSignupPopup(false);
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
 
   const hide = () => {
-    setShow(false)
-    document.body.style.overflow = "auto" // Restore scrolling
-  }
+    setShow(false);
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
 
   return (
     <div className="pcard" onClick={openPopup}>
@@ -99,9 +99,16 @@ export default function Card({ data }) {
         ) : (
           // Popup on desktop
           <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={handleCloseAuthPopup}></div>
+            <div
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+              onClick={handleCloseAuthPopup}
+            ></div>
             <div className="z-50" onClick={(e) => e.stopPropagation()}>
-              <LandingAuth onClose={handleCloseAuthPopup} isPopup={true} onCreateAccount={handleShowSignupFromAuth} />
+              <LandingAuth
+                onClose={handleCloseAuthPopup}
+                isPopup={true}
+                onCreateAccount={handleShowSignupFromAuth}
+              />
             </div>
           </div>
         ))}
@@ -111,12 +118,19 @@ export default function Card({ data }) {
         (isMobile ? (
           // Full screen on mobile
           <div className="fixed inset-0 z-50 bg-white">
-            <Signup onClose={handleCloseSignupPopup} isPopup={false} isFullScreen={true} />
+            <Signup
+              onClose={handleCloseSignupPopup}
+              isPopup={false}
+              isFullScreen={true}
+            />
           </div>
         ) : (
           // Popup on desktop
           <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={handleCloseSignupPopup}></div>
+            <div
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+              onClick={handleCloseSignupPopup}
+            ></div>
             <div className="z-50" onClick={(e) => e.stopPropagation()}>
               <Signup onClose={handleCloseSignupPopup} isPopup={true} />
             </div>
@@ -186,7 +200,11 @@ export default function Card({ data }) {
                       <div className="tags" style={{ marginTop: 10 }}>
                         {/* interested tags */}
                         {data?.stageOfInvestment?.map((item, index) => (
-                          <div key={index} className="tag" style={{ color: "grey", borderColor: "grey" }}>
+                          <div
+                            key={index}
+                            className="tag"
+                            style={{ color: "grey", borderColor: "grey" }}
+                          >
                             {item}
                           </div>
                         ))}
@@ -199,7 +217,11 @@ export default function Card({ data }) {
                       <div className="tags" style={{ marginTop: 15 }}>
                         {/* interested tags */}
                         {data?.investmentCountries.map((country, index) => (
-                          <div key={index} className="tag" style={{ color: "grey", borderColor: "grey" }}>
+                          <div
+                            key={index}
+                            className="tag"
+                            style={{ color: "grey", borderColor: "grey" }}
+                          >
                             {country}
                           </div>
                         ))}
@@ -218,17 +240,24 @@ export default function Card({ data }) {
                 </p>
 
                 {typeof data?.industry === "string" ? (
-                  <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
+                  <div
+                    className="tag2"
+                    style={{
+                      marginTop: 10,
+                      color: "grey",
+                      borderColor: "grey",
+                    }}
+                  >
                     {data?.industry}
                   </div>
                 ) : (
-                  <div className="flex flex-row gap-2">
+                  <div className="flex flex-row gap-2 flex-wrap py-2">
                     {data?.industry?.map((ind, index) => (
                       <div
                         key={index}
                         className="tag2"
                         style={{
-                          marginTop: 10,
+                          marginTop:1,
                           color: "grey",
                           borderColor: "grey",
                         }}
@@ -243,7 +272,10 @@ export default function Card({ data }) {
                 <p className="sidehead" style={{ marginTop: 15 }}>
                   Global HQ
                 </p>
-                <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
+                <div
+                  className="tag2"
+                  style={{ marginTop: 10, color: "grey", borderColor: "grey" }}
+                >
                   {data?.global_Hq ? data.global_Hq : data.globalHQ}
                 </div>
               </div>
@@ -253,8 +285,19 @@ export default function Card({ data }) {
                 </p>
 
                 <div className="flex flex-row gap-2">
-                  <div className="tag2" style={{ marginTop: 10, color: "grey", borderColor: "grey" }}>
-                    <a href={data?.website} target="_blank" rel="noopener noreferrer">
+                  <div
+                    className="tag2"
+                    style={{
+                      marginTop: 10,
+                      color: "grey",
+                      borderColor: "grey",
+                    }}
+                  >
+                    <a
+                      href={data?.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Website
                     </a>
                   </div>
@@ -267,7 +310,11 @@ export default function Card({ data }) {
                         borderColor: "grey",
                       }}
                     >
-                      <a href={data?.linkedinPersonal} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={data?.linkedinPersonal}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Linkedin Personal
                       </a>
                     </div>
@@ -281,7 +328,11 @@ export default function Card({ data }) {
                         borderColor: "grey",
                       }}
                     >
-                      <a href={data?.linkedinCompany} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={data?.linkedinCompany}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Linkedin Company
                       </a>
                     </div>
@@ -295,7 +346,11 @@ export default function Card({ data }) {
                         borderColor: "grey",
                       }}
                     >
-                      <a href={data?.twitter} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={data?.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Twitter
                       </a>
                     </div>
@@ -309,7 +364,11 @@ export default function Card({ data }) {
                         borderColor: "grey",
                       }}
                     >
-                      <a href={`mailto:${data?.email}`} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={`mailto:${data?.email}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Email
                       </a>
                     </div>
@@ -323,7 +382,11 @@ export default function Card({ data }) {
                         borderColor: "grey",
                       }}
                     >
-                      <a href={data?.crunchbase} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={data?.crunchbase}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Crunchbase
                       </a>
                     </div>
@@ -332,8 +395,8 @@ export default function Card({ data }) {
               </div>
             </div>
           </div>,
-          document.body,
+          document.body
         )}
     </div>
-  )
+  );
 }

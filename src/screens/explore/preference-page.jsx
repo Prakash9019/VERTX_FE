@@ -167,7 +167,7 @@ export default function PreferenceSet() {
               </div>
             )}
 
-            <div className="flex justify-between mt-6 w-full">
+            <div className="flex justify-between mt-6 mb-8 sm:mb-0 w-full">
               <button className="bg-[#1D1C1C] text-white font-bold py-2 px-8 rounded-[10px] text-lg w-[32%]" onClick={() => navigate(-1)}>
                 Back
               </button>
