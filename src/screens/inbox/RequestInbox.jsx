@@ -28,6 +28,7 @@ const RequestInbox = ({ userId }) => {
             const res = await axios.get(
               `${Chat_key}/api/messages/${userId}/${activeChat}`
             );
+            console.log(res.data)
             setMessages(res.data);
           } catch (err) {
             console.error("Error fetching messages:", err);
@@ -58,6 +59,7 @@ const RequestInbox = ({ userId }) => {
 
   const fetchRequests = async () => {
     const res = await axios.get(`${Chat_key}/api/connections/requests/${userId}`);
+    // console.log(res.data)
     setRequests(res.data);
   };
 
@@ -239,7 +241,7 @@ const RequestInbox = ({ userId }) => {
 
           <div className="flex items-center flex-1">
             <div className="w-10 h-10 rounded-full overflow-hidden mr-4">
-            {message.user.avatar?  <img src={message.user.avatar || "/placeholder.svg"} alt={message.firstName} className="w-full h-full object-cover" /> :
+            {message.user?.avatar?  <img src={message.user.avatar || "/placeholder.svg"} alt={message.firstName} className="w-full h-full object-cover" /> :
                   <svg
                   className="w-full h-full object-cover"
                   viewBox="0 0 469 469"
@@ -268,14 +270,14 @@ const RequestInbox = ({ userId }) => {
               }
             </div>
             <div>
-              <h3 className="font-medium text-sm">{message.user.firstName + "   " +message.user.lastName}</h3>
+              <h3 className="font-medium text-sm">{message.user?.firstName + "   " +message.user?.lastName}</h3>
             </div>
           </div>
           <div className="flex items-center justify-center flex-1">
             <span className="bg-black text-xs px-3 py-1 rounded-full border border-[#757575] border-opacity-25">Requested</span>
           </div>
           <div className="flex-1 text-right">
-            <span className="text-xs text-white">{message.createdAt}</span>
+            <span className="text-xs text-white">{message?.createdAt}</span>
           </div>
         </div>
       )) :  

@@ -254,21 +254,27 @@
     margin-top: 15px;
 }
 
-.flow .chatsec.mb .output .wrap .list .item{
+.flow .chatsec.mb .output .wrap .list .item {
     font-size: 13px;
     margin-bottom: 5px;
     font-weight: 400;
-    opacity: 0;
-    animation: fade 2s ease forwards;
+
+    /* Animation */
+    animation: fade 3s ease;
+
+    /* Performance optimization */
 }
 
 @keyframes fade {
-    from{
+    0% {
         opacity: 0;
-    }to{
+    }
+    100% {
         opacity: 1;
     }
 }
+
+
 
 .flow .chatsec.mb .output .row{
     width: 100%;
