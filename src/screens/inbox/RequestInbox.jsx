@@ -282,8 +282,8 @@ const RequestInbox = ({ userId }) => {
       
       <div className="flex-grow -mt-7 bg-black rounded-lg p-2" style={{ height: '500px', borderRadius: '10px' }}>
       <div className="flex flex-col items-center justify-center h-full">
-      <p className="text-gray-400">No messages found. All message requests you receive to connect will appear here.</p>
-      <p className='text-white font-bold'> Connect Now</p>
+      <p className="text-gray-400 text-center">No messages found. All message requests you receive to connect will appear here.</p>
+      <p className='text-white font-bold mt-2'> Connect Now</p>
     </div> 
     </div> }
     </div>

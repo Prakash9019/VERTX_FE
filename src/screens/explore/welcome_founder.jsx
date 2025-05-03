@@ -86,32 +86,30 @@ export default function Welcome_founder() {
       ...formData,
       [name]: value,
     };
-  
+
     setFormData(updatedFormData);
-  
+
     // Create a copy of errors
     const updatedErrors = { ...errors };
-  
+
     // Remove error for the individual field
     if (updatedErrors[name]) {
       delete updatedErrors[name];
     }
-  
+
     // Remove 'links' error if any one link is filled
-    if (
-      ["portfolioLink", "linkedinLink", "github", "twitter"].includes(name)
-    ) {
+    if (["portfolioLink", "linkedinLink", "github", "twitter"].includes(name)) {
       const atLeastOneLink =
         updatedFormData.portfolioLink.trim() ||
         updatedFormData.linkedinLink.trim() ||
         updatedFormData.github.trim() ||
         updatedFormData.twitter.trim();
-  
+
       if (atLeastOneLink) {
         delete updatedErrors.links;
       }
     }
-  
+
     setErrors(updatedErrors);
   };
 
@@ -374,6 +372,11 @@ export default function Welcome_founder() {
                 )}
               </label>
 
+              {showError.links && errors.links && (
+                <p className="text-red-500 text-sm">{errors.links}</p>
+              )}
+
+              
               <div className="space-y-2">
                 <div className="flex items-center border-b-[1px] mb-2 border-[#1D1C1C] pb-1">
                   <span className="mr-2 ">

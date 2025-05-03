@@ -427,7 +427,7 @@ export default function Bio() {
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
       <div
         className={`${
-          isMobile ? "px-4 pb-24 pt-3" : "w-full px-4 mx-auto mt-16"
+          isMobile ? "px-4 pb-24 pt-3" : "w-full px-4 mx-auto " //mt-16 removed
         } overflow-y-auto`}
         style={{ fontFamily: "Manrope", letterSpacing: "-4%" }}
       >
@@ -954,7 +954,7 @@ export default function Bio() {
                 )}
                 {/* Projects Section */}
                 <div
-                  className="p-4 sm:p-6 "
+                  className="p-4 sm:px-6 sm:py-0 "
                   style={{
                     background: "#111111",
                     borderColor: "#757575",
@@ -965,7 +965,7 @@ export default function Bio() {
                   <div className="flex items-center justify-between mb-5">
                     <h2 className="text-xl sm:text-2xl font-bold">Projects</h2>
                     <button
-                      className="text-white bg-transparent border-none text-sm sm:text-base"
+                      className="text-white bg-transparent border rounded-md p-1 px-2 text-sm sm:text-base"
                       onClick={handleAddProject}
                     >
                       + Add Project

@@ -748,14 +748,16 @@ export default function Outreach2() {
             )}
           </div>
 
+          {/* pagination  */}
           {!bookmarked && !womenLed && investors.length > 0 && (
             <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 flex justify-center items-center">
               <button
-                className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md mr-2"
+                className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md"
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
               >
-                Previous
+                <span className="block sm:hidden">Prev</span>
+                <span className="hidden sm:block">Previous</span>
               </button>
               <div
                 ref={paginationScrollRef}
@@ -793,11 +795,12 @@ export default function Outreach2() {
           {womenLed && womenInv.length > 0 && (
             <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 flex justify-center items-center">
               <button
-                className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md mr-2"
+                className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md"
                 disabled={currentPage1 === 1}
                 onClick={() => handlePageChange1(currentPage1 - 1)}
               >
-                Previous
+                <span className="block sm:hidden">Prev</span>
+                <span className="hidden sm:block">Previous</span>
               </button>
               <div
                 ref={paginationScrollRef1}
