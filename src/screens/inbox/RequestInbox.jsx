@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import {Chat_key} from "../../../key";
 import { ArrowLeft, Heart } from "lucide-react"
 import GeneralInbox from "./GeneralInbox";
-const socket = io("https://backend-chat-817384216349.us-central1.run.app", {
+const socket = io("https://chat.govertx.com", {
   transports: ["websocket", "polling"],
   withCredentials: true
 });
