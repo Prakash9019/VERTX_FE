@@ -548,6 +548,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         height: "48px",
                         fontWeight: "bold",
                       }}
+                      onClick={()=>{  navigate("/flow/match flow")}}
                     >
                       <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
                         <span

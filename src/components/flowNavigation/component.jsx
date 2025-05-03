@@ -73,7 +73,7 @@ export default function FlowNav() {
             <p className="i">Doc Flow</p>
           </div>
         </a>
-        <a href="/">
+        <a href="/pitch-deck">
           <div className="nitem">
             <svg
               width="18"
@@ -90,12 +90,12 @@ export default function FlowNav() {
             <p className="i">Pitch Deck</p>
           </div>
         </a>
-        <a href="/">
+        {/* <a href="/">
           <div className="nitem">
             <ion-icon name="build-outline"></ion-icon>
             <p className="i">Resources</p>
           </div>
-        </a>
+        </a> */}
         <div className="creds">$5000 Credits</div>
       </div>
     </div>

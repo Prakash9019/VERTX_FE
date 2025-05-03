@@ -21,9 +21,9 @@ export default function Nopage() {
       <div className="wrapper" style={{ width: "80%" }}>
         <img src={logo} alt="" className="logo-sn" />
         <p className="title" style={{ fontSize: "30px", marginBottom: "0px" }}>
-          404, Not Found
+           Not Found
         </p>
-        <p className="sub">Page you are looking for got vanished!!</p>
+        <p className="sub">This pages are still in development</p>
         <div
           style={{
             // width: "35%",
