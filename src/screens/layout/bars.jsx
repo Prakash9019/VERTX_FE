@@ -11,6 +11,7 @@ import API_KEY from "../../../key";
 import Signup from "../auth/signup";
 import TermsAndConditions from "../More/TermsandConditions";
 import PrivacyPolicy from "../More/PrivacyPolicy";
+import SettingsV from "../More/Settings";
 // Header Component
 export function Header({ sidebarOpen, setSidebarOpen }) {
   const [isMobile, setIsMobile] = useState(false);
@@ -21,6 +22,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   const [showLoginPage, setShowLoginPage] = useState(false);
   const [showSignupPopup, setShowSignupPopup] = useState(false);
   const navigate = useNavigate();
+  const [showSettingsPopup, setShowSettingsPopup] = useState(false);
   // Check if device is mobile based on screen width
   useEffect(() => {
     const checkIsMobile = () => {
@@ -42,6 +44,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
       setShowAuthPage(true);
     }
   };
+
   const handleCloseAuthPage = () => {
     setShowAuthPage(false);
     setShowLoginPage(false);
@@ -62,7 +65,13 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
     window.location.href = "/";
   };
   const handleTermsClick = () => {
+    navigate("/terms");
     setShowTermsPopup(true);
+    setShowProfilePopup(false);
+  };
+  const handleSettingsClick = () => {
+    navigate("/settings");
+    setShowSettingsPopup(true);
     setShowProfilePopup(false);
   };
 
@@ -71,6 +80,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   };
 
   const handlePrivacyClick = () => {
+    navigate("/privacy");
     setShowPrivacyPopup(true);
     setShowProfilePopup(false);
   };
@@ -129,7 +139,10 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
                       label: "Overview",
                       action: handleOverviewClick,
                     },
-                    { icon: "settings", label: "Settings" },
+                    { icon: "settings",
+                      label: "Settings",
+                      action: handleSettingsClick
+                    },
                     {
                       icon: "favorite",
                       label: "Community",
@@ -193,6 +206,9 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
           {showTermsPopup && (
             <TermsAndConditions onClose={() => setShowTermsPopup(false)} />
           )}
+          {showSettingsPopup && (
+            <SettingsV onClose={() => setShowSettingsPopup(false)} />
+          )}
 
           {/* Privacy Policy Popup */}
           {showPrivacyPopup && (
@@ -214,6 +230,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [showDesktopProfilePopup, setShowDesktopProfilePopup] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
   const [showPrivacyPopup, setShowPrivacyPopup] = useState(false);
+    const [showSettingsPopup, setShowSettingsPopup] = useState(false);
   // Check if device is mobile based on screen width
   useEffect(() => {
     const checkIsMobile = () => {
@@ -269,6 +286,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     localStorage.removeItem("exe");
     window.location.href = "/";
   };
+  // On small devices close button reload and redirect issue
   const handlePrivacyClick = () => {
     navigate("/privacy");
     setShowPrivacyPopup(true);
@@ -279,6 +297,11 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     setShowTermsPopup(true);
     setShowDesktopProfilePopup(false);
   };
+  const handleSettingsClick = () => {
+    navigate("/settings");
+    setShowSettingsPopup(true);
+    setShowDesktopProfilePopup(false);
+  };
   const handleCommunityClick = () => {
     navigate("/community");
   };
@@ -286,6 +309,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
     navigate("/explore/bio");
     setShowDesktopProfilePopup(false);
   };
+
+
+  
   // Updated navigation handler
   const handleNavigation = async (route) => {
     if (route === "explore" && !localStorage.getItem("token")) {
@@ -510,12 +536,12 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             <path
                               d="M234.184 308.838C284.45 308.838 325.199 268.089 325.199 217.823C325.199 167.557 284.45 126.808 234.184 126.808C183.918 126.808 143.169 167.557 143.169 217.823C143.169 268.089 183.918 308.838 234.184 308.838Z"
                               fill="#EEEEEE"
-                              fill-opacity="0.933333"
+                              fillOpacity="0.933333"
                             />
                             <path
                               d="M379.86 417.556C339.877 449.371 289.26 468.37 234.186 468.37C179.112 468.37 128.496 449.371 88.5095 417.556C117.79 374.542 172.07 345.654 234.186 345.654C296.302 345.654 350.587 374.535 379.86 417.556Z"
                               fill="#EEEEEE"
-                              fill-opacity="0.933333"
+                              fillOpacity="0.933333"
                             />
                           </svg>
                         </div>
@@ -663,7 +689,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       label: "Overview",
                       action: handleOverviewClick,
                     },
-                    { icon: "settings", label: "Settings" },
+                    { icon: "settings", label: "Settings",
+                    action: handleSettingsClick
+                    },
                     {
                       icon: "favorite",
                       label: "Community",

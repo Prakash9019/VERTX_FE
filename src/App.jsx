@@ -44,6 +44,7 @@ import List from "./screens/explore/List.jsx";
 import Inbox from "./screens/inbox/inbox.jsx";
 import Listall from "./screens/explore/Listall.jsx";
 import GeneralInbox from "./screens/inbox/GeneralInbox.jsx";
+import SettingsV from "./screens/More/Settings.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -89,6 +90,7 @@ function App() {
 
       <Route path="/privacy" element={<PrivacyPolicy /> } />
       <Route path="/terms" element={<TermsAndConditions /> } />
+      <Route path="/settings" element={<SettingsV /> } />
 
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/explore/putaface" element={<Put_a_face /> } />
