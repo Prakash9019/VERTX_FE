@@ -1,0 +1,168 @@
+.admin{
+    width: 100%;
+    height: 100vh;
+    background: black;
+    background-image: radial-gradient(#1c1c1c 1.55px, #000000 1.55px);
+    background-size: 45px 45px;
+}
+
+.admin .topbar{
+    width: 100%;
+    height: 60px;
+    background: #090909;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1c1c1c;
+    padding: 0 30px;
+}
+
+.admin .topbar .title{
+    color: white;
+    font-family: "Kode Mono";
+}
+
+.admin .section{
+    width: 100%;
+    height: calc(100% - 60px);
+    padding: 40px;
+}
+
+.admin .section .graph{
+    width: max-content;
+    height: max-content;
+    font-family: "Manrope";
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: grey;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+.admin .section .graph .title{
+    font-size: 15px;
+    margin-bottom: 20px;
+    font-family: "Kode Mono";
+}
+
+.admin .section .graph .title span{
+    font-size: 12px;
+}
+
+
+.admin .section .graph .gcont{
+    width: max-content;
+    height: 250px;
+    border: 1px solid #303030;
+    display: flex;
+    padding: 15px;
+    border-radius: 10px;
+    background: #0d0d0d;
+}
+
+.admin .section .graph .gcont .labs{
+    width: 30px;
+    height: 100%;
+    border-right: 2px solid #222222;
+    display: grid;
+    grid-template-rows: 1fr 30px;
+}
+
+.admin .section .graph .gcont .labs .ls{
+    border-bottom: 2px solid #222222;
+    padding-right: 5px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.admin .section .graph .gcont .labs .ls .lab{
+    height: calc(100% / 5);
+    width: 100%;
+}
+
+.admin .section .graph .gcont .graph-cont{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 30px;
+}
+
+.admin .section .graph .gcont .graph-cont .labs-hor{
+    border-top: 2px solid #222222;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 40px);
+    padding: 0 5px;
+    gap: 1px;
+}
+
+.admin .section .graph .gcont .graph-cont .labs-hor .lab{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+}
+
+.admin .section .graph .gcont .graph-cont .bars{
+    width: 100%;
+    padding: 0 5px;
+    height: 100%;
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(12, 40px);
+    align-items: flex-end;
+    padding-top: 5px;
+}
+
+.admin .section .graph .gcont .graph-cont .bars .bar{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.admin .section .graph .gcont .graph-cont .bars .bar  .level .ct{
+    position: absolute;
+    position: relative;
+    top: -20px;
+    left: 30%;
+    background: #212121;
+    width: max-content;
+    color: white;
+    height: max-content;
+    padding: 5px;
+    font-family: "Kode Mono";
+    border: 1px solid #464646;
+    border-radius: 5px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.admin .section .graph .gcont .graph-cont .bars .bar:hover .level .ct {
+    opacity: 1;
+}
+
+.admin .section .graph .gcont .graph-cont .bars .bar .level{
+    width: 30px;
+    background: #232323;
+    border-radius: 4px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 1px solid #2c2c2c;
+    border-bottom: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, #232323 32px, #232323 64px);
+    background-color: #171717;
+}
+
+.admin .section .graph .gcont .graph-cont .bars .bar:hover .level{
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 32px, #5bd6ff 32px, #5bd6ff 64px);
+    background-color: #60aaff;
+    border: 1px solid #5bd6ff;
+}

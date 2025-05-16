@@ -1,0 +1,516 @@
+.flow {
+    width: 100%;
+    height: 100vh;
+    background: black;
+    gap: 10px;
+    overflow: hidden;
+}
+
+
+.flow .topbar {
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #75757569;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    color: white;
+    font-family: "Kode Mono";
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.flow .topbar .tag {
+    width: max-content;
+    height: max-content;
+    border: 1px dashed #2b2b2b;
+    background: #161616;
+    padding: 5px;
+    color: gold;
+    font-size: 12px;
+    border-radius: 5px;
+    font-size: 11px;
+}
+
+.flow .topbar div {
+    width: max-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flow .topbar div.btns {
+    font-size: 13px;
+    width: max-content;
+    height: max-content;
+    padding: 6px 14px;
+    /* border: 1px solid #8ff52a36; */
+    background: linear-gradient(35deg, #a1a1a1db, #fffffff7, #a1a1a1db);
+    border-radius: 50px;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
+}
+
+.flow .topbar .title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.flow .topbar .logo {
+    width: 25px;
+    height: auto;
+}
+
+.flow .chatsec{
+    width: 100%;
+    height: calc(100% - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    font-family: "Manrope";
+}
+
+
+.flow .chatsec .title{
+    font-size: 30px;
+    background: linear-gradient(35deg, #07c566, #fff, #066a57);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+    width: 40%;
+    margin-bottom: 5px;
+}
+.flow .chatsec .sub {
+    margin-bottom: 40px;
+    text-align: left;
+    width: 40%;
+    font-size: 13px;
+    color: #757575;
+}
+
+.flow .chatsec .hold{
+    width: 40%;
+    height: max-content;
+    box-shadow: 0 0 28px #39fff521;
+    border-radius: 20px;
+}
+
+.flow .chatsec .hold .prompt{
+    width: 100%;
+    height: 100px;
+    color: white;
+    font-family: "manrope";
+    padding: 15px;
+    background: #101010;
+    border: 2px solid #323232;
+    border-radius: 20px;
+    font-size: 13px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 1px dashed #383838;
+    outline: none;
+}
+
+.flow .chatsec .hold .btns{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #101010;
+    border-radius: 20px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border: 2px solid #323232;
+    border-top: 0;
+    padding: 10px;
+}
+
+.flow .chatsec .hold .btns .upload{
+    width: max-content;
+    height: max-content;
+    border-radius: 10px;
+    padding: 7px 10px;
+    border: none;
+    color: #00b677;
+    font-family: "Manrope";
+    font-size: 12px;
+    background-color: #202020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.flow .chatsec .hold .btns .send{
+    width: max-content;
+    height: max-content;
+    border-radius: 10px;
+    padding: 7px 10px;
+    border: none;
+    color: #fff;
+    font-family: "Manrope";
+    font-size: 11px;
+    background-color: #009467;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.flow .chatsec .hold .btns .send .load{
+    width: 15px;
+    height: 15px;
+    border: 2.5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite; 
+
+}
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.flow .chatsec .hold .btns .upload ion-icon{
+    font-size: 15px;
+}
+
+.flow .chatsec.mb{overflow: hidden;}
+
+.flow .chatsec.mb .output{
+    width: 40%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0%;
+    background: #151515;
+    border-left: 1px solid #252525;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    opacity: 0;
+    animation: sout 1s ease forwards;
+    overflow-y: scroll;
+}
+
+@keyframes sout {
+    from{
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+}
+
+.flow .chatsec.mb .output .wrap{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.flow .chatsec.mb .output .wrap .subtitle{
+    font-weight: 600;
+}
+
+.flow .chatsec.mb .output .wrap .subtitle span{
+    color: gold;
+}
+
+.flow .chatsec.mb .output .wrap .level{
+    width: 100%;
+    height: 20px;
+    background: #1a1a1a;
+    border: 1px solid #292929;
+    overflow: hidden;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.flow .chatsec.mb .output .wrap .level .bar{
+    width: 0;
+    height: 100%;
+    background: linear-gradient(to right, #a4ffeb, #20c085);
+    border-radius: 20px;
+}
+
+.flow .chatsec.mb .output .wrap .list{
+    width: 100%;
+    height: max-content;
+    padding: 0 20px;
+    margin-top: 15px;
+}
+
+.flow .chatsec.mb .output .wrap .list .item {
+    font-size: 13px;
+    margin-bottom: 5px;
+    font-weight: 400;
+
+    /* Animation */
+    animation: fade 3s ease;
+
+    /* Performance optimization */
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+.flow .chatsec.mb .output .row{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.flow .chatsec.mb .output .row .back{
+    width: max-content;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.flow .chatsec.mb .output .row .en{
+    width: max-content;
+    height: max-content;
+    padding: 5px 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    background: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 946px) {
+    .flow .chatspace .output .row .back{
+        width: max-content;
+        height: max-content;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        font-size: 13px;
+        cursor: pointer;
+        margin-bottom: 30px;
+    }
+    
+    .flow .chatspace .output .row .en{
+        width: max-content;
+        height: max-content;
+        padding: 5px 13px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        font-size: 13px;
+        background: white;
+        color: black;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+    .flow .topbar div.btns,
+  .flow .chatsec.mb{
+    display: none;
+  } 
+  .flow{
+    background: #0b0b0b;
+  }
+  .flow .topbar{
+    border-bottom: none;
+  }
+
+  .flow .chatspace{
+      width: 100%;
+      height: calc(100vh - 70px);
+      position: relative;
+      display:grid;
+      grid-template-rows: 1fr 70px;
+      justify-items: center;
+    }
+    .flow .chatspace .main,
+    .flow .chatspace .mainsub{
+        color: white;
+        padding: 0 20px;
+        font-family: "Manrope";
+        text-align: center;
+    }
+    
+    .flow .chatspace .main{
+        font-family: "Manrope";
+        font-size: 25px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .flow .chatspace .mainsub{
+        color: grey;
+        font-size: 14px;
+        width: 80%;
+    }
+    
+    .flow .chatspace .float{
+        width: 90%;
+        height: max-content;
+        display: grid;
+        grid-template-columns: 1fr 40px 40px;
+        gap: 10px;
+        justify-items: center;
+        position: fixed;
+        bottom: 15px;
+    }
+    .flow .chatspace .float .inp{
+        height: 100%;
+        border: 1px solid #383838;
+        background: #141414;
+        color: white;
+        margin-bottom: 0;
+        border-radius: 15px;
+        outline: none;
+        padding: 0 20px;
+        font-size: 15px;
+        font-weight: 400;
+    }
+    .flow .chatspace .float .btn{
+        width: 50px;
+        height: 50px;
+        background: #141414;
+        border: 1px solid #383838;
+        color: white;
+        font-size: 15px;
+        border-radius: 15px;
+        background: radial-gradient(#303030, black);
+    }
+
+    .flow .chatspace .dat{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flow .chatspace .output {
+        width: 100%;
+        font-family: "Manrope";
+        height: 100%;
+        background: #151515;
+        color: white;
+        border-left: 1px solid #252525;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        opacity: 0;
+        animation: sout 1s ease forwards;
+        overflow-y: scroll;
+    }
+
+    @keyframes sout {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .flow .chatspace .output .wrap {
+        width: 100%;
+        height: max-content;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .flow .chatspace .output .wrap .subtitle {
+        font-weight: 600;
+    }
+
+    .flow .chatspace .output .wrap .subtitle span {
+        color: gold;
+    }
+
+    .flow .chatspace .output .wrap .level {
+        width: 100%;
+        height: 20px;
+        background: #1a1a1a;
+        border: 1px solid #292929;
+        overflow: hidden;
+        margin-top: 10px;
+        border-radius: 20px;
+    }
+
+    .flow .chatspace .output .wrap .level .bar {
+        width: 0;
+        height: 100%;
+        background: linear-gradient(to right, #a4ffeb, #20c085);
+        border-radius: 20px;
+    }
+
+    .flow .chatspace .output .wrap .list {
+        width: 100%;
+        height: max-content;
+        padding: 0 20px;
+        margin-top: 15px;
+    }
+
+    .flow .chatspace .output .wrap .list .item {
+        font-size: 13px;
+        margin-bottom: 5px;
+        font-weight: 400;
+        opacity: 0;
+        animation: fade 2s ease forwards;
+    }
+
+    @keyframes fade {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .flow .chatspace .output .row {
+        width: 100%;
+        height: max-content;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

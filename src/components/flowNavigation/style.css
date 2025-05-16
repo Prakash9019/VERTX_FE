@@ -1,0 +1,187 @@
+
+  .flownav .trg{
+    width: 40px;
+    height: 40px;
+    border: 1px solid #252525;
+    background-color: #101010;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #b1b1b1;
+    position: absolute;
+    top: 40px;
+    right: -20px;
+    font-size: 20px;
+    cursor: pointer;
+    background: #00000042;
+    backdrop-filter: blur(10px);
+  }
+  
+  .flownav{
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    border-right: 1px solid #252525;
+    background-color: #101010;
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+    z-index: 4;
+    background-image: radial-gradient(#222222 1.5px, transparent 1.5px);
+    background-size: 32px 32px;
+    background-color: #101010;
+}
+
+  .flownav.open{
+    transform: translateX(0%);
+}
+
+  .flownav.close{
+    transform: translateX(-100%);
+}
+
+  .flownav .title{
+    font-family: "Kode Mono";
+    color: white;
+    border-bottom: 1px solid #252525;
+    font-size: 20px;
+    font-weight: 700;
+    width: 100%;
+    height: max-content;
+    padding: 20px 30px;
+    background-color: #101010;
+}
+
+
+  .flownav .menu{
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+}
+
+  .flownav .menu .item{
+    width: 100%;
+    height: 65px;
+    gap: 2px;
+    display: grid;
+    grid-template-rows: 1fr 0.8fr;
+}
+
+  .flownav .menu .item .f1{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-family: "Manrope";
+    color: #6d6d6d;
+    size: 12px;
+}
+
+  .flownav .menu .item.sel .f1{
+    color: white;
+} 
+
+  .flownav .menu .item.sel .f1 .circle{
+    border: none;
+    background: rgb(5, 12, 156);
+    background: radial-gradient(circle, rgba(5, 12, 156, 1) 0%, rgba(73, 62, 255, 1) 100%);
+    /* box-shadow: 0 0 15px #6f67ff88; */
+}
+
+  .flownav .menu .item.sel .f1 .mitem{
+    border: none;
+    background: rgb(5, 12, 156);
+    background: radial-gradient(circle, rgba(5, 12, 156, 1) 0%, #493eff 100%);
+    font-weight: 600;
+    /* box-shadow: 0 0 15px #6f67ff88; */
+}
+
+
+  .flownav .menu .item .f1 .circle{
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+    background: #292929;
+    border: 1px solid #777777;
+    display: flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
+  .flownav .menu .item .f1 .mitem{
+    width: 100%;
+    height: max-content;
+    font-size: 13px;
+    width: max-content;
+    height: max-content;
+    padding: 5px 15px;
+    background: #2929296d;
+    border: 1px solid #77777758;
+    border-radius: 5px;
+}
+
+  .flownav .menu .item .f2{
+    width: 100%;
+    height: 100%;
+    padding: 0 12.5px;
+}
+
+  .flownav .menu .item .f2 .line{
+    width: 1px;
+    height: 100%;
+    background: #464646;
+}
+
+  .flownav .menu a{
+    text-decoration: none;
+}
+
+  .flownav .menu .nitem{
+    width: 100%;
+    height: max-content;
+    padding: 9px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #929292;
+    font-family: "Manrope";
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+  .flownav .menu .nitem:hover{
+    background: #212121;
+    color: white;
+}
+
+  .flownav .menu .nitem .i{
+    font-size: 12px;
+}
+
+.flownav .creds{
+  font-size: 13px;
+  width: max-content;
+  height: max-content;
+  padding: 6px 14px;
+  /* border: 1px solid #8ff52a36; */
+  background: linear-gradient(35deg, #a1a1a1db, #fffffff7, #a1a1a1db);
+  border-radius: 50px;
+  font-weight: 700;
+  color: black;
+  cursor: pointer;
+  font-family: "Kode Mono";
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 946px) {
+  .flownav .trg{
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    right: -40px;
+  }
+}

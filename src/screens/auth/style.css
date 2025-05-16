@@ -1,0 +1,273 @@
+
+
+/* Add any custom styles needed for the auth components */
+.backdrop-blur {
+    backdrop-filter: blur(8px);
+  }
+  
+  .auth-popup {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+.auth-container{
+    width: 100%;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Manrope";
+    overflow: hidden;
+}
+
+
+.auth-container .logo-sn{
+    width: 70px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.auth-container .wrapper{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-container .wrapper .title{
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.btnWrap{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.subhead {
+    font-family: "Manrope";
+    color: #777777;
+    font-size: 13px;
+    font-weight: 800;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+.subhead span{
+    color: white;
+}
+
+.notification{
+    width: 100%;
+    height: 50px;
+    background-color: #1d1d1d;
+    color: white;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 600;
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    background-color: #0e0e0e;
+    opacity: 1;
+    background-image: linear-gradient(135deg, #000000 25%, transparent 25%), linear-gradient(225deg, #000000 25%, transparent 25%), linear-gradient(45deg, #000000 25%, transparent 25%), linear-gradient(315deg, #000000 25%, #0e0e0e 25%);
+    background-position: 25px 0, 25px 0, 0 0, 0 0;
+    background-size: 50px 50px;
+    background-repeat: repeat;  
+    animation: slidein 0.5s ease forwards;
+}
+
+@keyframes slidein {
+    from{
+        bottom: -50px
+    }to{
+        bottom: 0px
+    }
+}
+
+.loader {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+}
+
+.loader::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 4px solid #000;
+    animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes prixClipFix {
+    0% {
+        clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+    }
+
+    25% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+    }
+
+    50% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+    }
+
+    75% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)
+    }
+
+    100% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)
+    }
+}
+
+
+.auth-container .wrapper .sub{
+    color: #989898;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+.auth-container .logowrap {
+    width: max-content;
+    height: max-content;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-container .logowrap .logo-zn{
+    width: 250%;
+    height: auto;
+    animation: zoomout 2s linear forwards;
+}
+
+@keyframes zoomout {
+    0% {
+        width: 250%;
+    }
+    100% {
+        width: 80px;
+    }
+}
+
+
+.auth-container .logowrap .filter{
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, black, black);
+    position: absolute;
+    top: 0;
+    right: 0;
+    animation-delay: 2.5;
+    animation: logoanim 1s ease-in-out forwards;
+}
+
+
+@keyframes logoanim {
+    0% {
+        right: 0;
+    }
+
+    100% {
+        right: -250%;
+    }
+}
+
+
+.auth-container .ltitle{
+    color: white;
+    margin-top: 40px;
+    font-family: "Sacramento";
+    font-weight: 600;
+    font-size: 40px;
+    background-image: linear-gradient(to right, #9b9b9b, white, #9b9b9b);
+    color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeop 0.4s ease forwards;
+    animation-delay: 2.5s;
+}
+
+.auth-container .ltitle span{
+    font-family: "Kode Mono";
+    font-size: 22.6px;
+}
+
+.auth-container .lsub{
+    color: #727272;
+    font-family: "Manrope";
+    font-size: 13.5px;
+    margin-top: 10px;
+    width: 30%;
+    text-align: center;
+    opacity: 0;
+    animation: fadeop 0.5s ease forwards;
+    animation-delay: 2.7s;
+}
+
+.auth-container .btns{
+    width: 15%;
+    opacity: 0;
+    animation: fadeop 0.5s ease forwards;
+    animation-delay: 3s;
+}
+
+
+@keyframes fadeop {
+    from{
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+}
+
+
+@media only screen and (max-width: 946px){
+    .auth-container .lsub{
+        width: 80%;
+    }
+    .auth-container .ltitle{
+        font-size: 35px;
+    }
+    .auth-container .wrapper,
+    .auth-container .btns {
+        width: 80%;
+    }
+}

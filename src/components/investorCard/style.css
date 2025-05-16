@@ -1,0 +1,313 @@
+.backdrop {
+  width: 100%;
+  height: 100vh; /* Cover the entire screen */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; /* These four together are equivalent to inset-0 */
+  background: rgba(255, 255, 255, 0.3); /* White with 30% opacity */
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.backdrop::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.backdrop .popup {
+  width: 70%;
+  background: black;
+  border-radius: 20px;
+  border: 1px solid rgba(117, 117, 117, 0.41);
+  padding: 20px 30px;
+  padding-bottom: 40px;
+  margin: 20px 0;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.backdrop .popup::-webkit-scrollbar {
+  display: none;
+}
+
+.backdrop .popup .topsec {
+  width: 100%;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backdrop .popup .topsec .btn {
+  color: #b5b5b5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: max-content;
+  height: max-content;
+  border: 1px solid #75757569;
+  padding: 8px 15px;
+  border-radius: 20px;
+  background: transparent;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.backdrop .popup .topsec .wrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* Align content to the right */
+  margin-top: 10px;
+}
+
+.backdrop .popup .topsec .wrap .btn {
+  padding: 6px 10px;
+  font-size: 12px;
+  gap: 3px;
+  display: flex;
+  align-items: center; /* Center the icon and text vertically */
+}
+
+.backdrop .popup .topsec .wrap .btn ion-icon {
+  font-size: 14px;
+  margin-right: 2px;
+}
+
+.backdrop .popup .topsec .wrap .btns .btn.rt {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.backdrop .popup .topsec .wrap .btns .btn.lt {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+}
+
+.backdrop .popup .sec {
+  width: 100%;
+  height: max-content;
+  padding: 30px 0;
+  display: flex;
+  gap: 20px;
+}
+
+.backdrop .popup .sec .img-cont {
+  width: 350px;
+  height: auto;
+  border: 1px solid #75757569;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.backdrop .popup .sec .invDetails {
+  width: calc(100% - 350px);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  color: white;
+  font-family: "Manrope";
+}
+
+.backdrop .popup .sec .invDetails .tags {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.backdrop .popup .sec .invDetails .tags .tag {
+  width: max-content;
+  height: max-content;
+  border: 1px solid white;
+  padding: 3px 14px;
+  border-radius: 20px;
+}
+
+.tag2 {
+  width: max-content;
+  height: max-content;
+  border: 1px solid white;
+  padding: 3px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #b8b8b8;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  font-family: "Manrope";
+}
+
+.backdrop .popup .sec .invDetails .tags .tag.bk {
+  background: white;
+  color: black;
+}
+
+.backdrop .popup .moreData {
+  width: 100%;
+  height: max-content;
+  color: white;
+  font-family: "Manrope";
+  padding: 0 15px;
+}
+
+.sidehead {
+  font-weight: 800;
+  font-size: larger;
+}
+
+.desc {
+  font-size: 13px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  font-family: "Manrope";
+  color: #b8b8b8;
+}
+
+.desc1 {
+  font-size: 13px;
+  margin-top: 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: "Manrope";
+  color: #b8b8b8;
+}
+
+.pcard {
+  cursor: pointer;
+}
+.img-cont .img{
+
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.393)), url("../../assets/noise.png");
+    border: 1px solid #75757569;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Manrope";
+    font-weight: 700;
+    font-size: 18px;
+  
+}
+
+@media only screen and (max-width: 946px) {
+  .backdrop .popup {
+      width: 100%;
+      max-height: 90vh;
+      padding: 15px;
+      margin: 0;
+      border-radius: 15px;
+  }
+
+  .backdrop {
+      align-items: flex-start;
+      padding: 20px 10px;
+      height: 100%;
+  }
+
+  .backdrop .popup .topsec {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      height: auto;
+      margin-bottom: 10px;
+  }
+
+  .backdrop .popup .sec {
+      flex-direction: column;
+      padding: 15px 0;
+      gap: 10px;
+  }
+
+  .backdrop .popup .sec .img-cont {
+      width: 100%;
+      height: 200px; /* Increased height to maintain aspect ratio */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .backdrop .popup .sec .img-cont .img {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .backdrop .popup .sec .img-cont .img .ctit {
+      font-size: 24px !important;
+      text-align: center;
+  }
+
+  .backdrop .popup .sec .invDetails {
+      width: 100%;
+      padding: 10px 0;
+      position: relative;
+  }
+
+  .backdrop .popup .sec .invDetails .flex.flex-col.absolute.right-6 {
+      position: static !important;
+      margin-top: 10px;
+      width: 100%;
+  }
+
+  .sidehead {
+      font-size: 18px;
+      margin-top: 10px !important;
+  }
+
+  .backdrop .popup .sec .invDetails .tags {
+      margin-bottom: 10px;
+  }
+
+  .backdrop .popup .moreData {
+      padding: 0 5px;
+  }
+
+  .desc {
+      font-size: 12px;
+      line-height: 1.4;
+  }
+
+  .tag2 {
+      font-size: 11px;
+      padding: 3px 10px;
+  }
+
+  /* New styles to move bookmark and put it at the bottom */
+  .backdrop .popup .topsec .wrap {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+  }
+
+  .backdrop .popup .topsec .wrap .btn {
+      padding: 4px 8px;
+      font-size: 11px;
+      gap: 2px;
+  }
+
+  .backdrop .popup .topsec .wrap .btn ion-icon {
+      font-size: 12px;
+      margin-right: 2px;
+  }
+}

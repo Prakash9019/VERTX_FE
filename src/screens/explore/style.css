@@ -1,0 +1,321 @@
+/* Main Container */
+.container-ot-exp {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures it grows dynamically */
+    padding: 0;
+    gap: 0;
+    /* overflow: hidden; */
+    display: grid;
+    grid-template-rows: 70px 1fr;
+}
+
+.container-ot-exp .head{
+    color: white;
+    font-family: "Manrope";
+}
+
+.container-ot-exp .topbar {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #75757569;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    overflow: hidden;
+    color: white;
+    background: black;
+}
+
+.container-ot-exp .topbar .wrap{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.container-ot-exp .topbar .wrap .title{
+    font-family: "Kode mono";
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.container-ot-exp .topbar .wrap .logo{
+    width: 30px;
+    height: auto;
+}
+
+.container-ot-exp .bottom{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    overflow: hidden;
+}
+
+.container-ot-exp .esection {
+    background: #0d0d0d;
+    display: grid;
+    grid-template-columns: 1fr 0.3fr;
+    overflow-y: auto; 
+    max-height: 100%; /* Prevents unwanted height expansion */
+}
+
+.container-ot-exp .esection .anim{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-top: 40px;
+    margin-bottom: 30px;
+    background-image: radial-gradient(#222222 1.5px, transparent 1.5px);
+    background-size: 40px 40px;
+}
+
+.container-ot-exp .esection .head{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.container-ot-exp .esection .sub{
+    color: white;
+    font-size: 14px;
+    font-family: "Manrope";
+    color: #d1d1d1;
+    width: 40%;
+    text-align: center;
+}
+
+.container-ot-exp .esection .inpwrapper{
+    width: 40%;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.container-ot-exp .esection .search{
+    width: 100%;
+    height: 45px;
+    border: 1px solid grey;
+    background: #1b1b1b;
+    color: white;
+    padding: 0 20px;
+    border-radius: 50px;
+    font-family: "Manrope";
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+    background: linear-gradient(to left ,#1b1b1b, black );
+}
+.container-ot-exp .esection .inpwrapper .cam{
+    width: 50px;
+    height: 45px;
+    border: 1px solid grey;
+    background: linear-gradient(to right ,#1b1b1b, black );
+    color: white;
+    border-radius: 50px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+}
+
+.container-ot-exp .esection .profiles{
+    width: 100%;
+    height: 250px;
+    background: red;
+}
+
+
+.container-ot-exp .esection .cards{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 20px;
+    padding-top: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border-left: 1px solid #75757569;
+
+}
+
+.container-ot-exp .esection .cards .card{
+    width: 100%;
+    height: max-content;
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.container-ot-exp .esection .ftcards .card.loading .subt,
+.container-ot-exp .esection .ftcards .card.loading .desc,
+.container-ot-exp .esection .ftcards .card.loading .title{
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(35deg, #2c2c2c, #2f2f2f);
+    border-radius: 3px;
+    opacity: 0.3;
+    animation: blink 2.5s ease infinite;
+}
+
+@keyframes blink {
+    0%{
+        opacity: 0.3;
+    }70%{
+        opacity: 1;
+    }100%{
+        opacity: 0.3;
+    }
+}
+
+.container-ot-exp .esection .ftcards .card.loading .subt{
+    width: 60%;
+}
+
+.container-ot-exp .esection .cards .card:hover{
+    background: #161616;
+}
+
+.container-ot-exp .esection .cards .card .banner{
+    width: 100%;
+    border: 1px solid #2c2c2c;
+    height: 120px;
+    border-radius: 15px;
+    background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.169)), url("../../assets/noise.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Kode mono";
+    font-weight: 700;
+    font-size: 26px;
+}
+
+.container-ot-exp .esection .cards .card .news-details{
+    width: 100%;
+    height: max-content;
+    font-family: "Manrope";
+    color: #acacac;
+    font-size: 12px;
+    padding: 10px;
+}
+
+.container-ot-exp .topbar .menu{
+    display: none;
+}
+.container-ot-exp .bottom .navwrap.mbv {
+    display: none;
+}
+
+
+
+.container-ot-exp .esection .ftcards{
+    width: 90%;
+    height: max-content;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.container-ot-exp .esection .ftcards .card{
+    color: white;
+    font-family: "Manrope";
+    font-size: 12px;
+    padding: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #191919;
+    user-select: none;
+    width: calc(100% / 4);
+}
+
+.container-ot-exp .esection .ftcards .card .title{
+    font-weight: 600;
+    font-size: 14.5px;
+    margin-bottom: 4px;
+}
+.container-ot-exp .esection .ftcards .card .subt{
+    color: #878787;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+
+.container-ot-exp .esection .ftcards .card .desc{
+    font-size: 12px;
+    color: #bababa;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (max-width: 946px) {
+    .container-ot-exp .esection .ftcards .card{
+        width: 100%;
+    }
+    .container-ot-exp .bottom .navwrap.mb {
+        display: none;
+    }
+
+    .container-ot-exp .bottom .navwrap.mbv.open {
+        display: block;
+    }
+    
+    .container-ot-exp .bottom .navwrap.mbv,
+    .container-ot-exp .topbar .btwrap{
+        display: none;
+    }
+    .container-ot-exp .topbar .menu{
+        display: block;
+    }
+    .container-ot-exp .topbar{
+        overflow: hidden;
+    }
+    .container-ot-exp .bottom,
+    .container-ot-exp .esection{
+        grid-template-columns: 1fr;
+    }
+
+    .container-ot-exp .esection{
+        grid-template-rows: 1fr max-content;
+    }
+    
+    .container-ot-exp{
+        overflow: scroll;
+        height: max-content;
+    }
+        .container-ot-exp .esection .inpwrapper,
+        .container-ot-exp .esection .sub{
+            width: 80%
+        }
+
+}
