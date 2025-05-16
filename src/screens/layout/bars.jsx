@@ -44,7 +44,6 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
       setShowAuthPage(true);
     }
   };
-
   const handleCloseAuthPage = () => {
     setShowAuthPage(false);
     setShowLoginPage(false);
