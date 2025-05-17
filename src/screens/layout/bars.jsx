@@ -597,7 +597,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <div className="flex justify-center w-full mb-6">
                     <button
                       onClick={() => navigate("/privacy")}
-                      className="text-xs text-gray-400 hover:text-white underline"
+                      className="text-md text-gray-400 hover:text-white underline"
                     >
                       Privacy Policy
                     </button>
