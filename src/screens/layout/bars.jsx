@@ -312,7 +312,6 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   };
 
 
-
   // Updated navigation handler
   const handleNavigation = async (route) => {
     if (route === "explore" && !localStorage.getItem("token")) {

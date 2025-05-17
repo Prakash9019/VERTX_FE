@@ -291,12 +291,12 @@ export default function LandingAuth({
                 <div className="w-full">
                   <FloatingLabelInput
                     id={email}
-                    label="Enter email address"
+                    label="Enter email here..."
                     type="text"
                     validateidentifier={true}
                     value={email}
                     onChange={setemail}
-                    className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3"
+                    className="w-full py-3 px-4 rounded-md bg-transparent border border-gray-700 text-white mb-3 focus:outline-none focus:ring-0"
                   />
                   {errorMessage && (
                     <p className="text-red-500 mt-4">{errorMessage}</p>

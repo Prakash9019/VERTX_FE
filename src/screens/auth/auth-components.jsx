@@ -94,13 +94,13 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
           <div className="w-full h-px bg-[#9d9d9d]"></div>
         </div>
 
-        <div className="w-full">
+        <div className=" relative w-full z-10">
           <input
             id="Email"
             type="text"
             value={email}
-            placeholder="Email Address..."
-            className="w-full px-3 py-2 bg-transparent rounded-md mb-2 border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 transition-all duration-200"
+            placeholder="Enter email here..."
+            className="w-full px-3 py-2 bg-transparent rounded-md mb-2 border border-gray-700 text-white text-xs sm:text-sm leading-tight align-middle focus:outline-none focus:ring-0 transition-all duration-200"
             onChange={(e) => setEmail(e.target.value)}
           />
 
