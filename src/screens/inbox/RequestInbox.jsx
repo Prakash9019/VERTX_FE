@@ -59,7 +59,7 @@ const RequestInbox = ({ userId }) => {
 
   const fetchRequests = async () => {
     const res = await axios.get(`${Chat_key}/api/connections/requests/${userId}`);
-    // console.log(res.data)
+    // console.log(res)
     setRequests(res.data);
   };
 
@@ -232,7 +232,7 @@ const RequestInbox = ({ userId }) => {
     <div className="flex h-full">
   
     <div className={`flex-grow bg-black p-4 ${detailSidebarOpen ? "hidden md:block" : "block"}`} style={{ borderRadius: "10px" }}>
-      {requests.length>0  ? requests.map((message) => (
+      {requests?.length>0  ? requests?.map((message) => (
         <div
         key={message._id}
           className="flex items-center p-4 rounded-lg mb-4 cursor-pointer hover:bg-gray-800 transition-colors"
@@ -241,7 +241,7 @@ const RequestInbox = ({ userId }) => {
 
           <div className="flex items-center flex-1">
             <div className="w-10 h-10 rounded-full overflow-hidden mr-4">
-            {message.user?.avatar?  <img src={message.user.avatar || "/placeholder.svg"} alt={message.firstName} className="w-full h-full object-cover" /> :
+            {message?.user?.avatar?  <img src={message?.user.avatar || "/placeholder.svg"} alt={message?.firstName} className="w-full h-full object-cover" /> :
                   <svg
                   className="w-full h-full object-cover"
                   viewBox="0 0 469 469"
@@ -270,7 +270,7 @@ const RequestInbox = ({ userId }) => {
               }
             </div>
             <div>
-              <h3 className="font-medium text-sm">{message.user?.firstName + "   " +message.user?.lastName}</h3>
+              <h3 className="font-medium text-sm">{message?.user?.firstName + "   " +message?.user?.lastName}</h3>
             </div>
           </div>
           <div className="flex items-center justify-center flex-1">
@@ -310,15 +310,15 @@ const RequestInbox = ({ userId }) => {
 
             <div className="flex mb-4">
               <div className="w-8 h-8 rounded-full overflow-hidden mr-3 flex-shrink-0">
-                <img src={selectedMessage.user.avatar || "/placeholder.svg"} alt={selectedMessage.user.sender} className="w-full h-full object-cover" />
+                <img src={selectedMessage?.user.avatar || "/placeholder.svg"} alt={selectedMessage?.user.sender} className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col w-full">
                 <div className="flex justify-between mb-1">
                   <div className="p-3">
-                    <p className="text-sm">{selectedMessage.newMessage[0].text}</p>
+                    <p className="text-sm">{selectedMessage?.newMessage[0].text}</p>
                   </div>
                   <div className="self-end">
-                    <span className="text-xs text-white">{selectedMessage.newMessage[0].time}</span>
+                    <span className="text-xs text-white">{selectedMessage?.newMessage[0].time}</span>
                   </div>
                 </div>
                 
@@ -327,9 +327,9 @@ const RequestInbox = ({ userId }) => {
           </div>
 
           <div className="p-4 border-t border-[#1E1E1E]">
-            <p className="mb-4 text-sm">{selectedMessage.user.firstName + "   " +selectedMessage.user.lastName} sent you a connection request. Do you want to accept it?</p>
+            <p className="mb-4 text-sm">{selectedMessage?.user.firstName + "   " +selectedMessage?.user.lastName} sent you a connection request. Do you want to accept it?</p>
             <div className="flex space-x-4">
-              <button onClick={() => acceptRequest(selectedMessage.senderId)} className="flex-1 bg-white text-black py-3 rounded-lg font-extrabold">Accept</button>
+              <button onClick={() => acceptRequest(selectedMessage?.senderId)} className="flex-1 bg-white text-black py-3 rounded-lg font-extrabold">Accept</button>
               <button className="flex-1 bg-[#1E1E1E] text-white py-3 rounded-lg font-extrabold">Accept only message</button>
             </div>
           </div>
