@@ -139,7 +139,8 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
                       label: "Overview",
                       action: handleOverviewClick,
                     },
-                    { icon: "settings",
+                    {
+                      icon: "settings",
                       label: "Settings",
                       action: handleSettingsClick
                     },
@@ -230,7 +231,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [showDesktopProfilePopup, setShowDesktopProfilePopup] = useState(false);
   const [showTermsPopup, setShowTermsPopup] = useState(false);
   const [showPrivacyPopup, setShowPrivacyPopup] = useState(false);
-    const [showSettingsPopup, setShowSettingsPopup] = useState(false);
+  const [showSettingsPopup, setShowSettingsPopup] = useState(false);
   // Check if device is mobile based on screen width
   useEffect(() => {
     const checkIsMobile = () => {
@@ -311,7 +312,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   };
 
 
-  
+
   // Updated navigation handler
   const handleNavigation = async (route) => {
     if (route === "explore" && !localStorage.getItem("token")) {
@@ -393,27 +394,24 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   return (
     <>
       <div
-        className={`flex flex-col h-full bg-black transition-all duration-700 ease-in-out ${
-          sidebarOpen ? "w-64" : "w-24"
-        } fixed left-0 top-0 bottom-0 z-10`}
+        className={`flex flex-col h-full bg-black transition-all duration-700 ease-in-out ${sidebarOpen ? "w-64" : "w-24"
+          } fixed left-0 top-0 bottom-0 z-10`}
       >
         {/* Logo */}
         <div className="p-5 pb-2 flex items-center">
           <div
-            className={`transition-all duration-700 ease-in-out ${
-              sidebarOpen ? "ml-3" : "-ml-2"
-            } mt-4 pt-3 text-white`}
+            className={`transition-all duration-700 ease-in-out ${sidebarOpen ? "ml-3" : "-ml-2"
+              } mt-4 pt-3 text-white`}
           >
             <img
               src={logo || "/placeholder.svg"}
               alt="image"
-              className={`transition-all duration-700 ease-in-out w-12 ${
-                sidebarOpen ? "h-10" : "h-12"
-              }`}
+              className={`transition-all duration-700 ease-in-out w-12 ${sidebarOpen ? "h-10" : "h-12"
+                }`}
             />
           </div>
           {sidebarOpen && (
-            <div className="mt-8 flex items-center transition-opacity duration-700 ease-in-out opacity-100">
+            <div onClick={() => navigate("/")} className="cursor-pointer mt-8 flex items-center transition-opacity duration-700 ease-in-out opacity-100">
               <svg
                 width="100"
                 viewBox="0 0 47 12"
@@ -474,7 +472,10 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             name="explore"
             label="Explore"
             expanded={sidebarOpen}
-            onClick={() => handleNavigation("explore")}
+            onClick={() => {
+              if (!sidebarOpen) setSidebarOpen(true);
+              handleNavigation("explore")
+            }}
           />
           <NavItem
             icon={<Target />}
@@ -512,7 +513,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <div className="flex items-center justify-between w-full border border-[#111111] rounded-md p-3 mb-4">
                     <div className="flex items-center space-x-3">
                       {localStorage.getItem("token") &&
-                      localStorage.getItem("dip") ? (
+                        localStorage.getItem("dip") ? (
                         <div className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold">
                           <img
                             src={localStorage.getItem("dip")}
@@ -574,7 +575,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         height: "48px",
                         fontWeight: "bold",
                       }}
-                      onClick={()=>{  navigate("/flow/match flow")}}
+                      onClick={() => { navigate("/flow/match flow") }}
                     >
                       <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
                         <span
@@ -591,6 +592,14 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         </span>
                       </div>
                       <span className="ml-3 font-bold">FlowAI</span>
+                    </button>
+                  </div>
+                  <div className="flex justify-center w-full mb-6">
+                    <button
+                      onClick={() => navigate("/privacy")}
+                      className="text-xs text-gray-400 hover:text-white underline"
+                    >
+                      Privacy Policy
                     </button>
                   </div>
                 </>
@@ -676,11 +685,10 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
               ></div>
 
               <div
-                className={`absolute ${
-                  sidebarOpen
-                    ? "bottom-[130px] right-[-210px]"
-                    : "bottom-[100px] right-[-220px]"
-                } z-50 w-64 bg-black rounded-lg shadow-lg border border-[#333] p-4 animate-fadeIn`}
+                className={`absolute ${sidebarOpen
+                  ? "bottom-[130px] right-[-210px]"
+                  : "bottom-[100px] right-[-220px]"
+                  } z-50 w-64 bg-black rounded-lg shadow-lg border border-[#333] p-4 animate-fadeIn`}
               >
                 <div className="py-2">
                   {[
@@ -689,8 +697,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       label: "Overview",
                       action: handleOverviewClick,
                     },
-                    { icon: "settings", label: "Settings",
-                    action: handleSettingsClick
+                    {
+                      icon: "settings", label: "Settings",
+                      action: handleSettingsClick
                     },
                     {
                       icon: "favorite",
@@ -804,14 +813,12 @@ export function MainContent({ sidebarOpen, children }) {
 
   return (
     <div
-      className={`flex-1 transition-all duration-700 ease-in-out ${
-        isMobile ? "pt-16 pb-16" : sidebarOpen ? "ml-64" : "ml-24"
-      } ${!isMobile && "pt-9 pr-6 pb-6"}`}
+      className={`flex-1 transition-all duration-700 ease-in-out ${isMobile ? "pt-16 pb-16" : sidebarOpen ? "ml-64" : "ml-24"
+        } ${!isMobile && "pt-9 pr-6 pb-6"}`}
     >
       <div
-        className={`${
-          !isMobile ? "bg-[#111] rounded-[10px] p-6" : "bg-[#111]"
-        } h-full flex flex-col`}
+        className={`${!isMobile ? "bg-[#111] rounded-[10px] p-6" : "bg-[#111]"
+          } h-full flex flex-col`}
       >
         {children}
       </div>
@@ -823,9 +830,8 @@ function NavItem({ icon, label, expanded, active, name, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center py-4 px-4 relative ${
-        active === name ? "text-white" : "text-gray-400"
-      } hover:text-white cursor-pointer transition-colors duration-200`}
+      className={`flex items-center py-4 px-4 relative ${active === name ? "text-white" : "text-gray-400"
+        } hover:text-white cursor-pointer transition-colors duration-200`}
     >
       <div className="w-6 h-6">{icon}</div>
       {expanded && (
@@ -843,9 +849,8 @@ function NavItem({ icon, label, expanded, active, name, onClick }) {
 export function NavIconFooter({ icon, label, active = false }) {
   return (
     <div
-      className={`flex flex-col items-center ${
-        active ? "text-white" : "text-gray-400"
-      } transition-colors duration-200`}
+      className={`flex flex-col items-center ${active ? "text-white" : "text-gray-400"
+        } transition-colors duration-200`}
     >
       <div className="w-6 h-6">{icon}</div>
       <span className="text-xs mt-1">{label}</span>
@@ -959,9 +964,8 @@ export function MobileFooter({ currentPage }) {
 export function FilterButton({ label, mobile = false }) {
   return (
     <button
-      className={`flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] rounded-md border border-[#333] text-gray-300 ${
-        mobile ? "text-xs" : ""
-      }`}
+      className={`flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] rounded-md border border-[#333] text-gray-300 ${mobile ? "text-xs" : ""
+        }`}
     >
       {label}
       <Lock size={mobile ? 12 : 16} />
