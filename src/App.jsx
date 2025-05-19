@@ -91,6 +91,7 @@ function App() {
       <Route path="/privacy" element={<PrivacyPolicy /> } />
       <Route path="/terms" element={<TermsAndConditions /> } />
       <Route path="/settings" element={<SettingsV /> } />
+
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/explore/putaface" element={<Put_a_face /> } />
       <Route path="/explore/skills" element={<Skills /> } />

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import API_KEY from "../../../key";
 import { Info } from "lucide-react";
+import gify from './gify.gif'
 
 export default function Welcome_founder() {
   const navigate = useNavigate();
@@ -159,6 +160,9 @@ export default function Welcome_founder() {
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
+      finally{
+        setLoading(false);
+      }
     };
 
     fetchUserData();
@@ -190,7 +194,32 @@ export default function Welcome_founder() {
     }
   };
 
-  if (loading) return <div></div>;
+  // if (loading) return <div></div>;
+if (loading)
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.3)", // semi-transparent black
+        backdropFilter: "blur(6px)", // apply blur
+        zIndex: 9999,
+      }}
+    >
+      <img
+        src={gify}
+        alt="Loading..."
+        style={{
+          width: "80px",
+          height: "80px",
+        }}
+      />
+    </div>
+  );
+
 
   return (
     <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
