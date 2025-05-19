@@ -116,16 +116,27 @@ const PrivacyPolicy = ({onClose}) => {
               <div className="max-w-3xl ml-0"> 
                 <div className="text-left">
                   <div className="flex flex-wrap gap-4 mb-4 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">Whatsapp</a>
-                    <a href="#" className="text-white-400 hover:text-white">Discord</a>
-                    <a href="#" className="text-white-400 hover:text-white">LinkedIn</a>
-                    <a href="#" className="text-white-400 hover:text-white">Twitter</a>
+                    <a href="https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8 " 
+                    className="text-white-400 hover:text-white"
+                    target='_blank' rel='noopener noreferror'>Whatsapp</a>
+
+                    <a href="https://lnkd.in/gRdvFYKz" 
+                    className="text-white-400 hover:text-white"
+                    target='_blank' rel='noopener noreferror'>Discord</a>
+
+                    <a href="https://www.linkedin.com/company/govertx/ "
+                     className="text-white-400 hover:text-white"
+                     target='_blank' rel='noopener noreferror'>LinkedIn</a>
+
+                    <a href="https://x.com/Vertx_AI" 
+                    className="text-white-400 hover:text-white"
+                    target='_blank' rel='noopener noreferror'>Twitter</a>
                   </div>
                   <div className="flex flex-wrap gap-4 mb-6 max-sm:gap-2 max-sm:text-xs">
                     <a href="#" className="text-white-400 hover:text-white">Newsletter</a>
                     <a href="#" className="text-white-400 hover:text-white">About</a>
-                    <a href="#" className="text-white-400 hover:text-white">Terms of use</a>
-                    <a href="#" className="text-white-400 hover:text-white">Privacy policy</a>
+                    <a href="/terms" className="text-white-400 hover:text-white">Terms of use</a>
+                    <a href="/privacy" className="text-white-400 hover:text-white">Privacy policy</a>
                   </div>
                   <div className="flex items-center mt-6">
                     <svg width="47" height="12" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg">

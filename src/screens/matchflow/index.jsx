@@ -7,7 +7,7 @@ import Input from "../../components/input/component";
 import axios from "axios";
 import API_KEY from "../../../key.js"
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import gify from "../gify.gif"
 function Step1({ cb }) {
   return (
@@ -794,12 +794,15 @@ export default function Matchflow() {
     <div className="mt">
       <FlowNav />
       <div className="topbar">
+        {/* Added Link to home VERTX MATCH FLOW */}
+        <Link to="/">
         <div>
           <img src={logo} alt="" className="logo" />
           <p className="title">
             VERTX MATCH FLOW <span className="tag">BETA</span>
           </p>
         </div>
+        </Link>
         <div className="btns">$5000 Credits</div>
       </div>
       <div className="section">

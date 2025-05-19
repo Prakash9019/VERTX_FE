@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Search, Target, Grid, Settings, Lock, Inbox } from "lucide-react";
 import logo from "../../logo.png";
 import { SiFlat } from "react-icons/si";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import LandingAuth from "../landing/index";
 import axios from "axios";
 import API_KEY from "../../../key";
@@ -100,11 +100,14 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
         <>
           <div className="flex justify-between items-center p-4 bg-[#111] fixed top-0 left-0 right-0 z-20">
             <div className="flex items-center">
+              {/* Add Link to home for 768px or less devices logo */}
+              <Link to="/">
               <img
                 src={logo || "/placeholder.svg"}
                 alt="logo"
                 className="w-10 h-10"
               />
+              </Link>
             </div>
             <div
               className="w-10 h-10 bg-white text-gray-700 flex items-center justify-center rounded-full border border-gray-300 font-bold cursor-pointer"
@@ -398,6 +401,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
           } fixed left-0 top-0 bottom-0 z-10`}
       >
         {/* Logo */}
+        {/* Added Link to Logo to return to home */}
+        <Link to="/">
         <div className="p-5 pb-2 flex items-center">
           <div
             className={`transition-all duration-700 ease-in-out ${sidebarOpen ? "ml-3" : "-ml-2"
@@ -444,6 +449,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </div>
           )}
         </div>
+        </Link>
         {/* Navigation  when sidebar closed */}
         <div className="ml-3 flex flex-col flex-grow mt-10">
           {!sidebarOpen ? (
@@ -577,7 +583,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       }}
                       onClick={() => { navigate("/flow/match flow") }}
                     >
-                      <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                      <div
+                      
+                       className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
                         <span
                           className="text-black"
                           style={{
@@ -659,7 +667,9 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
               )}
 
               {/* Add FlowAI button below the profile pic when sidebar is collapsed */}
-              <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center mt-4 transition-transform duration-200 hover:scale-110">
+              {/* Added OnClick for small sidebar and made hover:cursor pointer */}
+              <div 
+              onClick={()=>{  navigate("/flow/match flow")}} className="w-11 h-11 bg-white rounded-full flex items-center justify-center mt-4 transition-transform duration-200 hover:scale-110 hover:cursor-pointer">
                 <span
                   className="text-black"
                   style={{
@@ -886,9 +896,9 @@ export function MobileFooter({ currentPage }) {
 
   return (
     <>
-      <div className="flex justify-around items-center py-3 border-t border-gray-800 bg-[#111] fixed bottom-0 left-0 right-0 z-20">
+      <div className="flex hover:cursor-pointer justify-around items-center py-3 border-t border-gray-800 bg-[#111] fixed bottom-0 left-0 right-0 z-20">
         <div
-          className="flex flex-col items-center"
+          className="flex hover:cursor-pointer flex-col items-center"
           onClick={() => handleNavigation("explore")}
         >
           <NavIconFooter
@@ -898,11 +908,11 @@ export function MobileFooter({ currentPage }) {
           />
         </div>
         <div
-          className="flex flex-col items-center relative"
+          className="flex flex-col hover:cursor-pointer items-center relative"
           onClick={() => handleNavigation("outreach")}
         >
           {currentPage === "outreach" && (
-            <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>
+            <div className="absolute -top-3 w-12 h-1 bg-white hover:cursor-pointer rounded-full"></div>
           )}
           <NavIconFooter
             icon={<Target />}
@@ -911,11 +921,11 @@ export function MobileFooter({ currentPage }) {
           />
         </div>
         <div
-          className="flex flex-col items-center relative"
+          className="flex hover:cursor-pointer flex-col items-center relative"
           onClick={() => handleNavigation("inbox")}
         >
           {currentPage === "inbox" && (
-            <div className="absolute -top-3 w-12 h-1 bg-white rounded-full"></div>
+            <div className="absolute hover:cursor-pointer -top-3 w-12 h-1 bg-white rounded-full"></div>
           )}
           <NavIconFooter
             icon={<Inbox />}

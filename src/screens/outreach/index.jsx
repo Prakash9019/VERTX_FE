@@ -472,6 +472,7 @@ export default function Outreach2() {
       setSidebarOpen={setSidebarOpen}
       contentRef={layoutContentRef}
     >
+      
       <div className="content-wrapper2 relative h-full w-full">
         {/* Fixed header section */}
         <div
