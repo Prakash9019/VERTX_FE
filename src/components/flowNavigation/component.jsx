@@ -76,7 +76,7 @@ export default function FlowNav() {
             <p className="i">Doc Flow</p>
           </div>
         </a>
-        <a href="/pitch-deck">
+        <a href="/flow/pitch-deck">
           <div className="nitem">
             <svg
               width="18"

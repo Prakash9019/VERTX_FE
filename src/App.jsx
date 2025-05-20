@@ -45,7 +45,15 @@ import Inbox from "./screens/inbox/inbox.jsx";
 import Listall from "./screens/explore/Listall.jsx";
 import GeneralInbox from "./screens/inbox/GeneralInbox.jsx";
 import SettingsV from "./screens/More/Settings.jsx";
-import HelpCenterV from "./screens/More/HelpCenterV.jsx";
+import PitchDeck from "./screens/Pitch-Deck/PitchDeck.jsx";
+import HelpCenter from "./screens/About/HelpCenter.jsx";
+import FAskQ from "./screens/About/FAskQ.jsx";
+import ContactUs from "./screens/About/ContactUs.jsx";
+import ReportAProblem from "./screens/About/ReportAProblem.jsx";
+import TermsOS from "./screens/About/TermsOS.jsx";
+import CommunGuide from "./screens/About/CommunGuide.jsx";
+import DataPolicy from "./screens/About/DataPolicy.jsx";
+import CookiePolicy from "./screens/About/CookiePolicy.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -78,6 +86,7 @@ function App() {
       <Route path="/flow/match flow" element={<Matchflow />} />
       <Route path="/flow/pipeline" element={<Pipeline />} />
       <Route path="/flow/docflow" element={<Docflow />} />
+      <Route path="/flow/pitch-deck" element= {<PitchDeck />} />
    
       <Route path='/payment' element={<Cashfree1 />} />
        
@@ -93,6 +102,17 @@ function App() {
       <Route path="/terms" element={<TermsAndConditions /> } />
       <Route path="/settings" element={<SettingsV /> } />
       <Route path="/help-center" element={<HelpCenterV /> } />
+
+      {/* All routes in the About Folder */}
+      <Route path="/help-center" element={<HelpCenter /> } />
+      <Route path="/FAQ" element={<FAskQ /> } />
+      <Route path="/contact-us" element={<ContactUs /> } />
+      <Route path="/report-a-problem" element={<ReportAProblem /> } />
+      
+      <Route path="/terms-of-service" element={<TermsOS /> } />
+      <Route path="/community-guidelines" element={<CommunGuide /> } />
+      <Route path="/data-policy" element={<DataPolicy /> } />
+      <Route path="/cookie-policy" element={<CookiePolicy /> } />
 
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/explore/putaface" element={<Put_a_face /> } />

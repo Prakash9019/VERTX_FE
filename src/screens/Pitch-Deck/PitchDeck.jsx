@@ -1,7 +1,6 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SettingsV = ({ onClose }) => {
+const PitchDeck = ({ onClose }) => {
   const navigate = useNavigate();
 
   return (
@@ -27,48 +26,65 @@ const SettingsV = ({ onClose }) => {
             </div>
 
             <main className="flex flex-col w-full mx-auto px-6 max-sm:px-4">
-              <h1 className="text-4xl max-sm:text-2xl font-bold text-white text-center mb-8">Account Settings</h1>
-              <p className="text-gray-400 mb-6 max-sm:text-sm">
-                Manage your account preferences and information here.
+              <h1 className="text-4xl max-sm:text-2xl font-bold text-white text-center mb-8">
+                PitchDeck
+              </h1>
+              <p className="text-gray-400 mb-6 max-sm:text-sm text-center">
+                Your interactive founder lab with AI-Powered tools designed to get
+                you pitch-ready. Explore the features below to craft a compelling
+                pitch.
               </p>
 
               <ol className="space-y-6 max-sm:space-y-4">
                 {[
                   {
-                    title: 'Profile Information',
-                    description: 'Update your name, email, and other personal details.',
+                    title: 'Mock Pitching with AI Investors',
+                    description:
+                      'Practice your pitch and receive instant AI feedback on clarity, confidence, and investor relevance. Simulate real-world scenarios and refine your delivery.',
                   },
                   {
-                    title: 'Change Password',
-                    description: 'Modify your account password for security.',
+                    title: 'Pitch Deck Generation & Analysis',
+                    description:
+                      'Create a professional pitch deck in minutes using AI-powered templates. Get smart insights on structure, flow, messaging, and identify areas for improvement.',
                   },
                   {
-                    title: 'Notification Preferences',
-                    description: 'Manage the types of notifications you receive from our service.',
+                    title: 'Financial Projections & Planning',
+                    description:
+                      'Develop realistic financial forecasts with AI assistance. Analyze key metrics and understand investor expectations for your financial roadmap.',
                   },
                   {
-                    title: 'Privacy Settings',
-                    description: 'Control who can see your information and how your data is used.',
+                    title: 'Market Research & Insights',
+                    description:
+                      'Access AI-driven market analysis to understand your target audience, competitive landscape, and industry trends. Strengthen your pitch with data-backed insights.',
                   },
                   {
-                    title: 'Connected Accounts',
-                    description: 'View and manage other accounts linked to your profile.',
+                    title: 'Competitor Analysis',
+                    description:
+                      'Identify and analyze your key competitors with AI tools. Understand their strengths and weaknesses to position your venture effectively in your pitch.',
                   },
                   {
-                    title: 'Language',
-                    description: 'Set your preferred language for the application interface.',
+                    title: 'Elevator Pitch Builder',
+                    description:
+                      'Craft a concise and impactful elevator pitch with AI guidance. Generate compelling summaries of your business idea to capture investor attention quickly.',
                   },
                   {
-                    title: 'Support',
-                    description: 'Get help and find answers to your questions.',
+                    title: 'Pitch Deck Review & Scoring',
+                    description:
+                      'Get an AI-powered review of your existing pitch deck. Receive a score and specific recommendations on how to enhance its content and design for maximum impact.',
                   },
+                  // You could add even more features here
                 ].map((item, index) => (
                   <li key={index}>
                     <div className="flex gap-2">
                       <span className="font-bold text-white">{index + 1}.</span>
                       <div>
-                        <h2 className="font-bold text-white inline max-sm:text-sm">{item.title}</h2>
-                        <span className="text-gray-400 max-sm:text-xs"> {item.description}</span>
+                        <h2 className="font-bold text-white inline max-sm:text-sm">
+                          {item.title}
+                        </h2>
+                        <span className="text-gray-400 max-sm:text-xs">
+                          {' '}
+                          {item.description}
+                        </span>
                       </div>
                     </div>
                   </li>
@@ -80,30 +96,30 @@ const SettingsV = ({ onClose }) => {
               <div className="max-w-3xl ml-0">
                 <div className="text-left">
                   <div className="flex flex-wrap gap-4 mb-4 max-sm:gap-2 max-sm:text-xs">
-                    <a href="/help-center" className="text-white-400 hover:text-white">
+                    <a href="#" className="text-white-400 hover:text-white">
                       Help Center
                     </a>
-                    <a href="/FAQ" className="text-white-400 hover:text-white">
+                    <a href="#" className="text-white-400 hover:text-white">
                       FAQ
                     </a>
-                    <a href="/contact-us" className="text-white-400 hover:text-white">
+                    <a href="#" className="text-white-400 hover:text-white">
                       Contact Us
                     </a>
-                    <a href="/report-a-problem" className="text-white-400 hover:text-white">
+                    <a href="#" className="text-white-400 hover:text-white">
                       Report a Problem
                     </a>
                   </div>
                   <div className="flex flex-wrap gap-4 mb-6 max-sm:gap-2 max-sm:text-xs">
-                    <a href="/terms-of-service" className="text-white-400 hover:text-white">
+                    <a href="#" className="text-white-400 hover:text-white">
                       Terms of Service
                     </a>
-                    <a href="/community-guidelines" className="text-white-400 hover:text-white">
+                    <a href="#" className="text-white-400 hover:text-white">
                       Community Guidelines
                     </a>
-                    <a href="/data-policy" className="text-white-400 hover:text-white">
+                    <a href="#" className="text-white-400 hover:text-white">
                       Data Policy
                     </a>
-                    <a href="/cookie-policy" className="text-white-400 hover:text-white">
+                    <a href="#" className="text-white-400 hover:text-white">
                       Cookie Policy
                     </a>
                   </div>
@@ -128,4 +144,4 @@ const SettingsV = ({ onClose }) => {
   );
 };
 
-export default SettingsV;
+export default PitchDeck;
