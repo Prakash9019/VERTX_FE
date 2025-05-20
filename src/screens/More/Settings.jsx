@@ -80,30 +80,30 @@ const SettingsV = ({ onClose }) => {
               <div className="max-w-3xl ml-0">
                 <div className="text-left">
                   <div className="flex flex-wrap gap-4 mb-4 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/help-center" className="text-white-400 hover:text-white">
                       Help Center
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/FAQ" className="text-white-400 hover:text-white">
                       FAQ
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/contact-us" className="text-white-400 hover:text-white">
                       Contact Us
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/report-a-problem" className="text-white-400 hover:text-white">
                       Report a Problem
                     </a>
                   </div>
                   <div className="flex flex-wrap gap-4 mb-6 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/terms-of-service" className="text-white-400 hover:text-white">
                       Terms of Service
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/community-guidelines" className="text-white-400 hover:text-white">
                       Community Guidelines
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/data-policy" className="text-white-400 hover:text-white">
                       Data Policy
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/cookie-policy" className="text-white-400 hover:text-white">
                       Cookie Policy
                     </a>
                   </div>
