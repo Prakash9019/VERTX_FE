@@ -45,6 +45,7 @@ import Inbox from "./screens/inbox/inbox.jsx";
 import Listall from "./screens/explore/Listall.jsx";
 import GeneralInbox from "./screens/inbox/GeneralInbox.jsx";
 import SettingsV from "./screens/More/Settings.jsx";
+import PitchDeck from "./screens/Pitch-Deck/PitchDeck.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -77,6 +78,7 @@ function App() {
       <Route path="/flow/match flow" element={<Matchflow />} />
       <Route path="/flow/pipeline" element={<Pipeline />} />
       <Route path="/flow/docflow" element={<Docflow />} />
+      <Route path="/flow/pitch-deck" element= {<PitchDeck />} />
    
       <Route path='/payment' element={<Cashfree1 />} />
        
