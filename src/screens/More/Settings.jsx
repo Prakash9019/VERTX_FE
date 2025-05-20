@@ -80,7 +80,7 @@ const SettingsV = ({ onClose }) => {
               <div className="max-w-3xl ml-0">
                 <div className="text-left">
                   <div className="flex flex-wrap gap-4 mb-4 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/help-center" className="text-white-400 hover:text-white">
                       Help Center
                     </a>
                     <a href="#" className="text-white-400 hover:text-white">
