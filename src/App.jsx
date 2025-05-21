@@ -54,6 +54,7 @@ import TermsOS from "./screens/About/TermsOS.jsx";
 import CommunGuide from "./screens/About/CommunGuide.jsx";
 import DataPolicy from "./screens/About/DataPolicy.jsx";
 import CookiePolicy from "./screens/About/CookiePolicy.jsx";
+import HelpCenterV from "./screens/More/HelpCenterV.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -101,7 +102,7 @@ function App() {
       <Route path="/privacy" element={<PrivacyPolicy /> } />
       <Route path="/terms" element={<TermsAndConditions /> } />
       <Route path="/settings" element={<SettingsV /> } />
-      <Route path="/help-center" element={<HelpCenterV /> } />
+      {/* <Route path="/help-center" element={<HelpCenterV /> } /> */}
 
       {/* All routes in the About Folder */}
       <Route path="/help-center" element={<HelpCenter /> } />
