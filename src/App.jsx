@@ -54,6 +54,9 @@ import TermsOS from "./screens/About/TermsOS.jsx";
 import CommunGuide from "./screens/About/CommunGuide.jsx";
 import DataPolicy from "./screens/About/DataPolicy.jsx";
 import CookiePolicy from "./screens/About/CookiePolicy.jsx";
+import HelpCenterV from "./screens/More/HelpCenterV.jsx";
+import Newsletter from "./screens/About/Privacy&Terms/Newsletter.jsx";
+import About from "./screens/About/Privacy&Terms/About.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -101,18 +104,23 @@ function App() {
       <Route path="/privacy" element={<PrivacyPolicy /> } />
       <Route path="/terms" element={<TermsAndConditions /> } />
       <Route path="/settings" element={<SettingsV /> } />
-      <Route path="/help-center" element={<HelpCenter /> } />
+      {/* <Route path="/help-center" element={<HelpCenterV /> } /> */}
 
       {/* All routes in the About Folder */}
       <Route path="/help-center" element={<HelpCenter /> } />
       <Route path="/FAQ" element={<FAskQ /> } />
       <Route path="/contact-us" element={<ContactUs /> } />
       <Route path="/report-a-problem" element={<ReportAProblem /> } />
-      
+      {/* 2nd Row */}
       <Route path="/terms-of-service" element={<TermsOS /> } />
       <Route path="/community-guidelines" element={<CommunGuide /> } />
       <Route path="/data-policy" element={<DataPolicy /> } />
       <Route path="/cookie-policy" element={<CookiePolicy /> } />
+
+      {/*Privacy&Terms Page Routes  */}
+      <Route path="/newsletter" element={<Newsletter /> } />
+      <Route path="/about" element={<About /> } />
+
 
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/explore/putaface" element={<Put_a_face /> } />

@@ -94,8 +94,8 @@ const TermsAndConditions = ({onClose}) => {
                     target='_blank' rel='noopener noreferror'>Twitter</a>
                   </div>
                   <div className="flex flex-wrap gap-4 mb-6 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">Newsletter</a>
-                    <a href="#" className="text-white-400 hover:text-white">About</a>
+                    <a href="/newsletter" className="text-white-400 hover:text-white">Newsletter</a>
+                    <a href="/about" className="text-white-400 hover:text-white">About</a>
                     <a href="/terms" className="text-white-400 hover:text-white">Terms of use</a>
                     <a href="/privacy" className="text-white-400 hover:text-white">Privacy policy</a>
                   </div>
