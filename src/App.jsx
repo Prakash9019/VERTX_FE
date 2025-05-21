@@ -101,7 +101,7 @@ function App() {
       <Route path="/privacy" element={<PrivacyPolicy /> } />
       <Route path="/terms" element={<TermsAndConditions /> } />
       <Route path="/settings" element={<SettingsV /> } />
-      <Route path="/help-center" element={<HelpCenterV /> } />
+      <Route path="/help-center" element={<HelpCenter /> } />
 
       {/* All routes in the About Folder */}
       <Route path="/help-center" element={<HelpCenter /> } />
