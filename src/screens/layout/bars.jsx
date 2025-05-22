@@ -25,9 +25,10 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
   const navigate = useNavigate();
   const [showSettingsPopup, setShowSettingsPopup] = useState(false);
   // Check if device is mobile based on screen width
+  // changed < 768 to < 968
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 968);
     };
     // Initial check
     checkIsMobile();
@@ -237,9 +238,10 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [showPrivacyPopup, setShowPrivacyPopup] = useState(false);
   const [showSettingsPopup, setShowSettingsPopup] = useState(false);
   // Check if device is mobile based on screen width
+  // changed < 768 to < 968
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 968);
     };
     // Initial check
     checkIsMobile();
@@ -809,10 +811,10 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
 // Main Content Component
 export function MainContent({ sidebarOpen, children }) {
   const [isMobile, setIsMobile] = useState(false);
-
+// changed < 768 to < 968
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 968);
     };
 
     checkIsMobile();
@@ -1002,10 +1004,10 @@ export function Layout({ children }) {
     const savedState = localStorage.getItem("sidebarOpen");
     return savedState !== null ? savedState === "true" : true; // Default to true if no saved state
   });
-
+// changed < 768 to < 968
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 968);
     };
 
     checkIsMobile();
