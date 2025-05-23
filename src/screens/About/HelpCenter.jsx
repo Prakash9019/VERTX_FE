@@ -77,16 +77,16 @@ const HelpCenter = () => {
               <div className="max-w-3xl ml-0">
                 <div className="text-left">
                   <div className="flex flex-wrap gap-4 mb-4 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/contactsupport" className="text-white-400 hover:text-white">
                       Contact Support
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/reportIssue" className="text-white-400 hover:text-white">
                       Report an Issue
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/communityForums" className="text-white-400 hover:text-white">
                       Community Forums
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/feedback" className="text-white-400 hover:text-white">
                       Feedback
                     </a>
                   </div>
