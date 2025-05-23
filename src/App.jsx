@@ -57,6 +57,10 @@ import CookiePolicy from "./screens/About/CookiePolicy.jsx";
 import HelpCenterV from "./screens/More/HelpCenterV.jsx";
 import Newsletter from "./screens/About/Privacy&Terms/Newsletter.jsx";
 import About from "./screens/About/Privacy&Terms/About.jsx";
+import ContactSupport from "./screens/About/Help-Center/ContactSupport.jsx";
+import ReportIssue from "./screens/About/Help-Center/ReportIssue.jsx";
+import CommunityForums from "./screens/About/Help-Center/CommunityForums.jsx";
+import Feedback from "./screens/About/Help-Center/Feedback.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -121,6 +125,11 @@ function App() {
       <Route path="/newsletter" element={<Newsletter /> } />
       <Route path="/about" element={<About /> } />
 
+      {/* HelpCenter Component routes */}
+      <Route path="/contactsupport" element={<ContactSupport /> } />
+      <Route path="/reportIssue" element={<ReportIssue /> } />
+      <Route path="/communityForums" element={<CommunityForums /> } />
+      <Route path="/feedback" element={<Feedback /> } />
 
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/explore/putaface" element={<Put_a_face /> } />
