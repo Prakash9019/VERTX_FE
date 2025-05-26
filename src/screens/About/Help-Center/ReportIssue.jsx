@@ -21,7 +21,7 @@ const ReportIssue = () => {
             </div>
 
             <main className="flex flex-col w-full mx-auto px-6 max-sm:px-4">
-              <h1 className="text-4xl max-sm:text-2xl font-bold text-white text-center mb-8">Report Issuew</h1>
+              <h1 className="text-4xl max-sm:text-2xl font-bold text-white text-center mb-8">Report Issue</h1>
               <p className="text-gray-400 mb-6 max-sm:text-sm text-center">
                 Report issues regarding Vertex Labs.
               </p>
