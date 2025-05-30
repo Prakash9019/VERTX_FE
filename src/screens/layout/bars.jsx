@@ -161,7 +161,7 @@ export function Header({ sidebarOpen, setSidebarOpen }) {
                     },
                     {
                       icon: "gavel",
-                      label: "Terms of Service",
+                      label: "Terms & Conditions",
                       action: handleTermsClick,
                     },
                     { icon: "logout", label: "Log out", action: handleLogout },
@@ -725,7 +725,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     },
                     {
                       icon: "gavel",
-                      label: "Terms of Service",
+                      label: "Terms & Conditions",
                       action: handleTermsClick,
                     },
                     { icon: "logout", label: "Log out", action: handleLogout },
