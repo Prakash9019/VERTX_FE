@@ -146,6 +146,7 @@ export default function Pipeline() {
     <div className="pipeline">
       <FlowNav />
       <div className="topbar">
+        {/* Links Added to Return Home */}
         <Link to="/">
         <div>
           <img src={logo} alt="" className="logo" />

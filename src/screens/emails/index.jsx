@@ -43,6 +43,7 @@ export default function GenerateEmail() {
     <div className="emailCont">
       <FlowNav />
       <div className="topbar">
+        {/* Links Add to title to return Home */}
         <Link to="/">
         <div>
           <img src={logo} alt="" className="logo" />

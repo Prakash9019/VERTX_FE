@@ -127,6 +127,7 @@ export default function Docflow() {
     <div className="flow">
       <FlowNav />
       <div className="topbar">
+        {/*Links Added to the TItle to return Home  */}
         <Link to="/">
         <div>
           <img src={logo} alt="Logo" className="logo" />
