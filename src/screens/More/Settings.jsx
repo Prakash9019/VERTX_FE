@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import CopyrightText from './Copyright/CopyrightText';
 
 const SettingsV = ({ onClose }) => {
   const navigate = useNavigate();
@@ -113,9 +114,10 @@ const SettingsV = ({ onClose }) => {
                         fill="white"
                       />
                     </svg>
-                    <div className="text-gray-500 text-sm ml-2 max-sm:text-xs">
+                    {/* <div className="text-gray-500 text-sm ml-2 max-sm:text-xs">
                       © 2025 Your Company Name. All rights reserved.
-                    </div>
+                    </div> */}
+                    <CopyrightText/>
                   </div>
                 </div>
               </div>
