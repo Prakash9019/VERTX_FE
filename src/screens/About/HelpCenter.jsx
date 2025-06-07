@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import CopyrightText from '../More/Copyright/CopyrightText';
 
 const HelpCenter = () => {
   const navigate = useNavigate();
@@ -93,9 +94,7 @@ const HelpCenter = () => {
                       Feedback
                     </a>
                   </div>
-                  <div className="text-gray-500 text-sm mt-6 max-sm:text-xs">
-                    © 2025 Vertex Labs. All rights reserved.
-                  </div>
+                  <CopyrightText />
                 </div>
               </div>
             </footer>
