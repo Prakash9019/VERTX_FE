@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 import templates from "./templates.json";
 import { useRef, useState } from "react";
 import Button from "../../components/button/component";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import FlowNav from "../../components/flowNavigation/component"
 import { useEffect } from "react";
 
@@ -43,10 +43,13 @@ export default function GenerateEmail() {
     <div className="emailCont">
       <FlowNav />
       <div className="topbar">
+        {/* Links Add to title to return Home */}
+        <Link to="/">
         <div>
           <img src={logo} alt="" className="logo" />
           <p className="title">VERTX EMAILS</p>
         </div>
+        </Link>
         <div className="btns">$5000 Credits</div>
       </div>
       <div className="sections">

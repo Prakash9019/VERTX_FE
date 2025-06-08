@@ -132,7 +132,7 @@ function Categories() {
               <div className="flex justify-end ">
                 <button
                   onClick={closePopup}
-                  className="mr-2"
+                  className="mr-2 fixed bg-black rounded-full z-50 transition ease-in-out duration-300 hover:scale-110"
                   // className="p-2  text-white bg-gray-800 rounded-full  hover:bg-gray-700 transition-colors"
                 >
                   <svg
@@ -148,12 +148,12 @@ function Categories() {
                       width="31.5"
                       height="25.5"
                       rx="12.75"
-                      stroke="#757575"
-                      stroke-width="0.5"
+                      stroke="#ffffff"
+                      strokeWidth="0.5"
                     />
                     <path
                       d="M12.9834 8.04688L15.7861 12.251L18.5957 8.04688H19.5938L16.2988 12.9482L19.6963 18H18.6914L15.7861 13.6592L12.8809 18H11.8828L15.2803 12.9482L11.9854 8.04688H12.9834Z"
-                      fill="#757575"
+                      fill="#ffffff"
                     />
                   </svg>
                 </button>

@@ -567,7 +567,7 @@ export default function Bio() {
                                   rx="4"
                                   fill="#CAC5C5"
                                 />
-                                <g clip-path="url(#clip0_2146_2)">
+                                <g clipPath="url(#clip0_2146_2)">
                                   <path
                                     d="M6.33301 19V16.3333H19.6663V19H6.33301ZM8.99967 13.6667H9.93301L15.133 8.48334L14.6497 8.00001L14.183 7.53334L8.99967 12.7333V13.6667ZM7.66634 15V12.1667L15.133 4.71668C15.2552 4.59445 15.3969 4.50001 15.558 4.43334C15.7191 4.36668 15.8886 4.33334 16.0663 4.33334C16.2441 4.33334 16.4163 4.36668 16.583 4.43334C16.7497 4.50001 16.8997 4.60001 17.033 4.73334L17.9497 5.66668C18.083 5.7889 18.1802 5.93334 18.2413 6.10001C18.3025 6.26668 18.333 6.4389 18.333 6.61668C18.333 6.78334 18.3025 6.94723 18.2413 7.10834C18.1802 7.26945 18.083 7.41668 17.9497 7.55001L10.4997 15H7.66634ZM15.133 8.48334L14.6497 8.00001L14.183 7.53334L15.133 8.48334Z"
                                     fill="black"
@@ -822,9 +822,9 @@ export default function Bio() {
                         Skills
                       </h3>
                       <div className="flex flex-wrap gap-2">
-                        {formData.skills?.map((skill, index) => (
+                        {formData.skills?.map((skill) => (
                           <div
-                            key={index}
+                            key={skill}
                             className="bg-black rounded-full px-3 py-1 border-[1px] border-[#757575] text-white text-xs sm:text-sm"
                           >
                             {skill}
@@ -902,6 +902,7 @@ export default function Bio() {
                       <div className="flex flex-wrap gap-2">
                         {Object.keys(skillsData).map((skill) => (
                           <div
+                          key={skill}
                             className={`rounded-full px-3 py-1 border-[1px] border-[#757575] cursor-pointer text-xs sm:text-sm ${
                               selectedSkills.includes(skill)
                                 ? "bg-white"
@@ -975,10 +976,10 @@ export default function Bio() {
                   {!editingProject ? (
                     <div className="mb-6">
                       <div className="flex flex-col items-center justify-between">
-                        {projects.map((project, index) => (
+                        {projects.map((project) => (
                           <div
                             className="flex flex-col gap-4 w-full "
-                            key={index}
+                            key={project._id}
                           >
                             <div className="flex flex-row justify-between items-center ">
                               <h3 className="text-lg sm:text-xl font-bold mb-2 text-left flex-grow">

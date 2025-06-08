@@ -45,6 +45,22 @@ import Inbox from "./screens/inbox/inbox.jsx";
 import Listall from "./screens/explore/Listall.jsx";
 import GeneralInbox from "./screens/inbox/GeneralInbox.jsx";
 import SettingsV from "./screens/More/Settings.jsx";
+import PitchDeck from "./screens/Pitch-Deck/PitchDeck.jsx";
+import HelpCenter from "./screens/About/HelpCenter.jsx";
+import FAskQ from "./screens/About/FAskQ.jsx";
+import ContactUs from "./screens/About/ContactUs.jsx";
+import ReportAProblem from "./screens/About/ReportAProblem.jsx";
+import TermsOS from "./screens/About/TermsOS.jsx";
+import CommunGuide from "./screens/About/CommunGuide.jsx";
+import DataPolicy from "./screens/About/DataPolicy.jsx";
+import CookiePolicy from "./screens/About/CookiePolicy.jsx";
+import HelpCenterV from "./screens/More/HelpCenterV.jsx";
+import Newsletter from "./screens/About/Privacy&Terms/Newsletter.jsx";
+import About from "./screens/About/Privacy&Terms/About.jsx";
+import ContactSupport from "./screens/About/Help-Center/ContactSupport.jsx";
+import ReportIssue from "./screens/About/Help-Center/ReportIssue.jsx";
+import CommunityForums from "./screens/About/Help-Center/CommunityForums.jsx";
+import Feedback from "./screens/About/Help-Center/Feedback.jsx";
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -77,6 +93,7 @@ function App() {
       <Route path="/flow/match flow" element={<Matchflow />} />
       <Route path="/flow/pipeline" element={<Pipeline />} />
       <Route path="/flow/docflow" element={<Docflow />} />
+      <Route path="/flow/pitch-deck" element= {<PitchDeck />} />
    
       <Route path='/payment' element={<Cashfree1 />} />
        
@@ -91,6 +108,28 @@ function App() {
       <Route path="/privacy" element={<PrivacyPolicy /> } />
       <Route path="/terms" element={<TermsAndConditions /> } />
       <Route path="/settings" element={<SettingsV /> } />
+      {/* <Route path="/help-center" element={<HelpCenterV /> } /> */}
+
+      {/* All routes in the About Folder */}
+      <Route path="/help-center" element={<HelpCenter /> } />
+      <Route path="/FAQ" element={<FAskQ /> } />
+      <Route path="/contact-us" element={<ContactUs /> } />
+      <Route path="/report-a-problem" element={<ReportAProblem /> } />
+      {/* 2nd Row */}
+      <Route path="/terms-of-service" element={<TermsOS /> } />
+      <Route path="/community-guidelines" element={<CommunGuide /> } />
+      <Route path="/data-policy" element={<DataPolicy /> } />
+      <Route path="/cookie-policy" element={<CookiePolicy /> } />
+
+      {/*Privacy&Terms Page Routes  */}
+      <Route path="/newsletter" element={<Newsletter /> } />
+      <Route path="/about" element={<About /> } />
+
+      {/* HelpCenter Component routes */}
+      <Route path="/contactsupport" element={<ContactSupport /> } />
+      <Route path="/reportIssue" element={<ReportIssue /> } />
+      <Route path="/communityForums" element={<CommunityForums /> } />
+      <Route path="/feedback" element={<Feedback /> } />
 
       <Route path="/explore" element={<Welcome_founder /> } />
       <Route path="/explore/putaface" element={<Put_a_face /> } />

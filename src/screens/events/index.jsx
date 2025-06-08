@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 import API_KEY from "../../../key.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function Pipeline() {
   const [resp, setResp] = useState();
@@ -146,11 +146,14 @@ export default function Pipeline() {
     <div className="pipeline">
       <FlowNav />
       <div className="topbar">
+        {/* Links Added to Return Home */}
+        <Link to="/">
         <div>
           <img src={logo} alt="" className="logo" />
           <p className="title">VERTX PIPELINE</p>
           <p className="tag">BETA</p>
         </div>
+        </Link>
         <div className="btns">$5000 Credits</div>
       </div>
       <div className="sections">
