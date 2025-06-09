@@ -1,10 +1,11 @@
-import { useNavigate } from "react-router";
-import CopyrightText from "../More/Copyright/CopyrightText";
+import React from 'react'
+import { useNavigate } from 'react-router';
+import CopyrightText from '../../More/Copyright/CopyrightText';
 
-const ReportAProblem = () => {
+const ContactSupport = () => {
   const navigate = useNavigate();
   return (
-    <div className="fixed inset-0 bg-[#000000]/80 flex justify-center items-center z-50">
+<div className="fixed inset-0 bg-[#000000]/80 flex justify-center items-center z-50">
       <div className="w-[70%] max-sm:w-[95%] bg-black rounded-2xl border border-[#75757569] p-6 max-sm:p-2 pb-10 h-[95%] max-sm:h-[85%] overflow-hidden relative">
         <main className="overflow-y-scroll pt-12 h-full scrollbar-hide">
           <div className="bg-black text-gray-300 min-h-screen flex flex-col">
@@ -24,9 +25,9 @@ const ReportAProblem = () => {
             </div>
 
             <main className="flex flex-col w-full mx-auto px-6 max-sm:px-4">
-              <h1 className="text-4xl max-sm:text-2xl font-bold text-white text-center mb-8">Report A Problem</h1>
+              <h1 className="text-4xl max-sm:text-2xl font-bold text-white text-center mb-8">Contact Support</h1>
               <p className="text-gray-400 mb-6 max-sm:text-sm text-center">
-                Report any problems or inconvinience with Vertex Labs.
+                Contact Support or Get Support from Vertex Labs.
               </p>
 
               <ol className="space-y-6 max-sm:space-y-4">
@@ -58,8 +59,7 @@ const ReportAProblem = () => {
           </div>
         </main>
       </div>
-    </div>
-  )
+    </div>  )
 }
 
-export default ReportAProblem
+export default ContactSupport

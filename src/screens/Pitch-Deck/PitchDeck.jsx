@@ -12,14 +12,13 @@ const PitchDeck = ({ onClose }) => {
             <div className="flex justify-end ">
               <button
                 onClick={() => navigate(-1)}
-                className="mr-2"
-                // className="p-2  text-white bg-gray-800 rounded-full  hover:bg-gray-700 transition-colors"
-              >
+                className="mr-2 bg-black rounded-full fixed z-50 transition ease-in-out duration-300 hover:scale-110"
+                >
                 <svg width="40" height="40" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#757575" strokeWidth="0.5" />
+                  <rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#ffffff" strokeWidth="0.5" />
                   <path
-                    d="M12.9834 8.04688L15.7861 12.251L18.5957 8.04688H19.5938L16.2988 12.9482L19.6963 18H18.6914L15.7861 13.6592L12.8809 18H11.8828L15.2803 12.9482L11.9854 8.04688H12.9834Z"
-                    fill="#757575"
+                  d="M12.9834 8.04688L15.7861 12.251L18.5957 8.04688H19.5938L16.2988 12.9482L19.6963 18H18.6914L15.7861 13.6592L12.8809 18H11.8828L15.2803 12.9482L11.9854 8.04688H12.9834Z"
+                  fill="#ffffff"
                   />
                 </svg>
               </button>
@@ -96,30 +95,30 @@ const PitchDeck = ({ onClose }) => {
               <div className="max-w-3xl ml-0">
                 <div className="text-left">
                   <div className="flex flex-wrap gap-4 mb-4 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/help-center" className="text-white-400 hover:text-white">
                       Help Center
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/FAQ" className="text-white-400 hover:text-white">
                       FAQ
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/contact-us" className="text-white-400 hover:text-white">
                       Contact Us
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/report-a-problem" className="text-white-400 hover:text-white">
                       Report a Problem
                     </a>
                   </div>
                   <div className="flex flex-wrap gap-4 mb-6 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/terms-of-service" className="text-white-400 hover:text-white">
                       Terms of Service
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/community-guidelines" className="text-white-400 hover:text-white">
                       Community Guidelines
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/data-policy" className="text-white-400 hover:text-white">
                       Data Policy
                     </a>
-                    <a href="#" className="text-white-400 hover:text-white">
+                    <a href="/cookie-policy" className="text-white-400 hover:text-white">
                       Cookie Policy
                     </a>
                   </div>

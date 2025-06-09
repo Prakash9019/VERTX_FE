@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import CopyrightText from './Copyright/CopyrightText';
 
 const SettingsV = ({ onClose }) => {
   const navigate = useNavigate();
@@ -13,14 +14,13 @@ const SettingsV = ({ onClose }) => {
             <div className="flex justify-end ">
               <button
                 onClick={() => navigate(-1)}
-                className="mr-2"
-                // className="p-2  text-white bg-gray-800 rounded-full  hover:bg-gray-700 transition-colors"
-              >
+                className="mr-2 bg-black rounded-full fixed z-50 transition ease-in-out duration-300 hover:scale-110"
+                >
                 <svg width="40" height="40" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#757575" strokeWidth="0.5" />
+                  <rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#ffffff" strokeWidth="0.5" />
                   <path
-                    d="M12.9834 8.04688L15.7861 12.251L18.5957 8.04688H19.5938L16.2988 12.9482L19.6963 18H18.6914L15.7861 13.6592L12.8809 18H11.8828L15.2803 12.9482L11.9854 8.04688H12.9834Z"
-                    fill="#757575"
+                  d="M12.9834 8.04688L15.7861 12.251L18.5957 8.04688H19.5938L16.2988 12.9482L19.6963 18H18.6914L15.7861 13.6592L12.8809 18H11.8828L15.2803 12.9482L11.9854 8.04688H12.9834Z"
+                  fill="#ffffff"
                   />
                 </svg>
               </button>
@@ -114,9 +114,10 @@ const SettingsV = ({ onClose }) => {
                         fill="white"
                       />
                     </svg>
-                    <div className="text-gray-500 text-sm ml-2 max-sm:text-xs">
+                    {/* <div className="text-gray-500 text-sm ml-2 max-sm:text-xs">
                       © 2025 Your Company Name. All rights reserved.
-                    </div>
+                    </div> */}
+                    <CopyrightText/>
                   </div>
                 </div>
               </div>

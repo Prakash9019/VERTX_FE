@@ -22,16 +22,16 @@ const MarkInbox = ({ marked }) => {
     };
 
     return (
-        <div className="flex h-full -mt-5">
+        <div className="flex h-full -mt-7">
             <div
-                className={`flex-grow bg-black p-2 ${detailSidebarOpen ? "hidden md:block" : "flex flex-col"}`}
+                className={`flex-grow bg-black p-2  ${detailSidebarOpen ? "hidden md:block" : "flex flex-col"}`}
                 style={mainContentStyles}
             >
                 {marked && marked.length > 0 ? (
                     marked.map((message) => (
                         <div
                             key={message.id}
-                            className="flex items-center p-2 rounded-lg mb-4 cursor-pointer hover:bg-gray-800 transition-colors"
+                            className="flex items-center p-4 rounded-lg mb-4 cursor-pointer hover:bg-gray-800 transition-colors border border-gray-700"
                             onClick={() => handleMessageClick(message)}
                         >
                             <div className="flex items-center flex-1">
@@ -90,15 +90,15 @@ const MarkInbox = ({ marked }) => {
                 <div className="fixed top-0 right-0 h-full w-full md:w-1/3 bg-black border-l border-[#1E1E1E] z-50 transform transition-transform duration-300 ease-in-out">
                     <div className="flex flex-col h-full">
                         <div className="p-4 border-b border-[#1E1E1E] flex items-center">
-                            <button onClick={handleBackClick} className="p-2 rounded-full hover:bg-gray-800 mr-2">
+                            <button onClick={handleBackClick} className="p-2 rounded-full hover:bg-gray-800 ">
                                 <ArrowLeft size={20} />
                             </button>
-                            <h2 className="text-xl font-medium">Marked Profile</h2>
+                            <h2 className="text-xl font-medium text-white ml-2">Marked Profile</h2>
                         </div>
 
                         <div className="flex-grow overflow-y-auto p-4">
                             <div className="flex justify-center mb-4">
-                                <div className="w-24 h-24 rounded-full overflow-hidden">
+                                <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
                                     {selectedMessage.avatar ? (
                                         <img src={selectedMessage.avatar || "/placeholder.svg"} alt={`${selectedMessage.firstName} ${selectedMessage.lastName}`} className="w-full h-full object-cover" />
                                     ) : (
@@ -114,7 +114,7 @@ const MarkInbox = ({ marked }) => {
                                     )}
                                 </div>
                             </div>
-                            <h3 className="text-lg font-semibold mb-2 text-center">{selectedMessage.firstName + " " + selectedMessage.lastName}</h3>
+                            <h3 className="text-white font-semibold text-sm">{selectedMessage.firstName + " " + selectedMessage.lastName}</h3>
                             {selectedMessage._id && <List userId={selectedMessage._id} />}
                         </div>
 

@@ -41,7 +41,7 @@ export default function Inbox() {
 
         
         const token = localStorage.getItem("token");
-        console.log("Sending token:", token);
+        // console.log("Sending token:", token);
 
           if (!token) {
             console.error("No token found in localStorage");

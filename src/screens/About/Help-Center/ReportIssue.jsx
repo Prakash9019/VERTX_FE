@@ -1,7 +1,8 @@
-import { useNavigate } from "react-router";
-import CopyrightText from "../More/Copyright/CopyrightText";
+import React from 'react'
+import { useNavigate } from 'react-router';
+import CopyrightText from '../../More/Copyright/CopyrightText';
 
-const ReportAProblem = () => {
+const ReportIssue = () => {
   const navigate = useNavigate();
   return (
     <div className="fixed inset-0 bg-[#000000]/80 flex justify-center items-center z-50">
@@ -24,9 +25,9 @@ const ReportAProblem = () => {
             </div>
 
             <main className="flex flex-col w-full mx-auto px-6 max-sm:px-4">
-              <h1 className="text-4xl max-sm:text-2xl font-bold text-white text-center mb-8">Report A Problem</h1>
+              <h1 className="text-4xl max-sm:text-2xl font-bold text-white text-center mb-8">Report Issue</h1>
               <p className="text-gray-400 mb-6 max-sm:text-sm text-center">
-                Report any problems or inconvinience with Vertex Labs.
+                Report issues regarding Vertex Labs.
               </p>
 
               <ol className="space-y-6 max-sm:space-y-4">
@@ -62,4 +63,4 @@ const ReportAProblem = () => {
   )
 }
 
-export default ReportAProblem
+export default ReportIssue

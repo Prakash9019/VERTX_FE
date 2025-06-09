@@ -163,7 +163,7 @@ const CommunityPage = () => {
                 {/* Social Media Icons */}
                 <div className="flex justify-center space-x-6 mb-12">
                   {/* LinkedIn */}
-                  <a
+                  <a target="blank"
                     href="https://www.linkedin.com/company/govertx/ "
                     className="text-white"
                   >
@@ -178,7 +178,8 @@ const CommunityPage = () => {
                   </a>
 
                   {/* Gmail */}
-                  <a href="hello@govertx.com" className="text-white">
+                  <a target="blank"
+                  href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hello@govertx.com" className="text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="36"
@@ -229,6 +230,7 @@ const CommunityPage = () => {
 
                   {/* WhatsApp */}
                   <a
+                  target="blank"
                     href="https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8 "
                     className="text-white"
                   >
@@ -244,6 +246,7 @@ const CommunityPage = () => {
 
                   {/* Instagram */}
                   <a
+                  target="blank"
                     href="https://www.instagram.com/vertx4founders/ "
                     className="text-white"
                   >
@@ -258,7 +261,9 @@ const CommunityPage = () => {
                   </a>
 
                   {/* Twitter/X */}
-                  <a href="https://x.com/Vertx_AI " className="text-white">
+                  <a 
+                  target="blank"
+                  href="https://x.com/Vertx_AI " className="text-white">
                     <svg
                       className="w-8 h-8"
                       xmlns="http://www.w3.org/2000/svg"
@@ -270,7 +275,9 @@ const CommunityPage = () => {
                   </a>
 
                   {/* Discord */}
-                  <a href="https://lnkd.in/gRdvFYKz " className="text-white">
+                  <a 
+                  target="blank"
+                  href="https://lnkd.in/gRdvFYKz " className="text-white">
                     <svg
                       className="w-8 h-8"
                       xmlns="http://www.w3.org/2000/svg"

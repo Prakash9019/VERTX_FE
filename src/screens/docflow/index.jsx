@@ -3,6 +3,7 @@ import FlowNav from "../../components/flowNavigation/component";
 import logo from "../../assets/logo.png";
 import axios from "axios";
 import { useState, useRef } from "react";
+import { Link } from "react-router";
 
 export default function Docflow() {
   const [prompt, setPrompt] = useState("");
@@ -126,12 +127,15 @@ export default function Docflow() {
     <div className="flow">
       <FlowNav />
       <div className="topbar">
+        {/*Links Added to the TItle to return Home  */}
+        <Link to="/">
         <div>
           <img src={logo} alt="Logo" className="logo" />
           <p className="title">
             VERTX DOCFLOW <span className="tag">BETA</span>
           </p>
         </div>
+        </Link>
         <div className="btns">$5000 Credits</div>
       </div>
 
