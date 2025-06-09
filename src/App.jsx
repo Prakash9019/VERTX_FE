@@ -61,6 +61,8 @@ import ContactSupport from "./screens/About/Help-Center/ContactSupport.jsx";
 import ReportIssue from "./screens/About/Help-Center/ReportIssue.jsx";
 import CommunityForums from "./screens/About/Help-Center/CommunityForums.jsx";
 import Feedback from "./screens/About/Help-Center/Feedback.jsx";
+import PrivateRoute from "./components/Privacy/PrivateRoute.jsx";
+
 function App() {
     // const { setIsProtected } = useCopyProtection();
   
@@ -105,7 +107,9 @@ function App() {
 
       <Route path="/admin" element={<Admin />} />
 
-      <Route path="/privacy" element={<PrivacyPolicy /> } />
+      {/* <Route path="/privacy" element={<PrivacyPolicy /> } /> */}
+      <Route path="/privacy" element={<PrivateRoute><PrivacyPolicy /></PrivateRoute>} />
+
       <Route path="/terms" element={<TermsAndConditions /> } />
       <Route path="/settings" element={<SettingsV /> } />
       {/* <Route path="/help-center" element={<HelpCenterV /> } /> */}

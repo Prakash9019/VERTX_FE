@@ -604,6 +604,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <span className="ml-3 font-bold">FlowAI</span>
                     </button>
                   </div>
+                  {
+                    localStorage.getItem("token") && (
                   <div className="flex justify-center w-full mb-6">
                     <button
                       onClick={() => navigate("/privacy")}
@@ -612,6 +614,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       Privacy Policy
                     </button>
                   </div>
+                    )
+                  }
                 </>
               ) : (
                 <div className="flex flex-col space-y-4">
