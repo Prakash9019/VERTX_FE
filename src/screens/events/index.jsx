@@ -154,7 +154,9 @@ export default function Pipeline() {
           <p className="tag">BETA</p>
         </div>
         </Link>
-        <div className="btns">$5000 Credits</div>
+        
+        {/* Credit Button commented out */}
+        {/* <div className="btns">$5000 Credits</div> */}
       </div>
       <div className="sections">
         <div className="bx">
