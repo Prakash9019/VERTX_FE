@@ -605,14 +605,14 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </button>
                   </div>
                                      
-                  <div className="flex justify-center w-full mb-6">
+                  {/* <div className="flex justify-center w-full mb-6">
                     <button
                       onClick={() => navigate("/privacy")}
                       className="text-md text-gray-400 hover:text-white underline"
                     >
                       Privacy Policy
                     </button>
-                  </div>  
+                  </div>   */}
                   
                 </>
               ) : (

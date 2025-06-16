@@ -37,7 +37,7 @@ export default function Inbox() {
       
       try {
         // handleUser();
-        // console.log("Request URL:", `${API_KEY}/list/users/inbox`);
+        console.log("Request URL:", `${API_KEY}/list/users/inbox`);
 
         
         const token = localStorage.getItem("token");
