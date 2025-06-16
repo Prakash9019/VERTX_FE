@@ -108,7 +108,7 @@ function App() {
       <Route path="/admin" element={<Admin />} />
 
       {/* <Route path="/privacy" element={<PrivacyPolicy /> } /> */}
-      <Route path="/privacy" element={<PrivateRoute><PrivacyPolicy /></PrivateRoute>} />
+      <Route path="/privacy" element={<PrivacyPolicy/>} />
 
       <Route path="/terms" element={<TermsAndConditions /> } />
       <Route path="/settings" element={<SettingsV /> } />

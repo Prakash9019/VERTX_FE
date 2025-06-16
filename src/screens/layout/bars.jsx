@@ -604,8 +604,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <span className="ml-3 font-bold">FlowAI</span>
                     </button>
                   </div>
-                  {
-                    localStorage.getItem("token") && (
+                                     
                   <div className="flex justify-center w-full mb-6">
                     <button
                       onClick={() => navigate("/privacy")}
@@ -613,9 +612,8 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     >
                       Privacy Policy
                     </button>
-                  </div>
-                    )
-                  }
+                  </div>  
+                  
                 </>
               ) : (
                 <div className="flex flex-col space-y-4">
@@ -634,6 +632,14 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   </button>
                 </div>
               )}
+              <div className="flex justify-center w-full mb-6">
+                  <button
+                    onClick={() => navigate("/privacy")}
+                    className="text-md text-gray-400 hover:text-white underline"
+                  >
+                    Privacy Policy
+                  </button>
+                </div>
             </div>
           ) : (
             <div className="flex flex-col items-center space-y-4 mb-4 transition-opacity duration-700 ease-in-out opacity-100">
