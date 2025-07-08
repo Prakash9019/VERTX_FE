@@ -298,10 +298,11 @@ export default function GeneralInbox({
             </div>
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center h-full">
-            <p className="text-gray-400">No messages found. Connect now!</p>
-          </div>
-        )}
+                    <div className="flex flex-col items-center justify-center h-full">
+                        <p className="text-gray-400 text-center">No Message found. All messages will be appear here.</p>
+                        <p className='text-white font-bold mt-2'> Connect Now</p>
+                    </div>
+                )}
       </div>
       {detailSidebarOpen && selectedMessage && (
         <div

@@ -9,17 +9,18 @@ const TermsAndConditions = ({onClose}) => {
           <div className="bg-black text-gray-300 min-h-screen flex flex-col">
             {/* Close button moved to top right */}
             <div className="flex justify-end ">
-                <button 
-                  onClick={()=> navigate(-1)}
-                  className="mr-2"
-                  // className="p-2  text-white bg-gray-800 rounded-full  hover:bg-gray-700 transition-colors"
+                <button
+                onClick={() => navigate(-1)}
+                className="mr-2 bg-black rounded-full fixed z-50 transition ease-in-out duration-300 hover:scale-110"
                 >
-                  <svg width="40" height="40" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#757575" stroke-width="0.5"/>
-<path d="M12.9834 8.04688L15.7861 12.251L18.5957 8.04688H19.5938L16.2988 12.9482L19.6963 18H18.6914L15.7861 13.6592L12.8809 18H11.8828L15.2803 12.9482L11.9854 8.04688H12.9834Z" fill="#757575"/>
-</svg>
-
-                </button>
+                <svg width="40" height="40" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.25" y="0.25" width="31.5" height="25.5" rx="12.75" stroke="#ffffff" strokeWidth="0.5" />
+                  <path
+                  d="M12.9834 8.04688L15.7861 12.251L18.5957 8.04688H19.5938L16.2988 12.9482L19.6963 18H18.6914L15.7861 13.6592L12.8809 18H11.8828L15.2803 12.9482L11.9854 8.04688H12.9834Z"
+                  fill="#ffffff"
+                  />
+                </svg>
+              </button>
               </div>
             
             <main className="flex flex-col w-full mx-auto px-6 max-sm:px-4">
@@ -77,16 +78,27 @@ const TermsAndConditions = ({onClose}) => {
               <div className="max-w-3xl ml-0"> 
                 <div className="text-left">
                   <div className="flex flex-wrap gap-4 mb-4 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">Whatsapp</a>
-                    <a href="#" className="text-white-400 hover:text-white">Discord</a>
-                    <a href="#" className="text-white-400 hover:text-white">LinkedIn</a>
-                    <a href="#" className="text-white-400 hover:text-white">Twitter</a>
+                    <a href="https://chat.whatsapp.com/B5G68k1ipkO95OnQusvIq8 " 
+                    className="text-white-400 hover:text-white"
+                    target='_blank' rel='noopener noreferror'>Whatsapp</a>
+
+                    <a href="https://lnkd.in/gRdvFYKz" 
+                    className="text-white-400 hover:text-white"
+                    target='_blank' rel='noopener noreferror'>Discord</a>
+
+                    <a href="https://www.linkedin.com/company/govertx/ "
+                     className="text-white-400 hover:text-white"
+                     target='_blank' rel='noopener noreferror'>LinkedIn</a>
+
+                    <a href="https://x.com/Vertx_AI" 
+                    className="text-white-400 hover:text-white"
+                    target='_blank' rel='noopener noreferror'>Twitter</a>
                   </div>
                   <div className="flex flex-wrap gap-4 mb-6 max-sm:gap-2 max-sm:text-xs">
-                    <a href="#" className="text-white-400 hover:text-white">Newsletter</a>
-                    <a href="#" className="text-white-400 hover:text-white">About</a>
-                    <a href="#" className="text-white-400 hover:text-white">Terms of use</a>
-                    <a href="#" className="text-white-400 hover:text-white">Privacy policy</a>
+                    <a href="/newsletter" className="text-white-400 hover:text-white">Newsletter</a>
+                    <a href="/about" className="text-white-400 hover:text-white">About</a>
+                    <a href="/terms" className="text-white-400 hover:text-white">Terms of use</a>
+                    <a href="/privacy" className="text-white-400 hover:text-white">Privacy policy</a>
                   </div>
                   <div className="flex items-center mt-6">
                     <svg width="47" height="12" viewBox="0 0 47 12" fill="none" xmlns="http://www.w3.org/2000/svg">

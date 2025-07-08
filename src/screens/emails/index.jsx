@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 import templates from "./templates.json";
 import { useRef, useState } from "react";
 import Button from "../../components/button/component";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import FlowNav from "../../components/flowNavigation/component"
 import { useEffect } from "react";
 
@@ -15,7 +15,7 @@ export default function GenerateEmail() {
   const editRef = useRef();
 
   const styleText = (style) => {
-   // console.log(style)
+    console.log(style)
     if (window.getSelection) {
       const selection = window.getSelection();
       if (selection.rangeCount > 0) {
@@ -35,7 +35,7 @@ export default function GenerateEmail() {
   };
 
   useEffect(() => {
-   // console.log(template)
+    console.log(template)
     editRef.current.innerText = template?.body  || "";
   }, [template])
 
@@ -43,10 +43,13 @@ export default function GenerateEmail() {
     <div className="emailCont">
       <FlowNav />
       <div className="topbar">
+        {/* Links Add to title to return Home */}
+        <Link to="/">
         <div>
           <img src={logo} alt="" className="logo" />
           <p className="title">VERTX EMAILS</p>
         </div>
+        </Link>
         <div className="btns">$5000 Credits</div>
       </div>
       <div className="sections">
@@ -157,7 +160,7 @@ export default function GenerateEmail() {
                     context={"Verify & Submit"}
                     theme={"light"}
                     callback={() => {
-                      navigate("/chat");
+                      navigate("/flow/pipeline");
                     }}
                   />
                 </div>

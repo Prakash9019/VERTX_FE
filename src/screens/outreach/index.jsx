@@ -292,8 +292,8 @@ export default function Outreach2() {
           window.scrollTo(0, 0);
         }
       } catch (err) {
-        setError("Check Your internet Connection")
-        console.error("Error fetching investors:", err)
+        setError("Check Your internet Connection");
+        console.error("Error fetching investors:", err);
       } finally {
         setLoading(false);
       }
@@ -472,13 +472,14 @@ export default function Outreach2() {
       setSidebarOpen={setSidebarOpen}
       contentRef={layoutContentRef}
     >
+      
       <div className="content-wrapper2 relative h-full w-full">
         {/* Fixed header section */}
         <div
           className={`fixed-header ${
             isMobile ? "px-2 sm:px-4 pt-6 sm:pt-10" : "px-4"
           } z-10 w-full`}
-          style={{ maxWidth: "100%", boxSizing: "border-box" }}
+          style={{ maxWidth: "95%", boxSizing: "border-box" }}
         >
           <div className={`text-left ${isMobile ? "ml-0" : ""}`}>
             <h1
@@ -500,7 +501,7 @@ export default function Outreach2() {
           {/* Custom Search Bar with Reduced Width */}
           <div
             className={`search-container ${isMobile ? "mb-3" : "mb-4"}`}
-            style={{ maxWidth: isMobile ? "90%" : "70%" }}
+            style={{ maxWidth: isMobile ? "100%" : "100%" }}
           >
             <div className="relative">
               <input
@@ -568,12 +569,12 @@ export default function Outreach2() {
             className="filters-container overflow-x-auto hide-scrollbar"
             style={{ width: "100%" }}
           >
-            <div className="filter mb-3 flex flex-nowrap gap-2 sm:gap-3">
-              {/* Multi-Select Country */}
+            {/* new test component  */}
 
+            <div className="mb-3">
               {!womenLed && (
-                <>
-                  <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3">
+                  <div className="text-center">
                     <MultiSelectDropdown
                       options={Country}
                       onChange={(values) =>
@@ -585,7 +586,7 @@ export default function Outreach2() {
                     />
                   </div>
 
-                  <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                  <div className="text-center">
                     <MultiSelectDropdown
                       options={investorType}
                       onChange={(values) =>
@@ -597,7 +598,7 @@ export default function Outreach2() {
                     />
                   </div>
 
-                  <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                  <div className="text-center">
                     <MultiSelectDropdown
                       options={industries}
                       onChange={(values) =>
@@ -609,7 +610,7 @@ export default function Outreach2() {
                     />
                   </div>
 
-                  <div className="min-w-[150px] sm:min-w-[180px] md:min-w-[200px] flex-1">
+                  <div className="text-center">
                     <MultiSelectDropdown
                       options={previousFunding}
                       onChange={(values) =>
@@ -621,24 +622,39 @@ export default function Outreach2() {
                     />
                   </div>
 
-                  {/* Removed duplicate Global_hq filter */}
-                </>
+                  <div className="text-center">
+                    <button
+                      className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
+                        womenLed
+                          ? "bg-[#75757569] text-white"
+                          : "text-[#adadad] bg-[#161616]"
+                      }`}
+                      onClick={toggleWomenLed}
+                    >
+                      Women Led
+                    </button>
+                  </div>
+                </div>
               )}
 
-              {/* Women Led Button */}
-              <div className="min-w-[100px] sm:min-w-[120px]">
-                <button
-                  className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
-                    womenLed
-                      ? "bg-[#75757569] text-white"
-                      : "text-[#adadad] bg-[#161616]"
-                  }`}
-                  onClick={toggleWomenLed}
-                >
-                  Women Led
-                </button>
-              </div>
+              {/* Optional extra button when womenLed is true */}
+              {womenLed && (
+                <div className="mt-2 w-full sm:w-1/2 md:w-[20%]">
+                  <button
+                    className={`w-full px-2 sm:px-4 py-2 sm:py-2 border border-[#75757569] rounded-md text-xs sm:text-sm ${
+                      womenLed
+                        ? "bg-[#75757569] text-white"
+                        : "text-[#adadad] bg-[#161616]"
+                    }`}
+                    onClick={toggleWomenLed}
+                  >
+                    Women Led
+                  </button>
+                </div>
+              )}
             </div>
+
+            {/* testing compnet end here */}
           </div>
         </div>
 
@@ -681,12 +697,11 @@ export default function Outreach2() {
                       </div>
                     ))
                   ) : (
-                   <div className="flex items-center justify-center h-full w-full">
-  <div className="text-center py-8 text-gray-500">
-    No Results Found
-  </div>
-</div>
-
+                    <div className="flex items-center justify-center h-full w-full">
+                      <div className="text-center py-8 text-gray-500">
+                        No Results Found
+                      </div>
+                    </div>
                   ))}
                 {!womenLed &&
                   bookmarked &&
@@ -703,11 +718,11 @@ export default function Outreach2() {
                         />
                       ))
                   ) : (
-                   <div className="flex items-center justify-center h-full w-full">
-  <div className="text-center py-8 text-gray-500">
-    No Results Found
-  </div>
-</div>
+                    <div className="flex items-center justify-center h-full w-full">
+                      <div className="text-center py-8 text-gray-500">
+                        No Results Found
+                      </div>
+                    </div>
                   ))}
                 {/*console.log(womenInv)*/}
                 {womenLed &&
@@ -724,25 +739,26 @@ export default function Outreach2() {
                       </div>
                     ))
                   ) : (
-                   <div className="flex items-center justify-center h-full w-full">
-  <div className="text-center py-8 text-gray-500">
-    No Results Found
-  </div>
-</div>
-
+                    <div className="flex items-center justify-center h-full w-full">
+                      <div className="text-center py-8 text-gray-500">
+                        No Results Found
+                      </div>
+                    </div>
                   ))}
               </>
             )}
           </div>
 
+          {/* pagination  */}
           {!bookmarked && !womenLed && investors.length > 0 && (
             <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 flex justify-center items-center">
               <button
-                className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md mr-2"
+                className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md"
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
               >
-                Previous
+                <span className="block sm:hidden">Prev</span>
+                <span className="hidden sm:block">Previous</span>
               </button>
               <div
                 ref={paginationScrollRef}
@@ -780,11 +796,12 @@ export default function Outreach2() {
           {womenLed && womenInv.length > 0 && (
             <div className="pagination mt-6 sm:mt-8 mb-8 sm:mb-12 flex justify-center items-center">
               <button
-                className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md mr-2"
+                className="pagination-button text-xs sm:text-sm min-w-[70px] sm:min-w-[80px] px-2 py-1.5 border border-[#75757569] rounded-md"
                 disabled={currentPage1 === 1}
                 onClick={() => handlePageChange1(currentPage1 - 1)}
               >
-                Previous
+                <span className="block sm:hidden">Prev</span>
+                <span className="hidden sm:block">Previous</span>
               </button>
               <div
                 ref={paginationScrollRef1}

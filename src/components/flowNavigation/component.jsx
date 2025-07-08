@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import "./style.css";
 import Button from "../button/component";
 import { useNavigate } from "react-router";
@@ -22,7 +22,10 @@ export default function FlowNav() {
       <button className="trg" onClick={() => setState(!state)}>
         <ion-icon name="caret-back-outline"></ion-icon>
       </button>
+      {/* Added link to home VERTX FLOW */}
+      <Link to="/">
       <p className="title">VERTX FLOW</p>
+      </Link>
       <div className="menu">
         <button
           style={{
@@ -73,7 +76,7 @@ export default function FlowNav() {
             <p className="i">Doc Flow</p>
           </div>
         </a>
-        <a href="/">
+        <a href="/flow/pitch-deck">
           <div className="nitem">
             <svg
               width="18"
@@ -90,12 +93,12 @@ export default function FlowNav() {
             <p className="i">Pitch Deck</p>
           </div>
         </a>
-        <a href="/">
+        {/* <a href="/">
           <div className="nitem">
             <ion-icon name="build-outline"></ion-icon>
             <p className="i">Resources</p>
           </div>
-        </a>
+        </a> */}
         <div className="creds">$5000 Credits</div>
       </div>
     </div>

@@ -176,6 +176,7 @@ export default function EquityCalculator({ onClose }) {
       <div className="flex-container">
         <div className="content-wrapper">
           {/* Back button added */}
+          
 
            
           <div>
@@ -357,7 +358,7 @@ export default function EquityCalculator({ onClose }) {
           {/* Custom Dialog */}
           {isDialogOpen && (
             <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-<div className="bg-[#101010] p-6 rounded-lg border border-[1px] border-white w-96">
+<div className="bg-[#101010] p-6 rounded-lg border-[1px] border-white w-96">
 
                 <h2 className="modal-title">Manage Co-founders</h2>
                 <div className="modal-content">

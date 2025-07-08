@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import API_KEY from "../../../key";
 import FloatingLabelInput from "../../components/LabelInput.jsx";
 import { useNavigate } from "react-router";
@@ -13,26 +13,25 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
   const [password, setPassword] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
 
-
   const signupHandler = async () => {
     setLoad(true);
     const response = await axios
       .post(API_KEY + "/auth/signup", {
         email,
-        password
+        password,
       })
       .catch((e) => {
         setErrorMessage(e.response?.data?.msg || "An error occurred");
         return e.response;
       });
-      // console.log(response.data);
+    // console.log(response.data);
 
     if (response?.data) {
       setLoad(false);
@@ -41,10 +40,11 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
       setResp(response?.data?.msg);
       if (response.status == 200) {
         localStorage.setItem("token", response?.data?.token);
-        const username= response?.data?.username;
-        const trimmedUsername = username.length > 13 ? username.substring(0, 13) + "..." : username;
+        const username = response?.data?.username;
+        const trimmedUsername =
+          username.length > 13 ? username.substring(0, 13) + "..." : username;
         localStorage.setItem("user", trimmedUsername);
-      //  console.log()
+        //  console.log()
         window.location.reload();
         navigate("/outreach");
       }
@@ -61,11 +61,13 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
   }, [email]);
 
   const fetchGoogleUrl = async () => {
-    const response = await axios.get(API_KEY + "/auth/oauth").catch((e) => e.response);
+    const response = await axios
+      .get(API_KEY + "/auth/oauth")
+      .catch((e) => e.response);
     if (response?.status == 200) {
       window.location.href = response.data.msg;
     }
-  }
+  };
 
   const handleLinkedInLogin = () => {
     window.location.href = `${API_KEY}/auth/linkedin`;
@@ -92,15 +94,15 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
           <div className="w-full h-px bg-[#9d9d9d]"></div>
         </div>
 
-        <div className="w-full">
-           <input
-              id="Email"
-              type="text"
-              value={email}
-              placeholder="Email Address..."
-              className="w-full px-3 py-2 bg-transparent rounded-md mb-2 border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 transition-all duration-200"
-              onChange={(e) => setEmail(e.target.value)}
-            />
+        <div className=" relative w-full z-10">
+          <input
+            id="Email"
+            type="text"
+            value={email}
+            placeholder="Enter email here..."
+            className="w-full px-3 py-2 bg-transparent rounded-md mb-2 border border-gray-700 text-white text-xs sm:text-sm leading-tight align-middle focus:outline-none focus:ring-0 transition-all duration-200"
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
           <div className="relative w-full mb-3">
             <input
@@ -108,12 +110,14 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
               type={isPasswordVisible ? "text" : "password"}
               value={password}
               minLength={8}
-              className={`w-full px-3 py-2 bg-transparent rounded-md border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 ${!password && !isFocused ? 'pl-[90px]' : 'pl-3'} transition-all duration-200`}
+              className={`w-full px-3 py-2 bg-transparent rounded-md border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 ${
+                !password && !isFocused ? "pl-[90px]" : "pl-3"
+              } transition-all duration-200`}
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
             />
-            {(!password && !isFocused) && (
+            {!password && !isFocused && (
               <label
                 htmlFor="Password"
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xs sm:text-sm transition-all duration-200 pointer-events-none"
@@ -126,12 +130,18 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
               onClick={togglePasswordVisibility}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
             >
-              {isPasswordVisible ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
+              {isPasswordVisible ? (
+                <FaEyeSlash size={14} />
+              ) : (
+                <FaEye size={14} />
+              )}
             </button>
           </div>
-          
+
           {errorMessage && (
-            <p className="text-red-500 mt-2 text-xs text-center">{errorMessage}</p>
+            <p className="text-red-500 mt-2 text-xs text-center">
+              {errorMessage}
+            </p>
           )}
 
           <Button
@@ -149,7 +159,7 @@ export const SignupForm = ({ onComplete, email, setEmail }) => {
 export const VerificationForm = ({ onComplete, email }) => {
   const [coder, setCoder] = useState(Array(6).fill(""));
   const inputRefs = useRef([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const notify = () => toast("Verification already sent!");
 
@@ -192,19 +202,19 @@ export const VerificationForm = ({ onComplete, email }) => {
       setErrorMessage("Verification token is missing. Please register again.");
       return;
     }
-    
+
     try {
       const response = await fetch(`${API_KEY}/auth/verify`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          "token": token,
+          "Content-Type": "application/json",
+          token: token,
         },
         body: JSON.stringify({ token, code }),
       });
 
       if (!response.ok) {
-        throw new Error('Verification failed');
+        throw new Error("Verification failed");
       }
 
       const data = await response.json();
@@ -240,7 +250,10 @@ export const VerificationForm = ({ onComplete, email }) => {
 
       <div className="text-xs font-semibold text-neutral-500 text-center mb-3">
         Didn't receive an email?{" "}
-        <span className="font-extrabold text-white cursor-pointer" onClick={notify}>
+        <span
+          className="font-extrabold text-white cursor-pointer"
+          onClick={notify}
+        >
           Resend
         </span>
       </div>
@@ -281,17 +294,17 @@ export const SetPasswordForm = ({ onComplete }) => {
 
     try {
       const response = await fetch(`${API_KEY}/auth/set-password`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          "token": token
+          "Content-Type": "application/json",
+          token: token,
         },
         body: JSON.stringify({ password }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        setErrorMessage(errorData.message || 'Failed to set password');
+        setErrorMessage(errorData.message || "Failed to set password");
         return;
       }
 
@@ -317,12 +330,14 @@ export const SetPasswordForm = ({ onComplete }) => {
               type={isPasswordVisible ? "text" : "password"}
               value={password}
               minLength={8}
-              className={`w-full px-3 py-2 bg-transparent rounded-md border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 ${!password && !isFocused ? 'pl-[90px]' : 'pl-3'} transition-all duration-200`}
+              className={`w-full px-3 py-2 bg-transparent rounded-md border border-gray-700 text-white text-xs sm:text-sm focus:outline-none focus:ring-0 ${
+                !password && !isFocused ? "pl-[90px]" : "pl-3"
+              } transition-all duration-200`}
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
             />
-            {(!password && !isFocused) && (
+            {!password && !isFocused && (
               <label
                 htmlFor="Password"
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-xs sm:text-sm transition-all duration-200 pointer-events-none"
@@ -335,13 +350,19 @@ export const SetPasswordForm = ({ onComplete }) => {
               onClick={togglePasswordVisibility}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
             >
-              {isPasswordVisible ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
+              {isPasswordVisible ? (
+                <FaEyeSlash size={14} />
+              ) : (
+                <FaEye size={14} />
+              )}
             </button>
           </div>
         </div>
 
         {errorMessage && (
-          <p className="text-red-500 mt-2 text-xs text-center">{errorMessage}</p>
+          <p className="text-red-500 mt-2 text-xs text-center">
+            {errorMessage}
+          </p>
         )}
 
         <Button
@@ -363,8 +384,8 @@ const Button = ({ context, theme, callback, disabled = false }) => {
       disabled={disabled}
       className={`w-full py-2 px-3 rounded-full font-medium text-xs sm:text-sm mb-2 transition-colors ${
         theme === "light"
-          ? disabled 
-            ? "bg-gray-400 text-gray-700 cursor-not-allowed" 
+          ? disabled
+            ? "bg-gray-400 text-gray-700 cursor-not-allowed"
             : "bg-white text-black hover:bg-gray-200"
           : "bg-transparent text-white border border-gray-700 hover:bg-gray-900"
       }`}
