@@ -38,10 +38,17 @@ export default function Listall() {
       setLoading(true);
       handleUser();
       try {
+         const token = localStorage.getItem("token");
+        // console.log("Sending token:", token);
+
+          if (!token) {
+            console.error("No token found in localStorage");
+            return;
+          }
         const response = await axios.get(`${API_KEY}/list/users/list`, {
           headers: {
             "Content-Type": "application/json",
-            token: localStorage.getItem("token"),
+            Authorization: `Bearer ${token}`,
           },
           params: { page, limit: 10 }, // ✅ Fetch only 10 users per request
         });
@@ -70,8 +77,15 @@ export default function Listall() {
 
   const handleUser = async () => {
     try {
+        const token = localStorage.getItem("token");
+        // console.log("Sending token:", token);
+
+          if (!token) {
+            console.error("No token found in localStorage");
+            return;
+          }
       const response = await axios.get(`${API_KEY}/list/userid`, {
-        headers: { token: localStorage.getItem("token") },
+        headers: {    Authorization: `Bearer ${token}` },
       });
       setUserId(response.data);
     } catch (error) {
@@ -82,8 +96,15 @@ export default function Listall() {
 
   const handleProject = async () => {
     try {
+       const token = localStorage.getItem("token");
+        // console.log("Sending token:", token);
+
+          if (!token) {
+            console.error("No token found in localStorage");
+            return;
+          }
       const response = await axios.get(`${API_KEY}/profile/projects/fetch`, {
-        headers: { token: localStorage.getItem("token") },
+        headers: {  Authorization: `Bearer ${token}`, },
         params: { uid: current.user },
       });
       setProjects(response.data);
@@ -96,13 +117,20 @@ export default function Listall() {
     if (currentIndex >= users.length) return;
 
     try {
+       const token = localStorage.getItem("token");
+        // console.log("Sending token:", token);
+
+          if (!token) {
+            console.error("No token found in localStorage");
+            return;
+          }
       await axios.post(
         `${API_KEY}/list/users/skip`,
         { skippedUserId: users[currentIndex]._id },
         {
           headers: {
             "Content-Type": "application/json",
-            token: localStorage.getItem("token"),
+               Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -117,13 +145,20 @@ export default function Listall() {
     if (currentIndex >= users.length) return;
 
     try {
+       const token = localStorage.getItem("token");
+        // console.log("Sending token:", token);
+
+          if (!token) {
+            console.error("No token found in localStorage");
+            return;
+          }
       await axios.post(
         `${API_KEY}/list/users/mark`,
         { markedUserId: users[currentIndex]._id },
         {
           headers: {
             "Content-Type": "application/json",
-            token: localStorage.getItem("token"),
+               Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -154,6 +189,13 @@ export default function Listall() {
     const newMessage = {};
     sendFriendRequest(userId, selectedUserId, newMessage);
     try {
+       const token = localStorage.getItem("token");
+        // console.log("Sending token:", token);
+
+          if (!token) {
+            console.error("No token found in localStorage");
+            return;
+          }
       await axios.post(
         `${API_KEY}/list/users/connect`,
         {
@@ -163,7 +205,7 @@ export default function Listall() {
         {
           headers: {
             "Content-Type": "application/json",
-            token: localStorage.getItem("token"),
+                Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -207,6 +249,13 @@ export default function Listall() {
     //   ...prevMessage,
     //   messages: [...prevMessage.messages, newMessage]
     // }))
+      const token = localStorage.getItem("token");
+        // console.log("Sending token:", token);
+
+          if (!token) {
+            console.error("No token found in localStorage");
+            return;
+          }
     try {
       await axios.post(
         `${API_KEY}/list/users/connect`,
@@ -217,7 +266,7 @@ export default function Listall() {
         {
           headers: {
             "Content-Type": "application/json",
-            token: localStorage.getItem("token"),
+         Authorization: `Bearer ${token}`,
           },
         }
       );

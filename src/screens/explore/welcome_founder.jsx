@@ -146,12 +146,20 @@ export default function Welcome_founder() {
     }
     const fetchUserData = async () => {
       try {
+          const token = localStorage.getItem("token");
+        // console.log("Sending token:", token);
+
+          if (!token) {
+            console.error("No token found in localStorage");
+            return;
+          }
         const response = await axios.get(`${API_KEY}/profile/fetch`, {
           headers: {
             "Content-Type": "application/json",
-            token: localStorage.getItem("token"),
+         Authorization: `Bearer ${token}`,
           },
         });
+        console.log("Fetched user data:", response.data);
         if (response.data.length > 0) {
           setFormData(response.data[0]);
           navigate("/listall");
@@ -170,6 +178,9 @@ export default function Welcome_founder() {
 
   // Handle Form Submission
   const handleSubmit = async () => {
+    console.log("Submitting form data:", formData);
+    console.log("Errors:", errors);
+    console.log(localStorage.getItem("token"));
     if (validateForm()) {
       try {
         const response = await fetch(`${API_KEY}/profile`, {
