@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { Chat_key } from "../../../key";
 import { ArrowLeft } from "lucide-react";
 
-const socket = io("https://chat.govertx.com", {
+const socket = io(`${Chat_key}`, {
   transports: ["websocket", "polling"],
   withCredentials: true,
 });
