@@ -108,7 +108,7 @@ export function Callback() {
         const response = await axios.get(`${API_KEY}/auth/getUser`, {
           headers: {
             "Content-Type": "application/json",
-            token: token, // Send token in headers
+            Authorization: `Bearer ${token}`, // Send token in headers
           },
         });
         const username = response.data.user.username;
