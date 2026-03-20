@@ -112,8 +112,11 @@ export function Callback() {
           },
         });
         const username = response.data.user.username;
+        console.log("Userrrrrr:", username);
         const trimmedUsername =
-          username.length > 13 ? username.substring(0, 13) + "..." : username;
+          username.length > 13 ? username.substring(0, 13) + "..." 
+          : username;
+          console.log("Trimmed Username:", trimmedUsername);
         localStorage.setItem("user", trimmedUsername);
         if (response.data.user.dip) {
           console.log(response.data.user.dip);
