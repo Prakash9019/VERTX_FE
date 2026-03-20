@@ -256,6 +256,8 @@ export default function Outreach2() {
 
   useEffect(() => {
     async function getInvestors() {
+      
+      console.log("Userrrrrr:", localStorage.getItem("user"));
       try {
         setLoading(true);
         const response = await axios.get(`${API_KEY}/investors`, {

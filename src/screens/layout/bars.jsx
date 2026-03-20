@@ -355,6 +355,7 @@ export function Sidebar({ sidebarOpen, setSidebarOpen }) {
   // Add this useEffect after the other useEffect hooks in the Sidebar component
   useEffect(() => {
     const handlePopState = (event) => {
+      console.log("Userrrrrr:", localStorage.getItem("user"));
       // Check if this was a login initiated from the bars page
       if (localStorage.getItem("fromBarsLogin") === "true") {
         // Clear the flag
